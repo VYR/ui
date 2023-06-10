@@ -1,0 +1,54 @@
+.bg-glass{
+    background-color: #000;
+    opacity: 0.9;
+}
+.bg-1{
+    background: url(../../../assets/images/stock-market/bg-1.jpg);    
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.header{
+    padding-bottom: 1rem;
+    div{
+        align-items: center !important;
+    }
+    a{
+        color: white;
+    }
+    .logo{
+        width: 4%;
+    // position: absolute;
+    // top: 0.1rem;
+    // left: 1rem;
+    }
+}
+.main-content{
+    h1{
+        color: #fff;
+    }
+    mat-card{
+        margin-bottom: 0.5rem;
+    }
+    .slider{
+        height: 25rem;
+        object-fit: cover;
+        object-position: center;
+    }
+    .products{
+        .card-image{
+            height: 20rem !important;
+        }
+    }
+}
+.footer{
+    padding-bottom: 1rem;
+    a{
+        color: white;
+    }
+    .logo{
+        width: 70%;
+        margin-left: 1rem;
+    }
+}

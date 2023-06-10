@@ -1,0 +1,52 @@
+<div fxLayout="column"  class="bg-1">
+    <div fxLayout="column"  class="bg-glass">
+        <!-- Header -->
+        <div fxLayout="column" class="header">
+            <div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="center" class="mt-1">
+                <img class="logo" src ="../../../assets//images//logo.png"/>
+                <a routerLink="/">Home</a>
+                <a routerLink="/about">About Us</a>
+                <a routerLink="/contact">Contact Us</a>
+            </div>
+        </div>
+        <!-- /Header -->
+        <!-- Main -->
+        <div fxLayout="column" class="main-content">
+            <img class="slider" src="https://assets.entrepreneur.com/content/3x2/2000/20200123220110-GettyImages-1081869340.jpeg" alt="Free image">
+            <div fxLayout="row"  fxLayoutAlign="center" class="mt-1">
+                <h1>Our Products</h1>
+            </div>
+            <div fxLayout="row wrap" fxLayoutGap="1rem"  fxLayoutAlign="center" class="products">
+                <div  fxFlex="30" *ngFor="let product of products">
+                    <mat-card [class]="product.color">
+                        <mat-card-header fxLayoutAlign="center">
+                            <mat-card-title><h1>{{product.name}}</h1></mat-card-title>
+                        </mat-card-header>  
+                        <img 
+                            mat-card-image 
+                            src="{{product.imagePath}}" 
+                            alt="Photo of a Shiba Inu" class="card-image"
+                        />
+                        <mat-card-content> 
+                            <p>
+                                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                                bred for hunting.
+                            </p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+        <!-- /Main -->
+        <!-- Footer -->
+        <div fxLayout="column" class="footer">
+            
+  <mat-divider></mat-divider>
+            <div fxLayout="row" fxLayoutGap="1rem" class="mt-1" fxLayoutAlign="space-around center">
+                <img class="logo" src ="../../../assets//images//logo.png"/>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </div>
+</div>

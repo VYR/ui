@@ -1,0 +1,36 @@
+<div  fxLayout="column" fxFlexFill class="bg-1">
+    <div fxLayout="column" fxFlexFill class="bg-glass">
+        <div fxLayout="row" fxLayoutAlign="center" fxFlexFill>
+            <div fxFlex="30"  fxFlexAlign="center">
+                <mat-card class="bg-white">
+                    <mat-card-header fxLayoutAlign="center">
+                        <mat-card-title>Login</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div fxLayout="column" fxLayoutGap="1rem">
+                            <mat-form-field class="example-form-field">
+                                <mat-label>Email ID</mat-label>
+                                <input matInput type="text" required="">
+                                <button matSuffix mat-icon-button aria-label="Email ID" >
+                                <mat-icon>email</mat-icon>
+                                </button>
+                                <mat-error *ngIf="true">
+                                    Please enter a valid email address
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="example-form-field">
+                                <mat-label>Password</mat-label>
+                                <input matInput type="password" required="">
+                                <button matSuffix mat-icon-button aria-label="Clear" >
+                                    <mat-icon>lock</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <button mat-raised-button color="primary" type="submit">Login</button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <h1>Login</h1>
+            </div>
+        </div>
+    </div>
+  </div>
