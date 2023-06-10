@@ -16,8 +16,8 @@
             <div fxLayout="row"  fxLayoutAlign="center" class="mt-1">
                 <h1>Our Products</h1>
             </div>
-            <div fxLayout="row wrap" fxLayoutGap="1rem"  fxLayoutAlign="center" class="products">
-                <div  fxFlex="30" *ngFor="let product of products">
+            <div fxLayout="row wrap" fxLayoutGap.lg="1rem" fxLayoutGap.sm="1rem"  fxLayoutAlign="center" class="products">
+                <div  fxFlex.lg="30" fxFlex.sm="100" *ngFor="let product of products">
                     <mat-card [class]="product.color">
                         <mat-card-header fxLayoutAlign="center">
                             <mat-card-title><h1>{{product.name}}</h1></mat-card-title>
