@@ -1,0 +1,72 @@
+<div fxFlex fxLayout="column" class="container">
+    <div class="header">
+        <span class="title">Invoice Details</span>
+    </div>
+    <form [formGroup]="invoiceForm">
+        <div class="body">
+            <div formArrayName="invoices">
+                <div *ngFor="let skill of invoices.controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div fxLayout="row" fxFlex="100" fxLayoutGap="5%">
+                            <div fxFlex="55">
+                                <div fxLayout="row" fxFlex="100" fxLayoutGap="10%">
+                                    <mat-form-field fxFlex="45">
+                                        <mat-label>Invoice number</mat-label>
+                                        <input aria-label="Invoice number" matInput formControlName="invoiceNumber" />
+                                    </mat-form-field>
+
+                                    <mat-form-field fxFlex="45">
+                                        <mat-label>Amount</mat-label>
+                                        <input
+                                            type="number"
+                                            min="0"
+                                            aria-label="Amount"
+                                            matInput
+                                            formControlName="amount"
+                                        />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="35">
+                                <div fxLayout="row" fxFlex="100" fxLayoutGap="10%" class="button-container">
+                                    <div fxFlex="45">
+                                        <button
+                                            mat-raised-button
+                                            fxFlex="45"
+                                            (click)="addInvoices()"
+                                            [disabled]="invoices.at(i).invalid"
+                                        >
+                                            <i class="las la-plus"></i>
+                                        </button>
+                                    </div>
+                                    <div fxFlex="45">
+                                        <button
+                                            mat-raised-button
+                                            fxFlex="45"
+                                            (click)="removeInvoice(i)"
+                                            [disabled]="invoices.at(i).invalid && invoices.length < 1"
+                                        >
+                                            <i class="las la-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-container" fxLayoutAlign="center center" fxLayoutGap="1rem">
+            <button mat-button class="mat-raised-button" (click)="onCancel()">Cancel</button>
+            <button
+                mat-button
+                class="mat-raised-button mat-primary"
+                (click)="onSubmit()"
+                [disabled]="invoiceForm.invalid"
+            >
+                Confirm
+            </button>
+        </div>
+    </form>
+</div>

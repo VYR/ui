@@ -1,0 +1,23 @@
+<div class="label-value-wrapper">
+    <div class="label">{{ label }}</div>
+    <ng-container [ngSwitch]="type">
+        <div class="value" [ngClass]="{ boldText: isBold }" *ngSwitchCase="'iban'">{{ value | Iban }}</div>
+        <div class="value" [appTextHighlight]="value" *ngSwitchCase="'status'">{{ value }}</div>
+        <div class="value" [ngClass]="{ boldText: isBold }" *ngSwitchCase="'amount'">
+            {{ value ? (value | number: '1.2-4') : '0.00' }}
+        </div>
+        <div class="value" [appTextHighlight]="value" *ngSwitchCase="'link'">
+            <a>{{ value }}</a>
+        </div>
+        <div class="value" *ngSwitchCase="'date'">
+            {{ value | date }}
+        </div>
+        <div class="value" *ngSwitchCase="'list'">
+            <ng-container *ngFor="let val of value">
+                <div>{{ val }}</div>
+            </ng-container>
+        </div>
+
+        <div class="value" [ngClass]="{ boldText: isBold }" *ngSwitchDefault>{{ value }}</div>
+    </ng-container>
+</div>
