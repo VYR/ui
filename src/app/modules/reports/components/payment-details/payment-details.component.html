@@ -1,0 +1,38 @@
+<div>
+    <app-master-container>
+        <ng-container header>History</ng-container>
+        <ng-container icons>
+            <button *ngIf="paymentDetailsHistory?.length > 0" mat-icon-button (click)="generateExcelHistory()">
+                <i class="las la-file-excel"></i>
+            </button>
+            <button *ngIf="paymentDetailsHistory?.length > 0" mat-icon-button (click)="generatePdf()">
+                <i class="las la-file-pdf"></i>
+            </button>
+            <button mat-icon-button (click)="goBack()">
+                <i class="las la-times"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <app-cib-table (_clickCell)="onClickCell($event)" [config]="tableConfigHistory"></app-cib-table>
+        </ng-container>
+    </app-master-container>
+</div>
+<div class="separator">
+    <app-master-container>
+        <ng-container header>Pending</ng-container>
+        <ng-container icons>
+            <button *ngIf="paymentDetails?.length > 0" mat-icon-button (click)="generateExcel()">
+                <i class="las la-file-excel"></i>
+            </button>
+            <button *ngIf="paymentDetails?.length > 0" mat-icon-button (click)="generatePdf()">
+                <i class="las la-file-pdf"></i>
+            </button>
+            <button mat-icon-button (click)="goBack()">
+                <i class="las la-times"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <app-cib-table (_clickCell)="onClickCell($event)" [config]="tableConfig"></app-cib-table>
+        </ng-container>
+    </app-master-container>
+</div>

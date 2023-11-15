@@ -1,0 +1,16 @@
+<div fxFlex="100" fxFlex.sm="100">
+    <app-master-container>
+        <ng-container header>CD/FD Accounts History</ng-container>
+        <ng-container icons>
+            <button *ngIf="accountsHistory.length > 0" mat-icon-button (click)="generateExcel()">
+                <i class="las la-file-excel"></i>
+            </button>
+            <button *ngIf="accountsHistory.length > 0" mat-icon-button (click)="generatePdf()">
+                <i class="las la-file-pdf"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <app-cib-table [config]="tableConfig" (_lazyLoad)="lazyLoad($event)"></app-cib-table>
+        </ng-container>
+    </app-master-container>
+</div>

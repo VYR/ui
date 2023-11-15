@@ -1,0 +1,11 @@
+<div class="body">
+    <div *ngFor="let field of data.fields">
+        <app-label-value
+            *ngIf="field.fieldValue"
+            [label]="field.fieldName"
+            [value]="field.fieldValue"
+        ></app-label-value>
+    </div>
+    <app-cib-fx-disclaimer [fxTransaction]="data.fxTransaction"></app-cib-fx-disclaimer>
+    <div class="divider"></div>
+</div>
