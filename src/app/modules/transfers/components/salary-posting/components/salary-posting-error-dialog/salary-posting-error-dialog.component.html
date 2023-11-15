@@ -1,0 +1,15 @@
+<div class="errors-body">
+    <div>Kindly address the below errors in Excel file and upload again !</div>
+    <div class="row header">
+        <div class="index">Row No.</div>
+        <div class="errors">Reason for errors</div>
+    </div>
+    <ng-container *ngFor="let error of data">
+        <div class="row">
+            <div class="index">{{ error.index + 1 }}</div>
+            <div class="errors">
+                <div class="message" *ngFor="let e of error.errors"><span class="dot"></span> {{ e }}</div>
+            </div>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,20 @@
+<app-master-container>
+    <ng-container header>Supporting documents</ng-container>
+    <ng-container icons>
+        <button mat-icon-button (click)="action(DECISION.CANCEL)">
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div>
+            For transaction with currencies "CNY, MYR" supporting document is mandated that is to be sent to
+            Investigationdesk.backoffice@qib.com.qa
+        </div>
+
+        <div class="divider"></div>
+        <div class="btn-container" fxLayoutAlign="center center" fxLayoutGap="1rem">
+            <button mat-flat-button (click)="action(DECISION.CANCEL)">NO</button>
+            <button mat-flat-button color="primary" (click)="action(DECISION.CONFIRM)">YES</button>
+        </div>
+    </ng-container>
+</app-master-container>

@@ -1,0 +1,64 @@
+form,
+app-master-container {
+    width: 100%;
+    .transfer-list {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.5rem;
+        .container {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            flex-wrap: wrap;
+            padding: 0.5rem 0;
+        }
+        .controls {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: row;
+            gap: 2rem;
+            width: 100%;
+            flex-wrap: wrap;
+            app-account-select {
+                min-width: 25rem;
+                width: 45%;
+            }
+        }
+        .valid {
+            color: green !important;
+            .las {
+                color: green !important;
+            }
+        }
+        .invalid {
+            color: red !important;
+            .las {
+                color: red !important;
+            }
+        }
+        .form-status {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.825rem;
+            min-width: 18rem;
+            justify-content: flex-end;
+        }
+        .action-buttons,
+        .group {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: 1rem;
+        }
+        .action-buttons {
+            justify-content: space-between;
+            width: 100%;
+        }
+    }
+}

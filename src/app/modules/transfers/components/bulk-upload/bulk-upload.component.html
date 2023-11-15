@@ -1,0 +1,186 @@
+<app-master-container *ngIf="!transferSuccess">
+    <ng-container header>CREATE MULTIPLE DEBIT BULK TRANSFER</ng-container>
+    <ng-container icons>
+        <button
+            *ngIf="hasAccesToKey"
+            mat-icon-button
+            #tooltip="matTooltip"
+            matTooltip="Retrieve the Encrypted key."
+            (click)="downloadDoc()"
+        >
+            <i class="las la-key"></i>
+        </button>
+        <button
+            mat-icon-button
+            #tooltip="matTooltip"
+            matTooltip="Download the QIB Standard Bulk Transfer Template"
+            (click)="downloadExcelFormat()"
+        >
+            <i class="las la-file-download"></i>
+        </button>
+        <button mat-icon-button (click)="closeBulkDraft()" *ngIf="mode === SCREEN_MODE.EDIT">
+            <i class="las la-times"></i>
+        </button>
+        <button
+            mat-icon-button
+            (click)="resetData()"
+            *ngIf="excelData && excelData.data && tableConfig.data.length > 0 && mode === SCREEN_MODE.CREATE"
+        >
+            <i class="las la-trash-alt"></i>
+        </button>
+    </ng-container>
+    <ng-container body *appHasEntitlementAccessTo="'CREATE_TRANSFER_BULK'">
+        <div fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
+            <form class="search-controls" [formGroup]="bulkUploadForm">
+                <ng-container *ngIf="mode === SCREEN_MODE.CREATE">
+                    <mat-slide-toggle (change)="onChange($event)">Enable Custom Bulk Transfer</mat-slide-toggle>
+                    <mat-form-field *ngIf="showCustomFileType">
+                        <mat-label>Select File Type</mat-label>
+                        <mat-select [(value)]="defaultFileType" (selectionChange)="switchFileType($event)">
+                            <ng-container *ngFor="let type of fileType; let i = index">
+                                <mat-option [value]="type.val">{{ type.label }}</mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+
+                <!--FILE UPLOAD -->
+                <mat-form-field (click)="fileInput.value = ''; fileInput.click()" floatLabel="never">
+                    <mat-label>{{ fileTypeLabel }}</mat-label>
+                    <input matInput formControlName="fileName" type="text" placeholder="{{ fileTypeLabel }}" />
+                    <input
+                        hidden
+                        type="file"
+                        accept="{{ acceptFileType }}"
+                        multiple="false"
+                        (change)="onFileSelected($event)"
+                        #fileInput
+                    />
+                </mat-form-field>
+
+                <!--Text File Upload -->
+                <!-- <mat-form-field
+                    (click)="fileInput.value = ''; fileInput.click()"
+                    *ngIf="selectedFileType === 2 || selectedFileType === 3"
+                >
+                    <mat-label>Choose File[.TXT]</mat-label>
+                    <input matInput formControlName="fileName" type="text" placeholder="Choose File[.TXT]" />
+                    <input
+                        hidden
+                        type="file"
+                        accept=".txt"
+                        multiple="false"
+                        (change)="onFileSelected($event)"
+                        #fileInput
+                    />
+                </mat-form-field> -->
+
+                <!--XML File Upload -->
+                <!-- <mat-form-field (click)="fileInput.value = ''; fileInput.click()" *ngIf="selectedFileType === 4">
+                    <mat-label>Choose File[.XML]</mat-label>
+                    <input matInput formControlName="fileName" type="text" placeholder="Choose File[.XML]" />
+                    <input
+                        hidden
+                        type="file"
+                        accept=".xml"
+                        multiple="false"
+                        (change)="onFileSelected($event)"
+                        #fileInput
+                    />
+                </mat-form-field> -->
+
+                <!--Date-->
+                <mat-form-field>
+                    <mat-label>File Upload Date</mat-label>
+                    <input matInput formControlName="date" placeholder="File Upload Date" readonly required />
+                </mat-form-field>
+
+                <!--Remarks-->
+                <mat-form-field>
+                    <mat-label>Remarks</mat-label>
+                    <input matInput formControlName="remarks" placeholder="Remarks" />
+                </mat-form-field>
+            </form>
+
+            <!--Totals-->
+            <div class="totals search-controls" *ngIf="excelData && excelData.data && tableConfig.data.length > 0">
+                <app-label-value [label]="'Total Rows'" [value]="excelData.data.length"> </app-label-value>
+                <app-label-value [label]="'Currency'" [value]="'QAR'"> </app-label-value>
+                <app-label-value [label]="'Total Amount'" [value]="excelData.totalAmount" [type]="'amount'">
+                </app-label-value>
+                <div>
+                    <div class="label">
+                        Exchange rates shown are indicative. This may vary during the time of transfer.
+                    </div>
+                    <div class="value" (click)="showRates()">Exchage rates for the currencies uploaded</div>
+                </div>
+            </div>
+            <div
+                class="file-preview"
+                *ngIf="!transferSuccess && excelData && excelData.data && tableConfig.data.length > 0"
+            >
+                <app-cib-table [config]="tableConfig"> </app-cib-table>
+            </div>
+        </div>
+    </ng-container>
+</app-master-container>
+<br />
+<!-- TRANSFERS BUTTON-->
+<ng-container *ngIf="!transferSuccess && excelData.data && excelData.data.length > 0">
+    <div fxLayout="row" fxLayoutGap="0.5rem">
+        <button
+            *ngIf="mode === SCREEN_MODE.EDIT"
+            (click)="closeBulkDraft()"
+            flex="20"
+            class="mat-raised-button mat-primary"
+            type="submit"
+            mat-stroked-button
+            color="primary"
+        >
+            Cancel
+        </button>
+        <ng-container *appHasEntitlementAccessTo="'TRANSFER_UPDATE_DRAFT'">
+            <button
+                flex="20"
+                *ngIf="mode === SCREEN_MODE.CREATE && tableConfig.data.length > 0"
+                class="mat-raised-button mat-primary"
+                type="submit"
+                mat-stroked-button
+                color="primary"
+                (click)="saveAsDraft()"
+            >
+                Save
+            </button>
+        </ng-container>
+        <button
+            *ngIf="tableConfig.data.length > 0"
+            (click)="validateTransfer()"
+            flex="20"
+            class="mat-raised-button mat-primary"
+            type="submit"
+            mat-stroked-button
+            color="primary"
+        >
+            Transfer
+        </button>
+    </div>
+</ng-container>
+
+<!--Transfer Success -->
+<ng-container *ngIf="transferSuccess">
+    <app-cib-notification
+        headerTitle="Bulk Upload File Status"
+        [title]="title"
+        [subtitle]="requestId"
+        [variant]="'success'"
+    >
+        <ng-container body>
+            <app-label-value [label]="'File'" [value]="excelData.fileName"></app-label-value>
+            <app-label-value [label]="'File Upload Date'" [value]="currentDate"></app-label-value>
+            <app-label-value [label]="'Currency'" [value]="'QAR'"></app-label-value>
+            <app-label-value [label]="'Total Amount'" [value]="excelData.totalAmount" [type]="'amount'">
+            </app-label-value>
+            <button mat-flat-button class="mat-primary" (click)="closeTransferSuccess()">OK</button>
+        </ng-container>
+    </app-cib-notification>
+</ng-container>

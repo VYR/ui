@@ -1,0 +1,89 @@
+<ng-container *ngFor="let transfer of transfers; index as i; let last = last">
+    <app-master-container variant="secondary">
+        <ng-container header>
+            <ng-container *ngIf="transfers.length > 1; else singleTransferHeader"> Transfer {{ i + 1 }} </ng-container>
+            <ng-template #singleTransferHeader> Transfer Details </ng-template>
+        </ng-container>
+        <ng-container body>
+            <div class="container">
+                <app-label-value
+                    label="Transfer Type"
+                    *ngIf="transfer.payeeType"
+                    [value]="transfer.payeeType | cibDefinition: 'PAYEE'"
+                >
+                </app-label-value>
+                <app-label-value label="From Account" *ngIf="transfer.fromAccount" [value]="transfer.fromAccount">
+                </app-label-value>
+                <app-label-value label="To Account" *ngIf="transfer.toAccount" [value]="transfer.toAccount">
+                </app-label-value>
+                <app-label-value
+                    label="Beneficiary Name"
+                    *ngIf="transfer.beneficiaryName"
+                    [value]="transfer.beneficiaryName"
+                >
+                </app-label-value>
+                <app-label-value
+                    label="Amount"
+                    *ngIf="transfer.amount && transfer.currency"
+                    [value]="transfer.currency + ' ' + (transfer.amount | number: '1.2-4')"
+                >
+                </app-label-value>
+                <app-label-value
+                    label="Debit Amount"
+                    *ngIf="transfer.charges && transfer.charges.debitAmount"
+                    [value]="transfer.charges.debitCurrency + ' ' + (transfer.charges.debitAmount | number: '1.2-4')"
+                >
+                </app-label-value>
+                <app-label-value
+                    label="Debit Charges"
+                    *ngIf="transfer.charges && transfer.charges.totalDebitChargeAmount"
+                    [value]="
+                        transfer.charges.debitCurrency +
+                        ' ' +
+                        (transfer.charges.totalDebitChargeAmount | number: '1.2-4')
+                    "
+                >
+                </app-label-value>
+                <app-label-value
+                    label="Credit Amount"
+                    *ngIf="transfer.charges && transfer.charges.creditAmount"
+                    [value]="transfer.charges.creditCurrency + ' ' + (transfer.charges.creditAmount | number: '1.2-4')"
+                >
+                </app-label-value>
+                <app-label-value label="Payment Details" *ngIf="transfer.description" [value]="transfer.description">
+                </app-label-value>
+                <app-label-value
+                    *ngIf="transfer?.chargeType"
+                    [label]="'Charge Type'"
+                    [value]="transfer?.chargeType"
+                ></app-label-value>
+                <app-label-value
+                    label="Exchange Rate"
+                    *ngIf="transfer.charges && transfer.charges.exchangeRate"
+                    [value]="transfer.charges.exchangeRate"
+                >
+                </app-label-value>
+                <app-label-value
+                    label="Purpose of Payment"
+                    *ngIf="transfer.purposeValue"
+                    [value]="transfer.purposeValue"
+                >
+                </app-label-value>
+                <app-label-value
+                    label="Source Of Income"
+                    *ngIf="transfer.sourceOfIncome"
+                    [value]="transfer.sourceOfIncome"
+                >
+                </app-label-value>
+                <app-label-value label="Invoice Number" *ngIf="transfer.invoiceNumber" [value]="transfer.invoiceNumber">
+                </app-label-value>
+            </div>
+            <div fxFlex="row" *ngIf="transfer?.chargeType && transfer?.chargeType === 'OUR'" class="disclaimer">
+                Note: Respective Corresponding Bank Charge will be applicable accordingly
+            </div>
+            <div fxFlex="row" *ngIf="transfer.charges && transfer.charges?.exchangeRate" class="disclaimer">
+                Note: Exchange rates shown are indicative. This may vary during the time of transfer.
+            </div>
+        </ng-container>
+    </app-master-container>
+</ng-container>

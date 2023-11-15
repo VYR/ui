@@ -1,0 +1,15 @@
+<app-master-container>
+    <ng-container header>Exchange Rates</ng-container>
+    <ng-container icons>
+        <button mat-icon-button (click)="action(DECISION.CANCEL)">
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div *ngFor="let rate of data" class="rate" fxFlex="100">
+            <div>{{ rate?.currency }}</div>
+            <div>{{ rate?.exRate }}</div>
+        </div>
+        <div *ngIf="data.length === 0">No multi currency record found</div>
+    </ng-container>
+</app-master-container>

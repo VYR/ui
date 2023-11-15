@@ -1,0 +1,17 @@
+<app-label-value [label]="'File'" [value]="data.filename"></app-label-value>
+<app-label-value [label]="'File Upload Date'" [value]="data.fileUploadDate"></app-label-value>
+<app-label-value [label]="'Currency'" [value]="'QAR'"></app-label-value>
+<app-label-value [label]="'Total Amount'" [value]="data.totalAmount" [type]="'amount'"></app-label-value>
+<app-cib-fx-disclaimer
+    (checkboxValueEvent)="checkboxValueEvent($event)"
+    [fxTransaction]="data?.fxTransaction"
+    [fxThreshold]="data?.thresholdExceeded"
+></app-cib-fx-disclaimer>
+
+<app-cib-otp (otpValueEvent)="onOtpValueEnter($event)" class="otp-comp"></app-cib-otp>
+<br />
+<div class="btn-container" fxLayoutAlign="start center" fxLayoutGap="1rem">
+    <button mat-button class="mat-raised-button mat-primary" [disabled]="validateSubmit()" (click)="onConfirm()">
+        Confirm
+    </button>
+</div>

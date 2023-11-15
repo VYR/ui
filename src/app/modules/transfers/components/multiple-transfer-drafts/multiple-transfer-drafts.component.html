@@ -1,0 +1,27 @@
+<app-master-container variant="secondary" [collapsable]="true" *ngFor="let draft of draftList; let i = index">
+    <ng-container header>
+        {{ draft.data[0].createdOn | date: 'medium' }}
+    </ng-container>
+    <ng-container icons>
+        <button
+            mat-icon-button
+            (click)="initiateTransfer(draft.data, draft.uid)"
+            *appHasEntitlementAccessTo="'TRANSFER_UPDATE_DRAFT'"
+        >
+            <i class="las la-edit"></i>
+        </button>
+        <button mat-icon-button (click)="_deleteDraft(draft.uid)" *appHasEntitlementAccessTo="'TRANSFER_DELETE_DRAFT'">
+            <i class="las la-trash"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div class="multiple-transfer">
+            <ng-container *ngFor="let multipleDraft of draft.data; let i = index">
+                <app-transfer-header-info *ngIf="multipleDraft" [transfer]="multipleDraft"></app-transfer-header-info>
+            </ng-container>
+        </div>
+    </ng-container>
+</app-master-container>
+<div *ngIf="draftList.length === 0" fxFlex="row" fxLayoutAlign="center center" style="color: #555555">
+    No record founds
+</div>
