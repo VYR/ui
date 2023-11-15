@@ -1,0 +1,28 @@
+<div fxLayout="row wrap" fxLayoutGap="1rem">
+    <ng-container *ngFor="let menu of menus; let i = index">
+        <app-master-container>
+            <ng-container header>{{ menu.section }}</ng-container>
+            <ng-container body>
+                <div class="menu-section">
+                    <div class="menu-group">
+                        <ng-container *ngFor="let menuItem of menu.menu">
+                            <div
+                                matRipple
+                                (click)="onClickSection(menu.menu, menuItem)"
+                                class="menu-item"
+                                fxLayout="row"
+                                fxLayoutAlign="start center"
+                                *appHasEntitlementAccessTo="menuItem.uuid"
+                            >
+                                <div flex="20" class="menu-icon">
+                                    <i [ngClass]="menuItem.icon"></i>
+                                </div>
+                                <div flex="80" class="menu-heading" translate="ACC_MNGMT">{{ menuItem.name }}</div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </app-master-container>
+    </ng-container>
+</div>

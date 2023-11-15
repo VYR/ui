@@ -1,0 +1,28 @@
+@import 'colors';
+.file-details {
+    display: flex;
+    flex-direction: column;
+    background-color: $qib-divider-color;
+    border: solid $qib-divider-color 0.1rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    .la-check-circle {
+        font-size: 1rem;
+        color: $qib-green;
+    }
+
+    .items {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.5rem;
+
+        .file-name {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 0.2rem;
+        }
+    }
+}

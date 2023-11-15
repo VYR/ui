@@ -1,0 +1,87 @@
+<div fxFlex="100" fxFlex.sm="100">
+    <app-master-container>
+        <ng-container header>Advised LC's</ng-container>
+        <!-- <ng-container icons>
+            <span *appHasEntitlementAccessTo="'TRADEFINANCE_DOCUMENT_DOWNLOAD'">
+                <button *ngIf="lcdocuments?.length > 0" mat-icon-button (click)="generateExcel()">
+                    <i class="las la-file-excel"></i></button
+            ></span>
+            <button mat-icon-button (click)="getLcExport()">
+                <i class="las la-sync"></i>
+            </button>
+            <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+                <i class="las la-search"></i>
+            </button>
+        </ng-container> -->
+        <ng-container body>
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+                <div class="page-heading">Recently Received Export LC's</div>
+                <div fxLayout="row">
+                    <span *appHasEntitlementAccessTo="'TRADEFINANCE_DOCUMENT_DOWNLOAD'">
+                        <button
+                            class="header-icons"
+                            *ngIf="lcdocuments?.length > 0"
+                            mat-icon-button
+                            (click)="generateExcel()"
+                        >
+                            <i class="las la-file-excel"></i></button
+                    ></span>
+                    <button class="header-icons" mat-icon-button (click)="getLcExport()">
+                        <i class="las la-sync-alt"></i>
+                    </button>
+                    <button
+                        class="header-icons"
+                        mat-icon-button
+                        [matMenuTriggerFor]="menu"
+                        #menuTrigger="matMenuTrigger"
+                    >
+                        <i class="las la-search"></i>
+                    </button>
+                </div>
+            </div>
+            <app-cib-table
+                [config]="tableConfig"
+                (_clickCell)="onClickCell($event)"
+                (_lazyLoad)="lazyLoad($event)"
+            ></app-cib-table>
+        </ng-container>
+    </app-master-container>
+</div>
+
+<mat-menu #menu="matMenu" xPosition="after">
+    <div class="filter-menu-item-container" (click)="$event.stopPropagation()">
+        <form [formGroup]="filterForm">
+            <div class="filter-section">
+                <mat-form-field>
+                    <input matInput type="text" formControlName="lcRefNo" placeholder="QIB Reference" />
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="bankRef" placeholder="LC Reference" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="name" placeholder="Applicant Name" />
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="number" min="0" formControlName="lcAmount" placeholder="Amount" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="issueBank" placeholder="Issuing Bank" />
+                </mat-form-field>
+                <div>
+                    <button
+                        [disabled]="diableFilterButton()"
+                        class="filter-menu-item"
+                        class="mat-raised-button mat-primary"
+                        (click)="filterTable()"
+                        mat-button
+                        color="primary"
+                    >
+                        <span>Search</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-menu>

@@ -1,0 +1,12 @@
+<mat-tab-group class="form-tabs">
+    <mat-tab label="BG STATUS" *appHasEntitlementAccessTo="'BANK_GUARANTEE_VIEW_DRAFT'">
+        <ng-template matTabContent>
+            <app-lc-listing [type]="'BG'" [status]="'QUEUE'"></app-lc-listing>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="AMENDMENT STATUS" *appHasEntitlementAccessTo="'BANK_GUARANTEE_VIEW_AMENDMENT_RECORDS'">
+        <ng-template matTabContent>
+            <app-lc-listing [type]="'BG'" [status]="'AMEND'"></app-lc-listing>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

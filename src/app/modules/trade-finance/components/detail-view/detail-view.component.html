@@ -1,0 +1,171 @@
+<ng-container body>
+    <div fxFlex="column">
+        <div class="inquiry-details" *ngIf="pageType !== 'boc'">
+            <app-label-value [label]="'QIB Reference'" *ngIf="parentData?.lcRefNo" [value]="parentData?.lcRefNo">
+            </app-label-value>
+            <app-label-value
+                [label]="'LC Reference'"
+                *ngIf="parentData?.lcAdvicingBankDetails?.issBankRef"
+                [value]="parentData?.lcAdvicingBankDetails?.issBankRef"
+            ></app-label-value>
+            <app-label-value [label]="'TF Reference'" *ngIf="parentData?.txnRefNo" [value]="parentData?.txnRefNo">
+            </app-label-value>
+            <app-label-value
+                [label]="'Applicant Name'"
+                *ngIf="parentData?.lcAdvicingBankDetails?.applicant"
+                [value]="parentData?.lcAdvicingBankDetails?.applicant"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Currency'"
+                *ngIf="parentData?.currency"
+                [value]="parentData?.currency"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Amount'"
+                *ngIf="parentData?.amount"
+                [value]="parentData?.amount"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Issued Date'"
+                *ngIf="parentData?.issueDate"
+                [value]="parentData?.issueDate"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Issuing Bank'"
+                *ngIf="parentData?.lcAdvicingBankDetails?.issuingBank"
+                [value]="parentData?.lcAdvicingBankDetails?.issuingBank"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Expiry Date'"
+                *ngIf="parentData?.lcbasicDetails?.lcExpiryDate"
+                [value]="parentData?.lcbasicDetails?.lcExpiryDate"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Expiry Place'"
+                [value]="parentData?.lcbasicDetails?.lcExpiryCountry"
+                *ngIf="parentData?.lcbasicDetails?.lcExpiryCountry"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Tenor'"
+                *ngIf="parentData?.lcbasicDetails?.lcTenor"
+                [value]="parentData?.lcbasicDetails?.lcTenor"
+            >
+            </app-label-value>
+
+            <app-label-value
+                [label]="'LC Description'"
+                *ngIf="parentData?.lcbasicDetails?.lcTypeDesc"
+                [value]="parentData?.lcbasicDetails?.lcTypeDesc"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Partial Shimpent'"
+                [value]="parentData?.lcShipmentDetails?.lcPartialShipmentFlag"
+                *ngIf="parentData?.lcShipmentDetails?.lcPartialShipmentFlag"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Transhipment'"
+                *ngIf="parentData?.lcShipmentDetails?.lcTransShipmentFlag"
+                [value]="parentData?.lcShipmentDetails?.lcTransShipmentFlag"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Latest Shipment Date'"
+                *ngIf="parentData?.lcShipmentDetails?.lcLastShipmentDate"
+                [value]="parentData?.lcShipmentDetails?.lcLastShipmentDate"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Description Of Goods'"
+                [value]="parentData?.lcShipmentDetails?.lcGoodsServiceDesc"
+                *ngIf="parentData?.lcShipmentDetails?.lcGoodsServiceDesc"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Charges'"
+                *ngIf="parentData?.lcbasicDetails?.lcChargesType"
+                [value]="parentData?.lcbasicDetails?.lcChargesType"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Period Of Presentation'"
+                *ngIf="parentData?.lcShipmentDetails?.lcPeriodForPresentation"
+                [value]="parentData?.lcShipmentDetails?.lcPeriodForPresentation"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Confirmation Instructions'"
+                [value]="parentData?.confirmInst"
+                *ngIf="parentData?.confirmInst"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Documents Required'"
+                *ngIf="parentData?.lcDocumentDetails?.lcDocsRequested"
+                [value]="parentData?.lcDocumentDetails?.lcDocsRequested"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Additional Conditions'"
+                *ngIf="parentData?.lcAdditionalInstructions"
+                [value]="parentData?.lcAdditionalInstructions"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Instructions To Bank'"
+                *ngIf="parentData?.collAdvInstructions"
+                [value]="parentData?.collAdvInstructions"
+            >
+            </app-label-value>
+        </div>
+        <div class="inquiry-details" *ngIf="pageType === 'boc'">
+            <app-label-value [label]="'BC Reference'" *ngIf="parentData?.lcRefNo" [value]="parentData?.lcRefNo">
+            </app-label-value>
+
+            <app-label-value [label]="'TF Reference'" *ngIf="parentData?.txnRefNo" [value]="parentData?.txnRefNo">
+            </app-label-value>
+            <app-label-value
+                [label]="'BC Type'"
+                *ngIf="parentData?.lcbasicDetails?.lcTypeDesc"
+                [value]="parentData?.lcbasicDetails?.lcTypeDesc"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Drawer Name'"
+                *ngIf="parentData?.lcAdvicingBankDetails?.lcBeneficiaryName"
+                [value]="parentData?.lcAdvicingBankDetails?.lcBeneficiaryName"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Currency'"
+                *ngIf="parentData?.currency"
+                [value]="parentData?.currency"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Amount'"
+                *ngIf="parentData?.amount"
+                [value]="parentData?.amount"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Tenor'"
+                *ngIf="parentData?.lcbasicDetails?.lcTenor"
+                [value]="parentData?.lcbasicDetails?.lcTenor"
+            >
+            </app-label-value>
+            <app-label-value [label]="'Advised on'" *ngIf="parentData?.issueDate" [value]="parentData?.issueDate">
+            </app-label-value>
+            <app-label-value
+                [label]="'Invoice Number'"
+                [value]="parentData?.lcAdditionalInstructions"
+                *ngIf="parentData?.lcAdditionalInstructions"
+            ></app-label-value>
+            <app-label-value
+                [label]="'Goods Description'"
+                [value]="parentData?.collAdvInstructions"
+                *ngIf="parentData?.collAdvInstructions"
+            ></app-label-value>
+        </div>
+
+        <app-cib-fx-disclaimer [fxAdviceReport]="parentData?.currency === 'USD' ? true : false"></app-cib-fx-disclaimer>
+    </div>
+</ng-container>

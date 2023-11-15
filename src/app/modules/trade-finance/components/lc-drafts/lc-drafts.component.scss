@@ -1,0 +1,14 @@
+@import 'variables';
+
+.page-heading {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #555555;
+    align-items: center;
+    display: flex;
+}
+
+.header-icons {
+    font-size: 1.3rem;
+    color: $qib-primary-color;
+}
