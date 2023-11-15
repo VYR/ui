@@ -1,0 +1,38 @@
+<div class="body">
+    <div *ngFor="let field of data.fields">
+        <app-label-value
+            *ngIf="field.fieldValue"
+            [label]="field.fieldName"
+            [value]="field.fieldValue"
+        ></app-label-value>
+        <app-cib-card *ngIf="field.bulkFieldValue">
+            <div *ngFor="let fieldData of field.bulkFieldValue">
+                <app-label-value
+                    *ngIf="fieldData.fieldValue"
+                    [label]="fieldData.fieldName"
+                    [value]="fieldData.fieldValue"
+                >
+                </app-label-value>
+            </div>
+        </app-cib-card>
+    </div>
+
+    <div class="activity-section">
+        <div class="activity-header">Activity History</div>
+        <div class="activity">
+            <ng-container *ngFor="let entry of data.activity">
+                <app-label-value
+                    *ngIf="entry.fieldValue && !entry.action"
+                    [label]="entry.fieldName"
+                    [value]="entry.fieldValue"
+                ></app-label-value>
+                <div class="entry" *ngIf="entry.action === 'complete'">
+                    <span [appTextHighlight]="entry.fieldName">{{ entry.fieldName }}</span>
+                    by <span class="hilight">{{ entry.fieldValue?.split(' ')[0] }}</span> on
+                    <span class="hilight">{{ entry.fieldValue?.split(' ')[1] | date: 'medium' }}</span
+                    >.
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

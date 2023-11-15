@@ -1,0 +1,59 @@
+@import 'variables';
+.mt-1rem {
+    margin-top: 1rem;
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: $qib-green;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .entitlement {
+        margin-top: 1rem;
+    }
+    .align-baseline {
+        align-items: baseline;
+    }
+    .wrap {
+        flex-wrap: wrap;
+    }
+    .no-wrap {
+        flex-wrap: nowrap;
+    }
+    .gap {
+        margin-right: 2rem;
+    }
+    .checkBoxMsg {
+        margin-left: 1rem;
+        width: 5rem;
+    }
+    .align-title {
+        margin-bottom: 1rem;
+        margin-left: 0.2rem;
+    }
+    app-master-container {
+        margin-bottom: 0.5rem;
+    }
+    .title {
+        font-size: 0.825rem !important;
+        color: #016da4;
+        font-weight: 700;
+    }
+    .card {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        background-color: $qib-divider-color;
+        font-size: 0.825rem !important;
+        color: #016da4;
+        font-weight: 700;
+        flex-wrap: wrap;
+    }
+    .child {
+        margin: 1rem;
+    }
+}

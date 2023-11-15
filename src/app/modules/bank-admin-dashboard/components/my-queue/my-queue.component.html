@@ -1,0 +1,31 @@
+<div fxFlex="100" fxFlex.sm="100" fxLayout="column">
+    <app-master-container>
+        <ng-container header>MY REQUEST QUEUE</ng-container>
+        <ng-container icons>
+            <form action="" class="search-group" [formGroup]="searchForm">
+                <mat-form-field>
+                    <mat-label>Select Workflow Status</mat-label>
+                    <mat-select
+                        formControlName="type"
+                        aria-label="type"
+                        multiple
+                        (selectionChange)="onStatusChange($event)"
+                    >
+                        <mat-option *ngFor="let module of types" [value]="module">
+                            <span>{{ module }}</span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </ng-container>
+        <ng-container body>
+            <div fxFlex="100">
+                <app-cib-table
+                    [config]="tableConfig"
+                    (_clickCell)="onClickCell($event)"
+                    (_lazyLoad)="lazyLoad($event)"
+                ></app-cib-table>
+            </div>
+        </ng-container>
+    </app-master-container>
+</div>

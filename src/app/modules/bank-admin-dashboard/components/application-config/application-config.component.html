@@ -1,0 +1,41 @@
+<div fxFlex="100" fxFlex.sm="100" fxLayout="column">
+    <app-master-container>
+        <ng-container header>SET UP APPLICATION CONFIG</ng-container>
+        <ng-container icons> </ng-container>
+        <ng-container body>
+            <div fxFlex="100">
+                <form action="" class="search-group" [formGroup]="form" fxLayout="column">
+                    <mat-slide-toggle labelPosition="before" formControlName="fxDisclaimer"
+                        >Apply FX Charges</mat-slide-toggle
+                    >
+
+                    <div class="divider"></div>
+
+                    <div fxFlex="40" fxLayout="row">
+                        <mat-form-field>
+                            <mat-label class="label-field">Days Allowed for back dated Transfer</mat-label>
+                            <mat-select formControlName="day" aria-label="type">
+                                <mat-option *ngFor="let day of days" [value]="day">
+                                    <span>{{ day }} days</span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="divider"></div>
+
+                    <div fxFlex="100" fxLayout="row">
+                        <button
+                            fxFlex="20"
+                            mat-button
+                            class="mat-raised-button mat-primary"
+                            aria-label="Submit"
+                            (click)="submit()"
+                        >
+                            SUBMIT
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </ng-container>
+    </app-master-container>
+</div>

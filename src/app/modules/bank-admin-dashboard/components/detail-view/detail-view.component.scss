@@ -1,0 +1,44 @@
+@import 'variables';
+.header {
+    background: $qib-primary-color;
+    color: $qib-dashboard-header-color;
+    margin-bottom: 0;
+    .custom-header {
+        padding: 1rem;
+    }
+}
+
+.sidenav-body {
+    margin: 1.25rem;
+    font-weight: 600;
+    color: $qib-text-color;
+    .sidenav-details {
+        overflow: hidden;
+        background: $qib-subcontent-background;
+        border: 0.0625rem solid $qib-border-color;
+        border-radius: 0.625rem;
+    }
+}
+
+.dialog-container {
+    overflow: hidden;
+    max-height: 100%;
+}
+
+.activity-section {
+    display: flex;
+    flex-direction: column;
+    .activity-header {
+        font-size: 14px;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f6f6f6;
+    }
+    .activity {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.825rem;
+    }
+    .hilight {
+        color: #0175b0;
+    }
+}

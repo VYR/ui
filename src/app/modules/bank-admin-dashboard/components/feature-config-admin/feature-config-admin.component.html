@@ -1,0 +1,45 @@
+<form class="container">
+    <ng-container *ngFor="let entitlement of entitlementsList; let i = index">
+        <app-master-container [variant]="'secondary'" [opened]="true" #container [collapsable]="true">
+            <ng-container header>
+                <div>
+                    {{ entitlement.name }}
+                </div>
+            </ng-container>
+            <ng-container icons>
+                <mat-slide-toggle
+                    class="gap"
+                    [checked]="entitlement.isEnabled"
+                    (change)="updateParent($event, entitlement)"
+                ></mat-slide-toggle>
+            </ng-container>
+            <ng-container body>
+                <ng-container>
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="2rem"
+                        fxLayout.lt-md="column"
+                        fxLayoutWrap
+                        fxFlex="100"
+                        class="align-baseline wrap entitlement"
+                    >
+                        <div fxFlex="20" class="child" *ngFor="let child of entitlement.children; let j = index">
+                            <div fxLayout="row" fxLayoutGap="0.4rem" fxLayoutWrap class="align-baseline no-wrap">
+                                <div>
+                                    <mat-checkbox
+                                        [checked]="child.isEnabled"
+                                        (change)="updateChildren($event, child, entitlement)"
+                                    ></mat-checkbox>
+                                </div>
+                                <div>{{ child.name }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </app-master-container>
+    </ng-container>
+    <div fxLayout="row" fxLayoutGap="2rem" fxLayout.lt-md="column" fxLayoutWrap>
+        <button mat-flat-button type="submit" (click)="sendRequest()" color="primary">SUBMIT</button>
+    </div>
+</form>
