@@ -1,0 +1,31 @@
+<div class="card">
+    <div
+        class="header"
+        [ngClass]="
+            variant === 'success'
+                ? 'success'
+                : variant === 'error'
+                ? 'error'
+                : variant === 'warning'
+                ? 'warning'
+                : variant === 'info'
+                ? 'info'
+                : ''
+        "
+    >
+        <div class="icon">
+            <i class="las la-check-circle" *ngIf="variant === 'success'"></i>
+            <i class="las la-exclamation-circle" *ngIf="variant === 'error'"></i>
+            <i class="las la-exclamation-triangle" *ngIf="variant === 'warning'"></i>
+            <i class="las la-info" *ngIf="variant === 'info'"></i>
+        </div>
+        <div class="title-section">
+            <div class="title">{{ title }}</div>
+            <div *ngIf="subtitle" class="subtitle">{{ subtitle }}</div>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="body">
+        <ng-content select="[body]"></ng-content>
+    </div>
+</div>

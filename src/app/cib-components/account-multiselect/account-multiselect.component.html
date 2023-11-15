@@ -1,0 +1,28 @@
+<mat-form-field class="account-control" [formGroup]="formGroup">
+    <mat-label>{{ label }}</mat-label>
+    <span *ngIf="selectedAccounts?.currency" class="amount-above-selection">
+        {{
+            selectedAccounts?.currency +
+                (selectedAccounts?.balance ? ' ' + (selectedAccounts?.balance | number: '1.2-4') : '')
+        }}
+    </span>
+    <mat-select
+        (selectionChange)="accountSelected($event.value)"
+        aria-label="{{ label }}"
+        required
+        [formControlName]="formControlName"
+        multiple
+    >
+        <mat-select-trigger>
+            <span>{{ selectedAccounts?.accountDetails }}</span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let option of options" [value]="option">
+            <div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="space-between">
+                <div>{{ option?.accountNumber + ' - ' + option?.description }}</div>
+                <div *ngIf="option?.currency">
+                    {{ option?.currency + (option?.balance ? ' ' + (option?.balance | number: '1.2-4') : '') }}
+                </div>
+            </div>
+        </mat-option>
+    </mat-select>
+</mat-form-field>

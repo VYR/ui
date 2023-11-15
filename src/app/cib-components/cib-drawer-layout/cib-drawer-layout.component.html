@@ -1,0 +1,14 @@
+<div class="drawer-container">
+    <div mat-dialog-title class="header">
+        <div class="title">
+            <ng-content select="[title]"></ng-content>
+            {{ data.title }}
+        </div>
+        <button (click)="dialogRef.close({})" mat-icon-button aria-label="close">
+            <i class="las la-times"></i>
+        </button>
+    </div>
+    <mat-dialog-content class="body">
+        <ng-template appContainerRef></ng-template>
+    </mat-dialog-content>
+</div>

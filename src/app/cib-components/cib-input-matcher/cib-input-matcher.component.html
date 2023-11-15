@@ -1,0 +1,19 @@
+<div class="container">
+    <mat-label>{{ label1 }}</mat-label>
+    <ng-otp-input
+        #ngOtpInputPin
+        (onInputChange)="onInputChange()"
+        [formCtrl]="pin"
+        [config]="{ length: 4, allowNumbersOnly: true, isPasswordInput: true, disableAutoFocus: true }"
+    ></ng-otp-input>
+    <mat-label>{{ label2 }}</mat-label>
+    <ng-otp-input
+        #ngOtpInputConfirmPin
+        (onInputChange)="onInputChange()"
+        [formCtrl]="confirmPin"
+        [config]="{ length: 4, allowNumbersOnly: true, isPasswordInput: true, disableAutoFocus: true }"
+    ></ng-otp-input>
+    <div fxLayout="column" *ngIf="isPinNotMatched" class="error-desc">
+        {{ errorMessage }}
+    </div>
+</div>

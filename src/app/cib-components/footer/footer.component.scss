@@ -1,0 +1,28 @@
+@import 'variables';
+.footer {
+    height: $qib-footer-height;
+    color: $qib-text-white;
+    font-weight: bold;
+    font-size: $qib-footer-font-size;
+    position: fixed;
+    background-color: $qib-footer-background;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url('../../../assets/images/footer-bg.svg');
+    box-shadow: $qib-footer-box-shadow;
+    .footer-wrapper {
+        text-align: center;
+        & > span:nth-child(odd) {
+            cursor: pointer;
+        }
+        .copy-right {
+            font-weight: normal;
+        }
+        .divider-vertical {
+            border-right: solid 0.125rem $qib-text-white;
+            height: 0.875rem;
+            margin: 0 0.313rem;
+        }
+    }
+}

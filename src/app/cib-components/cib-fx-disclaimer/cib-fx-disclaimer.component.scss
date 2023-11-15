@@ -1,0 +1,30 @@
+@import 'variables';
+.disclaimer-container {
+    .input-info {
+        color: $qib-text-color;
+        font-size: 0.85em;
+        span {
+            margin-left: 0.25rem;
+        }
+    }
+}
+:host::ng-deep.mat-checkbox-layout {
+    white-space: normal !important;
+}
+
+:host::ng-deep.mat-checkbox-inner-container {
+    margin-top: 0.25rem;
+}
+
+:host::ng-deep.mat-checkbox-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.tf-disclaimer {
+    font-weight: 100;
+    font-size: 0.85rem;
+}
+.ar-disclaimer {
+    margin: 1.5rem;
+    font-weight: bold;
+}

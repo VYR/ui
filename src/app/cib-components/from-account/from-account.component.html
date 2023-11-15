@@ -1,0 +1,23 @@
+<mat-form-field fxFlex="100" [formGroup]="parentForm">
+    <mat-label>From Account</mat-label>
+    <span *ngIf="fromAccount?.available_bal" class="amount-above-selection">
+        {{ fromAccount?.currency + ' ' + (fromAccount?.available_bal | number: '1.2-4') }}
+    </span>
+    <mat-select
+        aria-label="From Account"
+        required
+        formControlName="fromAccount"
+        [(ngModel)]="fromAccount"
+        (selectionChange)="selectFromAccount()"
+    >
+        <mat-select-trigger>
+            <span>{{ fromAccount?.t24_iban + ' - ' + fromAccount?.category?.description }}</span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let acc of fromAccounts" [value]="acc">
+            <div fxLayout="row" fxLayoutAlign="space-between">
+                <span>{{ acc?.t24_iban + ' - ' + acc?.category.description }}</span>
+                <span> {{ acc?.currency + ' ' + (acc?.available_bal | number: '1.2-4') }}</span>
+            </div>
+        </mat-option>
+    </mat-select>
+</mat-form-field>

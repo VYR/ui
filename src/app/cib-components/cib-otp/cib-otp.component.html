@@ -1,0 +1,14 @@
+<div class="otp-container" fxFlex fxLayout="column">
+    <div class="title" *ngIf="showMore">OTP Verification</div>
+    <span>Enter the 6 digits code</span>
+    <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="otpConfig.config"></ng-otp-input>
+    <span
+        >Didn't receive your OTP?<a
+            class="resend-text"
+            [ngClass]="{ 'disabled-resend': !enableResend }"
+            (click)="onResendClick()"
+            >Resend</a
+        ></span
+    >
+    <small>Your OTP enables to access your account<span *ngIf="showMore">, complete your transactions</span></small>
+</div>
