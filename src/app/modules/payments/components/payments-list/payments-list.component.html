@@ -1,0 +1,52 @@
+<div fxFlex="100" fxLayout="row" fxLayoutGap="0.7rem" fxLayout.sm="column">
+    <div fxFlex="30" fxFlex.sm="100" fxLayout="column" class="payments">
+        <app-master-container>
+            <ng-container header>PAYMENTS</ng-container>
+            <ng-container body>
+                <div fxFlex="100" fxLayout="column">
+                    <app-cib-card *appHasEntitlementAccessTo="'OOREDOO'">
+                        <div fxLayout="row" fxLayoutAlign="space-between" (click)="onPaymentCardClick('ooredoo')">
+                            <div class="payments-text">Ooredoo</div>
+                            <img class="input-icon" src="assets/images/ooredoo.png" alt="ooredoo Icon" />
+                        </div>
+                    </app-cib-card>
+                    <app-cib-card *appHasEntitlementAccessTo="'KAHRAMAA'"
+                        ><div>
+                            <div fxLayout="row" fxLayoutAlign="space-between" (click)="onPaymentCardClick('kahramaa')">
+                                <div class="payments-text">Kahramaa</div>
+                                <img class="input-icon" src="assets/images/kahramaa.png" alt="kahramaa Icon" />
+                            </div></div
+                    ></app-cib-card>
+                    <app-cib-card *appHasEntitlementAccessTo="'DHAREEBA'">
+                        <div fxLayout="row" fxLayoutAlign="space-between" (click)="onPaymentCardClick('dhareeba')">
+                            <div class="payments-text">Dhareeba</div>
+                            <img class="input-icon" src="assets/images/dhareeba.png" alt="dhareeba Icon" />
+                        </div>
+                    </app-cib-card>
+                </div>
+            </ng-container>
+        </app-master-container>
+    </div>
+    <div fxFlex="70" fxFlex.sm="100" *appHasEntitlementAccessTo="'PAYMENT_HISTORY'">
+        <app-master-container>
+            <ng-container header>PAYMENT HISTORY</ng-container>
+            <ng-container icons>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <i class="las la-filter"></i>
+                </button>
+            </ng-container>
+            <ng-container body>
+                <app-cib-table [config]="tableConfig" (_lazyLoad)="lazyLoad($event)"></app-cib-table>
+            </ng-container>
+        </app-master-container>
+    </div>
+</div>
+
+<mat-menu #menu="matMenu" xPosition="before" class="mat-menu-container">
+    <app-cib-filter-menu
+        (_select)="onTypeChange(paymentTypes[$event])"
+        title="Payment Type"
+        category="PAYMENTS"
+        [options]="paymentTypes"
+    ></app-cib-filter-menu>
+</mat-menu>
