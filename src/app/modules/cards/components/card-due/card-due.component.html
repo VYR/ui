@@ -1,0 +1,45 @@
+<ng-container *appHasEntitlementAccessTo="'CREDIT_CARD_BULK_PAYMENT'">
+    <app-master-container>
+        <ng-container header>Bulk Payment</ng-container>
+        <ng-container icons>
+            <button
+                mat-icon-button
+                [routerLink]="app_routes.CREDIT_CARDS + '/card-info'"
+                #tooltip="matTooltip"
+                matTooltip="Go to credit cards"
+            >
+                <i class="las la-times"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <app-cib-table [config]="tableConfig" (_lazyLoad)="lazyLoad($event)" (_select)="onSelectCell($event)">
+            </app-cib-table>
+
+            <div class="divider"></div>
+            <div class="amount-selected" fxFlex="row">
+                Total Outstanding Amount: QAR {{ totalOutStAmt | number: '1.2-4' }}
+            </div>
+            <div class="divider"></div>
+
+            <div fxFlex="column">
+                <app-from-account
+                    [parentForm]="cardDueForm"
+                    [fromAccounts]="accounts"
+                    (selectAccount)="selectFromAccount($event)"
+                ></app-from-account>
+            </div>
+
+            <div fxFlex="row">
+                <button
+                    type="submit"
+                    mat-flat-button
+                    [disabled]="!(totalOutStAmt && cardDueForm.valid)"
+                    (click)="makePayment()"
+                    color="primary"
+                >
+                    PAY ALL DUE AMOUNT
+                </button>
+            </div>
+        </ng-container>
+    </app-master-container>
+</ng-container>

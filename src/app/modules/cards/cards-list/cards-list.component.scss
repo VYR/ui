@@ -1,0 +1,22 @@
+@import 'variables';
+
+.cards-list {
+    width: 100%;
+    .card {
+        padding: 0.12rem 0.5rem;
+        flex-direction: row;
+        display: flex;
+        justify-content: space-between;
+
+        i {
+            font-size: 1.8em;
+            padding-right: 10px;
+            color: $qib-text-color;
+        }
+
+        .name {
+            font-size: 0.875rem;
+            color: $qib-primary-color;
+        }
+    }
+}

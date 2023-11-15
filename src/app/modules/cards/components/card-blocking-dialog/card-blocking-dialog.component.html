@@ -1,0 +1,30 @@
+<app-master-container>
+    <ng-container *ngIf="data.type === 'cardStatus'" header>Activate/Block Card</ng-container>
+    <ng-container *ngIf="data.type === 'cardMagstripe'" header> Magstripe Deactivation</ng-container>
+
+    <ng-container icons>
+        <button mat-icon-button (click)="action(DECISION.CANCEL)">
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div class="body">
+            <div *ngIf="data.action === 'cardStatus'">
+                Would you like to {{ data.action }} {{ data.cardNumberMasked }} {{ data.cardType }} card ?
+            </div>
+            <div *ngIf="data.type === 'cardMagstripe'">Would you like to deactivate the magstripe?</div>
+            <div>
+                <button
+                    mat-button
+                    type="submit"
+                    class="mat-raised-button mat-primary"
+                    mat-stroked-button
+                    color="primary"
+                    (click)="action(DECISION.CONFIRM)"
+                >
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</app-master-container>

@@ -1,0 +1,173 @@
+<app-master-container>
+    <ng-container header> {{ selectedGroup ? 'EDIT GROUP' : 'CREATE GROUP' }}</ng-container>
+    <ng-container icons>
+        <button mat-icon-button (click)="goBack()">
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <form class="container" *ngIf="form" [formGroup]="form">
+            <div fxLayout="row" fxLayoutGap="2rem" fxLayout.lt-md="column" fxLayoutWrap class="align-baseline">
+                <mat-form-field>
+                    <mat-label>Search RIM</mat-label>
+                    <input
+                        type="text"
+                        [readonly]="selectedGroup"
+                        placeholder="Search RIM"
+                        aria-label="Search RIM"
+                        (keypress)="searchRIM($event.target)"
+                        (focusout)="onSelectGroup($event.target)"
+                        matInput
+                        formControlName="rimNumber"
+                        [matAutocomplete]="rims"
+                    />
+                    <mat-autocomplete autoActiveFirstOption #rims="matAutocomplete">
+                        <mat-option *ngFor="let option of rimsList" [value]="option.rimnumber">
+                            {{ option.rimnumber }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Group Name</mat-label>
+                    <input
+                        type="text"
+                        [readonly]="selectedGroup"
+                        formControlName="groupName"
+                        required
+                        aria-label="Group Name"
+                        matInput
+                    />
+                </mat-form-field>
+                <div>
+                    <mat-slide-toggle
+                        formControlName="verifierGroup"
+                        [disabled]="selectedGroup"
+                        #isChecker
+                        name="verifierGroup"
+                        (change)="changeSequence($event)"
+                        >Is Verifier Group</mat-slide-toggle
+                    >
+                </div>
+            </div>
+            <ng-container
+                formArrayName="entitlements"
+                *ngIf="showEntitlementsSection && form.controls['rimNumber'].valid && form.controls['groupName'].valid"
+            >
+                <mat-label class="align-title">ASSIGN MODULES</mat-label>
+                <ng-container *ngFor="let formGroup of entitlements.controls; index as i; let last = last">
+                    <app-master-container [variant]="'secondary'" #container [collapsable]="true" [formGroupName]="i">
+                        <ng-container header>
+                            <div>
+                                {{ getEntitlementName(i) }}
+                            </div>
+                        </ng-container>
+                        <ng-container icons>
+                            <mat-slide-toggle
+                                *ngIf="!isChecker.checked"
+                                class="gap"
+                                [checked]="formGroup.value.applyForAll"
+                                (change)="setForAll($event, i)"
+                                >Apply for all</mat-slide-toggle
+                            >
+                        </ng-container>
+                        <ng-container body>
+                            <ng-container>
+                                <div
+                                    fxLayout="row"
+                                    fxLayoutGap="2rem"
+                                    fxLayout.lt-md="column"
+                                    fxLayoutWrap
+                                    class="align-baseline wrap entitlement"
+                                >
+                                    <mat-form-field *ngIf="!isChecker.checked">
+                                        <mat-label>Transactional Min Limit</mat-label>
+                                        <input
+                                            type="number"
+                                            min="0"
+                                            formControlName="minLimit"
+                                            aria-label="Transactional Min Limit"
+                                            matInput
+                                            (change)="resetFormField('maxLimit', i)"
+                                        />
+                                    </mat-form-field>
+                                    <mat-form-field *ngIf="!isChecker.checked">
+                                        <mat-label>Transactional Max Limit</mat-label>
+                                        <input
+                                            type="number"
+                                            min="0"
+                                            formControlName="maxLimit"
+                                            aria-label="Transactional Max Limit"
+                                            matInput
+                                            (change)="resetFormField('dailyLimit', i)"
+                                        />
+                                        <mat-error *ngIf="getformGroup(i, 'maxLimit').invalid">
+                                            <i class="las la-exclamation-circle"></i
+                                            ><small
+                                                >Value must be greater than or equal to
+                                                {{ formGroup.value.minLimit }}</small
+                                            >
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field *ngIf="!isChecker.checked">
+                                        <mat-label>Daily Limit</mat-label>
+                                        <input
+                                            type="number"
+                                            min="0"
+                                            formControlName="dailyLimit"
+                                            aria-label="Daily Limit"
+                                            matInput
+                                        />
+                                        <mat-error *ngIf="getformGroup(i, 'dailyLimit').invalid">
+                                            <i class="las la-exclamation-circle"></i
+                                            ><small
+                                                >Value must be greater than or equal to
+                                                {{ formGroup.value.maxLimit }}</small
+                                            >
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <mat-label>Affirmation Count</mat-label>
+                                        <mat-select formControlName="affirmationCount" [disabled]="isChecker.checked">
+                                            <mat-option *ngFor="let count of [1, 2]" [value]="count">
+                                                {{ count }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-slide-toggle
+                                        formControlName="sequential"
+                                        name="sequential"
+                                        [disabled]="isChecker.checked"
+                                        >Is Sequential Approval?
+                                    </mat-slide-toggle>
+
+                                    <mat-checkbox
+                                        formControlName="isActive"
+                                        aria-label="(formGroup.value.isActive)?'Added':' Not added'"
+                                        (change)="addEntitlement($event, i)"
+                                    ></mat-checkbox>
+                                    <div class="checkBoxMsg">
+                                        <span class="breakWord">{{
+                                            formGroup.value.isActive ? 'Added' : ' Not added'
+                                        }}</span>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </app-master-container>
+                </ng-container>
+                <div fxLayout="row" fxLayoutGap="2rem" fxLayout.lt-md="column" fxLayoutWrap>
+                    <button
+                        mat-flat-button
+                        type="submit"
+                        [disabled]="form.invalid || enableButton"
+                        (click)="sendRequest()"
+                        color="primary"
+                    >
+                        {{ selectedGroup ? 'UPDATE GROUP' : 'CREATE GROUP' }}
+                    </button>
+                </div>
+            </ng-container>
+        </form>
+    </ng-container>
+</app-master-container>

@@ -1,0 +1,12 @@
+@import 'variables';
+.ben-details {
+    display: flex;
+    flex-wrap: wrap;
+    app-label-value {
+        width: 50%;
+    }
+}
+.header-info {
+    font-weight: 600;
+    color: $qib-text-color;
+}

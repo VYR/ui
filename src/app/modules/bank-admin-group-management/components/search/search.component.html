@@ -1,0 +1,16 @@
+<app-master-container>
+    <ng-container header>SEARCH GROUP</ng-container>
+    <ng-container body>
+        <div fxLayout="row" fxLayoutGap="2rem" fxLayout.lt-md="column" fxLayoutWrap>
+            <mat-form-field>
+                <mat-label>Search group by RIM</mat-label>
+                <input type="number" min="0" [(ngModel)]="rim" required aria-label="Search group by RIM" matInput />
+            </mat-form-field>
+            <button mat-flat-button type="button" [disabled]="!rim" (click)="searchGroup()" color="primary">
+                SEARCH GROUP
+            </button>
+        </div>
+        <app-cib-table [config]="tableConfig" (_lazyLoad)="lazyLoad($event)" (_clickCell)="onClickCell($event)">
+        </app-cib-table>
+    </ng-container>
+</app-master-container>

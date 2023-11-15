@@ -1,0 +1,101 @@
+<app-master-container>
+    <ng-container header>Magstripe Activation / Deactivation</ng-container>
+    <ng-container body>
+        <ng-container>
+            <div fxLayout="column" fxFlex="100">
+                <div fxLayout="row" fxLayoutGap="32px" class="parent details" fxLayoutWrap>
+                    <div fxFlex="20">
+                        <p class="header">Card Number</p>
+                        <p class="header">{{ cardDetails.cardNumber }}</p>
+                    </div>
+                    <div fxFlex="40">
+                        <p class="header">Card Name</p>
+                        <p class="header">{{ cardDetails.cardName }}</p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div fxLayout="row">
+                    <div fxFlex="100">
+                        <app-cib-table [config]="tableConfig" (_clickCell)="onClickCell($event)"></app-cib-table>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <div class="divider"></div>
+        <ng-container *ngIf="!cardDetails.isDebit; else debitMagStripe">
+            <ng-container *appHasEntitlementAccessTo="'CARDS_CREDIT_MAGNETIC_STRIP'">
+                <ng-container *ngTemplateOutlet="magneticStripe"></ng-container>
+            </ng-container>
+        </ng-container>
+        <ng-template #debitMagStripe>
+            <ng-container *appHasEntitlementAccessTo="'CARDS_DEBIT_MAGNETIC_STRIP_INQUIRE'">
+                <ng-container *ngTemplateOutlet="magneticStripe"></ng-container>
+            </ng-container>
+        </ng-template>
+
+        <ng-template #magneticStripe>
+            <ng-container
+                *ngIf="showForm && (!cardDetails.isDebit || (cardDetails.allowAction && cardDetails.isDebit))"
+            >
+                <form [formGroup]="magstripForm" class="add">
+                    <div fxLayout="column" fxFlex="100">
+                        <div fxLayout="row" fxLayoutGap="10px">
+                            <div fxFlex="40">
+                                <mat-form-field>
+                                    <mat-label>Country</mat-label>
+                                    <mat-select formControlName="country">
+                                        <ng-container *ngIf="!cardDetails.isDebit; else countryOps">
+                                            <mat-option
+                                                *ngFor="let country of countries; let i = index"
+                                                [value]="country.country"
+                                            >
+                                                {{ country.country }}</mat-option
+                                            >
+                                        </ng-container>
+                                        <ng-template #countryOps>
+                                            <mat-option *ngFor="let c of countries; let i = index" [value]="c.uncode">
+                                                {{ c.country }}</mat-option
+                                            >
+                                        </ng-template>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="30">
+                                <app-cib-date-picker
+                                    [parentForm]="magstripForm"
+                                    [fomrControlName]="'validFrom'"
+                                    [minDate]="minDate"
+                                    [disabled]="true"
+                                    [placeholder]="validFromLabel"
+                                ></app-cib-date-picker>
+                            </div>
+                            <div fxFlex="30">
+                                <app-cib-date-picker
+                                    [parentForm]="magstripForm"
+                                    [fomrControlName]="'validTo'"
+                                    [minDate]="minDate"
+                                    [placeholder]="validToLabel"
+                                    (selectDate)="getValidToDate($event)"
+                                ></app-cib-date-picker>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start">
+                            <button
+                                *ngIf="!cardDetails.isDebit || (cardDetails.allowAction && cardDetails.isDebit)"
+                                flex="20"
+                                class="mat-raised-button mat-primary"
+                                type="button"
+                                [disabled]="magstripForm.invalid"
+                                (click)="openPopUp($event)"
+                                mat-stroked-button
+                                color="primary"
+                            >
+                                Activate
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </ng-container>
+        </ng-template>
+    </ng-container>
+</app-master-container>

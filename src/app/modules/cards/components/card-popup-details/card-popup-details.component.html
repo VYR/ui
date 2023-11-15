@@ -1,0 +1,122 @@
+<ng-container *ngIf="data.type === 'payment'">
+    <div class="card-details">
+        <app-label-value
+            *ngIf="data?.details.cardNumber"
+            [label]="'Card Number'"
+            [value]="data?.details.cardNumber"
+        ></app-label-value>
+        <app-label-value
+            *ngIf="data?.details.fromAccount"
+            [label]="'From Account'"
+            [value]="data?.details.fromAccount"
+        ></app-label-value>
+        <app-label-value
+            *ngIf="data?.details.amount"
+            [label]="'Amount'"
+            [value]="data?.details.currency + ' ' + data?.details.amount"
+        ></app-label-value>
+    </div>
+    <div class="divider"></div>
+    <app-cib-otp (otpValueEvent)="onOtpValueEnter($event)" class="otp-comp" [showMore]="true"></app-cib-otp>
+    <div class="divider"></div>
+    <div fxLayout="row" fxLayoutGap="1rem">
+        <button mat-button class="mat-raised-button mat-primary" [disabled]="!isOtpFilled" (click)="onConfirm()">
+            Confirm
+        </button>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="data.type === 'magstrip'">
+    <app-cib-card>
+        <div class="card-details">
+            <app-label-value
+                *ngIf="data?.details.cardNumber"
+                [label]="'Card Number'"
+                [value]="data?.details.cardNumber"
+            ></app-label-value>
+            <app-label-value
+                *ngIf="data?.details.country"
+                [label]="'Country'"
+                [value]="data?.details.country"
+            ></app-label-value>
+            <app-label-value
+                *ngIf="data?.details.validFrom"
+                [label]="'Valid From'"
+                value="{{ data?.details.validFrom | date: 'dd-MMM-y' }}"
+            ></app-label-value>
+            <app-label-value
+                *ngIf="data?.details.validTo"
+                [label]="'Valid To'"
+                value="{{ data?.details.validTo | date: 'dd-MMM-y' }}"
+            ></app-label-value>
+        </div>
+    </app-cib-card>
+    <div class="divider"></div>
+    <button
+        mat-button
+        type="submit"
+        class="mat-raised-button mat-primary"
+        mat-stroked-button
+        color="primary"
+        (click)="onConfirm()"
+    >
+        Confirm
+    </button>
+</ng-container>
+
+<ng-container *ngIf="data.type === 'bulkpayment'">
+    <app-cib-card *ngFor="let card of data.details.cards">
+        <div class="card-details">
+            <app-label-value
+                *ngIf="card.cardNumberMasked"
+                [label]="'Card Number'"
+                [value]="card.cardNumberMasked"
+            ></app-label-value>
+            <app-label-value
+                *ngIf="card.fromAccount"
+                [label]="'From Account'"
+                [value]="card.fromAccount"
+            ></app-label-value>
+            <app-label-value
+                *ngIf="card.amount"
+                [label]="'Amount'"
+                [value]="card.currency + ' ' + (card.amount | number: '1.2-4')"
+            ></app-label-value>
+        </div>
+    </app-cib-card>
+    <app-label-value
+        *ngIf="data?.details.amount"
+        [label]="'Total Outstanding Amount'"
+        [value]="data?.details.currency + ' ' + (data?.details.amount | number: '1.2-4')"
+    ></app-label-value>
+    <div class="divider"></div>
+    <app-cib-otp (otpValueEvent)="onOtpValueEnter($event)" class="otp-comp" [showMore]="true"></app-cib-otp>
+    <div class="divider"></div>
+    <div fxLayout="row" fxLayoutGap="1rem">
+        <button mat-button class="mat-raised-button mat-primary" [disabled]="!isOtpFilled" (click)="onConfirm()">
+            Confirm
+        </button>
+    </div>
+</ng-container>
+<ng-container *ngIf="data.type === 'resetPIN'">
+    <div class="card-details">
+        <app-label-value
+            *ngIf="data?.details.cardNumber"
+            [label]="'Card Number'"
+            [value]="data?.details.cardNumber"
+        ></app-label-value>
+        <app-label-value
+            *ngIf="data?.details.expiry"
+            [label]="'Card Expiry'"
+            [value]="data?.details.expiry"
+        ></app-label-value>
+    </div>
+    <div class="divider"></div>
+    <app-cib-otp (otpValueEvent)="onOtpValueEnter($event)" class="otp-comp" [showMore]="true"></app-cib-otp>
+    <div class="divider"></div>
+    <div fxLayout="row" fxLayoutGap="1rem">
+        <button mat-button class="mat-raised-button mat-primary" [disabled]="!isOtpFilled" (click)="onConfirm()">
+            CONFIRM
+        </button>
+    </div>
+</ng-container>

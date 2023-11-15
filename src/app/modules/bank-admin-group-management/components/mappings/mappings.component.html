@@ -1,0 +1,88 @@
+<app-master-container>
+    <ng-container header>GROUP MAPPINGS</ng-container>
+    <ng-container body>
+        <form [formGroup]="form" fxLayout="column" fxFlex="100">
+            <div fxLayout="row" fxFlex="100" fxLayoutGap="2rem" fxLayout.lt-md="column">
+                <mat-form-field>
+                    <mat-label>Corporate Business Group</mat-label>
+                    <input
+                        type="text"
+                        aria-label="Business Group"
+                        (focusout)="onSelectGroup($event.target)"
+                        (keypress)="changeValue($event.target)"
+                        (focusin)="changeValue($event.target)"
+                        matInput
+                        formControlName="group"
+                        [matAutocomplete]="groups"
+                    />
+                    <mat-autocomplete autoActiveFirstOption #groups="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredGroups" [value]="option.businessName">
+                            {{ option.businessName }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Corporates</mat-label>
+                    <mat-select
+                        formControlName="selectedCorpGroup"
+                        (optionSelectionChanges)="getSelectedCorporate($event)"
+                        (selectionChange)="getSelectedCorporate($event.value)"
+                    >
+                        <mat-option *ngFor="let corporate of corporatesList" [value]="corporate">
+                            {{ corporate.rimnumber }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>User Groups</mat-label>
+                    <mat-select formControlName="selectedUserGroup" (selectionChange)="getSelectedUserGroup($event)">
+                        <mat-option *ngFor="let userGroup of userGroupList" [value]="userGroup">
+                            {{ userGroup.group.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div
+                fxLayout="column"
+                fxFlex="100"
+                fxLayoutAligmnet="space-between center"
+                *ngIf="showUsersSection"
+                fxLayout.lt-md="column"
+            >
+                <div class="divider"></div>
+                <div class="title" *ngIf="usersList.length > 0">LIST OF USERS TO BE ADDED</div>
+                <div fxLayout="row" fxFlex="100" fxLayoutGap="6rem" fxLayout.lt-md="column" fxLayout="row wrap">
+                    <div *ngFor="let user of usersList">
+                        <mat-checkbox
+                            aria-label="user.firstNameEng + ' '+ user.lastNameEng"
+                            (change)="changeSelection($event, user)"
+                        >
+                            <span>{{ user.firstNameEng + ' ' + user.lastNameEng }}</span>
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div fxFlex="100" *ngIf="usersList.length > 0">
+                    <div class="divider"></div>
+                    <button
+                        [disabled]="enableButton"
+                        mat-flat-button
+                        type="button"
+                        (click)="sendRequest()"
+                        color="primary"
+                    >
+                        ADD USERS
+                    </button>
+                </div>
+                <div class="title" *ngIf="usersList.length === 0">
+                    <i class="las la-info-circle"></i> NO USERS FOUND FOR THIS GROUP
+                </div>
+            </div>
+        </form>
+        <div fxLayout="column" fxFlex="100" *ngIf="showUsersSection">
+            <div class="divider"></div>
+            <div class="title">SEARCH RESULTS</div>
+            <app-cib-table [config]="tableConfig" (_lazyLoad)="lazyLoad($event)" (_clickCell)="onClickCell($event)">
+            </app-cib-table>
+        </div>
+    </ng-container>
+</app-master-container>

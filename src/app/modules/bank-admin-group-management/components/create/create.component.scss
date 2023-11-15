@@ -1,0 +1,37 @@
+@import 'variables';
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: $qib-green;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .entitlement {
+        margin-top: 1rem;
+    }
+    .align-baseline {
+        align-items: baseline;
+    }
+    .wrap {
+        flex-wrap: wrap;
+    }
+    .gap {
+        margin-right: 2rem;
+    }
+    .checkBoxMsg {
+        width: 5rem;
+        font-family: 'dax-regularregular', 'Open Sans', Helvetica, sans-serif !important;
+        color: #555555 !important;
+    }
+    .align-title {
+        margin-bottom: 1rem;
+        margin-left: 0.2rem;
+    }
+    app-master-container {
+        margin-bottom: 0.5rem;
+    }
+    mat-checkbox {
+        margin-right: 0.5rem !important;
+    }
+}

@@ -1,0 +1,151 @@
+<app-master-container *ngIf="cardDetails.position > -1">
+    <ng-container header>Card Details</ng-container>
+    <ng-container body>
+        <div class="info-body">
+            <div class="card-action">
+                <app-payment-card></app-payment-card>
+                <ng-container *appHasEntitlementAccessTo="'CARDS_MAINTENANCE'">
+                    <div
+                        class="act-on-card"
+                        *ngIf="
+                            ![CARD_STATUS.PAYMENT_OVERDUE, CARD_STATUS.NEW].includes(cardDetails.cardStatus) &&
+                            !cardDetails.isDebit
+                        "
+                    >
+                        <div>
+                            {{
+                                'Do you want to ' +
+                                    (cardDetails.cardStatus === CARD_STATUS.BLOCKED ? 'Activate' : 'Block') +
+                                    ' this card ?'
+                            }}
+                        </div>
+                        <div>
+                            <button
+                                type="button"
+                                (click)="modifyCardStatus(cardDetails.cardStatus)"
+                                mat-flat-button
+                                color="primary"
+                            >
+                                {{ cardDetails.cardStatus === CARD_STATUS.BLOCKED ? 'ACTIVATE CARD' : 'BLOCK CARD' }}
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *appHasEntitlementAccessTo="'DEBIT_CARD_MAINTENANCE'">
+                    <div class="act-on-card" *ngIf="cardDetails.allowAction && cardDetails.isDebit">
+                        <div>
+                            {{
+                                'Do you want to ' +
+                                    (cardDetails.cardStatus === CARD_STATUS.BLOCKED ||
+                                    cardDetails.cardStatus === CARD_STATUS.NEW
+                                        ? 'Activate'
+                                        : 'Block') +
+                                    ' this card ?'
+                            }}
+                        </div>
+                        <div>
+                            <button
+                                type="button"
+                                (click)="modifyCardStatus(cardDetails.cardStatus)"
+                                mat-flat-button
+                                color="primary"
+                            >
+                                {{
+                                    cardDetails.cardStatus === CARD_STATUS.BLOCKED ||
+                                    cardDetails.cardStatus === CARD_STATUS.NEW
+                                        ? 'ACTIVATE CARD'
+                                        : 'BLOCK CARD'
+                                }}
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+            <div class="parent-row">
+                <app-label-value
+                    [label]="'Available Limit'"
+                    *ngIf="cardDetails.cardLimit && !cardDetails.isDebit"
+                    [value]="cardDetails.currency + ' ' + (cardDetails.cardLimit | number: '1.2-4')"
+                >
+                </app-label-value>
+                <app-label-value
+                    [label]="'Minimum Due Amount'"
+                    *ngIf="cardDetails.minimumDueAmount && !cardDetails.isDebit"
+                    [value]="cardDetails.currency + ' ' + (cardDetails.minimumDueAmount | number: '1.2-4')"
+                >
+                </app-label-value>
+                <app-label-value
+                    [label]="'Outstanding Balance'"
+                    *ngIf="cardDetails.outStandingAmt && !cardDetails.isDebit"
+                    [value]="(cardDetails.currency || 'QAR') + ' ' + (cardDetails.outStandingAmt | number: '1.2-4')"
+                >
+                </app-label-value>
+                <app-label-value
+                    [label]="'Credit Limit'"
+                    *ngIf="cardDetails.availableCreditLimit && !cardDetails.isDebit"
+                    [value]="cardDetails.currency + ' ' + (cardDetails.availableCreditLimit | number: '1.2-4')"
+                >
+                </app-label-value>
+                <app-label-value
+                    [label]="'Last Paid Amount'"
+                    *ngIf="cardDetails.lastPaidAmount && !cardDetails.isDebit"
+                    [value]="cardDetails.currency + ' ' + (cardDetails.lastPaidAmount | number: '1.2-4')"
+                >
+                </app-label-value>
+                <app-label-value
+                    [label]="'Customer Name'"
+                    *ngIf="cardDetails.cardHolderName"
+                    [value]="cardDetails.cardHolderName"
+                >
+                </app-label-value>
+                <app-label-value
+                    [label]="'Card Number'"
+                    *ngIf="cardDetails.cardNumber"
+                    [value]="cardDetails.cardNumber"
+                >
+                </app-label-value>
+                <app-label-value [label]="'Card Type'" *ngIf="cardDetails.cardType" [value]="cardDetails.cardType">
+                </app-label-value>
+                <app-label-value
+                    [label]="'Statement Date'"
+                    *ngIf="cardDetails.statementDate"
+                    [value]="cardDetails.statementDate"
+                >
+                </app-label-value>
+                <app-label-value
+                    [label]="'Card Nature'"
+                    *ngIf="cardDetails.cardNature"
+                    [value]="cardDetails.cardNature"
+                >
+                </app-label-value>
+                <app-label-value
+                    [label]="'Card Status'"
+                    *ngIf="cardDetails.cardStatus"
+                    [value]="cardDetails.cardStatus"
+                    [type]="'status'"
+                >
+                </app-label-value>
+                <app-label-value
+                    [label]="'Linked Account number'"
+                    *ngIf="cardDetails.linkedAccountNo"
+                    [value]="cardDetails.linkedAccountNo"
+                >
+                </app-label-value>
+
+                <app-label-value [label]="'Card Name'" *ngIf="cardDetails.cardName" [value]="cardDetails.cardName">
+                </app-label-value>
+            </div>
+            <button
+                *ngIf="cardDetails.isDebit"
+                mat-button
+                type="submit"
+                class="mat-raised-button mat-primary"
+                (click)="goToAccounts(cardDetails.linkedAccountNo)"
+                color="primary"
+            >
+                View Linked Account Transactions
+            </button>
+        </div>
+    </ng-container>
+</app-master-container>

@@ -1,0 +1,22 @@
+<div fxFlex="100" fxLayout="row" fxLayoutGap="0.7rem" fxLayout.sm="column">
+    <div fxFlex="30" fxFlex.sm="100" fxLayout="column" class="cards">
+        <app-master-container>
+            <ng-container header>CARDS</ng-container>
+            <ng-container body>
+                <div class="cards-list">
+                    <ng-container *ngFor="let menu of cardMenus; let i = index">
+                        <app-cib-card *appHasEntitlementAccessTo="menu.uuid">
+                            <div class="card" fxLayout="row" fxLayoutAlign="start center" [routerLink]="menu.path">
+                                <div flex="20" class="menu-icon">
+                                    <i [ngClass]="menu.icon"></i>
+                                </div>
+                                <div flex="80" class="name">{{ menu.name }}</div>
+                            </div>
+                        </app-cib-card>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </app-master-container>
+    </div>
+    <div fxFlex="70" fxFlex.sm="100"></div>
+</div>

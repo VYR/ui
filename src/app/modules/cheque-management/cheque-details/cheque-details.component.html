@@ -1,0 +1,19 @@
+<div fxFlex fxLayout="column" class="cib-drawer">
+    <div class="body">
+        <div fxLayout="column" fxFlex="100">
+            <div fxFlex="100">
+                <app-label-value label="CHEQUE NUMBER" [value]="fields.checqueNumber"></app-label-value>
+                <app-label-value label="AMOUNT" [value]="fields.chqAmount"></app-label-value>
+                <app-label-value label="CREDIT ACCOUNT" [value]="fields.toAccount"></app-label-value>
+                <app-label-value label="CHEQUE DATE" [value]="fields.chqPostingDate"></app-label-value>
+                <app-label-value label="PAY BANK" [value]="fields.bankName"></app-label-value>
+                <app-label-value label="PAY ACCOUNT" [value]="fields.fromAccount"></app-label-value>
+                <app-label-value label="STATUS" [value]="fields.status" [type]="'status'"></app-label-value>
+            </div>
+            <div class="divider"></div>
+            <div fxFlex="100">
+                <button mat-raised-button (click)="onCancel()">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
