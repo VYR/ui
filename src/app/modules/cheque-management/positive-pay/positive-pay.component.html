@@ -1,0 +1,174 @@
+<app-master-container>
+    <ng-container header>Create Positive Pay</ng-container>
+    <ng-container icons>
+        <button mat-icon-button (click)="removeFile()" *ngIf="transferBulkData.length > 0">
+            <i class="las la-trash-alt"></i>
+        </button>
+        <button
+            mat-icon-button
+            #tooltip="matTooltip"
+            matTooltip="Download the QIB Standard Positive Pay Bulk Template"
+            (click)="downloadExcelFormat()"
+        >
+            <i class="las la-file-download"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <form [formGroup]="ppForm" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
+            <div fxLayout="row" fxFlex="100">
+                <mat-button-toggle-group
+                    (change)="onChangePayType($event.value)"
+                    formControlName="payType"
+                    aria-label="Transfer type"
+                >
+                    <mat-button-toggle value="single">Single/Multiple Entries </mat-button-toggle>
+                    <mat-button-toggle value="bulk">Bulk File Upload </mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+
+            <ng-container *ngIf="ppType === 'single'; else bulkUpload">
+                <div
+                    fxLayout="row"
+                    fxFlex="100"
+                    fxLayout.sm="column"
+                    fxLayout.xs="column"
+                    fxLayoutAlign="space-between"
+                >
+                    <div fxFlex="30">
+                        <app-account-select
+                            ngDefaultControl
+                            [formGroup]="ppForm"
+                            (selectionChange)="accountChange($event)"
+                            formControlName="account"
+                            label="Account"
+                            [options]="fromAccounts"
+                        ></app-account-select>
+                    </div>
+
+                    <div fxFlex="20">
+                        <mat-form-field fxFlex="100">
+                            <mat-label>Cheque number</mat-label>
+                            <input
+                                type="number"
+                                min="0"
+                                aria-label="Cheque number"
+                                matInput
+                                formControlName="chequeNum"
+                            />
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="20">
+                        <mat-form-field
+                            class="currency-field"
+                            fxFlex="20"
+                            hideRequiredMarker
+                            *ngIf="ppForm.controls['currency']?.value"
+                        >
+                            <mat-label></mat-label>
+                            <input readonly aria-label="" matInput formControlName="currency" />
+                        </mat-form-field>
+                        <mat-form-field fxFlex="80">
+                            <mat-label>Amount</mat-label>
+                            <input type="number" min="0" aria-label="Amount" matInput formControlName="amount" />
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="20">
+                        <app-cib-date-picker
+                            [parentForm]="ppForm"
+                            [fomrControlName]="'issueDate'"
+                            [minDate]="minDate"
+                            [maxDate]="maxDate"
+                            placeholder="Issue date"
+                            (selectDate)="getIssueDate($event)"
+                        ></app-cib-date-picker>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayout.sm="column"
+                    fxLayout.xs="column"
+                    fxFlex="100"
+                    fxLayoutAlign="space-between center"
+                    *ngFor="let sd of transferData; index as i"
+                    class="added-sweep"
+                >
+                    <app-label-value [label]="'Positive Pay Account number'" [value]="sd.accountNo"></app-label-value>
+                    <app-label-value [label]="'Cheque number'" [value]="sd.chequeNum"></app-label-value>
+                    <app-label-value
+                        [label]="'Amount'"
+                        [value]="sd.currencyCode + ' ' + (sd.amount | number: '1.2-4')"
+                    ></app-label-value>
+                    <app-label-value [label]="'Issue date'" [value]="sd.issueDate"></app-label-value>
+                    <button mat-icon-button color="primary" aria-label="Remove transfer" (click)="removeTransfer(i)">
+                        <i class="las la-trash"></i>
+                    </button>
+                </div>
+            </ng-container>
+
+            <ng-template #bulkUpload>
+                <div fxLayout.gt-sm="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex="100">
+                    <mat-form-field
+                        fxFlex="50"
+                        (click)="fileInput.value = ''; fileInput.click()"
+                        floatLabel="never"
+                        fxFlex.xs="100"
+                        fxFlex.sm="100"
+                        fxFlex.gt-sm="30"
+                    >
+                        <mat-label>{{ fileTypeLabel }}</mat-label>
+                        <input matInput formControlName="fileName" type="text" placeholder="{{ fileTypeLabel }}" />
+                        <input
+                            hidden
+                            type="file"
+                            accept="{{ acceptFileType }}"
+                            multiple="false"
+                            (change)="onFileSelected($event)"
+                            #fileInput
+                        />
+                    </mat-form-field>
+                    <div
+                        fxFlex="50"
+                        fxLayoutAlign="space-around"
+                        *ngIf="!bulkTransferSuccess && tableConfig?.data?.length"
+                    >
+                        <app-label-value [label]="'Total Rows'" [value]="transferBulkData.length.toString()">
+                        </app-label-value>
+                        <app-label-value [label]="'Currency'" [value]="'QAR'"> </app-label-value>
+                        <app-label-value [label]="'Total Amount'" [value]="totalValue.toString()" [type]="'amount'">
+                        </app-label-value>
+                    </div>
+                </div>
+                <div class="file-preview" fxFlex="100" *ngIf="!bulkTransferSuccess && tableConfig?.data?.length">
+                    <app-cib-table [config]="tableConfig"> </app-cib-table>
+                </div>
+            </ng-template>
+
+            <div fxLayout="row" fxFlex="100" class="btn-container">
+                <div [fxFlex]="ppType === 'single' ? 70 : 100">
+                    <button
+                        mat-raised-button
+                        color="primary"
+                        [disabled]="ppForm.invalid && transferData.length < 1 && transferBulkData.length < 1"
+                        (click)="submitTransfer()"
+                    >
+                        Submit
+                    </button>
+                </div>
+                <div fxFlex="30" fxLayoutAlign="end" *ngIf="ppType === 'single'">
+                    <button
+                        mat-icon-button
+                        color="primary"
+                        aria-label="Add transfer"
+                        [disabled]="ppForm.invalid"
+                        (click)="addTransfer()"
+                    >
+                        <i class="las la-plus-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+</app-master-container>
