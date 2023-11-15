@@ -1,0 +1,16 @@
+<app-master-container>
+    <ng-container header>
+        <span class="no-access-text">Unauthorized Access</span>
+    </ng-container>
+    <ng-container body>
+        <div class="no-access-body">
+            <i class="las la-ban"></i>
+            <div>
+                You don't have access to <strong>{{ module }}</strong> module.
+            </div>
+            <!-- <button mat-flat-button type="button" color="primary" (click)="goToHome()">
+                Ok
+            </button> -->
+        </div>
+    </ng-container>
+</app-master-container>

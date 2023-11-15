@@ -1,0 +1,21 @@
+@import 'variables';
+:host {
+    display: flex;
+    padding: 1rem;
+    justify-content: center;
+    height: 100%;
+    .no-access-body {
+        min-width: 30rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        color: $qib-red;
+        i {
+            font-size: 3rem;
+        }
+    }
+    .no-access-text {
+        color: $qib-red;
+    }
+}

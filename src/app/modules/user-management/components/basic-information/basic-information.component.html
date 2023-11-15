@@ -1,0 +1,105 @@
+<form *ngIf="form" [formGroup]="form" class="container">
+    <div class="row column-gap">
+        <mat-form-field *ngIf="screenMode === SCREEN_MODE.CREATE; else UserName" class="username-control">
+            <input
+                matInput
+                type="text"
+                (change)="checkAvailability()"
+                oninput="this.value = this.value.toUpperCase()"
+                formControlName="username"
+                placeholder="User Name"
+            />
+            <mat-error *ngIf="form.controls['username'].invalid"
+                >Username should consist minimum 6 to max 20 chars with no special chars.</mat-error
+            >
+            <i
+                matSuffix
+                *ngIf="form.controls['isUserNameValidated'].valid; else invalid"
+                class="las la-check-circle available"
+            ></i>
+            <ng-template #invalid>
+                <i matSuffix class="las la-times-circle taken"></i>
+            </ng-template>
+        </mat-form-field>
+
+        <ng-template #UserName>
+            <app-label-value [label]="'User Name'" [value]="form.controls['username'].value"></app-label-value>
+        </ng-template>
+
+        <app-label-value
+            [label]="'Linked Rims'"
+            [value]="rimList"
+            *ngIf="screenMode === SCREEN_MODE.EDIT"
+        ></app-label-value>
+
+        <app-label-value
+            [label]="'Business Group Name '"
+            [value]="businessName"
+            *ngIf="screenMode === SCREEN_MODE.EDIT"
+        ></app-label-value>
+    </div>
+    <div class="row">
+        <app-cib-toggle-group
+            ngDefaultControl
+            [formGroup]="form"
+            formControlName="title"
+            label="Title"
+            [showAsterik]="true"
+            [options]="options.titles"
+        >
+        </app-cib-toggle-group>
+        <mat-form-field>
+            <input matInput type="text" formControlName="firstNameEng" placeholder="First Name" />
+        </mat-form-field>
+        <!-- <mat-form-field>
+            <input matInput type="text" formControlName="middleNameEng" placeholder="Middle Name" />
+        </mat-form-field> -->
+        <mat-form-field>
+            <input matInput type="text" formControlName="lastNameEng" placeholder="Last Name" />
+        </mat-form-field>
+        <app-cib-toggle-group
+            ngDefaultControl
+            [formGroup]="form"
+            formControlName="gender"
+            label="Gender"
+            [showAsterik]="true"
+            [options]="options.genders"
+        >
+        </app-cib-toggle-group>
+        <ng-container *appHasAccessToUser="[USER_TYPE.BANK_ADMIN]">
+            <mat-slide-toggle formControlName="stpUser" name="stpUser">STP User</mat-slide-toggle>
+            <mat-slide-toggle formControlName="mobileAccess" name="mobileAccess">Mobile Access</mat-slide-toggle>
+        </ng-container>
+
+        <mat-form-field>
+            <input matInput type="text" formControlName="email" placeholder="Email" />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" min="0" formControlName="mobilePhone" placeholder="Mobile Number" />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" formControlName="fax" placeholder="Fax" />
+        </mat-form-field>
+        <mat-slide-toggle
+            formControlName="enabled"
+            (change)="updateValidators()"
+            name="Enabled"
+            [disabled]="screenMode === SCREEN_MODE.CREATE"
+            >Active</mat-slide-toggle
+        >
+
+        <mat-form-field *ngIf="screenMode === SCREEN_MODE.EDIT && !form.controls['enabled'].value">
+            <input matInput type="text" formControlName="comments" placeholder="Remarks" />
+        </mat-form-field>
+        <app-cib-toggle-group
+            *appHasAccessToUser="[USER_TYPE.SUPER_ADMIN]"
+            ngDefaultControl
+            [formGroup]="form"
+            [disabled]="screenMode === SCREEN_MODE.EDIT"
+            formControlName="userType"
+            label="User role"
+            [options]="options.userRoles"
+        >
+        </app-cib-toggle-group>
+    </div>
+</form>

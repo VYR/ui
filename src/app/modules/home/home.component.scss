@@ -1,0 +1,21 @@
+@import 'variables';
+.home {
+    height: calc(100% - 1.2rem);
+    background: $qib-divider-color;
+    .side-menu-section {
+        min-height: 100%;
+        min-width: 17.187rem;
+        background-color: $qib-white;
+        overflow-y: auto;
+        display: flex;
+        align-items: self-start;
+        justify-content: start;
+    }
+    .home-body {
+        width: calc(100% - 17.187rem);
+        height: calc(100vh - 1.2rem);
+        overflow-y: hidden;
+        display: flex;
+        flex-flow: column;
+    }
+}

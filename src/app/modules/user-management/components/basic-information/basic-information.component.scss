@@ -1,0 +1,37 @@
+@import 'variables';
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+    .row {
+        display: flex;
+        column-gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+        .mat-form-field,
+        app-cib-toggle-group,
+        mat-slide-toggle,
+        .input-control {
+            min-width: 18rem;
+        }
+        app-cib-toggle-group,
+        .username-control,
+        app-label-value {
+            padding-bottom: 1.25em;
+        }
+    }
+}
+
+.available {
+    font-size: 1.25rem;
+    color: $qib-green;
+}
+
+.taken {
+    font-size: 1.25rem;
+    color: $qib-red;
+}
+
+.column-gap {
+    gap: 13rem !important;
+}

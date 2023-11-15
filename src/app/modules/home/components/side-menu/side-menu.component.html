@@ -1,0 +1,65 @@
+<div class="side-menu" *ngIf="currentUser">
+    <div class="header-logo" fxLayoutAlign="center center">
+        <img alt="QIB Logo" src="assets/images/cib_logo_postlogin.svg" />
+    </div>
+    <div *appHasAccessToUser="[USER_TYPE.CORPORATE_USER]" class="rim-card-active">
+        <div class="rim-number">
+            <div>{{ currentUser.organizationSelected.rimNumber }}</div>
+        </div>
+        <div class="customer-name">
+            {{ currentUser.organizationSelected.firstName }} {{ currentUser.organizationSelected.lastName }}
+        </div>
+        <div
+            class="click-info"
+            *ngIf="currentUser.organizations.length > 1"
+            matRipple
+            [matMenuTriggerFor]="rimSelection"
+            fxLayoutAlign="space-between center"
+        >
+            <span>Click here switch accounts</span>
+            <i class="las la-angle-right"></i>
+        </div>
+    </div>
+
+    <div class="menu-section">
+        <div class="menu-group">
+            <ng-container *ngFor="let menuItem of menu">
+                <div
+                    matRipple
+                    [routerLink]="[menuItem.path]"
+                    routerLinkActive="menu-item-active"
+                    class="menu-item"
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    *appHasEntitlementAccessTo="menuItem.uuid"
+                >
+                    <div flex="20" class="menu-icon">
+                        <i [ngClass]="menuItem.icon"></i>
+                    </div>
+                    <div flex="80" class="menu-heading" translate="ACC_MNGMT">{{ menuItem.name }}</div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<mat-menu #rimSelection="matMenu">
+    <div mat-menu-content class="rim-selection-container">
+        <ng-container *ngFor="let rim of currentUser.organizations">
+            <div
+                matRipple
+                class="rim-card"
+                (click)="toggleRimSelection(rim)"
+                [ngClass]="{ 'rim-card-active': rim.rimNumber === currentUser.organizationSelected.rimNumber }"
+            >
+                <div class="left">
+                    <div class="rim-number">
+                        <div>{{ rim.rimNumber }}</div>
+                    </div>
+                    <div class="customer-name">{{ rim.firstName }} {{ rim.lastName }}</div>
+                </div>
+                <div class="dot"></div>
+            </div>
+        </ng-container>
+    </div>
+</mat-menu>

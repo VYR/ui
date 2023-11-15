@@ -1,0 +1,17 @@
+<div class="column" fxFlex="100">
+    <ng-container>
+        <app-master-container fxLayout="row" class="align">
+            <!-- <ng-container header>Delete Request</ng-container> -->
+            <ng-container body>
+                <div class="rim-info">
+                    {{ message }}
+                </div>
+            </ng-container>
+        </app-master-container>
+        <ng-container>
+            <div class="button-align">
+                <button mat-flat-button color="primary" (click)="submit()">Confirm</button>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>

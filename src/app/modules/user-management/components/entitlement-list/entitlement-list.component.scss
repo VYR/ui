@@ -1,0 +1,90 @@
+@import 'variables';
+.list {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    .selection-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: start;
+        justify-content: start;
+        flex-direction: row;
+        width: 100%;
+        .entitlement-group {
+            color: $qib-primary-color;
+            min-width: 17rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            cursor: pointer;
+            font-family: 'dax-regularregular', 'Open Sans', Helvetica, sans-serif;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            .menu-item {
+                padding-right: 1rem;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 1rem;
+                background: #f6f6f6;
+                border-radius: 0.5rem;
+                justify-content: space-between;
+                box-sizing: border-box;
+                cursor: pointer;
+                padding: 0.5rem 1rem;
+                padding-left: 2.375rem;
+                border-radius: 0.5rem;
+                font-size: 0.75rem;
+                min-width: 10rem;
+                display: flex;
+                justify-content: space-between;
+                .status {
+                    display: flex;
+                    gap: 0.5rem;
+                    font-size: 0.675rem;
+                    .full {
+                        font-size: 0.75em;
+                        background: #29cb72;
+                        font-weight: bold;
+                        color: white;
+                        padding: 0.175rem;
+                        border-radius: 50%;
+                    }
+                    .involved {
+                        font-size: 0.75em;
+                        color: #29cb72;
+                        font-weight: bold;
+                        background: white;
+                        padding: 0.075rem;
+                        border-radius: 50%;
+                        border: 0.072rem solid;
+                    }
+                }
+            }
+            .menu-item:hover,
+            .menu-item-current {
+                background: $qib-nav-bar-background;
+                color: $qib-tab-active-border;
+            }
+            .menu-item-invloved {
+                padding-left: 1rem;
+            }
+            .menu-item-committed {
+                color: #8080809e;
+                background: #cccccc1c;
+                cursor: not-allowed;
+            }
+            .menu-item-committed:hover {
+                color: #8080809e;
+                background: #cccccc1c;
+                cursor: not-allowed;
+            }
+        }
+        .sub-group {
+            padding: 0.5rem;
+        }
+    }
+}

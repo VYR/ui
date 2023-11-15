@@ -1,0 +1,22 @@
+<app-master-container>
+    <ng-container header>
+        <span class="header-error">Session Expiry</span>
+    </ng-container>
+    <ng-container icons>
+        <!-- <button mat-icon-button (click)="close('')">
+            <i class="las la-times"></i>
+        </button> -->
+    </ng-container>
+    <ng-container body>
+        <div class="body">
+            <div class="header-error">Your session is about to expire in</div>
+            <div class="timer">{{ timeLeft }} <small>Seconds</small></div>
+            <div class="buttons">
+                <button mat-button type="submit" mat-flat-button color="primary" (click)="close('')">Continue</button>
+                <button mat-button type="button" mat-flat-button color="secondary" (click)="close('LOGOUT')">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</app-master-container>

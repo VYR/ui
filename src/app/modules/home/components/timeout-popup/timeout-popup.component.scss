@@ -1,0 +1,23 @@
+@import 'variables';
+.header-error {
+    color: $qib-red;
+}
+
+.body {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    .buttons {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+    }
+    .timer {
+        font-size: 2rem;
+        color: $qib-red;
+        small {
+            font-size: 0.75rem;
+        }
+    }
+}
