@@ -1,0 +1,15 @@
+@import 'variables';
+
+.currency-label {
+    padding: 1rem 0;
+}
+.disclaimer {
+    margin-bottom: 1.25rem;
+}
+.header {
+    font-weight: 700;
+    color: $qib-text-color;
+    i {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,111 @@
+<app-master-container>
+    <ng-container header>Account Transaction History</ng-container>
+    <ng-container icons>
+        <button mat-icon-button (click)="goBack()">
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div fxLayout="column" fxLayoutGap="1rem" fxFlex="100">
+            <div fxLayout="row" fxLayoutGap="1.625rem" fxLayout="row wrap">
+                <app-label-value [label]="'Currency'" [value]="selectedAccount?.currency"></app-label-value>
+                <app-label-value
+                    [label]="'Available Balance'"
+                    [value]="selectedAccount?.available_bal"
+                    [type]="'amount'"
+                >
+                </app-label-value>
+                <app-label-value
+                    [label]="selectedAccount?.category.description"
+                    [value]="selectedAccount?.t24_iban"
+                    [type]="'iban'"
+                >
+                </app-label-value>
+            </div>
+            <div fxLayout="row" fxLayout="row wrap">
+                <mat-radio-group
+                    fxFlex="80"
+                    class="months"
+                    aria-label="Select an option"
+                    (change)="statementBasedOnPeriod($event)"
+                >
+                    <mat-radio-button value="byMonth" fxFlex="50" [checked]="true">Select by Month</mat-radio-button>
+                    <mat-radio-button value="sixMonths" fxFlex="50">Past six Month</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <form [formGroup]="transactionhistoryForm" *ngIf="monthFlag">
+                <div fxLayout="row" fxLayoutGap="1.56rem" fxLayout="row wrap">
+                    <mat-form-field>
+                        <mat-label>Start Date</mat-label>
+                        <input
+                            matInput
+                            [min]="minDate"
+                            [max]="maxDate"
+                            formControlName="startDate"
+                            [matDatepicker]="picker"
+                            placeholder="From Date"
+                        />
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>End Date</mat-label>
+                        <input
+                            matInput
+                            [min]="minDate"
+                            [max]="maxDate"
+                            formControlName="endDate"
+                            [matDatepicker]="picker2"
+                            placeholder="To Date"
+                        />
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </form>
+            <div fxLayout="row" fxLayoutGap="1rem" fxLayout="row wrap">
+                <button mat-button fxFlex="10" type="submit" class="mat-raised-button" (click)="goBack()">Back</button>
+                <button
+                    fxFlex="10"
+                    mat-button
+                    [disabled]="!enableFilterButton()"
+                    type="submit"
+                    class="mat-raised-button mat-primary"
+                    color="primary"
+                    (click)="requestViewStatement()"
+                >
+                    View
+                </button>
+            </div>
+            <div class="account-statement-data" fxLayout="column">
+                <div
+                    fxLayout="row"
+                    fxFlex="100"
+                    fxLayoutAlign="space-between center"
+                    *ngIf="transactionData.length > 0"
+                >
+                    <div class="transaction-disclaimer">
+                        Disclaimer: This is not an official Bank account statement and cannot be treated as such
+                    </div>
+                    <div class="table-icons">
+                        <button mat-icon-button (click)="generateExcel()">
+                            <i class="las la-file-excel"></i>
+                        </button>
+                        <button
+                            mat-icon-button
+                            (click)="generatePdf()"
+                            *appHasEntitlementAccessTo="'ACCOUNT_STATEMENT_DOWNLOAD'"
+                        >
+                            <i class="las la-file-pdf"></i>
+                        </button>
+                    </div>
+                </div>
+                <app-cib-table
+                    [config]="tableConfig"
+                    (_lazyLoad)="lazyLoad($event)"
+                    (_clickCell)="onClickCell($event)"
+                ></app-cib-table>
+            </div>
+        </div>
+    </ng-container>
+</app-master-container>

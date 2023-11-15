@@ -1,0 +1,14 @@
+<app-master-container>
+    <ng-container header>LIMITS</ng-container>
+    <ng-container icons *ngIf="revolvingLimitsList.length > 0">
+        <button mat-icon-button (click)="generateExcel()">
+            <i class="las la-file-excel"></i>
+        </button>
+        <button mat-icon-button (click)="generatePdf()">
+            <i class="las la-file-pdf"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <app-cib-table [config]="tableConfig"></app-cib-table>
+    </ng-container>
+</app-master-container>

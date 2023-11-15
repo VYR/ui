@@ -1,0 +1,7 @@
+<app-label-value *ngIf="data?.txnReference" [label]="'Reference Number'" [value]="data?.txnReference"></app-label-value>
+<app-label-value *ngIf="data?.accountNumber" [label]="'Account Number'" [value]="data?.accountNumber"></app-label-value>
+<app-label-value [label]="'Date'" [value]="(data?.valueDate | date: 'medium') || ''"></app-label-value>
+<app-label-value [label]="'Description'" [value]="data?.description"></app-label-value>
+<app-label-value *ngIf="data?.credit" [label]="'Transaction Amount'" [value]="data?.credit"> </app-label-value>
+<app-label-value *ngIf="data?.debit" [label]="'Transaction Amount'" [value]="data?.debit"></app-label-value>
+<app-label-value [label]="'Currency'" [value]="data?.currency"></app-label-value>

@@ -1,0 +1,19 @@
+@import 'variables';
+.account-list {
+    width: 100%;
+    .name {
+        font-size: 0.875rem;
+        color: $qib-primary-color;
+    }
+    .account-details {
+        .amount {
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: $qib-text-color;
+        }
+    }
+    .account-no {
+        font-size: 0.75rem;
+        color: $qib-text-color;
+    }
+}

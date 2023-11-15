@@ -1,0 +1,22 @@
+@import 'variables';
+.account-list {
+    width: 100%;
+    .account-details {
+        flex-direction: row;
+        display: flex;
+        justify-content: space-between;
+        .amount {
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: $qib-text-color;
+        }
+        .name {
+            font-size: 0.875rem;
+            color: $qib-primary-color;
+        }
+    }
+    .account-no {
+        font-size: 0.75rem;
+        color: $qib-text-color;
+    }
+}

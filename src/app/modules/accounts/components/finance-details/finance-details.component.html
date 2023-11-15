@@ -1,0 +1,133 @@
+<app-master-container *ngIf="selectedAccount">
+    <ng-container header>
+        <span>{{ selectedAccount?.category.description }}</span>
+    </ng-container>
+    <ng-container body>
+        <div fxLayout="column" fxLayoutGap="1rem" fxFlex="100">
+            <div fxLayout="row" fxLayoutGap="1.625rem" fxLayout.lt-md="column" fxLayout="row wrap">
+                <div *ngIf="selectedAccount?.category.description">
+                    <app-label-value [label]="'Finance Product'" [value]="selectedAccount?.category.description">
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.contract_type">
+                    <app-label-value [label]="'Contract Type'" [value]="selectedAccount?.contract_type">
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.account_no">
+                    <app-label-value [label]="'Contract Reference'" [value]="selectedAccount?.account_no">
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.finance_amount">
+                    <app-label-value
+                        [label]="'Total Finance Amount'"
+                        [value]="selectedAccount.currency + ' ' + (selectedAccount?.finance_amount | number: '1.2-4')"
+                    >
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.create_date">
+                    <app-label-value [label]="'Initial Date'" [value]="selectedAccount?.create_date"></app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.mat_date">
+                    <app-label-value [label]="'Maturity Date'" [value]="selectedAccount?.mat_date"></app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.current_balance">
+                    <app-label-value [label]="'Finance Outstanding'" [value]="selectedAccount?.current_balance">
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.last_pymt_dt">
+                    <app-label-value [label]="'Last Paid Date'" [value]="selectedAccount?.create_date">
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.last_paid_amt">
+                    <app-label-value
+                        [label]="'Last Paid Amount'"
+                        [value]="selectedAccount.currency + ' ' + (selectedAccount?.last_paid_amt | number: '1.2-4')"
+                    >
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.next_pymt_date">
+                    <app-label-value [label]="'Next Installment Date'" [value]="selectedAccount?.next_pymt_date">
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.next_pay_amt">
+                    <app-label-value
+                        [label]="'Next Installment Amount'"
+                        [value]="selectedAccount.currency + ' ' + (selectedAccount?.next_pay_amt | number: '1.2-4')"
+                    >
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.instl_paid">
+                    <app-label-value [label]="'No Of Installments Paid'" [value]="selectedAccount?.instl_paid">
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.instl_remain">
+                    <app-label-value [label]="'No Of Installments Pending'" [value]="selectedAccount?.instl_remain">
+                    </app-label-value>
+                </div>
+                <div *ngIf="selectedAccount?.total_installments">
+                    <app-label-value [label]="'Total No Of Installments'" [value]="selectedAccount?.total_installments">
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.amount_pd">
+                    <app-label-value
+                        [label]="'Past Due'"
+                        [value]="selectedAccount.currency + ' ' + (selectedAccount?.amount_pd | number: '1.2-4')"
+                    >
+                    </app-label-value>
+                </div>
+                <div *ngIf="selectedAccount?.pastdue_ageing">
+                    <app-label-value [label]="'Past Dues Ageing'" [value]="selectedAccount?.pastdue_ageing">
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.total_pd_required">
+                    <app-label-value
+                        [label]="'Total Past Dues'"
+                        [value]="
+                            selectedAccount.currency + ' ' + (selectedAccount?.total_pd_required | number: '1.2-4')
+                        "
+                    >
+                    </app-label-value>
+                </div>
+
+                <div *ngIf="selectedAccount?.charity_amt">
+                    <app-label-value
+                        [label]="'Charity Amount'"
+                        [value]="selectedAccount.currency + ' ' + (selectedAccount?.charity_amt | number: '1.2-4')"
+                    >
+                    </app-label-value>
+                </div>
+            </div>
+            <div fxLayout="row" flFlex="100">
+                <button
+                    *appHasEntitlementAccessTo="'LD_ACCOUNT_STATEMENT'"
+                    mat-button
+                    type="submit"
+                    class="mat-raised-button mat-primary"
+                    (click)="viewStatement()"
+                    color="primary"
+                >
+                    View Transactions
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</app-master-container>
+<app-master-container *ngIf="!selectedAccount">
+    <ng-container header>
+        <app-label-value [label]="'No Details Available'" [value]="''"></app-label-value>
+    </ng-container>
+</app-master-container>

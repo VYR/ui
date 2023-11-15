@@ -1,0 +1,164 @@
+<app-master-container *ngIf="selectedAccount">
+    <ng-container description>
+        <div fxLayout="column" fxLayoutGap="0.8rem">
+            <div fxLayout="row" fxLayoutAlign="space-between">
+                <app-label-value
+                    [label]="'Account Number'"
+                    [value]="selectedAccount?.t24_iban"
+                    [type]="'iban'"
+                    [isBold]="true"
+                ></app-label-value>
+                <app-label-value
+                    [label]="'Available Balance'"
+                    [value]="selectedAccount?.available_bal"
+                    [type]="'amount'"
+                    [isBold]="true"
+                ></app-label-value>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+                <app-label-value [label]="'Account Description'" [value]="selectedAccount?.category.description">
+                </app-label-value>
+                <app-label-value [label]="'Status'" [value]="selectedAccount?.status"></app-label-value>
+                <app-label-value [label]="'Currency'" [value]="selectedAccount?.currency"></app-label-value>
+                <app-label-value [label]="'Blocked Balance'" [value]="selectedAccount?.hold_amt" [type]="'amount'">
+                </app-label-value>
+                <app-label-value
+                    [label]="'Ledger Balance'"
+                    [value]="selectedAccount?.current_balance"
+                    [type]="'amount'"
+                ></app-label-value>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container body *appHasEntitlementAccessTo="'ACCOUNTS_STATEMENT'">
+        <div fxLayout="column" fxFlex="100">
+            <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+                <div>LAST TRANSACTIONS</div>
+                <div>
+                    <button mat-icon-button *ngIf="searchFilterApplied" (click)="resetTheSearchCriteria()">
+                        <i class="las la-sync-alt"></i>
+                    </button>
+                    <button *ngIf="accountsSummary.length > 0" mat-icon-button (click)="generateExcel()">
+                        <i class="las la-file-excel"></i>
+                    </button>
+                    <button *ngIf="accountsSummary.length > 0" mat-icon-button (click)="generatePdf()">
+                        <i class="las la-file-pdf"></i>
+                    </button>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+                        <i class="las la-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div fxLayout="row" class="transaction-disclaimer" *ngIf="accountsSummary.length > 0">
+                Disclaimer: This is not an official Bank account statement and cannot be treated as such
+            </div>
+        </div>
+        <app-cib-table [config]="tableConfig" (_lazyLoad)="lazyLoad($event)" (_clickCell)="onClickCell($event)">
+        </app-cib-table>
+        <div fxLayout="row" fxLayoutGap="0.7rem" fxLayout.lt-md="column" fxLayout="row wrap">
+            <div fxLayout="row" fxLayoutGap="0.7rem" *ngIf="isCIBTransactionalAccount">
+                <ng-container *appHasEntitlementAccessTo="'TRANSFER'">
+                    <button
+                        *appHasAccessToRole="['ROLE_USER_MAKER', 'ROLE_USER_MAKER_CHECKER']"
+                        mat-button
+                        class="mat-raised-button mat-primary"
+                        type="submit"
+                        (click)="makeTransfer()"
+                        mat-stroked-button
+                        color="primary"
+                    >
+                        Make a Transfer
+                    </button>
+                </ng-container>
+                <ng-container *appHasEntitlementAccessTo="'PAYMENT'">
+                    <button
+                        *appHasAccessToRole="['ROLE_USER_MAKER', 'ROLE_USER_MAKER_CHECKER']"
+                        mat-button
+                        type="submit"
+                        class="mat-raised-button mat-primary"
+                        (click)="makePayment()"
+                        mat-stroked-button
+                        color="primary"
+                    >
+                        Make Payment
+                    </button>
+                </ng-container>
+            </div>
+            <button
+                *ngIf="accountsSummary.length > 0"
+                mat-button
+                type="submit"
+                class="mat-raised-button mat-primary"
+                (click)="viewStatement()"
+                color="primary"
+            >
+                View Transactions
+            </button>
+        </div>
+    </ng-container>
+</app-master-container>
+
+<mat-menu #menu="matMenu" xPosition="after">
+    <div class="filter-menu-item-container" (click)="$event.stopPropagation()">
+        <div fxLayout="row" class="heading" fxLayoutAlign="space-between center">
+            <span class="title">Filter Transaction</span>
+            <button mat-icon-button (click)="closeMatmenu()">
+                <i class="las la-times"></i>
+            </button>
+        </div>
+        <div class="divider"></div>
+        <form [formGroup]="filterstatementForm">
+            <div fxLayout="row" fxLayoutAlign="space-evenly">
+                <mat-form-field fxFlex="40" (click)="picker.open()">
+                    <input
+                        matInput
+                        [matDatepicker]="picker"
+                        formControlName="fromDate"
+                        [min]="minDate"
+                        [max]="maxDate"
+                        placeholder="From Date"
+                    />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field fxFlex="40" (click)="picker2.open()">
+                    <input
+                        matInput
+                        [matDatepicker]="picker2"
+                        formControlName="toDate"
+                        [min]="minDate"
+                        [max]="maxDate"
+                        placeholder="To Date"
+                    />
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-evenly">
+                <mat-form-field fxFlex="40">
+                    <input matInput type="number" min="0" formControlName="credit" placeholder="Credit" />
+                </mat-form-field>
+                <mat-form-field fxFlex="40">
+                    <input matInput type="number" min="0" formControlName="debit" placeholder="Debit" />
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-evenly">
+                <mat-form-field fxFlex="40">
+                    <input matInput type="text" formControlName="txnReference" placeholder="Reference Number" />
+                </mat-form-field>
+                <div fxFlex="40">
+                    <button
+                        [disabled]="!enableFilterButton()"
+                        class="filter-menu-item"
+                        class="mat-raised-button mat-primary"
+                        (click)="filterStatements()"
+                        mat-button
+                        color="primary"
+                    >
+                        <span>Search</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-menu>
