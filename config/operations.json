@@ -1,0 +1,1003 @@
+{
+    "login": {
+        "baseUrl": "apiGateway",
+        "path": "auth/login"
+    },
+    "validateOtp": {
+        "baseUrl": "apiGateway",
+        "path": "auth/login/verify"
+    },
+    "rimSelection": {
+        "baseUrl": "apiGateway",
+        "path": "auth/rimSelect"
+    },
+    "getDeviceSettingsList": {
+        "baseUrl": "apiGateway",
+        "path": "auth/security/v1/wbgUser/devices"
+    },
+    "getNetworth": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/networth?uuid=ACCOUNTS&status=ACTIVE,CUR,LIQ"
+    },
+    "getBeneficiaryList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/beneficiary"
+    },
+    "getBenAuditList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/beneficiary/log"
+    },
+    "makerList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request?deleted=false"
+    },
+    "approverList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/approval/cib/v1/user"
+    },
+    "approverListCompleted": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/approval/cib/v1/user/complete"
+    },
+    "getCountryList": {
+        "baseUrl": "contentServerGateway",
+        "path": "beneficiary/countrylist.json"
+    },
+    "actOnRequest": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/approval/cib/v1/user/action"
+    },
+    "getCurrencyList": {
+        "baseUrl": "contentServerGateway",
+        "path": "beneficiary/currencylist.json"
+    },
+    "getBankListQatar": {
+        "baseUrl": "contentServerGateway",
+        "path": "beneficiary/banklist.json"
+    },
+    "getBeneficiaryRelations": {
+        "baseUrl": "contentServerGateway",
+        "path": "beneficiary/beneficiaryrelation.json"
+    },
+    "addBeneficiary": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/beneficiary"
+    },
+    "updateBeneficiary": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/beneficiary"
+    },
+    "deleteBeneficiary": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/beneficiary/delete"
+    },
+    "validateSwiftCode": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/beneficiary/swift"
+    },
+    "verifyIbanOrAccount": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/beneficiary/search"
+    },
+    "getAccountsList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/uuid?uuid=ACCOUNTS"
+    },
+    "openCDAccount": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/opening/cd"
+    },
+    "openFDAccount": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/opening/mtd"
+    },
+    "sendEmail": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/cd/email"
+    },
+    "accountDepositExtract": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/deposits"
+    },
+    "getTransactionsAccounts": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/statement"
+    },
+    "getCategoryCodesAccounts": {
+        "baseUrl": "contentServerGateway",
+        "path": "accounts/categorycodes.json"
+    },
+    "getInvestmentDeals": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/account/deals"
+    },
+    "getRevolvingLimitsList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/stg/limit"
+    },
+    "forgotPasswordRequest": {
+        "baseUrl": "apiGateway",
+        "path": "auth/security/v1/user/validate"
+    },
+    "resetPasswordRequest": {
+        "baseUrl": "apiGateway",
+        "path": "auth/security/v1/user/password"
+    },
+    "deRegisterDevice": {
+        "baseUrl": "apiGateway",
+        "path": "auth/security/v1/wbgUser/deregister"
+    },
+    "resendOtp": {
+        "baseUrl": "apiGateway",
+        "path": "auth/security/v1/token/resend"
+    },
+    "getFinanceStatements": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/ld/statement"
+    },
+    "downloadAccountsStatements": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/statement/download"
+    },
+    "getPurposeCodes": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/purposecodes"
+    },
+    "getTimeFreq": {
+        "baseUrl": "contentServerGateway",
+        "path": "sto/timefreq.json"
+    },
+    "verifySTO": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/sto"
+    },
+    "getPaymentsList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/history"
+    },
+    "getKahramaaList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/beneficiary/kahramaa"
+    },
+    "getKahramaaBill": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/kahramaa/bill"
+    },
+    "addNewCustomer": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/kahramaa/number"
+    },
+    "editCustomer": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/kahramaa/number"
+    },
+    "deleteCustomer": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/kahramaa/number/delete"
+    },
+    "logout": {
+        "baseUrl": "apiGateway",
+        "path": "auth/logout"
+    },
+    "viewOoredooBill": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/ooredoo/bill"
+    },
+    "payOoredooBill": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/ooredoo/bill"
+    },
+    "payKahramaaBill": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/kahramaa/bill"
+    },
+    "dhareebaTinSummery": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/dhareeba/tin"
+    },
+    "dhareebaBillList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/dhareeba/bill"
+    },
+    "dhareebaAccountList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/uuid?uuid=PAYMENT&product=PAYMENT_ACCOUNTS&currency=QAR,USD"
+    },
+    "addDhareebaTinNumber": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/dhareeba/tin"
+    },
+    "deleteDhareebaTinNumber": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/dhareeba/deleteTin"
+    },
+    "payDhareebaBill": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/dhareeba/bill"
+    },
+    "getDraftsList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/draft"
+    },
+    "makerRequestCount": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/count?deleted=false"
+    },
+    "getCardAccounts": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/uuid?uuid=CARDS&product=CARD_ACCOUNTS&currency=QAR"
+    },
+    "getCardsList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/cards"
+    },
+    "getCard": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/cards/credit"
+    },
+    "getCardTransactions": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/cards/transaction"
+    },
+    "getCardMagstripe": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/credit/magneticstrip"
+    },
+    "blockCard": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/cards/maintenance"
+    },
+    "blockDebitCard": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/debit/maintenance"
+    },
+    "getTransactionsList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/txns/list"
+    },
+    "singleCardPayment": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/payment/card"
+    },
+    "bulkCardPayment": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/pay/multiple"
+    },
+    "downloadCardPDFStatement": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/credit/statement/download"
+    },
+    "deleteDraft": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/draft"
+    },
+    "getExchangeRates": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/currency/rate"
+    },
+    "getFromAccountList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/uuid?uuid=TRANSFER"
+    },
+    "initiateBulkTransfer": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/bulk"
+    },
+    "parseCustomFileTransfer": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/bulktransfer/parsefile"
+    },
+    "getTemplateMapping": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/bulktransfer/template"
+    },
+    "saveBulkDrafts": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/draft"
+    },
+    "fetchEncryptedKey": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/h2h/retrieve/key"
+    },
+    "getGSAccounts": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/uuid?uuid=GENERAL_SERVICES"
+    },
+    "getGSRequests": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/history"
+    },
+    "getChequeBookCharges": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/charge"
+    },
+    "sendChequeBookRequest": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/chequebook"
+    },
+    "sendEStatementRequest": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/estatement"
+    },
+    "balConfFileUpload": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/balance/document/upload",
+        "fileUpload": true
+    },
+    "chequeImages": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/cheque/image"
+    },
+    "sendBalanceConfirmationRequest": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/balance"
+    },
+    "getUserStatusDetails": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/user/detail/rim"
+    },
+    "requestUserStatus": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/userstatus"
+    },
+    "sendCreditCardRequest": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/creditcard"
+    },
+    "searchSwiftCopies": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/swiftcopy/search"
+    },
+    "getServiceRequestList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/genservice/bankuser/list"
+    },
+    "serviceRequestAction": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/genservice/bankuser/action"
+    },
+    "getIncomeSources": {
+        "baseUrl": "contentServerGateway",
+        "path": "transfers/incomeSources.json"
+    },
+    "transferWacc": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/wacc"
+    },
+    "transferWqar": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/wqar"
+    },
+    "transferWqib": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/wqib"
+    },
+    "transferIntl": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/intl"
+    },
+    "transferMultiple": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/multiple"
+    },
+    "updateManualTransfer": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/simple/update"
+    },
+    "createManualTransfer": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/simple"
+    },
+    "listManualTransfers": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/simple/list/maker"
+    },
+    "autoCoverAccounts": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/uuid?uuid=LIQUIDITY_MANAGEMENT"
+    },
+    "autoCoverAccount": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/autocover/account"
+    },
+    "autoSweepAccount": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/autosweep/account"
+    },
+    "addAutoSweep": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/autosweep/account"
+    },
+    "updateAutoSweep": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/autosweep/update"
+    },
+    "deleteAutoSweep": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/autosweep/account"
+    },
+    "downloadFile": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/document/download"
+    },
+    "getSTOList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/sto/fetch"
+    },
+    "getAccountHistory": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/history"
+    },
+    "getBulkTransferList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/bulktransfer/history"
+    },
+    "getBulkTransferDetails": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/bulktransfer/details"
+    },
+    "getPositivePayAccounts": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/positivepay/registered/accounts/list"
+    },
+    "addPositivePay": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/positivepay/data/add"
+    },
+    "getPositivePayList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/positivepay/search"
+    },
+    "getDividendList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/dividend/search"
+    },
+    "getTransferList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/transfer/history"
+    },
+    "getPositivePayHistory": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/positivepay/data/history"
+    },
+    "getAutoHistory": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/autocover/history"
+    },
+    "getSweepHistory": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/autosweep/history"
+    },
+    "deleteFdp": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/sto/modify"
+    },
+    "getAdminRequestList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/request"
+    },
+    "lcInquiryList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/list/lc"
+    },
+    "bgInquiryList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/list/bg"
+    },
+    "lcHistoryList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/lc/history"
+    },
+    "bgHistoryList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/bg/history"
+    },
+    "lcApproveAction": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/approve/lc"
+    },
+    "lcSendbackAction": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/sendback/lc"
+    },
+    "lcRjectAction": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/reject/lc"
+    },
+    "bgApproveAction": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/approve/bg"
+    },
+    "bgSendbackAction": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/sendback/bg"
+    },
+    "bgRjectAction": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/reject/bg"
+    },
+    "lcHistoryUpload": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/letterofcredit/upload",
+        "fileUpload": true
+    },
+    "bgHistoryUpload": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/upload",
+        "fileUpload": true
+    },
+    "historyOnFileDelete": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/document/clear"
+    },
+    "getDepositCardList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/genservice/depositcard/account"
+    },
+    "depositCard": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/genservice/depositcard"
+    },
+    "depositCardDocumentsUpload": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/genservice/depositcard/document/upload",
+        "fileUpload": true
+    },
+    "aamaliCardDocumentsUpload": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/aamalidebit/document/upload",
+        "fileUpload": true
+    },
+    "getPDCAccounts": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/accounts/uuid?uuid=CHEQUE_MANAGEMENT"
+    },
+    "getPDC": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/postdatedcheques"
+    },
+    "getRimDetails": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/approval/cib/v1/user/rim/detail"
+    },
+    "getUsersUnderRim": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/user"
+    },
+    "getAuditReport": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/audit/report"
+    },
+    "getAdminAuditReport": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/approval/cib/v1/audit/bankadmin/report"
+    },
+    "getAdminApproverRequests": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/approval/cib/v1/user"
+    },
+    "approveRejectAdminRequest": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/approval/cib/v1/user/action"
+    },
+    "updateSysConfig": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/systemconfig"
+    },
+    "getEntitlements": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/entitlement/parent"
+    },
+    "searchUserByRIM": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/customer"
+    },
+    "groupAdmin": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/group"
+    },
+    "groupUser": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/group/user"
+    },
+    "getGroupUsers": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/user/group"
+    },
+    "deleteGroupUser": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/user/properties"
+    },
+    "getCustomerInfo": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/customer"
+    },
+    "updateCorporate": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/customer/mandate"
+    },
+    "uploadCorporateFile": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/document/upload",
+        "fileUpload": true
+    },
+    "userManagementOptions": {
+        "baseUrl": "contentServerGateway",
+        "path": "user-management/options.json"
+    },
+    "businessGroups": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/business"
+    },
+    "groupDefinition": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/groups/definition"
+    },
+    "searchRIMSbyBusinessId": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/business/customer"
+    },
+    "contentRepository": {
+        "baseUrl": "apiGateway",
+        "path": "content/bbp/repositories/contentRepository"
+    },
+    "gatewayLc": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/commongateway/tf/lc/list"
+    },
+    "gatewayBg": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/commongateway/tf/bg/list"
+    },
+    "gatewayDrawings": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/commongateway/drawings/list"
+    },
+    "advisory": {
+        "baseUrl": "contentServerGateway",
+        "path": "advisory-report/advisory.json"
+    },
+    "lastversion": {
+        "baseUrl": "contentServerGateway",
+        "path": "advisory-report/lastversion.json"
+    },
+    "lcTypeTenor": {
+        "baseUrl": "contentServerGateway",
+        "path": "advisory-report/lc_type_tenor.json"
+    },
+    "selectedType": {
+        "baseUrl": "contentServerGateway",
+        "path": "advisory-report/selectedtype.json"
+    },
+    "tfCurrencyList": {
+        "baseUrl": "contentServerGateway",
+        "path": "advisory-report/tfCurrencyList.json"
+    },
+    "customerData": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/commongateway/cust/details"
+    },
+    "accountData": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/commongateway/account/details"
+    },
+    "advisingData": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/commongateway/cust/details"
+    },
+    "downloadHtml": {
+        "baseUrl": "contentServerGateway",
+        "path": "advisory-report/admin/bankuser"
+    },
+    "getEntitlementsInfo": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/entitlement"
+    },
+    "getAccountListAdmin": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/customer/account"
+    },
+    "userUnlockOtp": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/user/otp/unlock"
+    },
+    "userUnlock": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/user/unlock"
+    },
+    "additionalDetails": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/user/detail"
+    },
+    "checkUserName": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/user/validate"
+    },
+    "getRimEntitlements": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/user/entitlement"
+    },
+    "customTemplate": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/template"
+    },
+    "searchRIMS": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/customer"
+    },
+    "getPositivePayPerRim": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/positivepay/accounts/list"
+    },
+    "getHostToHostDetails": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/hosttohost/details"
+    },
+    "registerPositivePay": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/positivepay/accounts/add"
+    },
+    "getH2hUsers": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/h2h/user"
+    },
+    "getH2hCustomerDetails": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/h2h/retrieve/customer"
+    },
+    "updateH2hCustomerDetails": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/h2h/customer"
+    },
+    "getTFLCSettings": {
+        "baseUrl": "contentServerGateway",
+        "path": "trade-finance/import-lc.json"
+    },
+    "getLCDrafts": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lc/imp/drafts"
+    },
+    "exportLC": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tfexLC/list"
+    },
+    "getAmendmentLC": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lc/amd/list"
+    },
+    "getRecentlyCreatedLC": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lc/imp/list"
+    },
+    "getLCDocumentArrivalNotice": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lclodgmt/list"
+    },
+    "deleteLCDrafts": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lc/imp/delete"
+    },
+    "getLcHistory": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lc/imp/approv/history"
+    },
+    "getBgApprvHistory": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/approv/history"
+    },
+    "getBillOfCollection": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tfdelacptpay/list"
+    },
+    "addRimToUser": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/user/addrim"
+    },
+    "getRecentlyCreatedBG": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/view?type=OTHER",
+        "html": true
+    },
+    "getAmendmentBG": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/amd/list",
+        "html": true
+    },
+    "csdRequestList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/v1/transfer/simple/list/csd"
+    },
+    "importLcSave": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lc/imp/save"
+    },
+    "importLcUpdate": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lc/imp/update"
+    },
+    "importLcSubmit": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lc/imp/submit"
+    },
+    "importLcAmendSubmit": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lc/amd/submit"
+    },
+    "previewLcPdf": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/letterofcredit/preview"
+    },
+    "previewLcAmentPdf": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/letterofcredit/amendment/preview"
+    },
+    "saveORCreateBankGuarantee": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/create"
+    },
+    "previewBankGuarantee": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/preview"
+    },
+    "amendBankGuarantee": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/ammend"
+    },
+    "bankGuaranteeAmendPreview": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/amendment/preview"
+    },
+    "bankGuaranteeList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/view"
+    },
+    "deleteBankGuarantee": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/delete"
+    },
+    "getBgHistory": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/user/history"
+    },
+    "csdActionList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/v1/transfer/simple/approve"
+    },
+    "scheduleData": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/account/loan/schedule"
+    },
+    "submitBankGuarantee": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/submit"
+    },
+    "checkAmendmentEligibility": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/tradefinance/bankguarantee/cabr"
+    },
+    "checkAmendmentEligibilityForLc": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/lc/imp/cabr"
+    },
+    "refreshToken": {
+        "baseUrl": "apiGateway",
+        "path": "auth/refreshToken"
+    },
+    "downloadReportFile": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/bankuser/cib/v1/lcbc/contract/advice"
+    },
+    "getFeatureManagementEntitlementsForCorporate": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/entitlement/list "
+    },
+    "updateFeatureManagementEntitlementsForCorporate": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/update/user/feature"
+    },
+    "getFeatureManagementEntitlementsForAdmin": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/entitlement"
+    },
+    "updateFeatureManagementEntitlementsForAdmin": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/update/entitlement"
+    },
+    "getPendingReqHistory": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/request/pending/approvers"
+    },
+    "getFailureHistory": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/list/failed/transactions"
+    },
+    "getAmaliHistory": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/genservice/debitcard/request/list"
+    },
+    "saveAmaliCard": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/genservice/request/debitcard"
+    },
+    "uploadAmaliDocs": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/debit/document/upload",
+        "fileUpload": true
+    },
+    "getApprovers": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/user/approver/list"
+    },
+    "getAmaliRequestCount": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/genservice/debitcard/request/count"
+    },
+    "getDebitCardList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/debit/list"
+    },
+    "getDebitCardMagneticStripe": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/debit/magneticstrip"
+    },
+    "getDebitCardDetails": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/debit/details"
+    },
+    "getCountry": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/debit/list/country/code"
+    },
+    "resetDebitCardPin": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/debit/pin/reset"
+    },
+    "downloadCardFiles": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/card/debit/document/download"
+    },
+    "debitCardApproval": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/genservice/request/debitcard/approver"
+    },
+    "saveKycRemediation": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/v1/csd/kyc/save"
+    },
+    "getKycRemediation": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/v1/csd/kyc/list"
+    },
+    "getDeviceList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/user/list/devices"
+    },
+    "bankAdminDeResidterDevice": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/user/deregister"
+    },
+    "addSalaryPostingData": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/bulktransfer/salary/posting"
+    },
+    "getSalaryPostingList": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/bulktransfer/salary/posting/list"
+    },
+    "getSalaryPostingListEntries": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/bulktransfer/salary/posting/list/entries"
+    },
+    "deleteUser": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/admin/cib/v1/delete/user"
+    },
+    "unlockUserRequest": {
+        "baseUrl": "apiGateway",
+        "path": "auth/unlock/user"
+    },
+    "getSwiftPdf": {
+        "baseUrl": "apiGateway",
+        "path": "services/rest/cib/v1/generate/swiftcopy"
+    }
+}

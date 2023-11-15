@@ -1,0 +1,41 @@
+{
+    "api": {
+        "localUrl": "http://172",
+        "apiGateway": "http://172"
+    },
+    "localization": {
+        "languages": [
+            {
+                "code": "ar",
+                "name": "AR",
+                "culture": "ar-AR"
+            },
+            {
+                "code": "en",
+                "name": "EN",
+                "culture": "en-EN"
+            }
+        ],
+        "defaultLanguage": "en"
+    },
+    "notifications": {
+        "options": {
+            "timeOut": 5000,
+            "progressAnimation": "decreasing",
+            "progressBar": true,
+            "pauseOnHover": true,
+            "positionClass": "toast-top-right",
+            "toastClass": "ngx-toastr"
+        }
+    },
+    "spinner": {
+        "size": "medium",
+        "bdColor": "rgba(255, 255, 255, 0.78)",
+        "color": "#0075b0",
+        "type": "ball-spin-clockwise",
+        "fullScreen": true
+    },
+    "caheProvider": "sessionStorage",
+    "cacheEcryption": true,
+    "debugging": true
+}
