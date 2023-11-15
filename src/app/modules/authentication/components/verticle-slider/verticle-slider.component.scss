@@ -1,0 +1,37 @@
+@import 'variables';
+:host {
+    min-height: 30vh;
+    .carousel-container {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        justify-content: space-around !important;
+        width: 100%;
+        padding: 0 2rem;
+        .carousel {
+            .content-wrapper {
+                gap: 1rem;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        .static-content {
+            color: $qib-primary-color;
+            font-size: 1.25rem;
+        }
+        .slide-title {
+            font-weight: 700;
+            color: $qib-text-color;
+        }
+        .img-wrapper {
+            height: 100%;
+            img {
+                width: 100%;
+            }
+        }
+        .carousel-indicators {
+            position: absolute;
+            margin: 0rem;
+        }
+    }
+}

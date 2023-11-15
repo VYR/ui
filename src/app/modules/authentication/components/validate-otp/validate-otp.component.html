@@ -1,0 +1,14 @@
+<div class="otp-wrapper">
+    <div class="login-title">
+        <mat-label>Corporate Login</mat-label>
+    </div>
+    <form (submit)="validateOtp()">
+        <app-cib-otp class="otp-comp" (otpValueEvent)="onOtpValueEnter($event)"></app-cib-otp>
+        <div class="buttons-group">
+            <button mat-flat-button type="button" class="md-block custom-cib-button-cancel" (click)="onCancelClick()">
+                CANCEL
+            </button>
+            <button mat-flat-button color="primary" [disabled]="otp!.length < 6" type="submit">CONFIRM</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,22 @@
+<div class="carousel-container" fxLayout="row" fxFlex="100" fxHide.lt-md="true" fxLayoutAlign="center center">
+    <div class="static-content" fxFlex="10" fxLayoutAlign="center" fxLayout="column">
+        <div>Corporate Services</div>
+    </div>
+    <div fxFlex="90" fxLayout="column" fxLayoutAlign="center">
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let img of images" fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxFlex="45" class="content-wrapper">
+                    <div class="slide-title">
+                        {{ img.heading }}
+                    </div>
+                    <div class="slide-content">
+                        {{ img.content }}
+                    </div>
+                </div>
+                <div fxFlex="45" class="img-wrapper">
+                    <img [src]="img.image" />
+                </div>
+            </div>
+        </ngx-slick-carousel>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="forgot-password-wrapper">
+    <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+        <div class="login-title">
+            <mat-label>Unlock User?</mat-label>
+        </div>
+        <div class="login-form" *ngIf="!isRequestUser">
+            <form
+                class="body-card-login-form"
+                [formGroup]="unlockUserForm"
+                (ngSubmit)="onRequestUnlockUserClick()"
+                novalidate="novalidate"
+                fxLayout="column"
+                autocomplete="off"
+            >
+                <mat-form-field class="md-block">
+                    <mat-label>User Id</mat-label>
+                    <input matInput formControlName="userName" type="text" name="userName" />
+                    <i matSuffix class="las la-user-tie"></i>
+                </mat-form-field>
+                <div
+                    fxFlex="100"
+                    fxLayout="row"
+                    fxLayoutGap="10"
+                    fxLayout.sm="column"
+                    fxLayout.xs="column"
+                    class="login-btn"
+                >
+                    <button mat-flat-button (click)="onCancelClick()" type="button">CANCEL</button>
+                    <button mat-flat-button color="primary" [disabled]="!unlockUserForm.valid" type="submit">
+                        UNLOCK PASSWORD
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="login-form" *ngIf="isRequestUser">
+            <form class="body-card-login-form" (ngSubmit)="onUnlockUserConfirm()" autocomplete="off" fxLayout="column">
+                <app-cib-otp (otpValueEvent)="otp = $event" [username]="username"></app-cib-otp>
+                <div
+                    fxFlex="100"
+                    fxLayout="row"
+                    fxLayoutGap="10px"
+                    fxLayout.sm="column"
+                    fxLayout.xs="column"
+                    class="login-btn"
+                >
+                    <button
+                        mat-flat-button
+                        type="button"
+                        aria-label="Cancel OTP"
+                        (click)="onCancelClick()"
+                        fxFlex="50"
+                        fxLayout.md="100"
+                    >
+                        CANCEL
+                    </button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        [disabled]="!(otp && otp.length >= 6)"
+                        aria-label="Confirm OTP"
+                        type="submit"
+                        fxFlex="50"
+                        fxLayout.md="100"
+                    >
+                        CONFIRM
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="know-more">
+    <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+        <div class="links">
+            <div class="link" fxLayout="row" *ngFor="let link of otherLinks; let last = last">
+                <div fxFlex="10" fxLayout="column" fxLayoutAlign="center center">
+                    <img src="{{ link.icon }}" alt="{{ link.alt }}" />
+                </div>
+                <div *ngIf="!last" fxFlex="90" fxLayout="column" fxFlexOffset="5px">
+                    <div fxFlex class="link-heading" fxLayout="row">{{ link.heading }}</div>
+                    <div fxFlex fxLayout="row">
+                        <a class="access-link" (click)="onOtherLinksClick(link.subLink)">{{ link.subLink }}</a>
+                    </div>
+                </div>
+                <div *ngIf="last" fxFlex="90" fxLayout="column" fxFlexOffset="5px">
+                    <!-- <div fxFlex fxLayout="row">
+                        <div class="link-heading">{{ link.headingOne }}</div>
+                        <a class="access-link no-cursor">{{ link.subLink1 }}</a>
+                    </div> -->
+                    <div fxFlex fxLayout="row">
+                        <div class="link-heading">{{ link.headingTwo }}</div>
+                        <a href="mailto:{{ link.subLink2 }}?subject=Query: " class="access-link">{{ link.subLink2 }}</a>
+                    </div>
+                    <div fxFlex fxLayout="row">
+                        <div class="link-heading">{{ link.headingThree }}</div>
+                        <a class="access-link no-cursor">{{ link.subLink3 }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

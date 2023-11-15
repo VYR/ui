@@ -1,0 +1,35 @@
+<mat-dialog-content fxLayout="column" class="dialog-container">
+    <mat-toolbar class="demo-header">
+        <div fxFlex="100" class="custom-header" fxLayoutAlign="space-between">
+            <span>VIEW OUR DEMOS</span>
+            <i class="las la-times" style="cursor: pointer" (click)="cancelDialog()"></i>
+        </div>
+    </mat-toolbar>
+    <div class="demo-content">
+        <div fxFlex="25" fxLayout="column" class="demo-sidemenu">
+            <mat-list>
+                <mat-list-item
+                    aria-label="List Of Demo videos"
+                    *ngFor="let video of demosList; let i = index"
+                    [ngClass]="{ 'list-active': video.title === selectedVideo.title }"
+                    (click)="getSelectedVideoContent(video)"
+                >
+                    <div style="cursor: pointer">
+                        <div fxFlex fxLayout="column" fxLayoutAlign="space-between start">
+                            <div class="">
+                                <span>{{ i + 1 }}</span
+                                >.&nbsp;<span>{{ video.title }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+        </div>
+        <div fxFlex="75" fxLayout="column" fxLayoutAlign="center center">
+            <video style="width: 80%" *ngIf="isVideoSelected" controls #videoPlayer>
+                <source [src]="selectedVideo.src" type="video/mp4" />
+            </video>
+            <div *ngIf="!isVideoSelected"><span>Please select any video to view.</span></div>
+        </div>
+    </div>
+</mat-dialog-content>

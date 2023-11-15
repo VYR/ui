@@ -1,0 +1,63 @@
+@import 'variables';
+:host {
+    .header-container {
+        padding: 0.5rem 1rem;
+        background-color: $qib-primary-color;
+        .header-logo {
+            padding: 0.5rem;
+            img {
+                width: 10rem;
+            }
+        }
+    }
+}
+
+.dropdown-menu-container {
+    .dropdown-menu-arrow {
+        position: absolute;
+        top: -1.2rem;
+        right: 0.2rem;
+    }
+    .dropdown-menu-content {
+        padding: 1rem;
+        min-width: 10rem;
+        .profile-header {
+            box-sizing: border-box;
+            .profile-header-option {
+                font-size: 0.75rem;
+                width: 100%;
+                font-weight: 700;
+                padding: 0.5rem;
+                border-bottom: 0.1rem solid $qib-border-bottom-color;
+                color: $qib-primary-color;
+                display: flex;
+                align-items: center;
+                span {
+                    margin-left: 0.4rem;
+                }
+            }
+        }
+        .profile-common {
+            //padding: @qib-space-sm 0;
+            font-weight: 600; // opacity: 0.8;
+            box-sizing: border-box;
+        }
+        .profile-footer-option {
+            height: 2rem;
+            outline: 0;
+            font-size: 0.813rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+            color: $qib-primary-color;
+            display: flex;
+            align-items: center;
+            margin-top: 0.625rem;
+            border: 1px solid $qib-background-grey;
+            background-color: $qib-text-white;
+            cursor: pointer;
+            span {
+                margin-left: 0.4rem;
+            }
+        }
+    }
+}
