@@ -1,0 +1,15 @@
+<app-master-container>
+    <ng-container header>CORPORATE DEPOSIT CARD HISTORY</ng-container>
+    <ng-container icons>
+        <button mat-icon-button (click)="goBack()">
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <app-cib-table
+            [config]="config"
+            (_lazyLoad)="lazyLoad($event)"
+            (_clickCell)="onClickCell($event)"
+        ></app-cib-table>
+    </ng-container>
+</app-master-container>

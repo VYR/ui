@@ -1,0 +1,65 @@
+<div fxFlex fxLayout="column" class="cib-drawer">
+    <div class="body">
+        <ng-container *ngIf="fields?.sweepData">
+            <app-label-value
+                [label]="'Total number of Sweep Balance Setup'"
+                [value]="fields?.sweepData.length"
+            ></app-label-value>
+            <app-label-value [label]="'Total Threshold Amount'" [value]="fields?.totalAmount"></app-label-value>
+        </ng-container>
+
+        <ng-container *ngIf="fields?.linkedAccountList; else sweep">
+            <app-label-value [label]="'Cover account'" [value]="fields?.linkedAccountList"></app-label-value>
+            <app-label-value [label]="'Transaction account'" [value]="fields?.accountList"></app-label-value>
+        </ng-container>
+
+        <ng-template #sweep>
+            <ng-container *ngIf="fields?.sweepData; else singleSweep">
+                <ng-container *ngFor="let sd of fields.sweepData">
+                    <div class="form-value-container">
+                        <app-label-value [label]="'From account'" [value]="sd?.fromAccount"></app-label-value>
+                        <app-label-value [label]="'To account'" [value]="sd?.toAccount"></app-label-value>
+                        <app-label-value
+                            [label]="'Threshold amount'"
+                            [value]="sd?.currency + ' ' + sd?.thresholdAmount"
+                        ></app-label-value>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-template>
+
+        <ng-template #singleSweep>
+            <div class="form-value-container">
+                <app-label-value
+                    *ngIf="fields?.fromAccount"
+                    [label]="'From account'"
+                    [value]="fields?.fromAccount"
+                ></app-label-value>
+                <app-label-value
+                    *ngIf="fields?.toAccount"
+                    [label]="'To account'"
+                    [value]="fields?.toAccount"
+                ></app-label-value>
+                <app-label-value
+                    *ngIf="fields?.currency && fields?.thresholdAmount"
+                    [label]="'Threshold amount'"
+                    [value]="fields?.currency + ' ' + fields?.thresholdAmount"
+                ></app-label-value>
+            </div>
+        </ng-template>
+
+        <div class="divider"></div>
+
+        <div *ngIf="data.isOtpNeeded">
+            <app-cib-otp (otpValueEvent)="otp = $event" class="otp-comp" [showMore]="true"></app-cib-otp>
+        </div>
+
+        <div class="divider"></div>
+        <div fxLayout="row" fxLayoutGap="1rem">
+            <button mat-button class="mat-raised-button" (click)="onCancel()">Cancel</button>
+            <button mat-button class="mat-raised-button mat-primary" [disabled]="otp.length < 6" (click)="onConfirm()">
+                Confirm
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+@import 'variables';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+    .header-info {
+        font-size: 0.75rem;
+        color: $qib-text-color;
+        font-weight: 600;
+    }
+    .file-select {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column !important;
+        gap: 1rem;
+        text-align: center;
+        border: 1px solid $qib-divider-color;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        background: $qib-divider-color;
+        width: 100%;
+
+        .file-name {
+            color: $qib-green;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .hint {
+            color: #686868;
+            font-size: 0.75rem;
+        }
+    }
+
+    .file-select:hover {
+        background: $qib-nav-bar-background;
+        color: $qib-tab-active-border;
+        cursor: pointer;
+    }
+
+    .row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .file-dialog-border {
+        border: dashed $qib-badge-background 2px;
+        margin: 0.2rem 0;
+        padding: 0.2rem 0;
+    }
+
+    .service-charges {
+        background: $qib-divider-color;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        color: $qib-primary-color;
+        font-style: italic;
+    }
+}

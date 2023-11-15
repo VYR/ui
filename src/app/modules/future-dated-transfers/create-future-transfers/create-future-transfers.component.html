@@ -1,0 +1,354 @@
+<app-master-container>
+    <ng-container header>CREATE A NEW FUTURE DATED TRANSFER</ng-container>
+    <ng-container body>
+        <form
+            *ngIf="!showConfirmation; else successBody"
+            fxLayout="column"
+            fxFlex="100"
+            autocomplete="off"
+            novalidate="novalidate"
+            [formGroup]="createSTOForm"
+        >
+            <mat-tab-group #tabGroup (selectedTabChange)="typeChange($event)" class="form-tabs">
+                <mat-tab label="Within Account" *appHasEntitlementAccessTo="'STO_WITH_IN_QIB'">
+                    <ng-container [ngTemplateOutlet]="formBody"></ng-container>
+                </mat-tab>
+                <mat-tab label="Within Qatar" *appHasEntitlementAccessTo="'STO_WITH_IN_QATAR'">
+                    <ng-container [ngTemplateOutlet]="formBody"></ng-container>
+                </mat-tab>
+                <mat-tab label="International" *appHasEntitlementAccessTo="'STO_INTERNATIONAL'">
+                    <ng-container [ngTemplateOutlet]="formBody"></ng-container>
+                </mat-tab>
+            </mat-tab-group>
+
+            <ng-template #formBody>
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="end"
+                    fxFlex="100"
+                    fxLayout.sm="column"
+                    fxLayout.xs="column"
+                    fxLayoutGap="0"
+                    fxLayoutGap.gt-sm="10%"
+                >
+                    <div fxFlex="25" fxFlex.sm="100" fxFlex.xs="100" *ngIf="transferType !== 'WQIB'">
+                        <mat-form-field fxFlex="100" fxFlex.sm="50" fxFlex.xs="100">
+                            <mat-label>Charge Type</mat-label>
+                            <mat-select aria-label="Charge Type" required formControlName="chargeDetails">
+                                <mat-option *ngIf="transferType !== 'WQAR'" value="SHA">SHA (Shared)</mat-option>
+                                <mat-option value="OUR">OUR (On Us)</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div
+                    fxLayout="row"
+                    fxFlex="100"
+                    fxLayout.sm="column"
+                    fxLayout.xs="column"
+                    fxLayoutGap="0"
+                    fxLayoutGap.gt-sm="10%"
+                >
+                    <div fxFlex="45">
+                        <app-from-account
+                            [parentForm]="createSTOForm"
+                            [fromAccounts]="fromAccounts"
+                            (selectAccount)="selectFromAccount($event)"
+                        ></app-from-account>
+                    </div>
+
+                    <div fxFlex="45" *ngIf="transferType === 'WQIB'">
+                        <app-to-account
+                            [parentForm]="createSTOForm"
+                            [toAccounts]="toWithinAccounts"
+                            [type]="0"
+                            (selectAccount)="selectToAccount($event)"
+                            [reset]="resetToAccount"
+                        ></app-to-account>
+                    </div>
+                    <div fxFlex="45" *ngIf="transferType !== 'WQIB'">
+                        <app-to-account
+                            [parentForm]="createSTOForm"
+                            [toAccounts]="toAccounts"
+                            [type]="1"
+                            (selectAccount)="selectToAccount($event)"
+                            [reset]="resetToAccount"
+                        ></app-to-account>
+                    </div>
+                </div>
+                <div
+                    fxLayout="row"
+                    fxLayout.sm="column"
+                    fxLayout.xs="column"
+                    fxFlex="100"
+                    fxLayoutGap="0"
+                    fxLayoutGap.gt-sm="10%"
+                >
+                    <div fxFlex="45" fxFlex.sm="100" fxFlex.xs="100">
+                        <div
+                            fxLayout="row"
+                            fxLayout.sm="column"
+                            fxLayout.xs="column"
+                            fxFlex="100"
+                            fxLayoutGap="0"
+                            fxLayoutGap.gt-sm="10%"
+                        >
+                            <div fxFlex="45">
+                                <div fxLayout="row" fxFlex="100">
+                                    <div fxFlex="20" *ngIf="createSTOForm.controls['currency']?.value">
+                                        <mat-form-field fxFlex="100" hideRequiredMarker class="currency-input">
+                                            <mat-label></mat-label>
+                                            <input readonly matInput formControlName="currency" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="80">
+                                        <mat-form-field fxFlex="100">
+                                            <mat-label>Enter Amount</mat-label>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                aria-label="Amount"
+                                                matInput
+                                                formControlName="amount"
+                                            />
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="45" *ngIf="transferType !== 'WQIB'">
+                                <mat-form-field fxFlex="100">
+                                    <mat-label>Purpose</mat-label>
+                                    <mat-select aria-label="Purpose" required formControlName="purpose">
+                                        <mat-option *ngFor="let p of purposeCodes" [value]="p">{{
+                                            p?.value
+                                        }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxFlex="45" fxFlex.sm="100" fxFlex.xs="100">
+                        <div
+                            fxLayout="row"
+                            fxLayout.sm="column"
+                            fxLayout.xs="column"
+                            fxFlex="100"
+                            fxLayoutGap="0"
+                            fxLayoutGap.gt-sm="10%"
+                        >
+                            <div fxFlex="45">
+                                <mat-form-field fxFlex="100">
+                                    <mat-label>Type</mat-label>
+                                    <mat-select
+                                        aria-label="Type"
+                                        required
+                                        formControlName="recurring"
+                                        (selectionChange)="selectRecurring($event)"
+                                    >
+                                        <mat-option *ngFor="let rec of recurrings" [value]="rec.code">
+                                            <span>{{ rec.display }}</span>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div *ngIf="recurring === 'RECURRING'; else startDatePicker" fxFlex="45">
+                                <mat-form-field fxFlex="100">
+                                    <mat-label>Frequency</mat-label>
+                                    <mat-select aria-label="Frequency" required formControlName="frequency">
+                                        <mat-option *ngFor="let fr of frequencies" [value]="fr">
+                                            <span>{{ fr.name }}</span>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #startDatePicker>
+                    <div [fxFlex]="recurring === 'RECURRING' ? 100 : 45">
+                        <app-cib-date-picker
+                            [parentForm]="createSTOForm"
+                            [fomrControlName]="'startDate'"
+                            [minDate]="minDate"
+                            [maxDate]="maxDate"
+                            [placeholder]="startDateLabel"
+                            (selectDate)="getStartDate($event)"
+                        ></app-cib-date-picker>
+                    </div>
+                </ng-template>
+                <div
+                    fxLayout="row"
+                    fxLayout.sm="column"
+                    fxLayout.xs="column"
+                    fxFlex="100"
+                    fxLayoutGap="0"
+                    fxLayoutGap.gt-sm="10%"
+                >
+                    <div fxFlex="45" fxFlex.sm="100" fxFlex.xs="100">
+                        <div
+                            fxLayout="row"
+                            fxLayout.sm="column"
+                            fxLayout.xs="column"
+                            fxFlex="100"
+                            fxLayoutGap="0"
+                            fxLayoutGap.gt-sm="10%"
+                            *ngIf="recurring === 'RECURRING'"
+                        >
+                            <div fxFlex="45">
+                                <ng-template [ngTemplateOutlet]="startDatePicker"></ng-template>
+                            </div>
+
+                            <mat-form-field fxFlex="45">
+                                <mat-label>Occurence</mat-label>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    aria-label="Occurence"
+                                    matInput
+                                    formControlName="occurence"
+                                />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxFlex="45" fxFlex.sm="100" fxFlex.xs="100">
+                        <div
+                            fxLayout="row"
+                            fxLayout.sm="column"
+                            fxLayout.xs="column"
+                            fxFlex="100"
+                            fxLayoutGap="0"
+                            fxLayoutGap.gt-sm="10%"
+                        >
+                            <mat-form-field fxFlex="45">
+                                <mat-label>Timings</mat-label>
+                                <mat-select aria-label="Timings" required formControlName="execTime">
+                                    <mat-option *ngFor="let et of execTimes" [value]="et">
+                                        {{ et.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="45">
+                                <mat-label>Payment Details</mat-label>
+                                <input
+                                    type="text"
+                                    aria-label="Payment Details"
+                                    matInput
+                                    formControlName="description"
+                                    maxlength="{{ transferType === 'INTL' ? '140' : 65 }}"
+                                />
+                                <mat-error
+                                    *ngIf="createSTOForm.controls['description']?.errors?.['forbiddenDescription']"
+                                >
+                                    Invalid use of special characters.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayout.sm="column"
+                    fxLayout.xs="column"
+                    fxFlex="100"
+                    fxLayoutGap="0"
+                    fxLayoutGap.gt-sm="10%"
+                >
+                    <mat-form-field fxFlex="45" *ngIf="toAccount?.bankCountry === 'ID'">
+                        <mat-label>Invoice Number</mat-label>
+                        <input
+                            aria-label="Invoice Number"
+                            matInput
+                            formControlName="invoiceNumber"
+                            (click)="addInvoice()"
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <button
+                        fxFlex="20"
+                        mat-button
+                        [disabled]="!createSTOForm.valid"
+                        class="mat-raised-button mat-primary"
+                        aria-label="Submit"
+                        (click)="createSTO('VERIFY')"
+                    >
+                        CREATE
+                    </button>
+                </div>
+            </ng-template>
+        </form>
+
+        <ng-template #successBody>
+            <app-cib-notification
+                [headerTitle]="'TRANSFER(s) STATUS'"
+                [title]="transactionMsg"
+                [subtitle]="transactionId"
+                [variant]="'success'"
+            >
+                <ng-container body>
+                    <div fxLayout="row" fxLayout="row wrap" fxLayoutGap="1rem" fxLayout.lt-sm="column">
+                        <app-label-value
+                            *ngIf="successData?.payeeType"
+                            [label]="'Transfer Type'"
+                            [value]="successData.payeeType | cibDefinition: 'PAYEE'"
+                        ></app-label-value>
+
+                        <app-label-value [label]="'From Account'" [value]="successData?.fromAccount"></app-label-value>
+
+                        <app-label-value [label]="'To Account'" [value]="successData?.toAccount"> </app-label-value>
+
+                        <app-label-value
+                            *ngIf="successData?.beneficiaryName"
+                            [label]="'Beneficiary Name'"
+                            [value]="successData?.beneficiaryName"
+                        ></app-label-value>
+
+                        <app-label-value [label]="'Amount'" [value]="successData?.currency + ' ' + successData?.amount">
+                        </app-label-value>
+
+                        <app-label-value
+                            *ngIf="successData?.purposeValue"
+                            [label]="'Purpose'"
+                            [value]="successData?.purposeValue"
+                        ></app-label-value>
+
+                        <app-label-value [label]="'Type'" [value]="successData?.recurring"></app-label-value>
+
+                        <app-label-value
+                            *ngIf="successData?.chargeType"
+                            [label]="'Charge Type'"
+                            [value]="successData?.chargeType"
+                        ></app-label-value>
+
+                        <app-label-value [label]="startDateLabel" [value]="successData?.startDate"></app-label-value>
+
+                        <app-label-value [label]="'Payment Details'" [value]="successData?.description">
+                        </app-label-value>
+
+                        <div *ngIf="successData?.recurring === 'RECURRING'">
+                            <app-label-value [label]="'Frequency'" [value]="successData?.frequency"></app-label-value>
+                        </div>
+
+                        <div *ngIf="successData?.recurring === 'RECURRING'">
+                            <app-label-value [label]="'Occurence'" [value]="successData?.occurrence"></app-label-value>
+                        </div>
+
+                        <app-label-value
+                            *ngIf="successData?.invoiceNumber"
+                            [label]="'Invoice Number'"
+                            [value]="successData?.invoiceNumber"
+                        ></app-label-value>
+                    </div>
+                    <mat-card-actions>
+                        <button mat-button class="mat-raised-button mat-primary" (click)="resetView()">OK</button>
+                    </mat-card-actions>
+                </ng-container>
+            </app-cib-notification>
+        </ng-template>
+    </ng-container>
+</app-master-container>

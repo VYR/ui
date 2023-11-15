@@ -1,0 +1,39 @@
+<app-master-container>
+    <ng-container header>REQUESTED CARD DETAILS</ng-container>
+    <ng-container icons>
+        <button mat-icon-button *ngIf="fileDocuments.length > 0">
+            <i class="las la-paperclip" [matMenuTriggerFor]="menu"></i>
+            <span class="hilight-medium" [matMenuTriggerFor]="menu">{{ fileDocuments.length }} </span>
+        </button>
+        <button (click)="action(DECISION.CANCEL)" mat-icon-button>
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div fxLayout="column">
+            <app-label-value *ngIf="data.embossingName" [label]="'Card Holder Name'" [value]="data.embossingName">
+            </app-label-value>
+            <app-label-value *ngIf="data.info3" [label]="'Qatar ID'" [value]="data.info3"></app-label-value>
+            <app-label-value *ngIf="data.mobileNo" [label]="'Mobile Number'" [value]="data.mobileNo"></app-label-value>
+            <app-label-value
+                *ngIf="data.companyAddress"
+                [label]="'Company Address'"
+                [value]="data.companyAddress"
+            ></app-label-value>
+            <app-label-value
+                *ngIf="data.charges"
+                [label]="'Charges'"
+                [value]="data.charges + ' (The first card issued under this account will be free)'"
+            ></app-label-value>
+            <app-label-value *ngIf="data.notes" [label]="'Reject Reason'" [value]="data.notes"></app-label-value>
+        </div>
+        <div *ngIf="data.length === 0">NO DETAILS FOUND</div>
+        <mat-menu #menu="matMenu" xPosition="before" class="mat-menu-container">
+            <app-cib-filter-menu
+                (_select)="getDownload(fileDocuments[$event])"
+                title="Attachments"
+                [options]="getFileName(fileDocuments)"
+            ></app-cib-filter-menu>
+        </mat-menu>
+    </ng-container>
+</app-master-container>

@@ -1,0 +1,163 @@
+<div fxLayout="row" fxLayoutGap="0.7rem" fxLayout.lt-md="column" fxLayoutWrap>
+    <div fxFlex="40" *appHasEntitlementAccessTo="'GENERAL_SERVICE_BALANCE_CONFIRMATION'">
+        <app-master-container>
+            <ng-container header
+                >{{ isRequestSuccess ? 'BALANCE CONFIRMATION REQUEST' : 'REQUEST FOR BALANCE CONFIRMATION' }}
+            </ng-container>
+            <ng-container body>
+                <div fxLayout="column" fxFlex="100" *ngIf="!isRequestSuccess">
+                    <form class="container" [formGroup]="balanceConfirmationRequestForm">
+                        <app-file-upload
+                            [label]="'Upload Document'"
+                            [maxSize]="5"
+                            [accept]="'.png,.jpeg,.jpg,.pdf'"
+                            (_onUpload)="onFileSelected($event)"
+                        ></app-file-upload>
+                        <mat-error *ngIf="fileErrMsg !== ''">{{ fileErrMsg }}</mat-error>
+                        <div class="header-info">
+                            <i class="las la-info-circle"></i> Please upload the balance confirmation request letter
+                            with account details on company letterhead signed by the authorized signatory.
+                        </div>
+                        <div>
+                            <mat-button-toggle-group
+                                formControlName="period"
+                                aria-label="Select an option"
+                                (change)="onValChange($event.value)"
+                            >
+                                <mat-button-toggle value="daily">Daily</mat-button-toggle>
+                                <mat-button-toggle value="monthly">Monthly</mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                        <div class="row">
+                            <mat-form-field
+                                fxFlex="100"
+                                (click)="$event.stopPropagation()"
+                                *ngIf="dateFilter === 'daily'"
+                            >
+                                <mat-label>Balance Confirmation Date</mat-label>
+                                <input
+                                    matInput
+                                    [matDatepicker]="picker"
+                                    [formControlName]="'requestDate'"
+                                    [min]="minDate"
+                                    [max]="maxDate"
+                                    [placeholder]="'Balance Confirmation Date'"
+                                    (focus)="picker.open()"
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field
+                                fxFlex="100"
+                                (click)="$event.stopPropagation()"
+                                *ngIf="dateFilter === 'monthly'"
+                            >
+                                <mat-label>Balance Confirmation Date</mat-label>
+                                <input
+                                    matInput
+                                    [matDatepicker]="picker"
+                                    [formControlName]="'requestDate'"
+                                    [min]="minDate"
+                                    [max]="maxDate"
+                                    [placeholder]="'Balance Confirmation Date'"
+                                    [matDatepickerFilter]="isLastDayOfMonth"
+                                    (focus)="picker.open()"
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Auditor's Name</mat-label>
+                                <input
+                                    type="text"
+                                    required
+                                    aria-label="Auditor's Name"
+                                    matInput
+                                    formControlName="auditorName"
+                                />
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field>
+                                <mat-label>Auditor's Contact Number</mat-label>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    required
+                                    aria-label="Auditor's Contact Number"
+                                    matInput
+                                    formControlName="auditorContactNumber"
+                                />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Fax Number</mat-label>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    required
+                                    aria-label="Fax Number"
+                                    matInput
+                                    formControlName="faxNumber"
+                                />
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field>
+                                <mat-label>Auditor's Email Id</mat-label>
+                                <input
+                                    type="text"
+                                    required
+                                    aria-label="Auditor's Email Id"
+                                    matInput
+                                    formControlName="auditorEmail"
+                                />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Auditor's Address</mat-label>
+                                <input
+                                    type="text"
+                                    required
+                                    aria-label="Auditor's Address"
+                                    matInput
+                                    formControlName="auditorAddress"
+                                />
+                            </mat-form-field>
+                        </div>
+
+                        <app-account-select
+                            ngDefaultControl
+                            [formGroup]="balanceConfirmationRequestForm"
+                            formControlName="fromAccount"
+                            (selectionChange)="onAccountChange($event)"
+                            label="Debit From"
+                            [options]="accounts"
+                        >
+                        </app-account-select>
+                        <div class="service-charges" *ngIf="isChargesReady">
+                            Balance Confirmation Charges {{ selectedCurrency }} {{ charges | number: '1.2-2' }}
+                        </div>
+                        <div>
+                            <button
+                                type="submit"
+                                mat-flat-button
+                                [disabled]="balanceConfirmationRequestForm.invalid || !selectedFile"
+                                (click)="sendRequest()"
+                                color="primary"
+                            >
+                                SUBMIT
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <ng-container *ngIf="isRequestSuccess">
+                    <app-request-status [data]="statusData"></app-request-status>
+                </ng-container>
+            </ng-container>
+        </app-master-container>
+    </div>
+    <div fxFlex="60">
+        <app-requests-list-table [requestType]="module" [disableDropdown]="true"></app-requests-list-table>
+    </div>
+</div>

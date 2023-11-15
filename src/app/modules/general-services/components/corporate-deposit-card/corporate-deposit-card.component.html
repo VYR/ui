@@ -1,0 +1,284 @@
+<ng-container *ngIf="!showDepositCardHistory">
+    <app-master-container>
+        <ng-container header>REQUEST FOR CORPORATE DEPOSIT CARD</ng-container>
+        <ng-container icons>
+            <button
+                mat-icon-button
+                (click)="goToHistory()"
+                *appHasEntitlementAccessTo="'GENERAL_SERVICE_DEPOSIT_CARD_LIST'"
+                #tooltip="matTooltip"
+                matTooltip="Corporate Deposit Card History"
+            >
+                <i class="las la-history"></i>
+            </button>
+        </ng-container>
+        <ng-container body *appHasEntitlementAccessTo="'GENERAL_SERVICE_DEPOSIT_CARD'; showBanner: true">
+            <ng-container *ngIf="!islimitReached">
+                <ng-container *ngIf="!isRequestSuccess; else successBody">
+                    <form class="container" [formGroup]="depositeCardForm">
+                        <app-master-container [variant]="'secondary'">
+                            <ng-container header>
+                                <div>Account's Information</div>
+                            </ng-container>
+                            <ng-container body>
+                                <div class="container-body">
+                                    <ng-container *ngIf="hasAccountSelected">
+                                        <div fxLayout="column" fxFlex="100">
+                                            <app-label-value
+                                                [label]="'Account'"
+                                                [value]="
+                                                    selectedAccount.account_no +
+                                                    ' ' +
+                                                    selectedAccount.category.description
+                                                "
+                                            >
+                                            </app-label-value>
+                                            <div class="field-desc">
+                                                {{ cardsRequested }} cards are initiated using this account.
+                                            </div>
+                                        </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="!hasAccountSelected">
+                                        <div fxLayout="column" fxFlex="100">
+                                            <mat-form-field>
+                                                <mat-label>From Account</mat-label>
+                                                <mat-select
+                                                    formControlName="account"
+                                                    (selectionChange)="selectedAccountNumber($event)"
+                                                >
+                                                    <mat-option
+                                                        *ngFor="let account of accountList; let i = index"
+                                                        [value]="account"
+                                                    >
+                                                        {{ account.account_no }} {{ account.category.description }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                            <div class="field-desc">Deposit card will be linked to this account.</div>
+                                        </div>
+                                    </ng-container>
+
+                                    <div fxLayout="column" fxFlex="100">
+                                        <mat-form-field fxFlex="100">
+                                            <mat-label>Company Name on Card</mat-label>
+                                            <input
+                                                type="text"
+                                                maxlength="20"
+                                                required
+                                                aria-label="Company Name"
+                                                matInput
+                                                formControlName="companyNameOnCard"
+                                            />
+                                        </mat-form-field>
+                                        <div class="field-desc">As you wish it to appear on Card.</div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </app-master-container>
+
+                        <app-master-container [variant]="'secondary'">
+                            <ng-container header>
+                                <div>Company Details</div>
+                            </ng-container>
+                            <ng-container icons>
+                                <div class="error-desc" *ngIf="isCRExpired">
+                                    CR is expired. Kindly update the CR Expiry date.
+                                </div>
+                            </ng-container>
+                            <ng-container body>
+                                <div class="container-body">
+                                    <div class="row">
+                                        <app-label-value [label]="'Name of the Company'" [value]="companyName">
+                                        </app-label-value>
+
+                                        <app-label-value [label]="'CR Number'" [value]="commRegNo"> </app-label-value>
+                                    </div>
+                                    <div class="row">
+                                        <app-cib-date-picker
+                                            [parentForm]="depositeCardForm"
+                                            [fomrControlName]="'crExpiryDate'"
+                                            [minDate]="minDate"
+                                            [placeholder]="'CR Expiry Date'"
+                                            (selectDate)="checkECValidity($event)"
+                                        >
+                                        </app-cib-date-picker>
+                                        <mat-form-field>
+                                            <mat-label>Building Number</mat-label>
+                                            <input
+                                                type="text"
+                                                aria-label="Building No"
+                                                maxlength="23"
+                                                matInput
+                                                formControlName="buildingNo"
+                                            />
+                                        </mat-form-field>
+                                        <mat-form-field>
+                                            <mat-label>Street Number</mat-label>
+                                            <input
+                                                type="text"
+                                                aria-label="Street No"
+                                                maxlength="23"
+                                                matInput
+                                                formControlName="streetNo"
+                                            />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="row">
+                                        <mat-form-field>
+                                            <mat-label>Zone Number</mat-label>
+                                            <input
+                                                type="text"
+                                                aria-label="Zone No"
+                                                maxlength="23"
+                                                matInput
+                                                formControlName="zoneNo"
+                                            />
+                                        </mat-form-field>
+
+                                        <mat-form-field>
+                                            <mat-label>PO BOX</mat-label>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                aria-label="PO BOX"
+                                                matInput
+                                                formControlName="poBoxNo"
+                                            />
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </app-master-container>
+
+                        <app-master-container [variant]="'secondary'">
+                            <ng-container header>
+                                <div>List of Required Documents</div>
+                            </ng-container>
+                            <ng-container body>
+                                <div class="container-body">
+                                    <div>Maximum file size 50 MB per document.</div>
+                                    <ng-container *ngFor="let data of documentsList; let i = index">
+                                        <app-file-upload
+                                            [label]="data.label"
+                                            [maxSize]="50"
+                                            [accept]="'.jpg,.png,.pdf'"
+                                            (_onUpload)="onFileSelected($event, i)"
+                                        ></app-file-upload>
+                                    </ng-container>
+                                </div>
+                            </ng-container>
+                        </app-master-container>
+
+                        <app-master-container [variant]="'secondary'">
+                            <ng-container header>
+                                <div>Card Holders Details</div>
+                            </ng-container>
+                            <ng-container icons>
+                                <button mat-icon-button (click)="addCard()">
+                                    <i class="las la-plus-circle"></i>
+                                </button>
+                            </ng-container>
+                            <ng-container body>
+                                <ng-container formArrayName="cards">
+                                    <ng-container
+                                        *ngFor="let formGroup of cardsFormArray.controls; index as i; let last = last"
+                                    >
+                                        <div [formGroupName]="i">
+                                            <div class="form-array-item">
+                                                <div>{{ i + 1 }}</div>
+
+                                                <mat-form-field>
+                                                    <mat-label>Card Holder Name</mat-label>
+                                                    <input
+                                                        type="text"
+                                                        maxlength="25"
+                                                        aria-label="Card Holder Name"
+                                                        matInput
+                                                        formControlName="cardHolderName"
+                                                    />
+                                                </mat-form-field>
+
+                                                <mat-form-field>
+                                                    <mat-label>Qatar Id</mat-label>
+                                                    <input
+                                                        type="text"
+                                                        aria-label="Qatar Id"
+                                                        matInput
+                                                        maxlength="11"
+                                                        minlength="11"
+                                                        formControlName="qatarId"
+                                                        (change)="validateQid(i)"
+                                                    />
+                                                </mat-form-field>
+
+                                                <mat-form-field>
+                                                    <mat-label>Mobile No</mat-label>
+                                                    <input
+                                                        type="text"
+                                                        maxlength="8"
+                                                        minlength="8"
+                                                        aria-label="Mobile No"
+                                                        matInput
+                                                        formControlName="mobile"
+                                                    />
+                                                </mat-form-field>
+
+                                                <button mat-icon-button color="primary" (click)="deleteCard(i)">
+                                                    <i class="las la-trash"></i>
+                                                </button>
+                                            </div>
+                                            <div *ngIf="isValidQid(i)" class="error-desc">
+                                                A card request has already been initiated/added using this Qatar Id.
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </app-master-container>
+
+                        <div class="terms">
+                            <div fxLayout="row" fxLayoutAlign="center" class="mt-1rem">
+                                <mat-checkbox aria-label="Terms and Conditions" (change)="isCheckBoxSelected($event)">
+                                    <span
+                                        >I agree to the
+                                        <a [href]="sampleurl" [download]="downloadFileName"
+                                            >Terms and Conditions</a
+                                        ></span
+                                    >
+                                </mat-checkbox>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center" class="mt-1rem">
+                                <button
+                                    [disabled]="depositeCardForm.invalid || !ischeckBoxSelected || files?.length !== 4"
+                                    class="mat-raised-button mat-primary"
+                                    type="submit"
+                                    mat-button
+                                    color="primary"
+                                    (click)="confirmSaveDepositRequest('VERIFY')"
+                                >
+                                    SUBMIT
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+                <ng-template #successBody>
+                    <app-corporate-deposit-card-request-success [requestSuccessData]="requestSuccessData">
+                    </app-corporate-deposit-card-request-success>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="islimitReached">
+                <div class="limit-reached">
+                    <span class="info"
+                        ><i class="las la-exclamation-circle"></i>Maximum limit reached. 20 deposit cards have already
+                        been requested.
+                    </span>
+                </div>
+            </ng-container>
+        </ng-container>
+    </app-master-container>
+</ng-container>
+<ng-container *ngIf="showDepositCardHistory">
+    <app-corporate-deposit-card-history (closeHistory)="closeHistory()"></app-corporate-deposit-card-history>
+</ng-container>

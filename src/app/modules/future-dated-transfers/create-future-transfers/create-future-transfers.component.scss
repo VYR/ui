@@ -1,0 +1,14 @@
+@import 'variables';
+
+.currency-label {
+    padding: 1rem 0;
+}
+.disclaimer {
+    margin-bottom: 1.25rem;
+}
+
+mat-form-field.currency-input {
+    .mat-input-element:read-only {
+        opacity: 1;
+    }
+}

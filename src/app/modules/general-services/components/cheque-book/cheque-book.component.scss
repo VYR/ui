@@ -1,0 +1,17 @@
+@import 'variables';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+
+    .info {
+        background: $qib-divider-color;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        color: $qib-primary-color;
+        font-style: italic;
+    }
+}

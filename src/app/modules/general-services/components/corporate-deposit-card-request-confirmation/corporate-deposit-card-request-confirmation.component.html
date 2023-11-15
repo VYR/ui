@@ -1,0 +1,54 @@
+<div flexLayout="column">
+    <app-label-value [label]="'Request Type'" [value]="'Deposit Card Request'"></app-label-value>
+    <app-label-value
+        [label]="'Account Number'"
+        [value]="data.linkSavingAcc"
+        *ngIf="data.linkSavingAcc"
+    ></app-label-value>
+    <app-label-value
+        [label]="'Account Number'"
+        [value]="data.linkCurrentAcc"
+        *ngIf="data.linkCurrentAcc"
+    ></app-label-value>
+    <app-label-value [label]="'Company Name'" [value]="data.companyName"></app-label-value>
+    <app-label-value [label]="'CR Number'" [value]="data.commRegNo"></app-label-value>
+    <app-label-value [label]="'CR Expiry Date'" [value]="data.crExpiryDate"></app-label-value>
+    <app-label-value [label]="'Building Number'" [value]="data.addrLine1"></app-label-value>
+    <app-label-value [label]="'Street Number'" [value]="data.addrLine2"></app-label-value>
+    <app-label-value [label]="'Zone Number'" [value]="data.addrLine3"></app-label-value>
+    <app-label-value [label]="'PO Box'" [value]="data.poBox"></app-label-value>
+
+    <div class="card-details">
+        <ng-container *ngFor="let cards of data.externalCardRequestsMaster; let i = index">
+            <app-master-container [variant]="'secondary'" [opened]="i === 0" [collapsable]="true">
+                <ng-container header>
+                    <div *ngIf="cards.embName">{{ 'Card Details' + ' - ' + (i + 1) }}</div>
+                </ng-container>
+                <ng-container body>
+                    <div fxLayout="row" fxLayoutGap="1rem">
+                        <app-label-value *ngIf="cards.embName" [label]="'Embossing Name'" [value]="cards.embName">
+                        </app-label-value>
+                        <app-label-value *ngIf="cards.qid" [label]="'Qatar Id'" [value]="cards.qid"></app-label-value>
+                        <app-label-value *ngIf="cards.mobile" [label]="'Mobile Number'" [value]="cards.mobile">
+                        </app-label-value>
+                    </div>
+                </ng-container>
+            </app-master-container>
+        </ng-container>
+    </div>
+    <ng-container>
+        <div class="divider"></div>
+        <app-cib-otp (otpValueEvent)="onOtpValueEnter($event)" class="otp-comp" [showMore]="true"></app-cib-otp>
+        <div class="divider"></div>
+    </ng-container>
+    <div fxLayout="row" fxLayoutGap="1rem">
+        <button
+            mat-button
+            class="mat-raised-button mat-primary"
+            (click)="action(DECISION.CONFIRM)"
+            [disabled]="!isOtpFilled"
+        >
+            CONFIRM
+        </button>
+    </div>
+</div>

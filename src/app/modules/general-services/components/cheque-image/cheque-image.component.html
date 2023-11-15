@@ -1,0 +1,92 @@
+<div fxLayout="row" fxLayoutGap="0.7rem" fxLayout.lt-md="column" fxLayoutWrap>
+    <div fxFlex="55">
+        <app-master-container>
+            <ng-container header>CHEQUE IMAGE</ng-container>
+            <ng-container body>
+                <div fxLayout="column" fxFlex="100">
+                    <div class="form-container">
+                        <form [formGroup]="chequeImageRequestForm">
+                            <div fxLayout="row wrap" fxLayoutGap="1rem">
+                                <mat-form-field fxFlex="45">
+                                    <mat-label>Cheque Number</mat-label>
+                                    <input
+                                        type="text"
+                                        aria-label="Cheque Number"
+                                        matInput
+                                        formControlName="chequeNumber"
+                                        required
+                                    />
+                                </mat-form-field>
+                                <mat-form-field fxFlex="45">
+                                    <mat-label>Amount</mat-label>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        aria-label="Amount"
+                                        matInput
+                                        formControlName="amount"
+                                    />
+                                </mat-form-field>
+                                <div fxFlex="45">
+                                    <app-cib-date-picker
+                                        [parentForm]="chequeImageRequestForm"
+                                        [fomrControlName]="'requestDate'"
+                                        [maxDate]="maxDate"
+                                        [placeholder]="'Date'"
+                                    ></app-cib-date-picker>
+                                </div>
+                            </div>
+                            <div>
+                                <button
+                                    fxFlex="25"
+                                    mat-flat-button
+                                    type="submit"
+                                    mat-stroked-button
+                                    [disabled]="chequeImageRequestForm.invalid"
+                                    (click)="getChequesList()"
+                                    color="primary"
+                                >
+                                    SUBMIT
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="divider"></div>
+                    <div fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
+                        <mat-label>Search Results</mat-label>
+                        <app-cib-table
+                            [config]="tableConfig"
+                            (_lazyLoad)="lazyLoad($event)"
+                            (_clickCell)="onClickCell($event.data)"
+                        ></app-cib-table>
+                    </div>
+                </div>
+            </ng-container>
+        </app-master-container>
+    </div>
+    <div fxFlex="45">
+        <app-master-container *ngIf="isImageFetched">
+            <ng-container header>CHEQUE IMAGE PREVIEW</ng-container>
+            <ng-container icons>
+                <button
+                    mat-icon-button
+                    (click)="frontImage.click(); backImage.click()"
+                    #tooltip="matTooltip"
+                    matTooltip="Download Cheque Image"
+                >
+                    <i class="las la-file-download"></i>
+                </button>
+            </ng-container>
+            <ng-container body>
+                <div fxLayout="column" fxFlex="100" fxLayoutGap="2rem">
+                    <a #frontImage href="data:image/png;base64,{{ frontImageUrl }}" download="frontImage.png">
+                        <img download src="data:image/png;base64,{{ frontImageUrl }}" alt="Cheque Front Image" />
+                    </a>
+                    <a #backImage href="data:image/png;base64,{{ backImageUrl }}" download="backImage.png">
+                        <img src="data:image/png;base64,{{ backImageUrl }}" alt="Cheque Back Image" />
+                    </a>
+                </div>
+            </ng-container>
+        </app-master-container>
+    </div>
+</div>

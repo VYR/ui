@@ -1,0 +1,77 @@
+<app-outlet-container>
+    <div fxFlex="100" fxFlex.sm="100" fxLayout="column">
+        <app-master-container>
+            <ng-container header>KYC REMEDIATION</ng-container>
+            <ng-container icons>
+                <button
+                    mat-icon-button
+                    #tooltip="matTooltip"
+                    matTooltip="Download the QIB Kyc Remediation Bulk Upload Template"
+                    (click)="downloadExcelFormat()"
+                >
+                    <i class="las la-file-download"></i></button
+            ></ng-container>
+            <ng-container body>
+                <div fxLayout="column" fxLayoutGap="2rem">
+                    <form class="search-controls" [formGroup]="bulkUploadForm">
+                        <div>
+                            <mat-form-field (click)="fileInput.value = ''; fileInput.click()" floatLabel="never">
+                                <mat-label>{{ fileTypeLabel }}</mat-label>
+                                <input
+                                    matInput
+                                    formControlName="fileName"
+                                    type="text"
+                                    placeholder="{{ fileTypeLabel }}"
+                                />
+                                <input
+                                    hidden
+                                    type="file"
+                                    accept="{{ acceptFileType }}"
+                                    multiple="false"
+                                    (change)="onFileSelected($event)"
+                                    #fileInput
+                                />
+                                <mat-error *ngIf="bulkUploadForm.controls['fileName']?.errors?.['splChrCheck']">
+                                    Invalid File. File name shoud not contains any special characters.
+                                </mat-error>
+                                <mat-error *ngIf="bulkUploadForm.controls['fileName']?.errors?.['extCheck']">
+                                    Invalid File. Please upload only the files with {{ acceptFileType }} extensions.
+                                </mat-error>
+                            </mat-form-field>
+                            <div *ngIf="fileValid" class="red">Invalid File. Please upload vaild file.</div>
+                        </div>
+                    </form>
+                    <div *ngIf="tableView">
+                        <app-cib-table [config]="tableConfig"> </app-cib-table>
+                    </div>
+                    <div *ngIf="btnView">
+                        <div fxLayout="row" fxLayoutGap="0.5rem">
+                            <button
+                                (click)="closekyc()"
+                                flex="20"
+                                class="mat-raised-button"
+                                type="submit"
+                                mat-stroked-button
+                            >
+                                Cancel
+                            </button>
+                            <ng-container>
+                                <button
+                                    flex="20"
+                                    class="mat-raised-button mat-primary"
+                                    type="submit"
+                                    mat-stroked-button
+                                    color="primary"
+                                    (click)="saveAsKyc()"
+                                >
+                                    Save
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <!-- <div *ngIf="gridData.length === 0">No Record Founds</div> -->
+                </div>
+            </ng-container>
+        </app-master-container>
+    </div>
+</app-outlet-container>

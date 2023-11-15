@@ -1,0 +1,20 @@
+<app-master-container>
+    <ng-container header>CARD DETAILS</ng-container>
+    <ng-container icons>
+        <button (click)="action(DECISION.CANCEL)" mat-icon-button>
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div fxLayout="column">
+            <app-cib-card *ngFor="let cards of data">
+                <app-label-value *ngIf="cards.embName" [label]="'Card Holder Name'" [value]="cards.embName">
+                </app-label-value>
+                <app-label-value *ngIf="cards.qid" [label]="'Qatar ID'" [value]="cards.qid"> </app-label-value>
+                <app-label-value *ngIf="cards.mobile" [label]="'Mobile Number'" [value]="cards.mobile">
+                </app-label-value>
+            </app-cib-card>
+        </div>
+        <div *ngIf="data.length === 0">NO DETAILS FOUND</div>
+    </ng-container>
+</app-master-container>
