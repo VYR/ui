@@ -1,0 +1,56 @@
+<app-master-container>
+    <ng-container header>Card Payment</ng-container>
+    <ng-container body>
+        <app-payment-card></app-payment-card>
+        <div class="card-details">
+            <app-label-value
+                [label]="'Available Limit'"
+                *ngIf="cardDetails.cardLimit"
+                [value]="cardDetails.currency + ' ' + (cardDetails.cardLimit | number: '1.2-4')"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Minimum Due Amount'"
+                *ngIf="cardDetails.minimumDueAmount"
+                [value]="cardDetails.currency + ' ' + (cardDetails.minimumDueAmount | number: '1.2-4')"
+            >
+            </app-label-value>
+            <app-label-value
+                [label]="'Outstanding Balance'"
+                *ngIf="cardDetails.outStandingAmt"
+                [value]="cardDetails.currency + ' ' + (cardDetails.outStandingAmt | number: '1.2-4')"
+            >
+            </app-label-value>
+        </div>
+        <div fxFlex="column">
+            <form [formGroup]="paymentForm">
+                <mat-form-field>
+                    <mat-label>Enter Amount</mat-label>
+                    <input type="number" min="0" aria-label="Amount" required matInput formControlName="amount" />
+                </mat-form-field>
+                <app-from-account
+                    [parentForm]="paymentForm"
+                    [fromAccounts]="accounts"
+                    (selectAccount)="onAccountChange($event)"
+                ></app-from-account>
+                <!--Bank details-->
+                <div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="center">
+                    <button mat-flat-button type="button" mat-button (click)="cancelPayment()" aria-label="CANCEL">
+                        CANCEL
+                    </button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        type="button"
+                        mat-button
+                        [disabled]="paymentForm.invalid"
+                        (click)="makePayment()"
+                        aria-label="PAY"
+                    >
+                        PAY
+                    </button>
+                </div>
+            </form>
+        </div>
+    </ng-container>
+</app-master-container>
