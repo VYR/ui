@@ -1,0 +1,174 @@
+@import 'variables';
+.inquiry-details {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+    padding: 0.625rem;
+    row-gap: 1rem;
+}
+
+.activity {
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .comment {
+        font-size: 0.875rem;
+        color: $qib-primary-color;
+    }
+    .info {
+        font-size: 0.625rem;
+    }
+}
+
+.header-info {
+    font-weight: 600;
+    color: $qib-text-color;
+}
+
+.hilight-medium {
+    color: $qib-text-color;
+}
+
+.hilight-low {
+    font-size: 0.688rem;
+    color: $qib-text-color;
+}
+
+.history-icon {
+    color: $qib-red;
+    float: right;
+    cursor: pointer;
+}
+
+.action-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 0.625rem;
+}
+
+.dropzone {
+    background-color: $qib-white;
+    padding: 4.375rem 3.125rem;
+}
+
+.wrapper-container {
+    background-color: $qib-white;
+    padding: 0.625rem;
+}
+
+.title-section {
+    display: flex;
+}
+
+.title-section > div {
+    text-align: center;
+}
+
+.document-section {
+    display: flex;
+}
+
+.left-section,
+.right-section {
+    flex: 50%;
+    margin: 0.625rem 0.625rem 0.625rem 0.625rem;
+}
+
+.document-selection,
+.upload-document-selection {
+    border-radius: 0.625rem;
+    border: 0.063rem solid $qib-text-lightgrey;
+    background: $qib-white;
+    box-shadow: none;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.document-selection h4,
+.upload-document-selection h4 {
+    padding-bottom: 0.313rem;
+}
+
+.upload-document-section {
+    background: $qib-white;
+    border: dashed $qib-color-orange 0.125rem;
+    text-align: center;
+    padding: 0.313rem;
+}
+
+.upload-document-section {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+
+.img-section {
+    flex: 30%;
+}
+
+.img-section img {
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-section {
+    flex: 70%;
+    margin-bottom: 0.625rem;
+}
+
+.file {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.file > input[type='file'] {
+    display: none;
+}
+
+.file > label {
+    font-size: 1rem;
+    font-weight: 300;
+    cursor: pointer;
+    outline: 0;
+    user-select: none;
+    border-color: $qib-text-lightgrey; //  #d8d8d8 #d1d1d1 #bababa
+    border-style: solid;
+    border-radius: 0.25rem;
+    border-width: 0.063rem;
+    background-color: $qib-white;
+    color: $qib-text-lightgrey;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.file > label:hover {
+    border-color: $qib-page-title-label-color;
+}
+
+.file > label:active {
+    background-color: $qib-text-lightgrey;
+}
+.comment-input {
+    min-width: 15.5rem;
+}
+.info {
+    font-size: 0.625rem;
+    margin: 1rem 1rem 0rem 0rem;
+}
+
+.cib-drawer {
+    .header {
+        color: $qib-text-color;
+    }
+}

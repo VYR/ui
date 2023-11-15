@@ -1,0 +1,148 @@
+<app-master-container>
+    <ng-container header></ng-container>
+    <ng-container icons>
+        <button mat-icon-button (click)="printDocument(preview)">
+            <i class="las la-print print"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div fxFlex="100" #preview class="fxLayout-print print-view">
+            <div id="ManualTransferRequest" style="width: 768px" fxLayout="column" class="md-padding">
+                <div fxLayout="row" fxFlex="100" fxLayoutAlign="flex-end" style="margin-bottom: 12px">
+                    Date:<span>{{ todayDate | date: 'dd/MM/yyyy' }}</span>
+                </div>
+                <div fxLayout="row" fxFlex="100">From:</div>
+                <div fxLayout="row" fxFlex="100"><span [textContent]="user?.organizations[0]?.firstName"></span></div>
+                <div fxLayout="row" fxFlex="100" style="margin-bottom: 12px">
+                    <span [textContent]="user?.organizations[0]?.city"></span
+                    ><span *ngIf="user?.organizations[0]?.city">,</span
+                    ><span [textContent]="user?.organizations[0]?.country"></span>
+                </div>
+                <div fxLayout="row" fxFlex="100">To:</div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="100" [textContent]="staticData?.senderName"></div>
+                </div>
+                <div fxLayout="row" fxFlex="100" style="margin-bottom: 12px">
+                    <div fxFlex="100" [textContent]="staticData?.bankName"></div>
+                </div>
+                <div fxLayout="row" fxFlex="100" style="margin-bottom: 12px">
+                    <div fxFlex="100" [textContent]="staticData?.subject"></div>
+                </div>
+                <div fxLayout="row" fxFlex="100" style="margin-bottom: 25px">
+                    <div fxFlex="100" [textContent]="staticData?.note"></div>
+                </div>
+                <div fxLayout="row" fxFlex="100" style="margin-bottom: 25px">
+                    <div fxFlex="100">
+                        <label>CIB Reference # </label><span [textContent]="selectedTransfer?.cibReferenceId"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="50" style="border: 1px solid #555; border-bottom: none; padding: 2px">
+                        <label>Debit Acount :</label><span [textContent]="selectedTransfer?.fromAccount"></span>
+                    </div>
+                    <div
+                        fxFlex="50"
+                        style="border: 1px solid #555; border-bottom: none; padding: 2px; border-left: none"
+                    >
+                        <label>Debit Currency :</label><span [textContent]="selectedTransfer?.fromAccountCurr"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="50" style="border: 1px solid #555; border-bottom: none; padding: 2px">
+                        <label>Transfer Currency :</label><span [textContent]="selectedTransfer?.currency"></span>
+                    </div>
+                    <div
+                        fxFlex="50"
+                        style="border: 1px solid #555; border-bottom: none; padding: 2px; border-left: none"
+                    >
+                        <label>Transfer Amount in Figures :</label
+                        ><span [textContent]="selectedTransfer?.amount"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="100" style="border: 1px solid #555; border-bottom: none; padding: 2px">
+                        <label>Transfer Currency & Amount in words :</label>
+                        <span style="text-transform: capitalize" [textContent]="selectedTransfer?.amountInWords">
+                        </span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="100" style="border: 1px solid #555; border-bottom: none; padding: 2px">
+                        <label>Beneficiary IBAN (where applicable) or Account Number :</label
+                        ><span [textContent]="selectedTransfer?.toAccount"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="100" style="border: 1px solid #555; border-bottom: none; padding: 2px">
+                        <label>Beneficiary Full Name:</label><span [textContent]="selectedTransfer?.nickName"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="30" style="border: 1px solid #555; padding: 2px">
+                        <label>Beneficiary Address :</label>
+                    </div>
+                    <div fxFlex="70" style="border: 1px solid #555; padding: 2px; border-left: none">
+                        Street Name:<span [textContent]="selectedTransfer?.street"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="30" style="border-right: 1px solid #555"></div>
+                    <div fxFlex="40" style="border-right: 1px solid #555; padding: 2px">
+                        City :<span [textContent]="selectedTransfer?.beneficiaryCity"></span>
+                    </div>
+                    <div fxFlex="40" style="border-right: 1px solid #555; padding: 2px">
+                        Country :<span [textContent]="selectedTransfer?.beneficiaryCountry"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="100" style="border: 1px solid #555; border-bottom: none; padding: 2px">
+                        <label>Beneficiary Bank Name :</label><span [textContent]="selectedTransfer?.bankName"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="30" style="border: 1px solid #555; padding: 2px">
+                        <label>Beneficiary Bank Address :</label>
+                    </div>
+                    <div fxFlex="70" style="border: 1px solid #555; padding: 2px; border-left: none">
+                        Branch Name :<span [textContent]="selectedTransfer?.branchAddress1"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="30" style="border-right: 1px solid #555"></div>
+                    <div fxFlex="40" style="border-right: 1px solid #555; padding: 2px">
+                        City :<span [textContent]="selectedTransfer?.bankCity"></span>
+                    </div>
+                    <div fxFlex="40" style="border-right: 1px solid #555; padding: 2px">
+                        Country :<span [textContent]="selectedTransfer?.bankCountry"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="100" style="border: 1px solid #555; border-bottom: none; padding: 2px">
+                        <label>Beneficiary Bank :</label><span [textContent]="selectedTransfer?.bic"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="100" style="border: 1px solid #555; border-bottom: none; padding: 2px">
+                        <label>Purpose Of Payment :</label
+                        ><span [textContent]="selectedTransfer?.purposeOfPayment"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100">
+                    <div fxFlex="100" style="border: 1px solid #555; border-bottom: none; padding: 2px">
+                        <label>Payment Details :</label><span [textContent]="selectedTransfer?.detailsOfPayment"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100" style="margin-bottom: 25px">
+                    <div fxFlex="100" style="border: 1px solid #555; padding: 2px">
+                        <label>Charge Type :</label><span [textContent]="selectedTransfer?.chargeType"></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100" style="margin-bottom: 45px">
+                    <div fxFlex="100" [textContent]="staticData?.endNote"></div>
+                </div>
+                <div fxLayout="row" fxFlex="100" [textContent]="staticData?.regards"></div>
+                <div fxLayout="row" fxFlex="100"><span [textContent]="user?.organizations[0]?.firstName"></span></div>
+            </div>
+        </div>
+    </ng-container>
+</app-master-container>
