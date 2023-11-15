@@ -1,0 +1,76 @@
+<app-master-container>
+    <ng-container header>KYC Update !</ng-container>
+
+    <ng-container icons>
+        <button mat-icon-button (click)="action(DECISION.CANCEL)">
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div class="body">
+            <div fxLayout="row" fxLayoutGap="1rem" *ngIf="data.data === 1">
+                <div class="bold"></div>
+                <div>
+                    Dear Customer, <br />
+                    In compliance with the regulatory requirements, you are kindly requested to update your corporate
+                    account information in order to continue benefiting from all QIB corporate products and services.
+                    <br />
+                    To update your profile, please click on the following link and follow the required steps.
+                    <a href="http://www.qib.com.qa/en-kyc" target="_blank">www.qib.com.qa/en-kyc</a> Please ensure that
+                    all fields are properly completed and the update form is duly signed and stamped. Please kindly
+                    deliver the completed documentation to the Corporate Service Centre located at our Fanar branch
+                    during the official working hours from Sunday to Thursday 7:30 am – 1:00 pm For further inquiries,
+                    kindly call our Call Center on 44109914
+                </div>
+                <div></div>
+                <div class="bold rtl"></div>
+                <div class="rtl">
+                    عميلنا العزيز، <br />
+                    إمتثالاً لتعليمات الجهات الرقابية، يرجى تحديث البيانات الخاصة بحساب شركتكم من أجل الاستمرار
+                    بالاستفادة من جميع منتجات وخدمات المصرف. لمعرفة الخطوات والمستندات المطلوبة:
+                    <a href="http://www.qib.com.qa/ar-KYC" target="_blank">www.qib.com.qa/ar-KYC</a>
+                    يرجى التأكد من أن جميع الحقول مكتملة بشكل صحيح وأن استمارة التحديث موقعة ومختومة حسب الأصول. يرجى
+                    تسليم المستندات المكتملة إلى مركز خدمة الشركات الموجود في فرع الفنار لدينا خلال ساعات العمل الرسمية
+                    من الأحد إلى الخميس 7:30 صباحًا - 1:00 مساءً للاستفسارات, يرجى التواصل من خلال مركز الاتصال على
+                    الرقم التالي 44109914
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="1rem" *ngIf="data.data === 2">
+                <div class="bold"></div>
+                <div>
+                    Dear Customer, <br />
+                    In line with regulatory requirement, your account had been now restricted to perform certain
+                    transactions due to missing/incomplete account information. <br />
+                    To reactivate your account, please update your corporate account data then send us an email to
+                    <a href="mailto:Corp-KYCUpdate@qib.com.qa">Corp-KYCUpdate@qib.com.qa</a> to confirm submission of
+                    the required update account info. Reactivation can take up to 5 working days. To update your
+                    profile, please click on the following link and follow the required steps.<a
+                        href="http://www.qib.com.qa/en-kyc"
+                        target="_blank"
+                        >www.qib.com.qa/en-kyc</a
+                    >
+                    Please ensure that all fields are properly completed and the update form is duly signed and stamped.
+                    Please kindly deliver the completed documentation to the Corporate Service Centre located at our
+                    Fanar branch during the official working hours from Sunday to Thursday 7:30 am – 1:00 pm For further
+                    inquiries, kindly call our Call Center on 44109914
+                </div>
+                <div></div>
+                <div class="bold rtl"></div>
+                <div class="rtl">
+                    عميلنا العزيز، <br />
+                    تم إيقاف حساب شركتكم من القيام بتنفيذ بعض العمليات نظراً لعدم تحديث/اكتمال البيانات الخاصة بالحساب
+                    إمتثالاً لتعليمات الجهات الرقابية لتفعيل الحساب يرجى تحديث البيانات الخاصة بحساب شركتكم ومن ثم إرسال
+                    بريد الكتروني الى <a href="mailto:Corp-KYCUpdate@qib.com.qa">Corp-KYCUpdate@qib.com.qa</a> لـتأكيد
+                    قيامكم بتحديث البيانات علما بان عملية اعادة تفعيل الحساب قد تستغرق 5 ايام عمل. لمعرفة الخطوات
+                    والمستندات المطلوبة:
+                    <a href="http://www.qib.com.qa/ar-KYC" target="_blank">www.qib.com.qa/ar-KYC</a> يرجى التأكد من أن
+                    جميع الحقول مكتملة بشكل صحيح وأن استمارة التحديث موقعة ومختومة حسب الأصول. يرجى تسليم المستندات
+                    المكتملة إلى مركز خدمة الشركات الموجود في فرع الفنار لدينا خلال ساعات العمل الرسمية من الأحد إلى
+                    الخميس 7:30 صباحًا - 1:00 مساءً للاستفسارات, يرجى التواصل من خلال مركز الاتصال على الرقم التالي
+                    44109914
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</app-master-container>

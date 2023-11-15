@@ -1,0 +1,38 @@
+<div class="bulk-details">
+    <app-label-value [label]="'Request ID:'" [value]="data.id"></app-label-value>
+    <app-label-value [label]="'File Name:'" [value]="data.requestData.fileName"></app-label-value>
+    <app-label-value [label]="'File Status:'" *ngIf="data.fileStatus" [value]="data.fileStatus"></app-label-value>
+    <app-label-value [label]="'Currency:'" [value]="data.requestData.currency || 'QAR '"></app-label-value>
+    <app-label-value [label]="'Total Amount:'" [value]="data.txnAmount" [type]="'amount'"></app-label-value>
+    <app-label-value [label]="'Remark:'" *ngIf="data.remark" [value]="data.remark"></app-label-value>
+    <app-label-value [label]="'Created By:'" [value]="data.createdBy"></app-label-value>
+    <app-label-value [label]="'Created Date:'" [value]="(data.created | date: 'medium') || ''"></app-label-value>
+    <app-label-value [label]="'Last Updated By:'" [value]="data.updatedBy"></app-label-value>
+    <app-label-value [label]="'Last Updated Date:'" [value]="(data.updated | date: 'medium') || ''"></app-label-value>
+</div>
+<div class="bulk-details">
+    <app-label-value *ngIf="pendingWith.length > 0" [label]="'Request Pending with'" [value]="pendingWith.join(', ')">
+    </app-label-value>
+</div>
+<div class="activity-section" *ngIf="showActivityHistory">
+    <div class="activity-header">Activity History</div>
+    <div class="activity">
+        <ng-container *ngFor="let entry of data.requestAction">
+            <div class="entry" *ngIf="entry.complete">
+                <span [appTextHighlight]="entry.action.name === 'APPROVE' ? 'Approved' : 'Rejected'">{{
+                    entry.action.name === 'APPROVE' ? 'Approved' : 'Rejected'
+                }}</span>
+                by <span class="hilight">{{ entry.updatedBy }}</span> on
+                <span class="hilight">{{ entry.updated | date: 'medium' }}</span
+                >.
+            </div>
+            <app-label-value
+                [label]="'Reason to reject...'"
+                *ngIf="entry?.note?.note"
+                [value]="entry?.note?.note"
+            ></app-label-value>
+        </ng-container>
+    </div>
+</div>
+<div class="divider"></div>
+<app-cib-table [config]="tableConfig"> </app-cib-table>

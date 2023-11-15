@@ -1,0 +1,20 @@
+div {
+    color: #000000;
+}
+.bold {
+    font-weight: bold;
+    text-align: center;
+}
+.body > div {
+    text-align: justify;
+}
+
+.pl-8 {
+    padding-left: 8rem;
+}
+.pl-6p2 {
+    padding-left: 6.2rem;
+}
+.rtl {
+    direction: rtl;
+}

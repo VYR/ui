@@ -1,0 +1,23 @@
+<div class="selection" *ngIf="selectedRequests.length">
+    <div class="description">
+        <div class="count">
+            {{ selectedRequests.length }}
+        </div>
+        <div>Requests has been selected.</div>
+    </div>
+    <div class="action-buttons">
+        <button mat-button color="primary" (click)="actOnSelected(DECISION.VERIFY, DECISION.REJECT)">
+            <img class="action-icon" src="assets/images/Reject.png" alt="" srcset="" /> Reject
+        </button>
+        <button mat-button color="primary" (click)="actOnSelected(DECISION.VERIFY, DECISION.APPROVE)">
+            <img class="action-icon" src="assets/images/Approve.png" alt="" srcset="" /> Approve
+        </button>
+    </div>
+</div>
+
+<app-cib-table
+    [config]="config"
+    (_lazyLoad)="lazyLoad($event)"
+    (_select)="onSelect($event)"
+    (_clickCell)="onClickCell($event)"
+></app-cib-table>

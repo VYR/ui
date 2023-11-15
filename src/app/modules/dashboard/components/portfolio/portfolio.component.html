@@ -1,0 +1,45 @@
+<div class="portfolio-container">
+    <app-master-container fxFlex="40">
+        <ng-container header>Portfolio</ng-container>
+        <ng-container body>
+            <app-cib-pie-chart [config]="config"></app-cib-pie-chart>
+        </ng-container>
+    </app-master-container>
+    <app-master-container fxFlex="28">
+        <ng-container header>Assets</ng-container>
+        <ng-container body>
+            <div class="portfolio">
+                <ng-container *ngIf="hasAssets; else noAssets">
+                    <ng-container *ngFor="let asset of networth.assets">
+                        <div *ngIf="asset.show" class="info-row">
+                            <div>{{ asset.label }}</div>
+                            <div>{{ asset.total }} {{ asset.currency }}</div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+                <ng-template #noAssets>
+                    <div class="no-data">No assets</div>
+                </ng-template>
+            </div>
+        </ng-container>
+    </app-master-container>
+    <app-master-container fxFlex="28">
+        <ng-container header>Liabilities</ng-container>
+        <ng-container body>
+            <div class="portfolio">
+                <ng-container *ngIf="hasLiabilities; else noLiabilities">
+                    <ng-container *ngFor="let liability of networth.liabilities">
+                        <div *ngIf="liability.show" class="info-row">
+                            <div>{{ liability.label }}</div>
+                            <div>{{ liability.total }} {{ liability.currency }}</div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <ng-template #noLiabilities>
+                    <div class="no-data">No Liabilities</div>
+                </ng-template>
+            </div>
+        </ng-container>
+    </app-master-container>
+</div>

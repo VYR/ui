@@ -1,0 +1,629 @@
+<ng-container *ngFor="let transaction of transactions; let i = index">
+    <app-master-container [variant]="'secondary'" [opened]="i === 0" [collapsable]="true">
+        <ng-container header>
+            <div>{{ transaction.cibRef }}</div>
+        </ng-container>
+        <ng-container body>
+            <div fxFlex="column">
+                <ng-container *ngIf="transaction">
+                    <ng-container *ngIf="transaction.requestDescription">
+                        <app-label-value [label]="'Request Type'" [value]="transaction.requestDescription">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.referenceNumber">
+                        <app-label-value [label]="'Reference Number'" [value]="transaction.referenceNumber">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.remark">
+                        <app-label-value [label]="'Remark'" [value]="transaction.remark"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.id">
+                        <app-label-value [label]="'Request ID'" [value]="transaction.id"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.documentUploadDetails">
+                        <app-label-value
+                            [type]="'link'"
+                            [label]="'Uploaded Document'"
+                            (click)="getDownload(transaction.documentUploadDetails)"
+                            [value]="transaction.documentUploadDetails.customerFileName"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.noOfTransfers">
+                        <app-label-value [label]="'Total no. of Transfers'" [value]="transaction.noOfTransfers">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.numberOfLeaves">
+                        <app-label-value [label]="'Number of Leaves'" [value]="transaction.numberOfLeaves">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.noOfSweeps">
+                        <app-label-value [label]="'Total no. of Sweep Balance Setup'" [value]="transaction.noOfSweeps">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.noOfDepositCards">
+                        <app-label-value [label]="'Total no. of Deposit Cards'" [value]="transaction.noOfDepositCards">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.totalThresholdAmount">
+                        <app-label-value [label]="'Total Threshold Amount'" [value]="transaction.totalThresholdAmount">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.type">
+                        <app-label-value [label]="'Type'" [value]="transaction.type | cibDefinition: 'UUID'">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.noOfCheques">
+                        <app-label-value [label]="'Total No. of Cheques'" [value]="transaction.noOfCheques">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.totalChequeAmount">
+                        <app-label-value
+                            [label]="'Total Cheque Amount'"
+                            [value]="'QAR' + ' ' + (transaction.totalChequeAmount | number: '1.2-4')"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.name">
+                        <app-label-value [label]="'Applicants Name'" [value]="transaction.name"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.fromAccount">
+                        <app-label-value [label]="'From Account'" [value]="transaction.fromAccount"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.toAccount">
+                        <app-label-value [label]="'To Account'" [value]="transaction.toAccount"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.beneficiaryName">
+                        <app-label-value [label]="'Beneficiary Name'" [value]="transaction.beneficiaryName">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.companyName">
+                        <app-label-value [label]="'Company Name'" [value]="transaction.companyName"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.companyAddress">
+                        <app-label-value [label]="'Company Address'" [value]="transaction.companyAddress">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.crExpiryDate">
+                        <app-label-value [label]="'CR Expiry Date'" [value]="transaction.crExpiryDate">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.commRegNo">
+                        <app-label-value [label]="'CR Number'" [value]="transaction.commRegNo"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.amount">
+                        <app-label-value
+                            [label]="'Total Amount'"
+                            [value]="transaction.currency + ' ' + (transaction.amount | number: '1.2-4')"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.payeeType">
+                        <app-label-value
+                            [label]="'Payee Type'"
+                            [value]="transaction.payeeType | cibDefinition: 'PAYEE'"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.tinNumber">
+                        <app-label-value [label]="'TIN Number'" [value]="transaction.tinNumber"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.billNumber">
+                        <app-label-value [label]="'Bill Number'" [value]="transaction.billNumber"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.dueDate">
+                        <app-label-value [label]="'Due Date'" [value]="transaction.dueDate"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.serviceNumber">
+                        <app-label-value [label]="'Service Number'" [value]="transaction.serviceNumber">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.description">
+                        <app-label-value [label]="'Transfer Description'" [value]="transaction.description">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.auditorName">
+                        <app-label-value [label]="'Auditors Name'" [value]="transaction.auditorName"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.auditorEmailId">
+                        <app-label-value [label]="'Auditors Email-Id'" [value]="transaction.auditorEmailId">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.auditorAddress">
+                        <app-label-value [label]="'Auditor Address'" [value]="transaction.auditorAddress">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.phoneNumber">
+                        <app-label-value [label]="'Auditors Contact Number'" [value]="transaction.phoneNumber">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.faxNumber">
+                        <app-label-value [label]="'Fax Number'" [value]="transaction.faxNumber"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.requestDate">
+                        <app-label-value [label]="'Request Date'" [value]="transaction.requestDate"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.principalAmount">
+                        <app-label-value
+                            [label]="'Deposit Amount'"
+                            [value]="
+                                transaction.principalCurrency + ' ' + (transaction.principalAmount | number: '1.2-4')
+                            "
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.tenor">
+                        <app-label-value [label]="'Tenor'" [value]="transaction.tenor | cibDefinition: 'TENOR'">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.profitRate">
+                        <app-label-value [label]="'Expected Profit Rate'" [value]="transaction.profitRate">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.autoRollOver">
+                        <app-label-value [label]="'Auto Rollover'" [value]="'Yes'"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.chargeType">
+                        <app-label-value [label]="'Charge Type'" [value]="transaction.chargeType"> </app-label-value>
+                        <div *ngIf="transaction.chargeType === 'OUR'" class="disclaimer">
+                            Note: Respective Corresponding Bank Charge will be applicable accordingly
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.exchangeRate">
+                        <app-label-value
+                            [label]="'Exchange Rate'"
+                            [value]="(transaction.exchangeRate | number: '1.2-4') || ''"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <div *ngIf="transaction.exchangeRate" class="disclaimer">
+                        Exchange rates shown are indicative. This may vary during the time of transfer.
+                    </div>
+
+                    <ng-container *ngIf="transaction.creditAmount">
+                        <app-label-value
+                            [label]="'Credit Amount'"
+                            [value]="transaction.creditCurrency + ' ' + (transaction.creditAmount | number: '1.2-4')"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.debitAmount">
+                        <app-label-value
+                            [label]="'Debit Amount'"
+                            [value]="transaction.debitCurrency + ' ' + (transaction.debitAmount | number: '1.2-4')"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.charges">
+                        <app-label-value
+                            [label]="'Charges'"
+                            [value]="transaction.chargeCurrency + ' ' + (transaction.charges | number: '1.2-4')"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.limit">
+                        <app-label-value
+                            [label]="'Limit'"
+                            [value]="transaction.limitCurrency + ' ' + (transaction.limit | number: '1.2-4')"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.purposeValue">
+                        <app-label-value [label]="'Purpose'" [value]="transaction.purposeValue"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.sourceOfIncome">
+                        <app-label-value
+                            [label]="'Source of Income'"
+                            [value]="transaction.sourceOfIncome"
+                        ></app-label-value>
+                    </ng-container>
+                    <app-label-value
+                        *ngIf="transaction.invoiceNumber"
+                        [label]="'Invoice Number'"
+                        [value]="transaction.invoiceNumber"
+                    >
+                    </app-label-value>
+
+                    <ng-container *ngIf="transaction.execTime">
+                        <app-label-value [label]="'Execution Time'" [value]="transaction.execTime"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.frequency">
+                        <app-label-value [label]="'Frequency'" [value]="transaction.frequency"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.occurrence">
+                        <app-label-value [label]="'Occurence'" [value]="transaction.occurrence"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.startDate">
+                        <app-label-value [label]="'Start Date'" [value]="transaction.startDate"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.recurring">
+                        <app-label-value [label]="'Type'" [value]="transaction.recurring"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.maskedCardNumber">
+                        <app-label-value [label]="'Card Number'" [value]="transaction.maskedCardNumber">
+                        </app-label-value>
+                    </ng-container>
+
+                    <app-label-value *ngIf="transaction.cardType" [label]="'Card Type'" [value]="transaction.cardType">
+                    </app-label-value>
+
+                    <ng-container *ngIf="transaction.embossingName">
+                        <app-label-value [label]="'Embossing Name'" [value]="transaction.embossingName">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.coverAccount">
+                        <app-label-value [label]="'Cover Account'" [value]="transaction.coverAccount">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.transactionAccounts">
+                        <app-label-value [label]="'Transaction Accounts'" [value]="transaction.transactionAccounts">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.thresholdAmount">
+                        <app-label-value
+                            [label]="'Threshold Amount'"
+                            [value]="
+                                transaction.thresholdCurrency + ' ' + (transaction.thresholdAmount | number: '1.2-4')
+                            "
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.serviceRequestId">
+                        <app-label-value [label]="'Service Request ID'" [value]="transaction.serviceRequestId">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.period">
+                        <app-label-value [label]="'Period'" [value]="transaction.period"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.userName">
+                        <app-label-value [label]="'Username'" [value]="transaction.userName"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.comments">
+                        <app-label-value [label]="'Comments'" [value]="transaction.comments"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.preferedTime">
+                        <app-label-value [label]="'Preferred Contact Date and Time'" [value]="transaction.preferedTime">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.userId">
+                        <app-label-value [label]="'User ID'" [value]="transaction.userId"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.userStatus">
+                        <app-label-value [label]="'User Status'" [value]="transaction.userStatus"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.emailId">
+                        <app-label-value [label]="'Registered Email-Id'" [value]="transaction.emailId">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.alternateEmailId">
+                        <app-label-value [label]="'Alternate Email-Id'" [value]="transaction.alternateEmailId">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.mobileNumber">
+                        <app-label-value [label]="'Applicants Mobile Number'" [value]="transaction.mobileNumber">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.createdBy">
+                        <app-label-value [label]="'Created By'" [value]="transaction.createdBy"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.created">
+                        <app-label-value
+                            [label]="'Created Date'"
+                            [value]="(transaction.created | date: 'medium') || ''"
+                        >
+                        </app-label-value>
+                    </ng-container>
+                    <ng-container *ngIf="transaction.updatedBy">
+                        <app-label-value [label]="'Last Updated By'" [value]="transaction.updatedBy"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.updated">
+                        <app-label-value
+                            [label]="'Last Updated Date'"
+                            [value]="(transaction.updated | date: 'medium') || ''"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.rejectedBy">
+                        <app-label-value [label]="'Rejected By'" [value]="transaction.rejectedBy"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.rejectedDate">
+                        <app-label-value
+                            [label]="'Rejected Date'"
+                            [value]="(transaction.rejectedDate | date: 'medium') || ''"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.reasonForReject">
+                        <app-label-value [label]="'Reason For Rejection'" [value]="transaction.reasonForReject">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.bulkPayments?.length > 0">
+                        <app-cib-card *ngFor="let payData of transaction.bulkPayments">
+                            <app-label-value
+                                *ngIf="payData.amount"
+                                [label]="'Amount'"
+                                [value]="payData.currency + ' ' + (payData.amount | number: '1.2-4')"
+                            >
+                            </app-label-value>
+                            <app-label-value *ngIf="payData.type" [label]="'Type'" [value]="payData.type">
+                            </app-label-value>
+
+                            <app-label-value
+                                *ngIf="payData.fromAccount"
+                                [label]="'From Account'"
+                                [value]="payData.fromAccount"
+                            ></app-label-value>
+                            <app-label-value
+                                *ngIf="payData.toAccount"
+                                [label]="'To Account'"
+                                [value]="payData.toAccount"
+                            ></app-label-value>
+                            <app-label-value
+                                *ngIf="payData.beneficiaryName"
+                                [label]="'Beneficiary Name'"
+                                [value]="payData.beneficiaryName"
+                            >
+                            </app-label-value>
+                            <app-label-value
+                                *ngIf="payData.payeeType"
+                                [label]="'Payee Type'"
+                                [value]="payData.payeeType | cibDefinition: 'PAYEE'"
+                            >
+                            </app-label-value>
+
+                            <ng-container *ngIf="payData.chargeType">
+                                <app-label-value [label]="'Charge Type'" [value]="payData.chargeType">
+                                </app-label-value>
+                                <div *ngIf="payData.chargeType === 'OUR'" class="disclaimer">
+                                    Note: Respective Corresponding Bank Charge will be applicable accordingly
+                                </div>
+                            </ng-container>
+                            <app-label-value
+                                *ngIf="payData.purposeValue"
+                                [label]="'Purpose'"
+                                [value]="payData.purposeValue"
+                            >
+                            </app-label-value>
+                            <ng-container *ngIf="payData.description">
+                                <app-label-value [label]="'Transfer Description'" [value]="payData.description">
+                                </app-label-value>
+                            </ng-container>
+                            <app-label-value
+                                *ngIf="payData.sourceOfIncome"
+                                [label]="'Source of Income'"
+                                [value]="payData.sourceOfIncome"
+                            ></app-label-value>
+                            <app-label-value
+                                *ngIf="payData.invoiceNumber"
+                                [label]="'Invoice Number'"
+                                [value]="payData.invoiceNumber"
+                            >
+                            </app-label-value>
+                            <app-label-value
+                                *ngIf="payData.maskedCardNumber"
+                                [label]="'Card Number'"
+                                [value]="payData.maskedCardNumber"
+                            ></app-label-value>
+
+                            <ng-container *ngIf="payData.embossingName">
+                                <app-label-value [label]="'Embossing Name'" [value]="payData.embossingName">
+                                </app-label-value>
+                            </ng-container>
+
+                            <app-label-value
+                                *ngIf="payData.electricityNumber"
+                                [label]="'Electricity Number'"
+                                [value]="payData.electricityNumber"
+                            ></app-label-value>
+
+                            <app-label-value *ngIf="payData.qatarId" [label]="'Qatar ID'" [value]="payData.qatarId">
+                            </app-label-value>
+
+                            <app-label-value *ngIf="payData.mobile" [label]="'Mobile Number'" [value]="payData.mobile">
+                            </app-label-value>
+
+                            <app-label-value
+                                *ngIf="payData.referenceNumber"
+                                [label]="'Reference Number'"
+                                [value]="payData.referenceNumber"
+                            ></app-label-value>
+
+                            <ng-container *ngIf="payData.exchangeRate">
+                                <app-label-value
+                                    [label]="'Exchange Rate'"
+                                    [value]="(payData.exchangeRate | number: '1.2-4') || ''"
+                                >
+                                </app-label-value>
+                            </ng-container>
+
+                            <div *ngIf="payData.exchangeRate" class="disclaimer">
+                                Exchange rates shown are indicative. This may vary during the time of transfer.
+                            </div>
+
+                            <ng-container *ngIf="payData.creditAmount">
+                                <app-label-value
+                                    [label]="'Credit Amount'"
+                                    [value]="payData.creditCurrency + ' ' + (payData.creditAmount | number: '1.2-4')"
+                                >
+                                </app-label-value>
+                            </ng-container>
+
+                            <ng-container *ngIf="payData.debitAmount">
+                                <app-label-value
+                                    [label]="'Debit Amount'"
+                                    [value]="payData.debitCurrency + ' ' + (payData.debitAmount | number: '1.2-4')"
+                                >
+                                </app-label-value>
+                            </ng-container>
+
+                            <ng-container *ngIf="payData.thresholdAmount">
+                                <app-label-value
+                                    [label]="'Threshold Amount'"
+                                    [value]="
+                                        payData.thresholdCurrency + ' ' + (payData.thresholdAmount | number: '1.2-4')
+                                    "
+                                >
+                                </app-label-value>
+                            </ng-container>
+
+                            <app-label-value
+                                *ngIf="payData.chequeAccount"
+                                [label]="'Positive Pay Account Number'"
+                                [value]="payData.chequeAccount"
+                            ></app-label-value>
+
+                            <app-label-value
+                                *ngIf="payData.chequeNum"
+                                [label]="'Cheque Number'"
+                                [value]="payData.chequeNum"
+                            ></app-label-value>
+
+                            <ng-container *ngIf="payData.chequeAmount">
+                                <app-label-value
+                                    [label]="'Cheque Amount'"
+                                    [value]="payData.chequeCurrency + ' ' + (payData.chequeAmount | number: '1.2-4')"
+                                >
+                                </app-label-value>
+                            </ng-container>
+
+                            <app-label-value
+                                *ngIf="payData.issueDate"
+                                [label]="'Issue Date'"
+                                [value]="payData.issueDate"
+                            >
+                            </app-label-value>
+                            <app-label-value
+                                *ngIf="payData.paymentDate"
+                                [label]="'Payment Date'"
+                                [value]="payData.paymentDate"
+                            >
+                            </app-label-value>
+                        </app-cib-card>
+                    </ng-container>
+
+                    <div class="activity-section" *ngIf="showActivityHistory">
+                        <div class="activity-header">Activity History</div>
+                        <div class="activity">
+                            <ng-container *ngFor="let entry of transaction.requestAction">
+                                <div class="entry" *ngIf="entry.complete">
+                                    <span
+                                        [appTextHighlight]="entry.action.name === 'APPROVE' ? 'Approved' : 'Rejected'"
+                                        >{{ entry.action.name === 'APPROVE' ? 'Approved' : 'Rejected' }}</span
+                                    >
+                                    by <span class="hilight">{{ entry.updatedBy }}</span> on
+                                    <span class="hilight">{{ entry.updated | date: 'medium' }}</span
+                                    >.
+                                </div>
+                                <app-label-value
+                                    [label]="'Reason to reject...'"
+                                    *ngIf="entry?.note?.note"
+                                    [value]="entry?.note?.note"
+                                ></app-label-value>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <app-label-value *ngIf="pendingWith.length > 0" [label]="'Request Pending with'" [value]="pendingWith.join(', ')" >
+                    </app-label-value>
+
+                </ng-container>
+            </div>
+        </ng-container>
+    </app-master-container>
+</ng-container>
+<div class="action-section" *ngIf="mode !== DECISION.VIEW">
+    <app-cib-fx-disclaimer
+        *ngIf="mode !== DECISION.REJECT"
+        (checkboxValueEvent)="checkboxValueEvent($event)"
+        [fxTransaction]="hasFXDisclaimer"
+        [fxThreshold]="hasThresholdDisclaimer"
+        [fxRequestTypeValid]="transactions[0]?.requestType"
+        [fxRequestType]="transactions[0]?.currency === 'USD' ? true : false"
+    ></app-cib-fx-disclaimer>
+    <app-cib-otp class="otp-comp" (otpValueEvent)="otp = $event" [showMore]="true"></app-cib-otp>
+    <mat-form-field *ngIf="mode === DECISION.REJECT">
+        <mat-label>Reason:</mat-label>
+        <input matInput [(ngModel)]="notes" placeholder="Reason to reject..." />
+    </mat-form-field>
+    <div class="buttons-group">
+        <button
+            mat-flat-button
+            color="primary"
+            (click)="dialogRef.close({ data: mode, otp: this.otp, notes: this.notes })"
+            [disabled]="checkIfDisabled()"
+            type="submit"
+        >
+            {{ mode }}
+        </button>
+    </div>
+</div>

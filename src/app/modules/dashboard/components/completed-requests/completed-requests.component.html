@@ -1,0 +1,31 @@
+<app-master-container>
+    <ng-container header>
+        <span class="count" *ngIf="config.totalRecords">{{ config.totalRecords }}</span> Approver Requests
+    </ng-container>
+    <ng-container icons>
+        <form action="" class="search-group" [formGroup]="searchForm">
+            <mat-form-field>
+                <mat-label>Search By ID</mat-label>
+                <input matInput formControlName="id" placeholder="Search By ID" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Search By Type</mat-label>
+                <mat-select aria-label="type" formControlName="type">
+                    <mat-option *ngFor="let module of moduleTypes" [value]="module">
+                        <span>{{ module | cibDefinition: 'UUID' }}</span>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </ng-container>
+    <ng-container body>
+        <div class="completed-requests">
+            <app-cib-table
+                [config]="config"
+                (_lazyLoad)="lazyLoad($event)"
+                (_select)="onSelect($event)"
+                (_clickCell)="onClickCell($event)"
+            ></app-cib-table>
+        </div>
+    </ng-container>
+</app-master-container>

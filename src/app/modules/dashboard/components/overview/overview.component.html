@@ -1,0 +1,51 @@
+<ng-container *ngIf="!isStpUser">
+    <app-queue-status *appHasAccessToRole="[ROLE_NAME.ROLE_USER_MAKER]"></app-queue-status>
+</ng-container>
+
+<app-portfolio *ngIf="isStpUser; else nonStpPortfolio"></app-portfolio>
+<ng-template #nonStpPortfolio>
+    <app-portfolio
+        *appHasAccessToRole="[
+            ROLE_NAME.ROLE_USER_MAKER_CHECKER,
+            ROLE_NAME.ROLE_USER_VIEWER,
+            ROLE_NAME.ROLE_USER_VERIFIER,
+            ROLE_NAME.ROLE_USER_CHECKER
+        ]"
+    >
+    </app-portfolio>
+</ng-template>
+
+<ng-container *ngIf="!isStpUser">
+    <app-master-container
+        *appHasAccessToRole="[ROLE_NAME.ROLE_USER_MAKER, ROLE_NAME.ROLE_USER_MAKER_CHECKER]"
+        #approved
+        [opened]="true"
+        [collapsable]="true"
+    >
+        <ng-container header>
+            <span class="count" *ngIf="myRequests.config">{{ myRequests.config.totalRecords }}</span> All Requests
+        </ng-container>
+        <ng-container icons>
+            <button mat-button color="accent" (click)="viewAllRequests(APP_ROUTES.DASHBOARD_DETAILED)">View All</button>
+        </ng-container>
+        <ng-container body>
+            <app-my-requests [status]="'All'" #myRequests></app-my-requests>
+        </ng-container>
+    </app-master-container>
+</ng-container>
+<app-master-container
+    *appHasAccessToRole="[ROLE_NAME.ROLE_USER_MAKER_CHECKER, ROLE_NAME.ROLE_USER_VERIFIER, ROLE_NAME.ROLE_USER_CHECKER]"
+    #pending
+    [collapsable]="true"
+>
+    <ng-container header>
+        <span class="count" *ngIf="approverRequest.config">{{ approverRequest.config.totalRecords }}</span> Approver
+        Requests
+    </ng-container>
+    <ng-container icons>
+        <button mat-button color="accent" (click)="viewAllRequests(APP_ROUTES.DASHBOARD_DETAILED)">View All</button>
+    </ng-container>
+    <ng-container body>
+        <app-approver-requests #approverRequest></app-approver-requests>
+    </ng-container>
+</app-master-container>
