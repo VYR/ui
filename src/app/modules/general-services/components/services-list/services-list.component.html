@@ -1,0 +1,29 @@
+<div fxLayout="row" fxLayoutGap="0.7rem" fxLayout.lt-md="column" fxLayoutWrap>
+    <div fxFlex="40">
+        <app-master-container>
+            <ng-container header>GENERAL SERVICES</ng-container>
+            <ng-container body>
+                <div class="services-list">
+                    <ng-container *ngFor="let request of types; let i = index">
+                        <ng-container *appHasEntitlementAccessTo="request.uuid">
+                            <app-cib-card
+                                (_click)="setActiveRequest(request.path)"
+                                *ngIf="request.isMenu && request.name !== 'All'"
+                            >
+                                <div class="service-card" fxLayout="row" fxLayoutAlign="start center">
+                                    <div flex="20" class="menu-icon">
+                                        <i [ngClass]="request.prefix"></i>
+                                    </div>
+                                    <div flex="80" class="name" translate="ACC_MNGMT">{{ request.name }}</div>
+                                </div>
+                            </app-cib-card>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </app-master-container>
+    </div>
+    <div fxFlex="60" *appHasEntitlementAccessTo="'GENERAL_SERVICE_HISTORY'">
+        <app-requests-list-table [requestType]="types[0]"></app-requests-list-table>
+    </div>
+</div>

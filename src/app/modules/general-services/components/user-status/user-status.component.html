@@ -1,0 +1,37 @@
+<div fxLayout="row" fxLayoutGap="0.7rem" fxLayout.lt-md="column" fxLayoutWrap>
+    <div fxFlex="40" *appHasEntitlementAccessTo="'GENERAL_SERVICE_USER_STATUS'">
+        <app-master-container>
+            <ng-container header>SET USER STATUS (Activate /Deactivate)</ng-container>
+            <ng-container body>
+                <div *ngIf="!isRequestSuccess">
+                    <mat-form-field>
+                        <mat-label>Select User</mat-label>
+                        <mat-select aria-label="Select User" required [(ngModel)]="selectedUser">
+                            <mat-option *ngFor="let user of users" [value]="user">
+                                <span>{{ user.username }}</span>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div>
+                        <button
+                            *ngIf="selectedUser"
+                            class="upper-case"
+                            type="button"
+                            mat-flat-button
+                            (click)="processUserStatusRequest()"
+                            color="primary"
+                        >
+                            {{ selectedUser.enabled ? 'DeActivate' : 'Activate' }}
+                        </button>
+                    </div>
+                </div>
+                <ng-container *ngIf="isRequestSuccess">
+                    <app-request-status [data]="statusData"></app-request-status>
+                </ng-container>
+            </ng-container>
+        </app-master-container>
+    </div>
+    <div fxFlex="60">
+        <app-requests-list-table [requestType]="module" [disableDropdown]="true"></app-requests-list-table>
+    </div>
+</div>

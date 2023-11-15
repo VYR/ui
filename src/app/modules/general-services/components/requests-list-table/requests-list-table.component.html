@@ -1,0 +1,30 @@
+<app-master-container>
+    <ng-container header>{{ (requestType.type | cibDefinition: 'REQUESTTYPE') + ' ' + 'HISTORY' }}</ng-container>
+    <ng-container icons>
+        <mat-form-field>
+            <mat-label>Select Service Type</mat-label>
+            <mat-select
+                required
+                [(value)]="selectedType"
+                (selectionChange)="onRequestTypeChange($event)"
+                [disabled]="disableDropdown"
+            >
+                <mat-option value="1,6,7,9,18,19,21">ALL</mat-option>
+                <mat-option *ngFor="let request of serviceRequestTypes" [value]="request.type">
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <span>{{ request.name }}</span>
+                    </div>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-icon-button (click)="generateExcel()">
+            <i class="las la-file-excel icon"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div fxLayout="column" fxFlex="100">
+            <app-cib-table [config]="tableConfig" (_lazyLoad)="lazyLoad($event)" (_clickCell)="onClickCell($event)">
+            </app-cib-table>
+        </div>
+    </ng-container>
+</app-master-container>
