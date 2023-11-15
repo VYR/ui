@@ -1,0 +1,9 @@
+@import 'colors';
+$qib-header-height: 5.313rem;
+$qib-footer-height: 1.35rem;
+$qib-side-menu-width: 17.187rem;
+$qib-footer-box-shadow: inset 0 0.875rem 3.188rem -0.438rem $qib-footer-box-shadow-color;
+$qib-footer-font-size: 0.625rem;
+$qib-submenu-height: 2.5rem;
+$qib-body-margin-length: 2.5rem;
+$qib-body-height: $qib-header-height + $qib-footer-height + $qib-submenu-height + $qib-body-margin-length;
