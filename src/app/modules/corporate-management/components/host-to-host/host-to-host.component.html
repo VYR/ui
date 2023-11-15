@@ -1,0 +1,19 @@
+<app-master-container>
+    <ng-container header>SET UP HOST TO HOST</ng-container>
+    <ng-container body>
+        <div fxLayout="column" fxFlex="100">
+            <mat-tab-group class="form-tabs">
+                <mat-tab label="REGISTER A CUSTOMER">
+                    <ng-template matTabContent>
+                        <app-register-h2h></app-register-h2h>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab label="H2H FILE HISTORY">
+                    <ng-template matTabContent>
+                        <app-h2h-file-history></app-h2h-file-history>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </ng-container>
+</app-master-container>

@@ -1,0 +1,10 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="80" fxLayoutAlign="space-between" class="title-details">
+        <b>Rim: {{ rim }}</b>
+        <b>Created Date: {{ date }}</b>
+        <b>File Name: {{ fileName }}</b>
+    </div>
+</div>
+<div class="divider"></div>
+
+<app-cib-table [config]="tableConfig"></app-cib-table>

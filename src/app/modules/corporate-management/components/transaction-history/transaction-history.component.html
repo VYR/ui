@@ -1,0 +1,78 @@
+<app-master-container>
+    <ng-container header>FAILED TRANSACTIONS</ng-container>
+    <ng-container icons>
+        <button
+            type="button"
+            (click)="clearForm()"
+            mat-icon-button
+            #tooltip="matTooltip"
+            matTooltip="CLEAR SEARCH RESULTS"
+        >
+            <i class="las la-sync-alt"></i>
+        </button>
+        <button mat-icon-button (click)="generateExcel()">
+            <i class="las la-file-excel"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div fxFlex="100" fxLayout="column" fxLayoutGap="2rem">
+            <form fxLayout="column" fxFlex="100" autocomplete="off" novalidate="novalidate" [formGroup]="searchForm">
+                <div fxLayout="row" class="wrap" fxLayoutGap="1.5rem" fxLayout.sm="column">
+                    <mat-form-field>
+                        <mat-label>RIM</mat-label>
+                        <input type="number" aria-label="rim" formControlName="rim" matInput />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Payee</mat-label>
+                        <mat-select aria-label="names" formControlName="payeeType">
+                            <mat-option *ngFor="let payee of payeeTypes" [value]="payee">{{ payee }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>From Account</mat-label>
+                        <input type="text" aria-label="From Account" formControlName="debitAccountNo" matInput />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>To Account</mat-label>
+                        <input type="text" aria-label="To Account" formControlName="toAccount" matInput />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Beneficiary</mat-label>
+                        <input type="text" aria-label="Beneficiary" formControlName="beneficiaryName" matInput />
+                    </mat-form-field>
+                    <div>
+                        <app-cib-date-picker
+                            [parentForm]="searchForm"
+                            [fomrControlName]="'fromDate'"
+                            [minDate]="minDate"
+                            [maxDate]="maxDate"
+                            placeholder="From Date"
+                        ></app-cib-date-picker>
+                    </div>
+
+                    <div>
+                        <app-cib-date-picker
+                            [parentForm]="searchForm"
+                            [fomrControlName]="'toDate'"
+                            [minDate]="minDate"
+                            [maxDate]="maxDate"
+                            placeholder="To Date"
+                        ></app-cib-date-picker>
+                    </div>
+                    <button
+                        type="button"
+                        mat-button
+                        [disabled]="!searchForm.valid"
+                        class="mat-raised-button mat-primary"
+                        (click)="search()"
+                        aria-label="Submit"
+                    >
+                        SEARCH
+                    </button>
+                    <mat-error>{{ errMsg }}</mat-error>
+                </div>
+            </form>
+            <app-cib-table [config]="tableConfig" (_lazyLoad)="lazyLoad($event)"> </app-cib-table>
+        </div>
+    </ng-container>
+</app-master-container>

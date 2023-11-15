@@ -1,0 +1,145 @@
+<app-master-container>
+    <ng-container header>{{ title }}</ng-container>
+    <ng-container icons>
+        <button mat-icon-button (click)="closeCorporateGroupDetails()">
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
+            <form [formGroup]="addGroupForm">
+                <ng-container *ngIf="selectedFeatureType === 'ADD' || selectedFeatureType === 'EDIT'">
+                    <div fxLayout="row" fxLayoutGap="1rem">
+                        <mat-form-field fxFlex="50">
+                            <mat-label>Group Name</mat-label>
+                            <input
+                                type="text"
+                                autocomplete="off"
+                                autofill="off"
+                                aria-label="Group Name"
+                                matInput
+                                formControlName="groupName"
+                            />
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50">
+                            <mat-label>Group Description</mat-label>
+                            <input
+                                type="text"
+                                autocomplete="off"
+                                autofill="off"
+                                aria-label="Group Name"
+                                matInput
+                                formControlName="groupDescription"
+                            />
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="selectedFeatureType === 'VIEW' && corporateGroupDetails">
+                    <div fxLayout="row">
+                        <app-label-value
+                            fxFlex="50"
+                            [label]="'Group Name'"
+                            [value]="corporateGroupDetails.businessName"
+                        >
+                        </app-label-value>
+                        <app-label-value
+                            fxFlex="50"
+                            [label]="'Group Description'"
+                            [value]="corporateGroupDetails.businessNameArabic"
+                        >
+                        </app-label-value>
+                    </div>
+                </ng-container>
+
+                <div class="divider"></div>
+
+                <div class="rims-details">
+                    <ng-container *ngIf="selectedFeatureType === 'VIEW' || selectedFeatureType === 'EDIT'">
+                        <div fxLayout="column" fxFlex="selectedFeatureType === 'VIEW' ? 100:50" fxLayoutGap="0.625rem">
+                            <div class="title">MAPPED RIMS</div>
+                            <app-cib-table [config]="tableConfigMappedRim" (_clickCell)="onClickCell($event)">
+                            </app-cib-table>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="selectedFeatureType === 'ADD' || selectedFeatureType === 'EDIT'">
+                        <div fxLayout="column" fxFlex="50">
+                            <div fxLayout="row" class="header" fxLayoutAlign="space-between center">
+                                <button
+                                    mat-icon-button
+                                    #tooltip="matTooltip"
+                                    matTooltip="ADD A NEW RIM"
+                                    [matMenuTriggerFor]="menu"
+                                    #menuTrigger="matMenuTrigger"
+                                >
+                                    <i class="las la-plus"></i>
+                                </button>
+                            </div>
+                            <app-cib-table
+                                [config]="tableConfigSearchedRim"
+                                (_clickCell)="onClickCell($event)"
+                                (_select)="onSelect($event)"
+                            >
+                            </app-cib-table>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <div *ngIf="selectedFeatureType === 'EDIT' || selectedFeatureType === 'ADD'">
+                    <button
+                        class="mat-raised-button mat-primary"
+                        [disabled]="
+                            addGroupForm.invalid ||
+                            (corporateRimsSelected.length === 0 && selectedFeatureType === 'ADD')
+                        "
+                        type="submit"
+                        mat-button
+                        color="primary"
+                        (click)="addORUpdateCorporateGroup()"
+                    >
+                        {{ title }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </ng-container>
+</app-master-container>
+
+<mat-menu #menu="matMenu" xPosition="after">
+    <div class="filter-menu-item-container" (click)="$event.stopPropagation()">
+        <div fxLayout="row" class="heading" fxLayoutAlign="space-between center">
+            <span class="title">Search Rims to Add</span>
+            <button mat-icon-button (click)="closeMatmenu()">
+                <i class="las la-times"></i>
+            </button>
+        </div>
+        <div class="divider"></div>
+        <form [formGroup]="addGroupForm">
+            <div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="start center">
+                <mat-form-field>
+                    <input
+                        matInput
+                        type="text"
+                        autocomplete="off"
+                        autofill="off"
+                        formControlName="searchRim"
+                        placeholder="Rim Number"
+                    />
+                </mat-form-field>
+                <div>
+                    <button
+                        [disabled]="addGroupForm.invalid"
+                        class="filter-menu-item"
+                        class="mat-raised-button mat-primary"
+                        (click)="getRimsOnSearch()"
+                        mat-button
+                        color="primary"
+                    >
+                        <span>Search</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-menu>

@@ -1,0 +1,52 @@
+<app-master-container>
+    <ng-container header>POSITIVE PAY REGISTRATION</ng-container>
+    <ng-container icons> </ng-container>
+    <ng-container body>
+        <div fxFlex="100" fxLayout="column">
+            <div fxLayout="row" fxLayoutGap="2rem">
+                <mat-form-field>
+                    <mat-label>RIM Number</mat-label>
+                    <input type="number" min="0" aria-label="serviceNumber" matInput [(ngModel)]="rimInput" />
+                </mat-form-field>
+                <button
+                    mat-button
+                    class="mat-raised-button mat-primary"
+                    [disabled]="enableSearch()"
+                    (click)="searchRIM()"
+                    aria-label="Submit"
+                >
+                    SEARCH
+                </button>
+            </div>
+            <div fxLayout="column" fxLayoutGap="0.625rem" *ngIf="showAccountList">
+                <div class="divider"></div>
+                <div class="title">REGISTER AN ACCOUNT FOR POSITIVE PAY</div>
+                <div fxFlex="100" fxLayoutGap="2rem">
+                    <mat-form-field fxFlex="30">
+                        <mat-label>Accounts</mat-label>
+                        <mat-select [(value)]="selectedAccount" aria-label="names">
+                            <mat-option *ngFor="let account of accountList" [value]="account">{{
+                                account.account_no + ' - ' + account.desc
+                            }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button
+                        mat-button
+                        fxFlex="20"
+                        [disabled]="!selectedAccount"
+                        class="mat-raised-button mat-primary"
+                        (click)="addRIM()"
+                        aria-label="Submit"
+                    >
+                        SUBMIT
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div fxLayout="column" fxLayoutGap="0.625rem" fxFlex="100">
+            <div class="title">REGISTERED ACCOUNTS</div>
+            <app-cib-table [config]="tableConfig" (_lazyLoad)="lazyLoad($event)"></app-cib-table>
+        </div>
+    </ng-container>
+</app-master-container>

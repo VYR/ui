@@ -1,0 +1,39 @@
+@import 'variables';
+
+.header {
+    font-weight: 700;
+    color: $qib-text-color;
+
+    i {
+        font-size: 1.5rem;
+    }
+}
+
+.rims-details {
+    display: flex;
+    flex-direction: row;
+    gap: 1.6rem;
+    .title {
+        font-weight: bold;
+        font-size: 0.85rem;
+        color: $qib-text-color;
+    }
+}
+
+.filter-menu-item-container {
+    i {
+        &.la-times {
+            color: $qib-primary-color;
+        }
+    }
+
+    .heading {
+        height: 1.4rem;
+    }
+
+    .title {
+        color: $qib-primary-color;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+}
