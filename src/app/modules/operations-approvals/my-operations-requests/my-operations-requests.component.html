@@ -1,0 +1,42 @@
+<div>
+    <form autocomplete="off" novalidate="novalidate" [formGroup]="from">
+        <div class="search-section">
+            <mat-form-field>
+                <mat-label>Select Status</mat-label>
+                <mat-select aria-label="Select Status" formControlName="status" (selectionChange)="subscribeFilter()">
+                    <mat-option value="ALL">ALL</mat-option>
+                    <mat-option value="COMPLETED">Completed</mat-option>
+                    <mat-option value="PROCESSING">Processing</mat-option>
+                    <mat-option value="REJECTED">Rejected</mat-option>
+                    <mat-option value="SUBMITTED">Submitted</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>RIM Number</mat-label>
+                <input
+                    type="text"
+                    placeholder="Enter RIM"
+                    aria-label="Enter RIM"
+                    matInput
+                    formControlName="rimNumber"
+                    [matAutocomplete]="rims"
+                />
+                <button
+                    *ngIf="from.controls['rimNumber'].value"
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Clear"
+                    (click)="from.controls['rimNumber'].setValue('ALL')"
+                >
+                    <i class="las la-times"></i>
+                </button>
+                <mat-autocomplete autoActiveFirstOption #rims="matAutocomplete">
+                    <mat-option *ngFor="let rim of requestsTypeRimDetails" [value]="rim">
+                        {{ rim }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<app-cib-table [config]="config" (_lazyLoad)="lazyLoad($event)" (_clickCell)="onClickCell($event)"></app-cib-table>

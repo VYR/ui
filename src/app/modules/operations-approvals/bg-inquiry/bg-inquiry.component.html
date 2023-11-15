@@ -1,0 +1,12 @@
+<mat-tab-group class="form-tabs">
+    <mat-tab label="Inquiry">
+        <ng-template matTabContent>
+            <app-inquiry-listing [type]="'BG'" [status]="'QUEUE'"></app-inquiry-listing>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="History">
+        <ng-template matTabContent>
+            <app-inquiry-listing [type]="'BG'" [status]="'HISTORY'"></app-inquiry-listing>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

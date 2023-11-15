@@ -1,0 +1,17 @@
+<div class="service-request">
+    <ng-container *ngFor="let serviceList of requestType; let i = index">
+        <app-master-container #ref [opened]="serviceList.opened || i === 0" [collapsable]="true">
+            <ng-container header>
+                <span class="count" *ngIf="serviceList.count">{{ serviceList.count }}</span>
+                {{ serviceList.requestType | cibDefinition: 'REQUESTTYPE' }}
+            </ng-container>
+
+            <ng-container body>
+                <app-my-operations-requests
+                    *ngIf="ref.opened"
+                    [requestType]="serviceList.requestType"
+                ></app-my-operations-requests>
+            </ng-container>
+        </app-master-container>
+    </ng-container>
+</div>

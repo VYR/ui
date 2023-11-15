@@ -1,0 +1,635 @@
+<mat-tab-group *ngIf="data.type === 'inquiry'">
+    <mat-tab label="Details">
+        <ng-container body>
+            <div fxFlex="column">
+                <div class="inquiry-details" *ngIf="parentData?.isAmmended !== 'BG Amendment Request'">
+                    <app-label-value
+                        [label]="'Corporate Name'"
+                        *ngIf="parentData?.customer?.firstnameeng"
+                        [value]="parentData.customer.firstnameeng"
+                    ></app-label-value>
+                    <app-label-value
+                        [label]="'Corporate RIM'"
+                        *ngIf="parentData?.customer?.rimnumber"
+                        [value]="parentData.customer.rimnumber"
+                    ></app-label-value>
+
+                    <app-label-value
+                        [label]="'Corporate User'"
+                        *ngIf="parentData?.user?.firstNameEng"
+                        [value]="parentData.user.firstNameEng"
+                    ></app-label-value>
+
+                    <app-label-value
+                        [label]="'Created Date'"
+                        *ngIf="parentData?.created"
+                        [value]="parentData.created"
+                        [type]="'date'"
+                    ></app-label-value>
+
+                    <app-label-value
+                        [label]="'Request Date'"
+                        *ngIf="parentData?.updated"
+                        [value]="parentData?.updated"
+                        [type]="'date'"
+                    >
+                    </app-label-value>
+
+                    <app-label-value [label]="'CIB Reference'" [value]="parentData.id || parentData.details1">
+                    </app-label-value>
+                    <app-label-value [label]="'BG Status'" [value]="parentData.status.statusDesc"></app-label-value>
+
+                    <app-label-value [label]="'MD Reference'" *ngIf="parentData?.bankRef" [value]="parentData.bankRef">
+                    </app-label-value>
+
+                    <app-label-value
+                        [label]="'Product Type'"
+                        *ngIf="parentData?.bgProductTypeText"
+                        [value]="parentData?.bgProductTypeText"
+                    >
+                    </app-label-value>
+                    <app-label-value [label]="'Currency'" *ngIf="parentData?.currency" [value]="parentData?.currency">
+                    </app-label-value>
+                    <app-label-value
+                        [label]="'Principal Amount'"
+                        *ngIf="parentData?.isAmmended !== 'BG Amendment Request'"
+                        [value]="parentData?.principalAmount"
+                        [type]="'amount'"
+                    ></app-label-value>
+                    <app-label-value
+                        [label]="'New Principal Amount'"
+                        *ngIf="parentData?.isAmmended === 'BG Amendment Request'"
+                        [value]="parentData?.principalAmount"
+                        [type]="'amount'"
+                    ></app-label-value>
+
+                    <app-label-value
+                        [label]="'Issue Date'"
+                        *ngIf="parentData?.dealDate"
+                        [value]="parentData?.dealDate"
+                        [type]="'date'"
+                    ></app-label-value>
+                    <app-label-value
+                        [label]="'Expiry Date'"
+                        *ngIf="parentData?.expiryDate"
+                        [value]="parentData?.expiryDate"
+                        [type]="'date'"
+                    ></app-label-value>
+                    <app-label-value [label]="'Tenor'" *ngIf="parentData?.tenor" [value]="parentData?.tenor">
+                    </app-label-value>
+                    <app-label-value
+                        [label]="'Beneficiary Name'"
+                        *ngIf="parentData?.beneficiaryName"
+                        [value]="parentData?.beneficiaryName"
+                    ></app-label-value>
+                    <app-label-value
+                        [label]="'Contract Type'"
+                        *ngIf="parentData?.contractType"
+                        [value]="parentData?.contractType"
+                    ></app-label-value>
+                    <app-label-value
+                        [label]="'Guarantee to be Issued in'"
+                        *ngIf="parentData?.bgGuaranteeIssuedIn"
+                        [value]="parentData?.bgGuaranteeIssuedIn"
+                    ></app-label-value>
+                    <app-label-value
+                        [label]="'Guarantee to be issued against'"
+                        *ngIf="parentData?.bgGuaranteeIssuedAgainst"
+                        [value]="parentData?.bgGuaranteeIssuedAgainst"
+                    >
+                    </app-label-value>
+                    <app-label-value
+                        [label]="'Guarantee in connection with'"
+                        *ngIf="parentData?.bgGuaranteeInConnectionWith"
+                        [value]="parentData?.bgGuaranteeInConnectionWith"
+                    ></app-label-value>
+                    <app-label-value
+                        [label]="'Guarantee to be Issued in favor of'"
+                        *ngIf="parentData?.guaranteeInFavourOf"
+                        [value]="parentData?.guaranteeInFavourOf"
+                    >
+                    </app-label-value>
+                </div>
+
+                <div class="inquiry-details" *ngIf="parentData?.isAmmended === 'BG Amendment Request'">
+                    <app-label-value
+                        [label]="'Corporate Name'"
+                        *ngIf="parentData?.customer.firstnameeng"
+                        [value]="parentData.customer.firstnameeng"
+                    ></app-label-value>
+                    <app-label-value
+                        [label]="'Corporate RIM'"
+                        *ngIf="parentData?.customer.rimnumber"
+                        [value]="parentData.customer.rimnumber"
+                    ></app-label-value>
+
+                    <app-label-value
+                        [label]="'Corporate User'"
+                        *ngIf="parentData?.user.firstNameEng"
+                        [value]="parentData.user.firstNameEng"
+                    ></app-label-value>
+
+                    <app-label-value
+                        [label]="'Created Date'"
+                        *ngIf="parentData?.created"
+                        [value]="parentData.created"
+                        [type]="'date'"
+                    ></app-label-value>
+
+                    <app-label-value
+                        [label]="'Request Date'"
+                        *ngIf="parentData?.updated"
+                        [value]="parentData?.updated"
+                        [type]="'date'"
+                    >
+                    </app-label-value>
+
+                    <app-label-value [label]="'CIB Reference'" [value]="parentData.id || parentData.details1">
+                    </app-label-value>
+                    <app-label-value [label]="'BG Reference'" *ngIf="parentData?.bgRefNo" [value]="parentData.bgRefNo">
+                    </app-label-value>
+                    <app-label-value [label]="'BG Status'" [value]="parentData.status.statusDesc"></app-label-value>
+
+                    <app-label-value [label]="'MD Reference'" *ngIf="parentData?.bankRef" [value]="parentData.bankRef">
+                    </app-label-value>
+
+                    <app-label-value
+                        [label]="'Product Type'"
+                        *ngIf="parentData?.bgProductTypeText"
+                        [value]="parentData?.bgProductTypeText"
+                    >
+                    </app-label-value>
+                    <app-label-value [label]="'Currency'" *ngIf="parentData?.currency" [value]="parentData?.currency">
+                    </app-label-value>
+                    <app-label-value
+                        [label]="'Decrease Guarantee Amount by'"
+                        *ngIf="parentData?.principalAmount < 0"
+                        [value]="parentData?.principalAmount"
+                        [type]="'amount'"
+                    ></app-label-value>
+                    <app-label-value
+                        [label]="'Increase Guarantee Amount by'"
+                        *ngIf="parentData?.principalAmount > 0"
+                        [value]="parentData?.principalAmount"
+                        [type]="'amount'"
+                    ></app-label-value>
+                    <app-label-value
+                        [label]="'New Expiry Date'"
+                        *ngIf="parentData?.expiryDate"
+                        [value]="parentData?.expiryDate"
+                        [type]="'date'"
+                    ></app-label-value>
+
+                    <app-label-value
+                        [label]="'Additional Amendment details'"
+                        *ngIf="parentData?.guaranteeDetails"
+                        [value]="parentData?.guaranteeDetails"
+                    ></app-label-value>
+                </div>
+            </div>
+        </ng-container>
+        <app-operations-comments-history
+            [comments]="parentData.bankGuaranteeNotes"
+            *ngIf="parentData?.bankGuaranteeNotes"
+        >
+        </app-operations-comments-history>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <span>History & Attachments</span>
+        </ng-template>
+        <ng-container *ngIf="showHistory">
+            <app-master-container
+                *ngFor="let parentData of transactionsHistory; let i = index"
+                [variant]="'secondary'"
+                [opened]="i === 0"
+                [collapsable]="true"
+            >
+                <ng-container header>
+                    <div class="inquiry-details">
+                        <span>CIB Reference : {{ parentData?.id }}</span>
+                    </div>
+                </ng-container>
+                <ng-container icons>
+                    <span [appTextHighlight]="parentData.status.statusDesc.toLowerCase()">{{
+                        parentData.status.statusDesc
+                    }}</span>
+                    <button mat-icon-button *ngIf="fileDocuments.length > 0">
+                        <i class="las la-paperclip" [matMenuTriggerFor]="menu"></i>
+                        <span class="hilight-medium" [matMenuTriggerFor]="menu">{{ fileDocuments.length }} </span>
+                    </button>
+                </ng-container>
+                <ng-container body>
+                    <div fxFlex="column">
+                        <ng-container *ngIf="parentData">
+                            <div class="inquiry-details" *ngIf="parentData?.isAmmended !== 'Y'">
+                                <app-label-value
+                                    [label]="'Created Date'"
+                                    *ngIf="parentData?.created"
+                                    [value]="parentData.created"
+                                    [type]="'date'"
+                                ></app-label-value>
+
+                                <app-label-value
+                                    [label]="'Request Date'"
+                                    *ngIf="parentData?.updated"
+                                    [value]="parentData?.updated"
+                                    [type]="'date'"
+                                >
+                                </app-label-value>
+
+                                <app-label-value [label]="'CIB Reference'" [value]="parentData.id"> </app-label-value>
+
+                                <app-label-value [label]="'MD REFERENCE'" [value]="parentData.bankRef">
+                                </app-label-value>
+                                <app-label-value [label]="'Corporate RIM'" [value]="parentData.customer.rimnumber">
+                                </app-label-value>
+
+                                <app-label-value
+                                    [label]="'REQUEST TYPE'"
+                                    [value]="
+                                        parentData.isAmmended === 'Y'
+                                            ? 'BG Amendment ' + (i !== 0 ? i : '')
+                                            : 'New BG Request'
+                                    "
+                                >
+                                </app-label-value>
+
+                                <app-label-value
+                                    [label]="'BG Reference'"
+                                    *ngIf="parentData?.bgRefNo"
+                                    [value]="parentData?.bgRefNo"
+                                >
+                                </app-label-value>
+
+                                <app-label-value
+                                    [label]="'Status'"
+                                    [value]="parentData.status.statusDesc"
+                                ></app-label-value>
+
+                                <app-label-value
+                                    [label]="'Product Type'"
+                                    *ngIf="parentData?.bgProductTypeText"
+                                    [value]="parentData?.bgProductTypeText"
+                                >
+                                </app-label-value>
+                                <app-label-value
+                                    [label]="'Currency'"
+                                    *ngIf="parentData?.currency"
+                                    [value]="parentData?.currency"
+                                >
+                                </app-label-value>
+                                <app-label-value
+                                    [label]="'Principal Amount'"
+                                    *ngIf="parentData?.isAmmended !== 'Y'"
+                                    [value]="parentData?.principalAmount"
+                                    [type]="'amount'"
+                                >
+                                </app-label-value>
+                                <app-label-value
+                                    [label]="'New Principal Amount'"
+                                    *ngIf="parentData?.isAmmended === 'Y'"
+                                    [value]="parentData?.principalAmount"
+                                    [type]="'amount'"
+                                >
+                                </app-label-value>
+
+                                <app-label-value
+                                    [label]="'Amount in Words'"
+                                    *ngIf="parentData?.principalAmountInWords"
+                                    [value]="parentData.principalAmountInWords"
+                                >
+                                </app-label-value>
+                                <app-label-value
+                                    [label]="'Issue Date'"
+                                    *ngIf="parentData?.dealDate"
+                                    [value]="parentData?.dealDate"
+                                    [type]="'date'"
+                                ></app-label-value>
+
+                                <app-label-value
+                                    [label]="'Expiry Date'"
+                                    *ngIf="parentData?.expiryDate"
+                                    [value]="parentData?.expiryDate"
+                                    [type]="'date'"
+                                ></app-label-value>
+                                <app-label-value
+                                    [label]="'Tenor'"
+                                    *ngIf="parentData?.tenor"
+                                    [value]="parentData?.tenor"
+                                >
+                                </app-label-value>
+
+                                <app-label-value
+                                    [label]="'Beneficiary Name'"
+                                    *ngIf="parentData?.beneficiaryName"
+                                    [value]="parentData?.beneficiaryName"
+                                ></app-label-value>
+                                <app-label-value
+                                    [label]="'Contract Type'"
+                                    *ngIf="parentData?.contractType"
+                                    [value]="parentData?.contractType"
+                                ></app-label-value>
+                                <app-label-value
+                                    [label]="'Guarantee to be Issued in'"
+                                    *ngIf="parentData?.bgGuaranteeIssuedIn"
+                                    [value]="parentData?.bgGuaranteeIssuedIn"
+                                >
+                                </app-label-value>
+                                <app-label-value
+                                    [label]="'Guarantee to be issued against'"
+                                    *ngIf="parentData?.bgGuaranteeIssuedAgainst"
+                                    [value]="parentData?.bgGuaranteeIssuedAgainst"
+                                >
+                                </app-label-value>
+                                <app-label-value
+                                    [label]="'Guarantee in connection with'"
+                                    *ngIf="parentData?.bgGuaranteeInConnectionWith"
+                                    [value]="parentData?.bgGuaranteeInConnectionWith"
+                                ></app-label-value>
+                                <app-label-value
+                                    [label]="'Guarantee to be Issued in favor of'"
+                                    *ngIf="parentData?.guaranteeInFavourOf"
+                                    [value]="parentData?.guaranteeInFavourOf"
+                                >
+                                </app-label-value>
+                            </div>
+
+                            <div class="inquiry-details" *ngIf="parentData?.isAmmended === 'Y'">
+                                <app-label-value [label]="'Created Date'" [value]="parentData.created" [type]="'date'">
+                                </app-label-value>
+
+                                <app-label-value [label]="'Request Date'" [value]="parentData?.updated" [type]="'date'">
+                                </app-label-value>
+                                <app-label-value
+                                    [label]="'REQUEST TYPE'"
+                                    [value]="
+                                        parentData.isAmmended === 'Y'
+                                            ? 'BG Amendment ' + (i !== 0 ? i : '')
+                                            : 'New BG Request'
+                                    "
+                                >
+                                </app-label-value>
+
+                                <app-label-value
+                                    [label]="'CIB Reference'"
+                                    [value]="parentData.id || parentData.details1"
+                                >
+                                </app-label-value>
+
+                                <app-label-value
+                                    [label]="'BG Reference'"
+                                    *ngIf="parentData?.bgRefNo"
+                                    [value]="parentData?.bgRefNo"
+                                >
+                                </app-label-value>
+
+                                <app-label-value
+                                    [label]="'Status'"
+                                    [value]="parentData.status.statusDesc"
+                                ></app-label-value>
+
+                                <app-label-value [label]="'MD REFERENCE'" [value]="parentData.bankRef">
+                                </app-label-value>
+
+                                <app-label-value
+                                    [label]="'Product Type'"
+                                    *ngIf="parentData?.bgProductTypeText"
+                                    [value]="parentData?.bgProductTypeText"
+                                >
+                                </app-label-value>
+                                <app-label-value
+                                    [label]="'Currency'"
+                                    *ngIf="parentData?.currency"
+                                    [value]="parentData?.currency"
+                                >
+                                </app-label-value>
+                                <app-label-value
+                                    [label]="'Increase Guarantee Amount by'"
+                                    *ngIf="parentData?.principalAmount > 0"
+                                    [value]="parentData?.principalAmount"
+                                    [type]="'amount'"
+                                >
+                                </app-label-value>
+                                <app-label-value
+                                    [label]="'Decrease Guarantee Amount by'"
+                                    *ngIf="parentData?.principalAmount < 0"
+                                    [value]="parentData?.principalAmount"
+                                    [type]="'amount'"
+                                >
+                                </app-label-value>
+
+                                <app-label-value
+                                    [label]="'Expiry Date'"
+                                    *ngIf="parentData?.expiryDate"
+                                    [value]="parentData?.expiryDate"
+                                    [type]="'date'"
+                                ></app-label-value>
+                                <app-label-value
+                                    [label]="'Additional Amendment details'"
+                                    *ngIf="parentData?.guaranteeDetails"
+                                    [value]="parentData?.guaranteeDetails"
+                                >
+                                </app-label-value>
+                            </div>
+                        </ng-container>
+
+                        <app-operations-comments-history
+                            [comments]="parentData.bankGuaranteeNotes"
+                            *ngIf="parentData?.bankGuaranteeNotes"
+                        >
+                        </app-operations-comments-history>
+                    </div>
+                </ng-container>
+
+                <mat-menu #menu="matMenu" xPosition="before" class="mat-menu-container">
+                    <app-cib-filter-menu
+                        (_select)="getDownload(fileDocuments[$event])"
+                        title="Attachments"
+                        [options]="getFileName(fileDocuments)"
+                    ></app-cib-filter-menu>
+                </mat-menu>
+            </app-master-container>
+        </ng-container>
+    </mat-tab>
+</mat-tab-group>
+
+<ng-container *ngIf="data.type === 'action'">
+    <app-master-container
+        *ngFor="let parentData of transactions; let i = index"
+        [variant]="'secondary'"
+        [opened]="i === 0"
+    >
+        <ng-container header>
+            <div class="action-details">
+                <span>{{ parentData?.updated | date: 'medium' }}</span>
+            </div>
+        </ng-container>
+        <ng-container icons>
+            <span [appTextHighlight]="parentData?.status.statusDesc.toLowerCase()">{{
+                parentData.status.statusDesc.toLowerCase()
+            }}</span>
+            <button mat-icon-button *ngIf="fileDocuments.length > 0">
+                <i class="las la-paperclip" [matMenuTriggerFor]="menu"></i>
+                <span class="hilight-medium" [matMenuTriggerFor]="menu">{{ fileDocuments.length }} </span>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <div fxFlex="column">
+                <ng-container *ngIf="parentData">
+                    <div class="action-details">
+                        <app-label-value
+                            [label]="'Product Type'"
+                            *ngIf="parentData?.bgProductTypeText"
+                            [value]="parentData?.bgProductTypeText"
+                        >
+                        </app-label-value>
+                        <app-label-value
+                            [label]="'Currency'"
+                            *ngIf="parentData?.currency"
+                            [value]="parentData?.currency"
+                        >
+                        </app-label-value>
+                        <app-label-value
+                            [label]="'Principal Amount'"
+                            *ngIf="parentData?.principalAmount"
+                            [value]="parentData?.principalAmount"
+                            [type]="'amount'"
+                        ></app-label-value>
+                        <app-label-value
+                            [label]="'Beneficiary Name'"
+                            *ngIf="parentData?.beneficiaryName"
+                            [value]="parentData?.beneficiaryName"
+                        ></app-label-value>
+                        <app-label-value
+                            [label]="'REQUEST TYPE'"
+                            [value]="
+                                parentData.isAmmended === 'BG Amendment Request'
+                                    ? 'BG Amendment Request'
+                                    : 'New BG Request'
+                            "
+                        >
+                        </app-label-value>
+
+                        <app-label-value
+                            [label]="'Deal Date'"
+                            *ngIf="parentData?.dealDate"
+                            [value]="parentData?.dealDate"
+                            [type]="'date'"
+                        ></app-label-value>
+
+                        <app-label-value
+                            [label]="'Expiry Date'"
+                            *ngIf="parentData?.expiryDate"
+                            [value]="parentData?.expiryDate"
+                            [type]="'date'"
+                        ></app-label-value>
+                        <app-label-value [label]="'Tenor'" *ngIf="parentData?.tenor" [value]="parentData?.tenor">
+                        </app-label-value>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+
+        <mat-menu #menu="matMenu" xPosition="before" class="mat-menu-container">
+            <app-cib-filter-menu
+                (_select)="getDownload(fileDocuments[$event])"
+                title="Attachments"
+                [options]="getFileName(fileDocuments)"
+            ></app-cib-filter-menu>
+        </mat-menu>
+    </app-master-container>
+    <app-operations-comments-history [comments]="parentData.bankGuaranteeNotes" *ngIf="parentData?.bankGuaranteeNotes">
+    </app-operations-comments-history>
+    <div>
+        <mat-form-field class="comment-input">
+            <mat-label>Your comments / instructions</mat-label>
+            <textarea matInput maxlength="200" [(ngModel)]="comments"> </textarea>
+        </mat-form-field>
+    </div>
+
+    <div class="divider"></div>
+    <div fxLayout="row" fxLayoutGap="2rem">
+        <button
+            mat-button
+            [disabled]="!comments"
+            type="submit"
+            class="mat-raised-button mat-primary"
+            (click)="onAction('Approve', comments)"
+        >
+            APPROVE
+        </button>
+        <button
+            mat-button
+            [disabled]="!comments"
+            type="submit"
+            class="mat-raised-button mat-primary"
+            (click)="onAction('Sendback', comments)"
+        >
+            SEND BACK
+        </button>
+        <button
+            mat-button
+            [disabled]="!comments"
+            type="submit"
+            class="mat-raised-button mat-primary"
+            (click)="onAction('Reject', comments)"
+        >
+            REJECT
+        </button>
+    </div>
+    <div class="info">Note: Rejecting a transaction will restrict CIB User to edit the same transaction.</div>
+</ng-container>
+
+<ng-container *ngIf="data.type === 'historyAction'">
+    <ng-container body>
+        <div fxFlex="column">
+            <div class="wrapper-container">
+                <div class="action-details">
+                    <ng-container body>
+                        <app-label-value
+                            [label]="'BG Reference'"
+                            *ngIf="parentData?.bgRefNo"
+                            [value]="parentData?.bgRefNo"
+                        >
+                        </app-label-value>
+
+                        <app-label-value [label]="'MD Reference'" [value]="parentData?.bankRef"> </app-label-value>
+
+                        <app-label-value [label]="'LC Status'" [value]="parentData?.status.statusDesc">
+                        </app-label-value>
+                    </ng-container>
+                </div>
+                <div class="divider-file"></div>
+                <div class="document-section">
+                    <div class="left-section">
+                        <app-file-upload
+                            #fileUpload
+                            [label]="'Upload Document'"
+                            [maxSize]="5"
+                            [accept]="'.pdf,.jpg,.png'"
+                            (_onUpload)="onFileSelected($event)"
+                        ></app-file-upload>
+                        <mat-error *ngIf="fileErrMsg !== ''">{{ fileErrMsg }}</mat-error>
+                        <div class="right-section">
+                            <ng-container header>UPLOADED DOCUMENTS</ng-container>
+                            <div class="upload-document-selection">
+                                <ng-container *ngFor="let document of fileDocuments">
+                                    <div *ngIf="document.customerFileName">
+                                        <span class="hilight-medium">{{ document.customerFileName }}</span>
+
+                                        <span class="history-icon" (click)="deleteFile(document)">
+                                            <i class="las la-trash"></i
+                                        ></span>
+                                    </div>
+                                    <div class="divider"></div>
+                                </ng-container>
+                                <div *ngIf="fileDocuments?.length === 0">No files selected</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

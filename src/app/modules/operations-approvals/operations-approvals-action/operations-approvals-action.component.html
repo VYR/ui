@@ -1,0 +1,46 @@
+<app-master-container>
+    <ng-container header>Service Request ID: {{ parentData?.event.requestId }}</ng-container>
+    <ng-container icons>
+        <button (click)="action()" mat-icon-button>
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <form [formGroup]="form" fxLayout="column" autocomplete="off" novalidate="novalidate">
+            <div class="body">
+                <div class="header-right">
+                    Current Status:
+                    <span [appTextHighlight]="parentData?.event.status"> {{ parentData?.event.status }} </span>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>Select Status</mat-label>
+                        <mat-select formControlName="actionStatus">
+                            <mat-option value="PROCESSING">Processing</mat-option>
+                            <mat-option value="REJECTED">Rejected</mat-option>
+                            <mat-option value="COMPLETED">Completed</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>Your Comments</mat-label>
+                        <input matInput formControlName="actionMessage" placeholder="Your Comments" />
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button
+                        mat-button
+                        [disabled]="form.invalid"
+                        type="submit"
+                        class="mat-raised-button mat-primary"
+                        color="primary"
+                        (click)="actOnRequest()"
+                    >
+                        SUBMIT
+                    </button>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+</app-master-container>

@@ -1,0 +1,246 @@
+<ng-container *ngFor="let transaction of transactions; let i = index">
+    <app-master-container [variant]="'secondary'" [opened]="i === 0" [collapsable]="true">
+        <ng-container header>
+            <div>{{ transaction.requestType | cibDefinition: 'REQUESTTYPE' }}</div>
+        </ng-container>
+        <ng-container body>
+            <div fxFlex="column">
+                <ng-container *ngIf="transaction">
+                    <ng-container *ngIf="transaction.documentUploadDetails">
+                        <app-label-value
+                            [type]="'link'"
+                            [label]="'Uploaded Document'"
+                            (click)="getDownload(transaction.documentUploadDetails)"
+                            [value]="transaction.documentUploadDetails.customerFileName"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.channel">
+                        <app-label-value [label]="'Channel'" [value]="transaction.channel"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.customerNo">
+                        <app-label-value [label]="'RIM'" [value]="transaction.customerNo"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.status">
+                        <app-label-value [type]="'status'" [label]="'Status'" [value]="transaction.status">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.accountNo">
+                        <app-label-value [label]="'Account Number'" [value]="transaction.accountNo"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.debitAccountNo">
+                        <app-label-value [label]="'Debit Account Number'" [value]="transaction.debitAccountNo">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.cardType">
+                        <app-label-value [label]="'Card Type'" [value]="transaction.cardType"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.limit">
+                        <app-label-value
+                            [label]="'Card Limit'"
+                            [value]="transaction.currency + ' ' + (transaction.limit | number: '1.2-4')"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <app-label-value
+                        *ngIf="transaction.description"
+                        [label]="'Description'"
+                        [value]="transaction.description"
+                    ></app-label-value>
+
+                    <ng-container *ngIf="transaction.charges">
+                        <app-label-value
+                            [label]="'Charges'"
+                            [value]="transaction.currency + ' ' + (transaction.charges | number: '1.2-4')"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.amount">
+                        <app-label-value
+                            [label]="'Amount'"
+                            [value]="transaction.currency + ' ' + (transaction.amount | number: '1.2-4')"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.txnReference">
+                        <app-label-value [label]="'Transaction Reference'" [value]="transaction.txnReference">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.embossingName">
+                        <app-label-value [label]="'Embossing Name'" [value]="transaction.embossingName">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.execStartDate">
+                        <app-label-value
+                            [label]="'Balance confirmation Date as on'"
+                            [value]="transaction.execStartDate"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.info1">
+                        <app-label-value
+                            *ngIf="transaction.requestType === '7'"
+                            [label]="'Registered Email ID'"
+                            [value]="transaction.info1"
+                        >
+                        </app-label-value>
+                        <app-label-value
+                            *ngIf="transaction.requestType === '19'"
+                            [label]="'User Id'"
+                            [value]="transaction.info1"
+                        >
+                        </app-label-value>
+                        <app-label-value
+                            *ngIf="transaction.requestType === '6'"
+                            [label]="'Auditors Email Id'"
+                            [value]="transaction.info1"
+                        >
+                        </app-label-value>
+                    </ng-container>
+                    <ng-container *ngIf="transaction.info2">
+                        <app-label-value
+                            *ngIf="transaction.requestType === '19'"
+                            [label]="'Username'"
+                            [value]="transaction.info2"
+                        >
+                        </app-label-value>
+                        <app-label-value
+                            *ngIf="transaction.requestType === '6'"
+                            [label]="'Auditor s Name'"
+                            [value]="transaction.info2"
+                        >
+                        </app-label-value>
+                    </ng-container>
+                    <ng-container *ngIf="transaction.info3">
+                        <app-label-value
+                            *ngIf="transaction.requestType === '7' || transaction.requestType === '6'"
+                            [label]="'Period'"
+                            [value]="transaction.info3"
+                        >
+                        </app-label-value>
+
+                        <app-label-value
+                            *ngIf="transaction.requestType === '19'"
+                            [label]="'Set User Status'"
+                            [value]="transaction.info3"
+                        >
+                        </app-label-value>
+                    </ng-container>
+                    <ng-container *ngIf="transaction.info4">
+                        <app-label-value
+                            *ngIf="transaction.requestType === '19'"
+                            [label]="'User Email-Id'"
+                            [value]="transaction.info4"
+                        >
+                        </app-label-value>
+
+                        <app-label-value
+                            *ngIf="transaction.requestType === '6'"
+                            [label]="'Auditor Address'"
+                            [value]="transaction.info4"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.info6">
+                        <app-label-value
+                            *ngIf="transaction.requestType === '1'"
+                            [label]="'No of Leaves'"
+                            [value]="transaction.info6"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <app-label-value
+                        *ngIf="transaction.disputeDescription"
+                        [label]="'Transfer Description'"
+                        [value]="transaction.disputeDescription"
+                    >
+                    </app-label-value>
+
+                    <ng-container *ngIf="transaction.info5">
+                        <app-label-value
+                            *ngIf="transaction.requestType === '7'"
+                            [label]="'Alternate Email ID'"
+                            [value]="transaction.info5"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.info5 && transaction.info6">
+                        <app-label-value
+                            [label]="'User Full Name'"
+                            [value]="transaction.info5 + ' ' + transaction.info6"
+                        >
+                        </app-label-value>
+                    </ng-container>
+                    <ng-container *ngIf="transaction.info7">
+                        <app-label-value [label]="'Fax Number'" [value]="transaction.info7"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.mobileNo">
+                        <app-label-value
+                            *ngIf="transaction.requestType === '19'"
+                            [label]="'User Mobile Number'"
+                            [value]="transaction.mobileNo"
+                        >
+                        </app-label-value>
+                        <app-label-value
+                            *ngIf="transaction.requestType === '6'"
+                            [label]="'Auditors Contact Number'"
+                            [value]="transaction.mobileNo"
+                        >
+                        </app-label-value>
+                        <app-label-value
+                            *ngIf="transaction.requestType === '18'"
+                            [label]="'Customer Contact Number'"
+                            [value]="transaction.mobileNo"
+                        >
+                        </app-label-value>
+                        <app-label-value
+                            *ngIf="transaction.requestType === '18'"
+                            [label]="'Customer Email Address'"
+                            [value]="transaction.user?.email"
+                        >
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.requestDateTime">
+                        <app-label-value [type]="'date'" [label]="'Created Date'" [value]="transaction.requestDateTime">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.createdBy">
+                        <app-label-value [label]="'Created By'" [value]="transaction.createdBy"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.updated">
+                        <app-label-value [type]="'date'" [label]="'Last Updated Date'" [value]="transaction.updated">
+                        </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.updatedBy">
+                        <app-label-value [label]="'Last Updated By'" [value]="transaction.updatedBy"> </app-label-value>
+                    </ng-container>
+
+                    <ng-container *ngIf="transaction.notes">
+                        <app-label-value [label]="'Notes/Comments'" [value]="transaction.notes"> </app-label-value>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ng-container>
+    </app-master-container>
+</ng-container>
