@@ -52,7 +52,7 @@ export class CreateUserComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.userData.user && this.userData.user.username) {
+        if (this.userData.user && this.userData.user.email) {
             this.screenMode = SCREEN_MODE.EDIT;
         }
 
@@ -78,8 +78,8 @@ export class CreateUserComponent implements OnInit {
         const { userTypes, userRoles } = this.options;
         const typeIndex = userRoles.findIndex((x: any) => x.value === data.userType);
         this.personalInfo = this._fb.group({
-            username: [
-                { value: data.username, disabled: this.screenMode === SCREEN_MODE.EDIT },
+            email: [
+                { value: data.email, disabled: this.screenMode === SCREEN_MODE.EDIT },
                 [
                     Validators.required,
                     Validators.pattern('^(?=.*)(?=.*[a-zA-Z].*)[0-9A-Za-z]{6,20}'),
@@ -99,7 +99,7 @@ export class CreateUserComponent implements OnInit {
             userType: [userRoles[typeIndex] || null],
             enabled: [data.hasOwnProperty('enabled') ? data.enabled : true],
             mobileAccess: [data.hasOwnProperty('mobileAccess') ? data.mobileAccess : true],
-            email: [data.email, [Validators.required, Validators.pattern(`^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$`)]],
+            username: [data.email, [Validators.required, Validators.pattern(`^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$`)]],
             mobilePhone: [data.mobilePhone, Validators.required],
             fax: [additionalDetails.fax],
             comments: [data?.comments || '', Validators.required],

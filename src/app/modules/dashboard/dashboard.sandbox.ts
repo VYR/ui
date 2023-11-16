@@ -131,7 +131,7 @@ export class DashboardSandbox {
                 },
             ],
         };
-        const rimNumber = this.userContext.organizationSelected.rimNumber;
+        const rimNumber = this.userContext.organizationSelected?.rimNumber || "2";
         return this.service.getNetwoth({ rimNumber }).pipe(
             map((res: any) => {
                 const info = res.data[rimNumber];
@@ -170,7 +170,7 @@ export class DashboardSandbox {
             sort: query.sortDirection,
         };
         if (status === REQUEST_STATUS.PENDING) request.fetchAll = query.fetchAll;
-        const role: string = this.userContext.role.name;
+        const role: string = this.userContext.role?.name || '';
         return this.service.getRequestList(request, status, type, role.toUpperCase()).pipe(
             map((res: any) => {
                 const response: any = {};

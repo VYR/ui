@@ -70,13 +70,13 @@ export class MyRequestsComponent implements OnChanges {
         if (this.query) {
             this.config = new CIBTableConfig();
             this.query = new CIBTableQuery();
-            this.getRequests();
+            //this.getRequests();
         }
     }
     lazyLoad(query: CIBTableQuery) {
         this.query = query;
         this.query.dateRange = this.duration;
-        this.getRequests();
+       // this.getRequests();
     }
 
     checkForAction(data: any) {

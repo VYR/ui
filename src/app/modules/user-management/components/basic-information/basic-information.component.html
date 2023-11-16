@@ -1,15 +1,15 @@
 <form *ngIf="form" [formGroup]="form" class="container">
     <div class="row column-gap">
-        <mat-form-field *ngIf="screenMode === SCREEN_MODE.CREATE; else UserName" class="username-control">
+        <mat-form-field *ngIf="screenMode === SCREEN_MODE.CREATE; else UserName" class="email-control">
             <input
                 matInput
                 type="text"
                 (change)="checkAvailability()"
                 oninput="this.value = this.value.toUpperCase()"
-                formControlName="username"
+                formControlName="email"
                 placeholder="User Name"
             />
-            <mat-error *ngIf="form.controls['username'].invalid"
+            <mat-error *ngIf="form.controls['email'].invalid"
                 >Username should consist minimum 6 to max 20 chars with no special chars.</mat-error
             >
             <i
@@ -23,7 +23,7 @@
         </mat-form-field>
 
         <ng-template #UserName>
-            <app-label-value [label]="'User Name'" [value]="form.controls['username'].value"></app-label-value>
+            <app-label-value [label]="'User Name'" [value]="form.controls['email'].value"></app-label-value>
         </ng-template>
 
         <app-label-value

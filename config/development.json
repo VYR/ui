@@ -1,8 +1,8 @@
 {
     "api": {
         "localUrl": "http://localhost/",
-        "apiGateway": "http://localhost/api/public/",
-        "contentServerGateway": "http://localhost/api/writable"
+        "apiGateway": "http://localhost:8000/api/",
+        "contentServerGateway": "http://localhost:8000/"
     },
     "localization": {
         "languages": [

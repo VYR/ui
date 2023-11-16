@@ -96,7 +96,7 @@ export class RegisterH2hComponent implements OnInit {
             userId: this.form.controls['userName']?.value?.userId,
             isEncryptionRequired: this.form.controls['isEncryptionRequired']?.value,
             rimNumber: this.rimInput.toString(),
-            userName: this.form.controls['userName']?.value?.username,
+            userName: this.form.controls['userName']?.value?.email,
             emailID: this.form.controls['emailID'].value,
             isH2HDirectRequired: this.form.controls['isH2HDirectRequired'].value,
             isQIBEncryptionRequired: this.form.controls['keyValue'].value === '2',

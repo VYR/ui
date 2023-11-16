@@ -20,10 +20,11 @@ export class HasAccessToRoleDirective {
     @Input() public set appHasAccessToRole(roles: Array<string>) {
         // this means open URL
         const indx = roles.includes(this.role);
-        if (roles.includes(this.role)) {
-            this.viewContainer.createEmbeddedView(this.templateRef);
-        } else {
-            this.viewContainer.clear();
-        }
+        // if (roles.includes(this.role)) {
+        //     this.viewContainer.createEmbeddedView(this.templateRef);
+        // } else {
+        //     this.viewContainer.clear();
+        // }
+        this.viewContainer.createEmbeddedView(this.templateRef);
     }
 }

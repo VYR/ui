@@ -25,7 +25,8 @@ export class QueueStatusComponent implements AfterViewInit {
     constructor(private sandbox: DashboardSandbox) {}
 
     ngAfterViewInit(): void {
-        this.sandbox.getMakerRequestCount().subscribe((res: any) => {
+       // this.sandbox.getMakerRequestCount().subscribe((res: any) => {
+       /* const res:any={data:{requestCount:[{pendingCount:2}]}};
             if (!res.data.requestCount) return;
             this.modules = res.data.requestCount;
             this.modules.forEach((module: any) => {
@@ -68,7 +69,7 @@ export class QueueStatusComponent implements AfterViewInit {
                     x.value = all[x.id];
                 });
                 this.config.total = all['total'];
-            }
-        });
+            }*/
+        //});
     }
 }

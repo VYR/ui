@@ -123,7 +123,7 @@ export class MyQueueComponent {
                 fieldInfo.push({ fieldName: 'Title', fieldValue: userDetails.title });
                 fieldInfo.push({ fieldName: 'First Name', fieldValue: userDetails.firstNameEng });
                 fieldInfo.push({ fieldName: 'Last Name', fieldValue: userDetails.lastNameEng });
-                fieldInfo.push({ fieldName: 'Username', fieldValue: userDetails.username });
+                fieldInfo.push({ fieldName: 'Username', fieldValue: userDetails.email });
                 fieldInfo.push({ fieldName: 'Email Id', fieldValue: userDetails.email });
                 fieldInfo.push({ fieldName: 'Mobile Phone', fieldValue: userDetails.mobilePhone });
                 fieldInfo.push({ fieldName: 'STP USER', fieldValue: userDetails.stpUser ? 'YES' : 'NO' });
@@ -175,7 +175,7 @@ export class MyQueueComponent {
                 const users = selectedRow?.requestData?.user || [];
                 let assignedUsers: any[] = [];
                 users.forEach((user: any) => {
-                    assignedUsers.push(user.username);
+                    assignedUsers.push(user.email);
                 });
                 fieldInfo.push({ fieldName: 'Assigned Users', fieldValue: assignedUsers });
             }

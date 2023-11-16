@@ -40,7 +40,7 @@
                                 <mat-select aria-label="names" formControlName="userName" multiple>
                                     <app-select-check-all [model]="searchForm.get('userName')" [values]="userNames">
                                     </app-select-check-all>
-                                    <mat-option *ngFor="let s of userNames" [value]="s">{{ s.username }}</mat-option>
+                                    <mat-option *ngFor="let s of userNames" [value]="s">{{ s.email }}</mat-option>
                                 </mat-select>
                             </mat-form-field>
 

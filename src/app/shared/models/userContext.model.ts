@@ -15,7 +15,7 @@ export class UserContext {
     public h2hEnabled!: boolean;
     public isKYCUpdated!: boolean;
     public isSurveyRequired!: string;
-    token!: string;
+    access_token!: string;
     public email!: string;
     userType!: USER_TYPE;
     role!: Role;

@@ -128,7 +128,7 @@ export class UsermanagementSandbox {
         data.forEach((value: any) => {
             let tempObject: any = {};
             (tempObject['CREATED ON'] = moment(value.created).format('YYYY-MM-DD hh:mm A')),
-                (tempObject['USERNAME'] = value.username);
+                (tempObject['USERNAME'] = value.email);
             tempObject['FULL NAME'] = value.fullName;
             tempObject['EMAIL ID'] = value.email;
             tempObject['MOBILE NUMBER'] = value.mobilePhone;

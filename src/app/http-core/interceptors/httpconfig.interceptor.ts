@@ -25,10 +25,10 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.utilService.startSpinner();
         this.count++;
-        const isLoggedIn = this.currentUser && this.currentUser.token;
+        const isLoggedIn = this.currentUser && this.currentUser.access_token;
         if (isLoggedIn) {
             request = request.clone({
-                headers: request.headers.set('Authorization', this.currentUser.token),
+                headers: request.headers.set('Authorization', this.currentUser.access_token),
             });
         }
 

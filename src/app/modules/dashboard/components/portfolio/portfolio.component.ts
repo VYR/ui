@@ -26,7 +26,7 @@ export class PortfolioComponent implements OnInit {
     };
 
     ngOnInit() {
-        this.sandbox.getNetwoth().subscribe((res) => {
+       /* this.sandbox.getNetwoth().subscribe((res) => {
             this.networth = res;
             this.config.total = this.getValue(res.total[2].total);
             this.config.totalLabel = res.total[2].label;
@@ -45,7 +45,7 @@ export class PortfolioComponent implements OnInit {
             });
             this.hasAssets = !this.networth.assets.every((x: any) => x.show === false);
             this.hasLiabilities = !this.networth.liabilities.every((x: any) => x.show === false);
-        });
+        });*/
     }
 
     getValue(value: any) {

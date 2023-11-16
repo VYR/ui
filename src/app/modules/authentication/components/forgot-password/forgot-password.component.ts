@@ -9,7 +9,7 @@ import { AuthenticationSandbox } from '../../authentication.sandbox';
 })
 export class ForgotPasswordComponent implements OnInit {
     otp: any;
-    username: string = '';
+    email: string = '';
     constructor(
         private router: Router,
         private _formBuilder: UntypedFormBuilder,
@@ -34,13 +34,13 @@ export class ForgotPasswordComponent implements OnInit {
 
     onRequestPasswordClick() {
         const payload = {
-            username: this.forgotPasswordForm.controls['userName'].value.toUpperCase(),
+            email: this.forgotPasswordForm.controls['userName'].value.toUpperCase(),
             action: 'VERIFY',
         };
 
         this.sandox.forgotPasswordReq(payload).subscribe((response: any) => {
             if (response.statusCode === 200) {
-                this.username = payload.username;
+                this.email = payload.email;
                 this.isRequestPassword = true;
             }
         });

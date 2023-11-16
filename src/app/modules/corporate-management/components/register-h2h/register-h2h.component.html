@@ -50,7 +50,7 @@
                     <mat-form-field fxFlex="20" *ngIf="form.controls['keyValue'].value === '2'">
                         <mat-label>Select User</mat-label>
                         <mat-select aria-label="names" formControlName="userName">
-                            <mat-option *ngFor="let user of userList" [value]="user">{{ user.username }}</mat-option>
+                            <mat-option *ngFor="let user of userList" [value]="user">{{ user.email }}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

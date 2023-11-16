@@ -10,7 +10,7 @@ import { AuthenticationSandbox } from '../../authentication.sandbox';
 })
 export class UnlockUserComponent implements OnInit {
     otp: any;
-    username: string = '';
+    email: string = '';
     constructor(
         private router: Router,
         private _formBuilder: UntypedFormBuilder,
@@ -32,13 +32,13 @@ export class UnlockUserComponent implements OnInit {
 
     onRequestUnlockUserClick() {
         const payload = {
-            username: this.unlockUserForm.controls['userName'].value.toUpperCase(),
+            email: this.unlockUserForm.controls['userName'].value.toUpperCase(),
             action: 'VERIFY',
         };
 
         this.sandox.unlockUserReq(payload).subscribe((response: any) => {
             if (response.statusCode === 200) {
-                this.username = payload.username;
+                this.email = payload.email;
                 this.isRequestUser = true;
             }
         });

@@ -31,7 +31,7 @@ export class SearchUserComponent {
                 type: ColumnType.date,
             },
             {
-                key: 'username',
+                key: 'email',
                 displayName: 'Username',
                 sortable: true,
             },
@@ -98,9 +98,9 @@ export class SearchUserComponent {
 
     ngOnInit() {
         this.form = this._fb.group({
-            username: [null],
+            email: [null],
             rimNumber: [null],
-            email: [null, [Validators.pattern(`^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$`)]],
+            username: [null, [Validators.pattern(`^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$`)]],
             mobilePhone: [null, [Validators.pattern('^.{8,8}$')]],
         });
 
@@ -147,14 +147,14 @@ export class SearchUserComponent {
             this.getAdditionalDetails(cell.data);
         }
         if (cell.key === 'unlockOtp') {
-            this.sandbox.unlockUserOtp(cell.data.username).subscribe();
+            this.sandbox.unlockUserOtp(cell.data.email).subscribe();
         }
         if (cell.key === 'unlockUser') {
-            this.sandbox.unlockUser(cell.data.username).subscribe();
+            this.sandbox.unlockUser(cell.data.email).subscribe();
         }
         if (cell.key === 'delete') {
             let dialog = this.dialog.openOverlayPanel('Confirm Details', DeleteUserConfirmComponent, {
-                message: 'Are you sure you want to delete this user ' + cell.data.username + '?',
+                message: 'Are you sure you want to delete this user ' + cell.data.email + '?',
             });
             dialog.afterClosed().subscribe((result: any) => {
                 console.log(result, 'result');

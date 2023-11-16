@@ -35,7 +35,7 @@ export class MappingsComponent implements OnInit {
                 sortable: true,
             },
             {
-                key: 'username',
+                key: 'email',
                 displayName: 'User Name',
                 sortable: true,
             },
@@ -180,7 +180,7 @@ export class MappingsComponent implements OnInit {
                     groupId: this.selectedUserGroup?.group.groupId,
                     groupName: this.selectedUserGroup?.group.name,
                     userId: user.data.userId,
-                    username: user.data.username,
+                    email: user.data.email,
                     validateUserId: user.data.userId,
                     validateGroupId: this.selectedUserGroup?.group.groupId,
                 };

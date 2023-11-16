@@ -97,19 +97,19 @@ export class UsermanagementService {
     getUsers(request: any) {
         const queryParams = new HttpParams()
             .set('rim', request.rimNumber || '')
-            .set('username', (request.username || '').toUpperCase() || '')
+            .set('email', (request.email || '').toUpperCase() || '')
             .set('mobilePhone', request.mobilePhone || '')
             .set('email', request.email || '');
 
         return this.http.get(Operations.CORPORATE_USERS, queryParams);
     }
 
-    unlockUser(username: any) {
-        return this.http.put(Operations.USER_UNLOCK, { username });
+    unlockUser(email: any) {
+        return this.http.put(Operations.USER_UNLOCK, { email });
     }
 
-    unlockUserOtp(username: string) {
-        return this.http.put(Operations.USER_UNLOCK_OTP, { username });
+    unlockUserOtp(email: string) {
+        return this.http.put(Operations.USER_UNLOCK_OTP, { email });
     }
 
     getAdditionalDetails(request: any) {
@@ -118,7 +118,7 @@ export class UsermanagementService {
     }
 
     checkUserName(userName: string) {
-        return this.http.put(Operations.CHECK_USERNAME_AVAILABILITY, { username: userName });
+        return this.http.put(Operations.CHECK_USERNAME_AVAILABILITY, { email: userName });
     }
 
     getEntitlementsbyRim(request: any) {

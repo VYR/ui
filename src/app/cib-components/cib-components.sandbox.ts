@@ -21,9 +21,9 @@ export class CibComponentsSandbox implements OnDestroy {
         });
     }
 
-    public resendOtp(username?: string): any {
+    public resendOtp(email?: string): any {
         const payload = {
-            username: username ? username : this.currentUser.userName,
+            email: email ? email : this.currentUser.userName,
         };
         this.cibComponentsService
             .resendOtp(payload)

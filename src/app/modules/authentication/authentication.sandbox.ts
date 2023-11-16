@@ -41,7 +41,7 @@ export class AuthenticationSandbox implements OnDestroy {
         const encrypted: any = {
             newPassword: this.encryptDecrypt.encrypt(req.newPassword),
             oldPassword: this.encryptDecrypt.encrypt(req.currentPassword),
-            username: userName,
+            email: userName,
             action,
         };
         if (action === DECISION.CONFIRM) {
@@ -62,19 +62,19 @@ export class AuthenticationSandbox implements OnDestroy {
 
     public authenticate(creds: LoginCredentials): any {
         const req = new LoginCredentials();
-        req.username = creds.username.toUpperCase();
-        req.password = this.encryptDecrypt.encrypt(creds.password);
+        req.email = creds.email;
+        req.password =creds.password;
         return this.authenticationService.authenticate(req).pipe(
             takeUntil(this.unsubscribe$),
             tap((response: any) => {
-                this.appContext.setUserLogin(response.data, req.username);
+                this.appContext.setUserLogin(response.data, req.email);
             })
         );
     }
 
     public validateOtp(otp: string): any {
         const req = {
-            username: this.currentUser.userName,
+            email: this.currentUser.userName,
             rimNumber: this.currentUser.selectedRim,
             validateOTPRequest: {
                 otp: otp,
@@ -95,7 +95,7 @@ export class AuthenticationSandbox implements OnDestroy {
 
     public forgotPasswordConfirm(passwordInfo: any, otp: string, userInfo: any): any {
         const payload = {
-            username: userInfo.userName.toUpperCase(),
+            email: userInfo.userName.toUpperCase(),
             action: 'CONFIRM',
             newPassword: this.encryptDecrypt.encrypt(passwordInfo.confirmPasswrd),
             validateOTPRequest: {
@@ -118,7 +118,7 @@ export class AuthenticationSandbox implements OnDestroy {
 
     public unlockUserConfirm(otp: string, userInfo: any): any {
         const payload = {
-            username: userInfo.userName.toUpperCase(),
+            email: userInfo.userName.toUpperCase(),
             action: 'CONFIRM',
             validateOTPRequest: {
                 softTokenUser: '',

@@ -32,7 +32,7 @@ export class HomeSandbox {
     }
 
     refreshToken() {
-        const token = this.appContext.getCurrentUser().token;
+        const access_token = this.appContext.getCurrentUser().access_token;
         return this.service.refreshToken().pipe(
             tap((res: any) => {
                 if (res.data && res.data.Authorization) this.appContext.updateToken(res.data.Authorization);

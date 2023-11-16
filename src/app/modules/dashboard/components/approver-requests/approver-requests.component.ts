@@ -72,7 +72,7 @@ export class ApproverRequestsComponent implements OnChanges {
     ngOnChanges() {
         console.log(this.durationType);
         if (this.query) {
-            this.lazyLoad(this.query);
+            //this.lazyLoad(this.query);
         }
     }
     lazyLoad(query: any) {
@@ -82,23 +82,23 @@ export class ApproverRequestsComponent implements OnChanges {
         if (!query.fetchAll && !query.dateRange) {
             query.fetchAll = false;
         }
-        this.sandbox
-            .getRequestList(query, REQUEST_STATUS.PENDING, REQUEST_LIST_TYPE.ACTION_PENDING)
-            .subscribe((res) => {
-                this.selectedRequests = [];
-                let options = [5, 10, 25];
-                if (res.totalRecords > 25) options.push(res.totalRecords);
-                const config = {
-                    columns: this.columns,
-                    data: res.data,
-                    selection: true,
-                    totalRecords: res.totalRecords || 0,
-                    pageSizeOptions: options,
-                };
-                this._onUpdateCount.emit(res.totalRecords || 0);
-                this.config = config;
-                this.query = query;
-            });
+        // this.sandbox
+        //     .getRequestList(query, REQUEST_STATUS.PENDING, REQUEST_LIST_TYPE.ACTION_PENDING)
+        //     .subscribe((res) => {
+        //         this.selectedRequests = [];
+        //         let options = [5, 10, 25];
+        //         if (res.totalRecords > 25) options.push(res.totalRecords);
+        //         const config = {
+        //             columns: this.columns,
+        //             data: res.data,
+        //             selection: true,
+        //             totalRecords: res.totalRecords || 0,
+        //             pageSizeOptions: options,
+        //         };
+        //         this._onUpdateCount.emit(res.totalRecords || 0);
+        //         this.config = config;
+        //         this.query = query;
+        //     });
     }
 
     onSelect(event: any) {

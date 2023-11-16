@@ -49,12 +49,6 @@ const routes: Routes = [
                 canLoad: [RoleGuard],
             },
             {
-                path: 'general-services',
-                loadChildren: () =>
-                    import('../general-services/general-services.module').then((m) => m.GeneralServicesModule),
-                canLoad: [RoleGuard],
-            },
-            {
                 path: 'cards',
                 loadChildren: () => import('../cards/cards.module').then((m) => m.CardsModule),
                 canLoad: [RoleGuard],
@@ -62,12 +56,6 @@ const routes: Routes = [
             {
                 path: 'trade-finance',
                 loadChildren: () => import('../trade-finance/trade-finance.module').then((m) => m.TradeFinanceModule),
-                canLoad: [RoleGuard],
-            },
-            {
-                path: 'general-services',
-                loadChildren: () =>
-                    import('../general-services/general-services.module').then((m) => m.GeneralServicesModule),
                 canLoad: [RoleGuard],
             },
             {
@@ -85,21 +73,8 @@ const routes: Routes = [
                 canLoad: [RoleGuard],
             },
             {
-                path: 'reports',
-                loadChildren: () => import('../reports/reports.module').then((m) => m.ReportsModule),
-                canLoad: [RoleGuard],
-            },
-            {
                 path: 'settings',
                 loadChildren: () => import('../settings/settings.module').then((m) => m.SettingsModule),
-                canLoad: [RoleGuard],
-            },
-            {
-                path: 'operations-approval',
-                loadChildren: () =>
-                    import('../operations-approvals/operations-approvals.module').then(
-                        (m) => m.OperationsApprovalsModule
-                    ),
                 canLoad: [RoleGuard],
             },
             {
@@ -152,12 +127,6 @@ const routes: Routes = [
                     import('../customer-service-desk/customer-service-desk.module').then(
                         (m) => m.CustomerServiceDeskModule
                     ),
-                canLoad: [RoleGuard],
-            },
-            {
-                path: 'advisory-report',
-                loadChildren: () =>
-                    import('../advisory-report/advisory-report.module').then((m) => m.AdvisoryReportModule),
                 canLoad: [RoleGuard],
             },
             {

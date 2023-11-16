@@ -129,7 +129,7 @@
     },
     "resendOtp": {
         "baseUrl": "apiGateway",
-        "path": "auth/security/v1/token/resend"
+        "path": "auth/security/v1/access_token/resend"
     },
     "getFinanceStatements": {
         "baseUrl": "apiGateway",

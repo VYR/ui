@@ -68,7 +68,7 @@
         <app-cib-card>
             <app-label-value
                 [label]="auditTrail.action === 'CREATE' ? 'Created by & Date' : 'Updated By & Date'"
-                [value]="auditTrail.user.username + ' - ' + (auditTrail.created | date: 'medium')"
+                [value]="auditTrail.user.email + ' - ' + (auditTrail.created | date: 'medium')"
             >
             </app-label-value>
         </app-cib-card>

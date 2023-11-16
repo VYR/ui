@@ -35,9 +35,9 @@ export class BasicInformationComponent implements OnInit {
     }
 
     checkAvailability() {
-        const username = this.form.controls['username'].value.trim();
-        if (username.length < 6 || this.form.controls['username'].invalid) return;
-        this.sandbox.checkUserName(username).subscribe((res: any) => {
+        const email = this.form.controls['email'].value.trim();
+        if (email.length < 6 || this.form.controls['email'].invalid) return;
+        this.sandbox.checkUserName(email).subscribe((res: any) => {
             this.form.controls['isUserNameValidated'].setValue(res.statusCode === 200 ? true : null);
             this.form.controls['isUserNameValidated'].updateValueAndValidity();
         });

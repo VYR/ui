@@ -9,7 +9,7 @@ import { CibComponentsSandbox } from '../cib-components.sandbox';
 })
 export class CibOtpComponent implements OnInit {
     @Output() otpValueEvent: EventEmitter<string> = new EventEmitter<string>();
-    @Input() username: string = '';
+    @Input() email: string = '';
     @Input() showMore: boolean = false;
     @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
 
@@ -39,6 +39,6 @@ export class CibOtpComponent implements OnInit {
 
     onResendClick() {
         this.enableResend = false;
-        this.cibComponentsSandbox.resendOtp(this.username);
+        this.cibComponentsSandbox.resendOtp(this.email);
     }
 }

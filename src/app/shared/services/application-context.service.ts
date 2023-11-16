@@ -20,9 +20,9 @@ export class ApplicationContextService {
     }
 
     public setUserLogin(data: any, userName: string): any {
-        data.userName = userName;
+        //data.userName = userName || '';
         const user: UserContext = this._setUserInfo(data);
-        user.organizations = this._processOrganizations(data.organization || []);
+        user.organizations = this._processOrganizations(data?.organization || []);
         user.organizationSelected = this._getOrganizationselected(user);
         this._setUserContext(user);
         if (user.forcePasswordChange) {
@@ -42,30 +42,30 @@ export class ApplicationContextService {
 
     private _setUserInfo(data: any) {
         const user: UserContext = JSON.parse(this.cache.get('USER_CONTEXT')) || new UserContext();
-        user.userName = data.userName;
-        user.selectedRim = data.selectedRim;
-        user.token = data.Authorization;
-        user.expirationTime = data.expirationTime;
-        user.userId = data.userId;
-        user.email = data.email;
-        user.firstName = data.firstNameEng;
-        user.lastName = data.lastNameEng;
-        user.mobilePhone = data.mobilePhone;
-        user.stpUser = data.stpUser;
-        user.enabled = data.enabled === 'true';
+        user.userName = data?.userName || '';
+        user.selectedRim = data?.selectedRim;
+        user.access_token = data?.Authorization;
+        user.expirationTime = data?.expirationTime;
+        user.userId = data?.userId;
+        user.email = data?.email;
+        user.firstName = data?.firstNameEng;
+        user.lastName = data?.lastNameEng;
+        user.mobilePhone = data?.mobilePhone;
+        user.stpUser = data?.stpUser;
+        user.enabled = (data?.enabled || true) === 'true';
         user.currentSignIn = new Date();
-        user.lastSignIn = data.lastSignIn;
-        user.isBankAdmin = data.isBankAdmin;
-        user.h2hEnabled = data.h2hEnabled;
-        user.isSurveyRequired = data.isSurveyRequired;
-        user.entitlement = data.entitlement;
-        user.forcePasswordChange = data.forcePasswordChange;
-        user.rmDetails = data.rmDetails || {};
-        user.userType = this._getUserType(data.userType);
-        user.role = data.role && data.role.length ? data.role[0] : null;
-        user.sysConfig = data.sysConfig ? this._parseSystemConfig(data.sysConfig) : null;
-        user.sysConfigAllInfo = data.sysConfig;
-        user.kycPopType = data.kycPopType;
+        user.lastSignIn = data?.lastSignIn;
+        user.isBankAdmin = data?.isBankAdmin;
+        user.h2hEnabled = data?.h2hEnabled;
+        user.isSurveyRequired = data?.isSurveyRequired;
+        user.entitlement = data?.entitlement;
+        user.forcePasswordChange = data?.forcePasswordChange;
+        user.rmDetails = data?.rmDetails || {};
+        user.userType = this._getUserType(data?.userType || '');
+        user.role = data?.role && data.role.length ? data.role[0] : null;
+        user.sysConfig = data?.sysConfig ? this._parseSystemConfig(data?.sysConfig || '') : null;
+        user.sysConfigAllInfo = data?.sysConfig;
+        user.kycPopType = data?.kycPopType;
         return user;
     }
 
@@ -123,7 +123,8 @@ export class ApplicationContextService {
                 url = APP_ROUTES.VALIDATE_OTP;
                 break;
         }
-        this.router.navigate([url]);
+        //this.router.navigate([url]);
+        this._navigateDashboard();
     }
 
     private _parseSystemConfig(data: any) {
@@ -139,12 +140,12 @@ export class ApplicationContextService {
 
     public updateRimSelection(organization: Organization, data: any) {
         const userContext = JSON.parse(this.cache.get('USER_CONTEXT')) || new UserContext();
-        userContext.entitlement = data.entitlement;
+        userContext.entitlement = data?.entitlement;
         userContext.isKYCUpdated = data.isKYCUpdated === '0' ? false : true;
-        userContext.h2hEnabled = data.h2hEnabled;
+        userContext.h2hEnabled = data?.h2hEnabled;
         userContext.role = data.role[0];
         userContext.organizationSelected = organization;
-        userContext.kycPopType = data.kycPopType;
+        userContext.kycPopType = data?.kycPopType;
         this._setUserContext(userContext);
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             this.router.navigate([APP_ROUTES.DASHBOARD]);
@@ -155,9 +156,9 @@ export class ApplicationContextService {
         return this.currentUserSubject.value || JSON.parse(this.cache.get('USER_CONTEXT'));
     }
 
-    public updateToken(token: string) {
+    public updateToken(access_token: string) {
         const user: UserContext = this.getCurrentUser();
-        user.token = token;
+        user.access_token = access_token;
         this._setUserContext(user);
     }
 
@@ -174,7 +175,7 @@ export class ApplicationContextService {
 
     public isAuthenticated(): boolean {
         const currentUser = this.getCurrentUser();
-        return Boolean(currentUser && currentUser.token);
+        return Boolean(currentUser && currentUser.access_token);
     }
 
     private _setUserContext(user: UserContext) {

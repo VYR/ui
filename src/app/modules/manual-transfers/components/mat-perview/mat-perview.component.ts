@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { templateCss } from 'src/app/modules/advisory-report/component/preview/template-css';
 import { UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { CibDialogService } from 'src/app/shared/services/cib-dialog.service';
@@ -53,7 +52,6 @@ export class MatPerviewComponent {
             ? frame1.contentDocument.document
             : frame1.contentDocument;
         frameDoc.document.open();
-        frameDoc.document.write(`<html><head>${templateCss}</head><body>`);
         frameDoc.document.write(contents);
         frameDoc.document.write('</body></html>');
         frameDoc.document.close();

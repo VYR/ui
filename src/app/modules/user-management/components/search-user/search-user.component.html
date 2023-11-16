@@ -28,7 +28,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Username</mat-label>
-                <input matInput type="text" formControlName="username" placeholder="Enter Username" />
+                <input matInput type="text" formControlName="email" placeholder="Enter Username" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Email ID</mat-label>
@@ -51,7 +51,7 @@
                 (click)="onSearch()"
                 [disabled]="
                     form.invalid ||
-                    !(form.value.rimNumber || form.value.username || form.value.email || form.value.mobilePhone)
+                    !(form.value.rimNumber || form.value.email || form.value.email || form.value.mobilePhone)
                 "
             >
                 Search
