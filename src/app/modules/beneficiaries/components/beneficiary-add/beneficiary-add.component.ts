@@ -20,7 +20,13 @@ import { UtilService } from 'src/app/utility';
 })
 export class BeneficiaryAddComponent implements OnInit {
     public addBeneficiaryForm!: UntypedFormGroup;
-    @Input() countryList: any = [];
+    countryList: any = [];
+    categoryList: any = [
+        { id:1,name:"Biryani" },
+        { id:2,name:"Dosa" },
+        { id:3,name:"Meals" },
+        { id:4,name:"Pickels" }
+        ];
     currencyList: any = [];
     bankList: any = [];
     @Input() beneficiaryRelations: any = [];
@@ -45,7 +51,7 @@ export class BeneficiaryAddComponent implements OnInit {
     ngOnInit(): void {
         this.addBeneficiaryForm = this.fb.group({
             relationshipWithBeneficiary: ['Business / Vendor Relationship', [Validators.required]],
-            bankCountry: [null, [Validators.required]],
+            categoryId: [null, [Validators.required]],
             bankName: [null, [Validators.required]],
             bankCity: [null, [Validators.required]],
             currency: [null, [Validators.required]],
@@ -134,14 +140,14 @@ export class BeneficiaryAddComponent implements OnInit {
     }
 
     public onCountrySelected(event: any, countryObj: any) {
-        if (event.isUserInput) {
-            this.currencyList = countryObj.currency;
-            this.addBeneficiaryForm.controls['beneficiaryCountry'].setValue(countryObj.code);
-            this.showIBAN = this.utilService.getNameFromList(countryObj.code, this.countryList, 'iban', 'code') === 'Y';
-            if (countryObj.code === 'QA') {
-                this.getBankListQatar();
-            }
-        }
+        // if (event.isUserInput) {
+        //     this.currencyList = countryObj.currency;
+        //     this.addBeneficiaryForm.controls['beneficiaryCountry'].setValue(countryObj.code);
+        //     this.showIBAN = this.utilService.getNameFromList(countryObj.code, this.countryList, 'iban', 'code') === 'Y';
+        //     if (countryObj.code === 'QA') {
+        //         this.getBankListQatar();
+        //     }
+        // }
     }
 
     public getBankListQatar() {

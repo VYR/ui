@@ -1,6 +1,6 @@
 <div class="form-container">
     <app-master-container>
-        <ng-container header>Beneficiary Type - {{ payeeType | cibDefinition: 'PAYEE' }} </ng-container>
+        <ng-container header>Add Product</ng-container>
         <ng-container icons>
             <button mat-icon-button (click)="reset()">
                 <i class="las la-sync"></i>
@@ -11,28 +11,23 @@
         </ng-container>
         <ng-container body>
             <div fxLayout="column" class="add-form-wrapper">
-                <div class="header-info">
+                <!-- <div class="header-info">
                     <i class="las la-info-circle"></i> All information below must be in ENGLISH only. Special characters
                     are not allowed
-                </div>
+                </div> -->
                 <form [formGroup]="addBeneficiaryForm" class="add">
                     <!--Country drop down-->
                     <div fxLayout="row" fxLayoutGap="2rem" fxLayoutAlign="start center">
                         <mat-form-field fxFlex="100">
-                            <mat-label>Bank Country</mat-label>
+                            <mat-label>Category</mat-label>
                             <mat-select
-                                formControlName="bankCountry"
-                                [disabled]="
-                                    addBeneficiaryForm.controls['currency'].value ||
-                                    addBeneficiaryForm.controls['bankName'].value
-                                "
-                            >
+                                formControlName="categoryId" >
                                 <mat-option
-                                    (onSelectionChange)="onCountrySelected($event, country)"
-                                    *ngFor="let country of countryList; let i = index"
-                                    [value]="country.code"
+                                    (onSelectionChange)="onCountrySelected($event, category)"
+                                    *ngFor="let category of categoryList; let i = index"
+                                    [value]="category.id"
                                 >
-                                    {{ country.name }}</mat-option
+                                    {{ category.name }}</mat-option
                                 >
                             </mat-select>
                         </mat-form-field>
@@ -84,6 +79,17 @@
                                     {{ currency.name }}
                                 </mat-option>
                             </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Amount</mat-label>
+                            <input
+                                type="number"
+                                min="0"
+                                maxlength="13"
+                                aria-label="Amount"
+                                matInput
+                                formControlName="lcAmount"
+                            />
                         </mat-form-field>
                     </div>
 

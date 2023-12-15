@@ -1,102 +1,57 @@
-<div fxLayout="row" fxLayoutGap="0.7rem" fxLayout.lt-md="column">
-    <div fxFlex="35">
-        <app-master-container #beneList>
-            <ng-container header>Beneficiaries</ng-container>
-            <ng-container icons>
-                <button mat-icon-button (click)="showSearch()">
-                    <i class="las la-search"></i>
-                </button>
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <i class="las la-filter"></i>
-                </button>
-            </ng-container>
-            <ng-container body>
-                <div class="beneficiary-list">
-                    <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="showsearch">
-                        <mat-form-field fxFlex="40">
-                            <mat-label>By Name</mat-label>
-                            <input
-                                matInput
-                                [(ngModel)]="searchKey"
-                                (ngModelChange)="filterListByNickname()"
-                                name="searchKey"
-                            />
-                        </mat-form-field>
-                        <mat-form-field fxFlex="40">
-                            <mat-label>By Country</mat-label>
-                            <mat-select [(value)]="selectedCountry" (selectionChange)="filterListByCountry($event)">
-                                <mat-option value="All">ALL</mat-option>
-                                <mat-option *ngFor="let country of countryList; let i = index" [value]="country"
-                                    >{{ country.name }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <ng-container *ngFor="let beneficiary of beneficiaryList; let i = index">
-                        <app-cib-card [isActive]="i === activeIndex" (_click)="activeIndex = i; showEdit = false">
-                            <div class="name">{{ beneficiary.nickName }}</div>
-                            <div class="account-number">
-                                <div *ngIf="beneficiary.iban">{{ beneficiary.iban | Iban }}</div>
-                                <div *ngIf="beneficiary.accountNo && !beneficiary.iban">
-                                    {{ beneficiary.accountNo }}
-                                </div>
-                            </div>
-                            <div class="address">
-                                <span>{{ beneficiary.street ? beneficiary.street + ' , ' : '' }}</span>
-                                <span>{{ beneficiary.bankCity ? beneficiary.bankCity + ', ' : '' }}</span>
-                                <span>{{ getCountryName(beneficiary.bankCountry) }}</span>
-                            </div>
-                        </app-cib-card>
-                    </ng-container>
-                    <div fxLayout="column" *ngIf="beneficiaryList.length === 0">
-                        <div>No Beneficiaries available</div>
-                    </div>
+<div fxFlex="100" fxFlex.sm="100">
+    <app-master-container>
+        <ng-container header>LC Drafts</ng-container>
+
+        <ng-container body>
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+                <div class="page-heading">SAVED LC's</div>
+                <div fxLayout="row">
+                    <!-- <button class="header-icons" mat-icon-button (click)="getLcDrafts()">
+                        <i class="las la-sync-alt"></i>
+                    </button> -->
+                    <!-- <button
+                        class="header-icons"
+                        mat-icon-button
+                        [matMenuTriggerFor]="menu"
+                        #menuTrigger="matMenuTrigger"
+                    >
+                        <i class="las la-search"></i>
+                    </button> -->
                 </div>
-            </ng-container>
-        </app-master-container>
-    </div>
-    <div fxFlex="65">
-        <app-master-container *ngIf="beneficiaryList[activeIndex]">
-            <ng-container header *ngIf="!showEdit"
-                >{{ beneficiaryList[activeIndex] && beneficiaryList[activeIndex].nickName }}
-            </ng-container>
-            <ng-container header *ngIf="showEdit"
-                >Beneficiary Type - {{ beneficiaryList[activeIndex].payeeType | cibDefinition: 'PAYEE' }}
-            </ng-container>
-            <ng-container icons *ngIf="!showEdit">
-                <ng-container *ngFor="let option of options">
-                    <button mat-icon-button (click)="onAction(option.fnName)" *appHasEntitlementAccessTo="option.uuid">
-                        <i class="las" [ngClass]="option.name"></i>
-                    </button>
-                </ng-container>
-            </ng-container>
-            <ng-container icons *ngIf="showEdit">
-                <button mat-icon-button (click)="showEdit = false">
-                    <i class="las la-times"></i>
-                </button>
-            </ng-container>
-            <ng-container body>
-                <app-beneficiary-details
-                    *ngIf="!showEdit"
-                    [selectedBeneficiary]="beneficiaryList[activeIndex]"
-                    [countryList]="countryList"
-                >
-                </app-beneficiary-details>
-                <app-beneficiary-form
-                    *ngIf="showEdit"
-                    [edit]="true"
-                    [selectedBeneficiary]="beneficiaryList[activeIndex]"
-                ></app-beneficiary-form>
-            </ng-container>
-        </app-master-container>
-    </div>
+            </div>
+            <app-cib-table
+                [config]="tableConfig"
+                (_clickCell)="onClickCell($event)"
+                (_lazyLoad)="lazyLoad($event)"
+            ></app-cib-table>
+        </ng-container>
+    </app-master-container>
 </div>
 
-<mat-menu #menu="matMenu" xPosition="before" class="mat-menu-container">
-    <app-cib-filter-menu
-        (_select)="filterListByType(beneficiaryTypes[$event])"
-        title="Beneficiary Type"
-        category="PAYEE"
-        [options]="beneficiaryTypes"
-    ></app-cib-filter-menu>
-</mat-menu>
+<!-- <mat-menu #menu="matMenu" xPosition="after">
+    <div class="filter-menu-item-container" (click)="$event.stopPropagation()">
+        <form [formGroup]="filterForm">
+            <div class="filter-section" fxLayoutGap="1rem">
+                <mat-form-field>
+                    <input matInput type="text" formControlName="name" placeholder="Beneficiary Name" />
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="type" placeholder="LC Type" />
+                </mat-form-field>
+
+                <div>
+                    <button
+                        [disabled]="diableFilterButton()"
+                        class="filter-menu-item"
+                        class="mat-raised-button mat-primary"
+                        (click)="filterTable()"
+                        mat-button
+                        color="primary"
+                    >
+                        <span>Search</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-menu> -->

@@ -1,12 +1,13 @@
 @import 'variables';
 :host {
     .header-container {
-        padding: 0.5rem 1rem;
+        padding: 0rem 0rem;
         background-color: $qib-primary-color;
         .header-logo {
             padding: 0.5rem;
             img {
-                width: 10rem;
+                height: 4rem;
+                width: 4rem;
             }
         }
     }
