@@ -177,7 +177,7 @@ export class DashboardComponent {
     openSidePanel(selectedRow: any, rowkey: any) {
         let fieldInfo: any = [
             { fieldName: 'Request Type', fieldValue: selectedRow.requestDescription },
-            { fieldName: 'RIM Number', fieldValue: selectedRow.rimNumber },
+            { fieldName: 'RIM Number', fieldValue: selectedRow.uniqueUserId },
         ];
 
         //CREATE AND UPDATE USER DETAILS
@@ -215,7 +215,7 @@ export class DashboardComponent {
                         });
                     }
                     if (element.hasOwnProperty('customer')) {
-                        rimData.push({ fieldName: 'RIM Number', fieldValue: element.customer.rimnumber });
+                        rimData.push({ fieldName: 'RIM Number', fieldValue: element.customer.uniqueUserId });
                     }
                     if (element.hasOwnProperty('role')) {
                         rimData.push({
@@ -373,12 +373,12 @@ export class DashboardComponent {
             if (res.data) {
                 this.adminRequests = res.data.content;
                 res.data.content.forEach((resp: any) => {
-                    if (resp.businessRim) resp.rimNumber = resp.requestData?.businessRim[0].rimnumber;
-                    else if (resp.requestData?.rimnumber) resp.rimNumber = resp.requestData?.rimnumber;
-                    else if (resp.requestData?.rimNumber) resp.rimNumber = resp.requestData?.rimNumber;
-                    else if (resp.requestData?.customer) resp.rimNumber = resp.requestData?.customer.rimnumber;
-                    else if (resp.requestData?.rim) resp.rimNumber = resp.requestData?.rim;
-                    else if (resp.requestData?.userGroup?.rim) resp.rimNumber = resp.requestData?.userGroup?.rim;
+                    if (resp.businessRim) resp.uniqueUserId = resp.requestData?.businessRim[0].uniqueUserId;
+                    else if (resp.requestData?.uniqueUserId) resp.uniqueUserId = resp.requestData?.uniqueUserId;
+                    else if (resp.requestData?.uniqueUserId) resp.uniqueUserId = resp.requestData?.uniqueUserId;
+                    else if (resp.requestData?.customer) resp.uniqueUserId = resp.requestData?.customer.uniqueUserId;
+                    else if (resp.requestData?.rim) resp.uniqueUserId = resp.requestData?.rim;
+                    else if (resp.requestData?.userGroup?.rim) resp.uniqueUserId = resp.requestData?.userGroup?.rim;
                     else if (resp.requestData?.userRim) {
                         let rims: any = [];
                         if (resp.requestData?.userRims) {
@@ -386,21 +386,21 @@ export class DashboardComponent {
                         } else {
                             resp.requestData?.userRim.forEach((element: any) => {
                                 if (element.hasOwnProperty('customer')) {
-                                    rims.push(element.customer.rimnumber);
+                                    rims.push(element.customer.uniqueUserId);
                                 }
                             });
                         }
-                        resp.rimNumber = rims.join(',');
+                        resp.uniqueUserId = rims.join(',');
                     } else if (resp.requestData?.businessRim) {
                         let rims: any = [];
                         resp.requestData?.businessRim.forEach((element: any) => {
                             if (element.hasOwnProperty('rimnumber')) {
-                                rims.push(element.rimnumber);
+                                rims.push(element.uniqueUserId);
                             } else {
                                 rims.push(element);
                             }
                         });
-                        resp.rimNumber = rims.join(',');
+                        resp.uniqueUserId = rims.join(',');
                     }
                 });
 

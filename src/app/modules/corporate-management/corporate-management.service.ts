@@ -107,7 +107,7 @@ export class CorporateManagementService {
 
     getHostToHostDetails(query: any) {
         let httpParams = new HttpParams()
-            .set('rim', query.rimNumber)
+            .set('rim', query.uniqueUserId)
             .set('pageNumber', query.pageIndex)
             .set('pageSize', query.pageSize)
             .set('sort', query.sort || 'DESC')

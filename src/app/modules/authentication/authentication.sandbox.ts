@@ -67,7 +67,8 @@ export class AuthenticationSandbox implements OnDestroy {
         return this.authenticationService.authenticate(req).pipe(
             takeUntil(this.unsubscribe$),
             tap((response: any) => {
-                this.appContext.setUserLogin(response.data, req.email);
+                console.log(response);
+                this.appContext.setUserLogin(response, req.email);
             })
         );
     }
@@ -75,7 +76,7 @@ export class AuthenticationSandbox implements OnDestroy {
     public validateOtp(otp: string): any {
         const req = {
             email: this.currentUser.userName,
-            rimNumber: this.currentUser.selectedRim,
+            rimNumber: this.currentUser.selectedUserId,
             validateOTPRequest: {
                 otp: otp,
                 softTokenUser: true,

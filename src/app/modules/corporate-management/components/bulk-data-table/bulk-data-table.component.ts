@@ -26,7 +26,7 @@ export class BulkDataTableComponent implements OnInit {
 
     setTableConfig() {
         this.totalRecords = this.data.data.length;
-        this.rim = this.data.data.rimNumber;
+        this.rim = this.data.data.uniqueUserId;
         this.fileName = this.data.data.fileName;
         this.date = moment(this.data.data.created).format('YYYY-MM-DD hh:mm A');
 

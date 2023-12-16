@@ -9,12 +9,12 @@ export class DetailViewComponent {
     public menu: Array<any> = [
         {
             uuid: '',
-            name: 'Pending Requests',
+            name: 'Pending Payments',
             path: 'pending',
         },
         {
             uuid: '',
-            name: 'Completed Requests',
+            name: 'Completed Payments',
             path: 'completed',
         },
     ];

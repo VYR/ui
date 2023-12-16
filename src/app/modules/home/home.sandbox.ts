@@ -16,7 +16,7 @@ export class HomeSandbox {
     ) {}
 
     rimSelect(organization: Organization) {
-        return this.service.rimSelection(organization.rimNumber).pipe(
+        return this.service.rimSelection(organization.uniqueUserId).pipe(
             tap((res: any) => {
                 this.appContext.updateRimSelection(organization, res.data);
             })
@@ -24,11 +24,12 @@ export class HomeSandbox {
     }
 
     logout() {
-        return this.authService.logout().pipe(
-            tap((res: any) => {
-                this.appContext.logout();
-            })
-        );
+        // return this.authService.logout().pipe(
+        //     tap((res: any) => {
+        //         this.appContext.logout();
+        //     })
+        // );
+        this.appContext.logout();
     }
 
     refreshToken() {

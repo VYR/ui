@@ -65,7 +65,7 @@
                                 (change)="setEntitlements($event, getRimInfoGroup(i).value, i)"
                             >
                             </mat-slide-toggle>
-                            <div>{{ getRimInfoGroup(i).value.rimNumber }}</div>
+                            <div>{{ getRimInfoGroup(i).value.uniqueUserId }}</div>
                         </div>
                     </ng-container>
                     <ng-container icons>
@@ -95,8 +95,8 @@
                                     form.value.updateMode?.value === 'UPDATE' &&
                                     rimInfo.controls.length !== 1
                                 "
-                                (click)="delinkAccount(getRimInfoGroup(i).value.rimNumber)"
-                                value="{{ getRimInfoGroup(i).value.rimNumber }}"
+                                (click)="delinkAccount(getRimInfoGroup(i).value.uniqueUserId)"
+                                value="{{ getRimInfoGroup(i).value.uniqueUserId }}"
                             >
                                 DE-LINK
                             </button>

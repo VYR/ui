@@ -39,7 +39,7 @@ export class AssignEntitlementsComponent implements OnChanges {
     selectedEntitlements: Array<any> = [];
     accounts: Array<any> = [];
     roleRims: any = [];
-    selectedRim: any;
+    selectedUserId: any;
     selectedEntitlement: any;
     entitlementModes = [
         {
@@ -90,14 +90,14 @@ export class AssignEntitlementsComponent implements OnChanges {
                 entRimWise.push(
                     this.sandbox.getEntitlementsbyRim({
                         userId: userId,
-                        rim: this.step === 'addNewRole' ? this.userRimInfoSelected[0].rimNumber : x.rimNumber,
+                        rim: this.step === 'addNewRole' ? this.userRimInfoSelected[0].uniqueUserId : x.uniqueUserId,
                     })
                 );
             });
         }
 
         rims.forEach((x: any) => {
-            accountsRimWise.push(this.sandbox.getAccounts(x.rimNumber));
+            accountsRimWise.push(this.sandbox.getAccounts(x.uniqueUserId));
         });
 
         forkJoin(accountsRimWise).subscribe((accounts: any) => {
@@ -146,7 +146,7 @@ export class AssignEntitlementsComponent implements OnChanges {
         this.rimInfo.clear();
         data.forEach((x: any, index: number) => {
             const group = this._fb.group({
-                rimNumber: [x.rimNumber],
+                rimNumber: [x.uniqueUserId],
                 role: [x.role || null],
                 checked: [x.checked || false],
                 fullAccountPrivilege: [x.fullAccountPrivilege || false],
@@ -227,7 +227,7 @@ export class AssignEntitlementsComponent implements OnChanges {
             this.sandbox.getBusinessRims(this.corporateGroups[index].businessId).subscribe((res: any) => {
                 const rims = (res || []).map((x: any) => {
                     return {
-                        rimNumber: x.rimnumber,
+                        rimNumber: x.uniqueUserId,
                         checked: false,
                         fullAccountPrivilege: false,
                         role: null,
@@ -300,8 +300,8 @@ export class AssignEntitlementsComponent implements OnChanges {
     }
 
     delinkAccount(rimNo: any) {
-        let selectedRim = this.userRimInfo.find((rimsInfo: any) => {
-            return rimsInfo.rimNumber === rimNo;
+        let selectedUserId = this.userRimInfo.find((rimsInfo: any) => {
+            return rimsInfo.uniqueUserId === rimNo;
         });
 
         let dialog = this.dialog.openOverlayPanel('Confirm Details', DeleteUserConfirmComponent, {
@@ -309,7 +309,7 @@ export class AssignEntitlementsComponent implements OnChanges {
         });
         dialog.afterClosed().subscribe((result: any) => {
             if (result && result?.action === 'success') {
-                this.sandbox.deleteRim(selectedRim.userRimId, this.userData?.user?.userId).subscribe((res: any) => {
+                this.sandbox.deleteRim(selectedUserId.userRimId, this.userData?.user?.userId).subscribe((res: any) => {
                     this._onUpdate.emit(true);
                     this.rimLinkingEvent.emit({ rimInfo: rimNo, action: 'removeRim' });
                 });

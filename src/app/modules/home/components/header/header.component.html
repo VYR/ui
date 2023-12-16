@@ -38,6 +38,14 @@
                 <i class="las la-envelope"></i>
                 <div>{{ user.email }}</div>
             </div>
+            <div *ngIf="user.aadhar" class="profile-header-option">
+                <i class="las la-envelope"></i>
+                <div>{{ user.aadhar }}</div>
+            </div>
+            <div *ngIf="user.pan" class="profile-header-option">
+                <i class="las la-credit-card"></i>
+                <div>{{ user.pan }}</div>
+            </div>
             <div *ngIf="user.currentSignIn" class="profile-header-option">
                 <i class="las la-clock"></i>
                 <div>{{ user.currentSignIn | date: 'medium' }} (Current login)</div>

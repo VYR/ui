@@ -20,7 +20,7 @@ export class ViewDemoComponent {
     // }
 
     demosList = [
-        { title: 'Beneficiary Creation', src: 'assets/videos/2.mp4' },
+        { title: 'User Creation', src: 'assets/videos/2.mp4' },
         { title: 'Beneficiary List and Search', src: 'assets/videos/8.mp4' },
         { title: 'Make Single Transfer', src: 'assets/videos/7.mp4' },
         { title: 'Make Multiple Transfers', src: 'assets/videos/7.mp4' },

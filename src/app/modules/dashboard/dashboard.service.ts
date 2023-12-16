@@ -7,7 +7,7 @@ import { Operations } from 'src/app/shared/enums/operations';
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
     REQUEST_LIST: any = {
-        ROLE_USER_MAKER: {
+        USER: {
             MY_QUEUE: Operations.MAKER_REQUESTS,
             MAKER_COMPLETED: Operations.MAKER_REQUESTS,
             ACTION_PENDING: Operations.MAKER_REQUESTS,

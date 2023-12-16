@@ -15,6 +15,26 @@ const routes: Routes = [
                 canLoad: [RoleGuard],
             },
             {
+                path: 'admin',
+                loadChildren: () => import('../sgs-admin/sgs-admin.module').then((m) => m.SgsAdminModule),
+               // canLoad: [RoleGuard],
+            },
+            {
+                path: 'dealer',
+                loadChildren: () => import('../sgs-dealer/sgs-dealer.module').then((m) => m.SgsDealerModule),
+               // canLoad: [RoleGuard],
+            },
+            {
+                path: 'user',
+                loadChildren: () => import('../sgs-user/sgs-user.module').then((m) => m.SgsUserModule),
+                canLoad: [RoleGuard],
+            },
+            {
+                path: 'settings',
+                loadChildren: () => import('../settings/settings.module').then((m) => m.SettingsModule),
+                canLoad: [RoleGuard],
+            },
+            {
                 path: 'accounts',
                 loadChildren: () => import('../accounts/accounts.module').then((m) => m.AccountsModule),
                 canLoad: [RoleGuard],
@@ -70,11 +90,6 @@ const routes: Routes = [
                     import('../liquidity-management/liquidity-management.module').then(
                         (m) => m.LiquidityManagementModule
                     ),
-                canLoad: [RoleGuard],
-            },
-            {
-                path: 'settings',
-                loadChildren: () => import('../settings/settings.module').then((m) => m.SettingsModule),
                 canLoad: [RoleGuard],
             },
             {

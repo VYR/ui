@@ -27,20 +27,22 @@ export class MyRequestsComponent implements OnChanges {
             sortable: true,
         },
         {
-            key: 'requestDescription',
-            displayName: 'Type',
-            sortable: true,
-        },
-        {
-            key: 'cibRef',
-            displayName: 'Request Id',
+            key: 'userId',
+            displayName: 'User Id',
             type: ColumnType.link,
             sortable: true,
         },
         {
-            key: 'currency',
-            displayName: 'Currency',
-            minWidth: 5,
+            key: 'name',
+            displayName: 'Name',
+            type: ColumnType.label,
+            sortable: true,
+        },
+        {
+            key: 'schemeType',
+            displayName: 'Scheme',
+            type: ColumnType.label,
+            sortable: true,
         },
         {
             key: 'txnAmount',
@@ -50,17 +52,10 @@ export class MyRequestsComponent implements OnChanges {
         },
         {
             key: 'currentState',
-            displayName: 'Workflow Status',
+            displayName: 'Status',
             type: ColumnType.status,
             sortable: true,
-        },
-        {
-            key: 'delete',
-            displayName: '',
-            type: ColumnType.icon,
-            icon: 'la-trash-alt',
-            callBackFn: this.checkForAction,
-        },
+        }
     ];
     query!: any;
 
@@ -70,13 +65,13 @@ export class MyRequestsComponent implements OnChanges {
         if (this.query) {
             this.config = new CIBTableConfig();
             this.query = new CIBTableQuery();
-            //this.getRequests();
+            this.getRequests();
         }
     }
     lazyLoad(query: CIBTableQuery) {
         this.query = query;
         this.query.dateRange = this.duration;
-       // this.getRequests();
+        this.getRequests();
     }
 
     checkForAction(data: any) {
@@ -97,7 +92,27 @@ export class MyRequestsComponent implements OnChanges {
         } else if (this.status === 'PENDING' && !query.dateRange) {
             query.fetchAll = false;
         }
-        this.sandbox.getRequestList(query, this.status, REQUEST_LIST_TYPE.MY_QUEUE).subscribe((res) => {
+        //this.sandbox.getRequestList(query, this.status, REQUEST_LIST_TYPE.MY_QUEUE).subscribe((res) => {
+            const res={data:[
+                {
+                    created:new Date(),
+                    userId:'SGS387465',
+                    name:'Yellamandarao Vemula',
+                    schemeType:'Individual',
+                    txnAmount:2365476,
+                    currentState:'Approved'
+
+                },
+                {
+                    created:new Date(),
+                    userId:'SGS387465',
+                    name:'Yellamandarao Vemula',
+                    schemeType:'Individual',
+                    txnAmount:2365476,
+                    currentState:'Approved'
+
+                }
+            ],totalRecords:10};
             const config = {
                 columns: this.columns,
                 data: res.data,
@@ -106,7 +121,7 @@ export class MyRequestsComponent implements OnChanges {
                 pageSizeOptions: [5, 10, 25],
             };
             this.config = config;
-        });
+       // });
     }
 
     onSelect(event: any) {}

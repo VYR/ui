@@ -16,7 +16,7 @@ export class OverviewComponent {
     ROLE_NAME = ROLE_NAME;
     isStpUser = false;
     constructor(private router: Router, private dialog: CibDialogService, private sandbox: DashboardSandbox) {
-        this.isStpUser = this.sandbox.userContext.stpUser;
+        //this.isStpUser = this.sandbox.userContext.stpUser;
         this.kycPopup(this.sandbox.userContext);
     }
 

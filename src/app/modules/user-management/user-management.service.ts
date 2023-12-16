@@ -64,7 +64,7 @@ export class UsermanagementService {
                 .flat()
                 .map((z: any) => z.userEntitleAccountId)
                 .join(',');
-            const businessRims = request.userRim.map((x: any) => x.customer?.rimnumber).join(',');
+            const businessRims = request.userRim.map((x: any) => x.customer?.uniqueUserId).join(',');
             let httpParams;
             if (userEntitlementAccountIds && userEntitlementIds) {
                 httpParams = new HttpParams()
@@ -96,7 +96,7 @@ export class UsermanagementService {
 
     getUsers(request: any) {
         const queryParams = new HttpParams()
-            .set('rim', request.rimNumber || '')
+            .set('rim', request.uniqueUserId || '')
             .set('email', (request.email || '').toUpperCase() || '')
             .set('mobilePhone', request.mobilePhone || '')
             .set('email', request.email || '');

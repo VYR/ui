@@ -119,7 +119,7 @@ export class KycRemediationComponent implements OnInit {
                     });
                     this.gridData = fullPayload.filter(
                         (obj: any, index: any) =>
-                            fullPayload.findIndex((item: any) => item.rimnumber === obj.rimnumber) === index
+                            fullPayload.findIndex((item: any) => item.uniqueUserId === obj.uniqueUserId) === index
                     );
                     this.mapData(this.gridData);
                     this.fileValid = false;

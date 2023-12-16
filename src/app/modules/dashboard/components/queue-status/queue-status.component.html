@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="space-between">
     <div fxFlex="40">
         <app-master-container>
-            <ng-container header>My Queue Status</ng-container>
+            <ng-container header>Total Payments</ng-container>
             <ng-container body>
                 <app-cib-pie-chart [config]="config"></app-cib-pie-chart>
             </ng-container>
@@ -9,7 +9,7 @@
     </div>
     <div fxFlex="60">
         <app-master-container>
-            <ng-container header>Requests Overview</ng-container>
+            <ng-container header>Payments Overview</ng-container>
             <ng-container body>
                 <app-cib-bar-chart *ngIf="barConfig.length" [config]="barConfig"></app-cib-bar-chart>
             </ng-container>

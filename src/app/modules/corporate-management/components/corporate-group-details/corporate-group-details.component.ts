@@ -113,7 +113,7 @@ export class CorporateGroupDetailsComponent implements OnInit {
                     let payload = {
                         businessId: this.corporateGroupDetails.businessId,
                         businessName: this.corporateGroupDetails.businessName,
-                        rim: event.data.rimnumber,
+                        rim: event.data.uniqueUserId,
                     };
                     this.sandBox.deleteCorporateMappedRim(payload).subscribe((res: any) => {
                         this.closeDetails.emit();
@@ -126,7 +126,7 @@ export class CorporateGroupDetailsComponent implements OnInit {
     getRimsOnSearch() {
         if (this.corporateRims.length > 0) {
             let corporateRimCheck = this.corporateRims.find((rimsInfo: any) => {
-                return rimsInfo.rimnumber === this.addGroupForm.value.searchRim;
+                return rimsInfo.uniqueUserId === this.addGroupForm.value.searchRim;
             });
             if (corporateRimCheck === undefined) {
                 this.addRims(this.addGroupForm.value.searchRim);
@@ -144,7 +144,7 @@ export class CorporateGroupDetailsComponent implements OnInit {
             this.rimList =
                 this.mappedRims.length > 0
                     ? res.data.filter((obj: any) => {
-                          return obj.rimnumber.indexOf(this.formatBuisnessRimData(this.mappedRims)) === -1;
+                          return obj.uniqueUserId.indexOf(this.formatBuisnessRimData(this.mappedRims)) === -1;
                       })
                     : res.data || [];
 
@@ -173,8 +173,8 @@ export class CorporateGroupDetailsComponent implements OnInit {
         this.closeDetails.emit();
     }
 
-    onSelect(selectedRimData: any) {
-        this.corporateRimsSelected = selectedRimData;
+    onSelect(selectedUserIdData: any) {
+        this.corporateRimsSelected = selectedUserIdData;
     }
 
     addORUpdateCorporateGroup() {
@@ -214,7 +214,7 @@ export class CorporateGroupDetailsComponent implements OnInit {
     formatBuisnessRimData(rimsData: any) {
         let formattedRimData: any = [];
         rimsData.map((rim: any) => {
-            formattedRimData.push(rim.rimnumber);
+            formattedRimData.push(rim.uniqueUserId);
         });
         return formattedRimData;
     }

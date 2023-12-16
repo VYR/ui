@@ -20,13 +20,19 @@ export class PortfolioComponent implements OnInit {
     config: PieChartConfig = {
         id: 'PORTFOLIO_OVERVIEW',
         data: [
-            { name: 'Assets', value: 0, percentage: 0, color: '#2BC431' },
-            { name: 'Liabilities', value: 0, percentage: 0, color: '#EA0000' },
+            { name: 'Paid', value: 0, percentage: 0, color: '#2BC431' },
+            { name: 'Dropped', value: 0, percentage: 0, color: '#EA0000' },
+            { name: 'Pending', value: 0, percentage: 0, color: '#E17F25' },
         ],
     };
 
     ngOnInit() {
-       /* this.sandbox.getNetwoth().subscribe((res) => {
+       // this.sandbox.getNetwoth().subscribe((res) => {
+        const res={
+            total:[{label:'a',total:"20"},{label:'b',total:"20"},{label:'c',total:"20"}],
+            assets:[],
+            liabilities:[]
+        };
             this.networth = res;
             this.config.total = this.getValue(res.total[2].total);
             this.config.totalLabel = res.total[2].label;
@@ -45,7 +51,7 @@ export class PortfolioComponent implements OnInit {
             });
             this.hasAssets = !this.networth.assets.every((x: any) => x.show === false);
             this.hasLiabilities = !this.networth.liabilities.every((x: any) => x.show === false);
-        });*/
+       // });
     }
 
     getValue(value: any) {

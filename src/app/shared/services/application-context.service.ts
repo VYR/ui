@@ -22,7 +22,7 @@ export class ApplicationContextService {
     public setUserLogin(data: any, userName: string): any {
         //data.userName = userName || '';
         const user: UserContext = this._setUserInfo(data);
-        user.organizations = this._processOrganizations(data?.organization || []);
+        user.organizations = this._processOrganizations([data?.user]);
         user.organizationSelected = this._getOrganizationselected(user);
         this._setUserContext(user);
         if (user.forcePasswordChange) {
@@ -42,30 +42,32 @@ export class ApplicationContextService {
 
     private _setUserInfo(data: any) {
         const user: UserContext = JSON.parse(this.cache.get('USER_CONTEXT')) || new UserContext();
-        user.userName = data?.userName || '';
-        user.selectedRim = data?.selectedRim;
-        user.access_token = data?.Authorization;
-        user.expirationTime = data?.expirationTime;
-        user.userId = data?.userId;
-        user.email = data?.email;
-        user.firstName = data?.firstNameEng;
-        user.lastName = data?.lastNameEng;
-        user.mobilePhone = data?.mobilePhone;
-        user.stpUser = data?.stpUser;
-        user.enabled = (data?.enabled || true) === 'true';
+        user.userName = data?.user.userName || '';
+        user.selectedUserId = data?.user.userId;
+        user.access_token = data?.access_token;
+        user.expirationTime = data?.expires_in;
+        user.userId = data?.user.userId;
+        user.email = data?.user.email;
+        user.firstName = data?.user.firstName;
+        user.lastName = data?.user.lastName;
+        user.aadhar = data?.user.aadhar;
+        user.pan = data?.user.pan;
+        user.mobilePhone = data?.user.mobilePhone;
+       // user.stpUser = data?.stpUser;
+        user.enabled = (data?.user?.enabled || true) === 'true';
         user.currentSignIn = new Date();
         user.lastSignIn = data?.lastSignIn;
-        user.isBankAdmin = data?.isBankAdmin;
-        user.h2hEnabled = data?.h2hEnabled;
-        user.isSurveyRequired = data?.isSurveyRequired;
-        user.entitlement = data?.entitlement;
+       // user.isBankAdmin = data?.isBankAdmin;
+        //user.h2hEnabled = data?.h2hEnabled;
+       // user.isSurveyRequired = data?.isSurveyRequired;
+        user.entitlement = data?.user?.entitlement.split(',') || [];
         user.forcePasswordChange = data?.forcePasswordChange;
-        user.rmDetails = data?.rmDetails || {};
-        user.userType = this._getUserType(data?.userType || '');
-        user.role = data?.role && data.role.length ? data.role[0] : null;
-        user.sysConfig = data?.sysConfig ? this._parseSystemConfig(data?.sysConfig || '') : null;
-        user.sysConfigAllInfo = data?.sysConfig;
-        user.kycPopType = data?.kycPopType;
+       // user.rmDetails = data?.rmDetails || {};
+        user.userType = this._getUserType(data?.user?.userType || '');
+        user.role = {name:data?.user?.role || null};
+       // user.sysConfig = data?.sysConfig ? this._parseSystemConfig(data?.sysConfig || '') : null;
+       // user.sysConfigAllInfo = data?.sysConfig;
+       // user.kycPopType = data?.kycPopType;
         return user;
     }
 
@@ -134,7 +136,7 @@ export class ApplicationContextService {
     }
 
     private _getOrganizationselected(user: UserContext) {
-        const index = user.organizations.findIndex((x) => x.rimNumber === user.selectedRim);
+        const index = user.organizations.findIndex((x) => x.uniqueUserId === user.selectedUserId);
         return user.organizations[index != -1 ? index : 0];
     }
 
@@ -175,6 +177,7 @@ export class ApplicationContextService {
 
     public isAuthenticated(): boolean {
         const currentUser = this.getCurrentUser();
+        console.log(currentUser);
         return Boolean(currentUser && currentUser.access_token);
     }
 
@@ -192,21 +195,21 @@ export class ApplicationContextService {
         if (input && input.length > 0) {
             input.forEach((org: any) => {
                 const organization = new Organization();
-                organization.firstName = org.firstnameeng;
-                organization.middleName = org.middlenameeng;
-                organization.lastName = org.lastnameeng;
-                organization.legalDocName = org.legal_doc_name;
-                organization.legalId = org.legal_id;
-                organization.legaldocExpDate = org.legal_exp_date;
-                organization.mobilePhone = org.mobilephone;
-                organization.preferredName = org.preferredname;
-                organization.rimNumber = org.rimnumber;
-                organization.sectorCode = org.sectorcode;
-                organization.industry = org.industry;
-                organization.businessemailid = org.businessemailid;
-                organization.pobox = org.pobox;
-                organization.city = org.city;
-                organization.country = org.country;
+                organization.firstName = org.firstName;
+               // organization.middleName = org.middlenameeng;
+                organization.lastName = org.lastName;
+               // organization.legalDocName = org.legal_doc_name;
+               /// organization.legalId = org.legal_id;
+               // organization.legaldocExpDate = org.legal_exp_date;
+                organization.mobilePhone = org.mobilePhone;
+               // organization.preferredName = org.preferredname;
+                organization.uniqueUserId = org.userId;
+               // organization.sectorCode = org.sectorcode;
+              // organization.industry = org.industry;
+               // organization.businessemailid = org.businessemailid;
+              //  organization.pobox = org.pobox;
+               // organization.city = org.city;
+               // organization.country = org.country;
                 output.push(organization);
             });
         }

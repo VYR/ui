@@ -22,8 +22,8 @@
                         [matAutocomplete]="rims"
                     />
                     <mat-autocomplete autoActiveFirstOption #rims="matAutocomplete">
-                        <mat-option *ngFor="let option of rimsList" [value]="option.rimnumber">
-                            {{ option.rimnumber }}
+                        <mat-option *ngFor="let option of rimsList" [value]="option.uniqueUserId">
+                            {{ option.uniqueUserId }}
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>

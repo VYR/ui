@@ -106,6 +106,12 @@
                 "location": "header"
             },
             {
+                "uuid": "",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard"
+            },
+            {
                 "uuid": "REPORTS",
                 "name": "SEARCH",
                 "icon": "las la-search",
@@ -113,20 +119,26 @@
                 "location": "header"
             },
             {
-                "uuid": "",
+                "uuid": "SETTINGS",
                 "name": "SETTINGS",
                 "icon": "las la-cog",
                 "path": "settings",
                 "location": "header"
             },
             {
-                "uuid": "",
+                "uuid": "ACCOUNTS",
                 "name": "ACCOUNTS",
                 "icon": "las la-university",
                 "path": "accounts"
             },
             {
-                "uuid": "",
+                "uuid": "PROFILE",
+                "name": "MY PROFILE",
+                "icon": "las la-university",
+                "path": "accounts"
+            },
+            {
+                "uuid": "BENEFICIARIES",
                 "name": "BENEFICIARIES",
                 "icon": "las la-user-friends",
                 "path": "beneficiaries"
@@ -134,6 +146,12 @@
             {
                 "uuid": "TRANSFER",
                 "name": "TRANSFERS",
+                "icon": "las la-exchange-alt",
+                "path": "transfers"
+            },
+            {
+                "uuid": "TRANSACTIONS",
+                "name": "MY TRANSACTIONS",
                 "icon": "las la-exchange-alt",
                 "path": "transfers"
             },
@@ -195,12 +213,30 @@
         "2": [
             {
                 "uuid": "",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard"
+            },
+            {
+                "uuid": "OPERATIONS_APPROVALS",
                 "name": "OPERATIONS APPROVALS",
                 "icon": "las la-university",
                 "path": "operations-approval"
             },
             {
-                "uuid": "",
+                "uuid": "PAYMENTS",
+                "name": "MY PAYMENTS",
+                "icon": "las la-university",
+                "path": "operations-approval"
+            },
+            {
+                "uuid": "USERS",
+                "name": "USERS",
+                "icon": "las la-users",
+                "path": "operations-approval"
+            },
+            {
+                "uuid": "OPERATIONS_APPROVALS",
                 "name": "Advisory Report",
                 "icon": "las la-chart-bar",
                 "path": "advisory-report"
@@ -208,33 +244,58 @@
         ],
         "1": [
             {
-                "uuid": "",
+                "uuid": "DASHBOARD",
                 "name": "DASHBOARD",
                 "icon": "las la-home",
-                "path": "admin"
+                "path": "dashboard"
             },
             {
-                "uuid": "",
-                "name": "USER MANAGEMENT",
+                "uuid": "PAYMENTS",
+                "name": "PAYMENTS",
+                "icon": "las la-exchange-alt",
+                "path": "csd"
+            },
+            {
+                "uuid": "DEALERS",
+                "name": "DEALERS MANAGEMENT",
                 "icon": "las la-user",
                 "path": "user-management"
             },
             {
-                "uuid": "",
+                "uuid": "SETTINGS",
+                "name": "SETTINGS",
+                "icon": "las la-cog",
+                "path": "settings",
+                "location": "header"
+            },
+            {
+                "uuid": "SCHEMES",
+                "name": "SCHEMES",
+                "icon": "las la-users",
+                "path": "group-management"
+            },
+            {
+                "uuid": "GROUP_MANAGEMENT",
                 "name": "GROUP MANAGEMENT",
                 "icon": "las la-users",
                 "path": "group-management"
             },
             {
-                "name": "CORPORATE MANAGEMENT",
+                "name": "CORPORATE_MANAGEMENT",
                 "icon": "las la-building",
                 "path": "corporate-management"
             },
             {
-                "uuid": "",
+                "uuid": "AUDIT_TRAIL",
                 "name": "AUDIT TRAIL",
                 "icon": "las la-history",
                 "path": "audit-trail"
+            },
+            {
+                "uuid": "REPORTS",
+                "name": "REPORTS",
+                "icon": "las la-chart-bar",
+                "path": "reports"
             }
         ],
         "12": [
