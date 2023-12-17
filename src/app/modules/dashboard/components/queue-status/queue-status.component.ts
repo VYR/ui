@@ -99,7 +99,7 @@ export class QueueStatusComponent implements AfterViewInit {
             //     this.config.total = all['total'];
             // }
             const res={
-                total:[{label:'a',total:"20"},{label:'b',total:"20"},{label:'c',total:"20"}],
+                total:[{label:'a',total:"20"},{label:'b',total:"20"},{label:'Total',total:"20"}],
                 assets:[],
                 liabilities:[]
             };

@@ -1,7 +1,7 @@
 {
     "api": {
         "localUrl": "http://localhost/",
-        "apiGateway": "http://localhost:8000/api/",
+        "apiGateway": "https://www.puppysoftwares.com/save-gold-scheme/back-end/public/api/",
         "contentServerGateway": "http://localhost:8000/"
     },
     "localization": {
@@ -112,102 +112,16 @@
                 "path": "dashboard"
             },
             {
-                "uuid": "REPORTS",
-                "name": "SEARCH",
-                "icon": "las la-search",
-                "path": "reports",
-                "location": "header"
-            },
-            {
-                "uuid": "SETTINGS",
-                "name": "SETTINGS",
-                "icon": "las la-cog",
-                "path": "settings",
-                "location": "header"
-            },
-            {
-                "uuid": "ACCOUNTS",
-                "name": "ACCOUNTS",
-                "icon": "las la-university",
-                "path": "accounts"
+                "uuid": "SCHEMES",
+                "name": "SCHEMES",
+                "icon": "las la-users",
+                "path": "schemes"
             },
             {
                 "uuid": "PROFILE",
                 "name": "MY PROFILE",
                 "icon": "las la-university",
-                "path": "accounts"
-            },
-            {
-                "uuid": "BENEFICIARIES",
-                "name": "BENEFICIARIES",
-                "icon": "las la-user-friends",
-                "path": "beneficiaries"
-            },
-            {
-                "uuid": "TRANSFER",
-                "name": "TRANSFERS",
-                "icon": "las la-exchange-alt",
-                "path": "transfers"
-            },
-            {
-                "uuid": "TRANSACTIONS",
-                "name": "MY TRANSACTIONS",
-                "icon": "las la-exchange-alt",
-                "path": "transfers"
-            },
-            {
-                "uuid": "STO",
-                "name": "FUTURE DATED TRANSFERS",
-                "icon": "las la-clock",
-                "path": "future-dated-transfers"
-            },
-            {
-                "uuid": "MANUAL_TRANSFER",
-                "name": "MANUAL TRANSFERS",
-                "icon": "las la-paper-plane",
-                "path": "manual-transfers"
-            },
-            {
-                "uuid": "PAYMENT",
-                "name": "PAYMENTS",
-                "icon": "las la-money-bill-wave",
-                "path": "payments"
-            },
-            {
-                "uuid": "CARDS",
-                "name": "CARDS",
-                "icon": "las la-credit-card",
-                "path": "cards"
-            },
-            {
-                "uuid": "TRADE_FINANCE",
-                "name": "TRADE FINANCE",
-                "icon": "las la-suitcase",
-                "path": "trade-finance"
-            },
-            {
-                "uuid": "GENERAL_SERVICES",
-                "name": "GENERAL SERVICES",
-                "icon": "las la-sliders-h",
-                "path": "general-services"
-            },
-            {
-                "uuid": "CHEQUE_MANAGEMENT",
-                "name": "CHEQUE MANAGEMENT",
-                "icon": "las la-money-check",
-                "path": "cheque-management"
-            },
-            {
-                "uuid": "LIQUIDITY_MANAGEMENT",
-                "name": "LIQUIDITY MANAGEMENT",
-                "icon": "las la-balance-scale",
-                "path": "liquidity-management"
-            },
-            {
-                "uuid": "REPORTS",
-                "name": "REPORTS",
-                "icon": "las la-chart-bar",
-                "path": "reports"
+                "path": "profile"
             }
         ],
         "2": [
@@ -215,51 +129,71 @@
                 "uuid": "",
                 "name": "DASHBOARD",
                 "icon": "las la-home",
-                "path": "dashboard"
+                "path": "dashboard",
+                "location": "header"
             },
             {
-                "uuid": "OPERATIONS_APPROVALS",
-                "name": "OPERATIONS APPROVALS",
-                "icon": "las la-university",
-                "path": "operations-approval"
-            },
-            {
-                "uuid": "PAYMENTS",
-                "name": "MY PAYMENTS",
-                "icon": "las la-university",
-                "path": "operations-approval"
-            },
-            {
-                "uuid": "USERS",
-                "name": "USERS",
-                "icon": "las la-users",
-                "path": "operations-approval"
-            },
-            {
-                "uuid": "OPERATIONS_APPROVALS",
-                "name": "Advisory Report",
-                "icon": "las la-chart-bar",
-                "path": "advisory-report"
-            }
-        ],
-        "1": [
-            {
-                "uuid": "DASHBOARD",
+                "uuid": "",
                 "name": "DASHBOARD",
                 "icon": "las la-home",
                 "path": "dashboard"
             },
             {
-                "uuid": "PAYMENTS",
-                "name": "PAYMENTS",
-                "icon": "las la-exchange-alt",
-                "path": "csd"
+                "uuid": "CLIENTS",
+                "name": "MY CLIENTS",
+                "icon": "las la-users",
+                "path": "clients"
+            },
+            {
+                "uuid": "SCHEMES",
+                "name": "SCHEMES",
+                "icon": "las la-users",
+                "path": "schemes"
+            },
+            {
+                "uuid": "PROFILE",
+                "name": "MY PROFILE",
+                "icon": "las la-university",
+                "path": "profile"
+            },
+            {
+                "uuid": "REFERRALS",
+                "name": "MY REFFERALS",
+                "icon": "las la-chart-bar",
+                "path": "referrals"
+            }
+        ],
+        "1": [
+            {
+                "uuid": "",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard",
+                "location": "header"
+            },
+            {
+                "uuid": "",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard"
             },
             {
                 "uuid": "DEALERS",
-                "name": "DEALERS MANAGEMENT",
+                "name": "DEALERS",
                 "icon": "las la-user",
-                "path": "user-management"
+                "path": "dealers"
+            },
+            {
+                "uuid": "SCHEMES",
+                "name": "SCHEMES",
+                "icon": "las la-users",
+                "path": "schemes"
+            },
+            {
+                "uuid": "PROFILE",
+                "name": "MY PROFILE",
+                "icon": "las la-university",
+                "path": "profile"
             },
             {
                 "uuid": "SETTINGS",
@@ -269,27 +203,11 @@
                 "location": "header"
             },
             {
-                "uuid": "SCHEMES",
-                "name": "SCHEMES",
-                "icon": "las la-users",
-                "path": "group-management"
-            },
-            {
-                "uuid": "GROUP_MANAGEMENT",
-                "name": "GROUP MANAGEMENT",
-                "icon": "las la-users",
-                "path": "group-management"
-            },
-            {
-                "name": "CORPORATE_MANAGEMENT",
-                "icon": "las la-building",
-                "path": "corporate-management"
-            },
-            {
-                "uuid": "AUDIT_TRAIL",
-                "name": "AUDIT TRAIL",
-                "icon": "las la-history",
-                "path": "audit-trail"
+                "uuid": "REPORTS",
+                "name": "SEARCH",
+                "icon": "las la-search",
+                "path": "reports",
+                "location": "header"
             },
             {
                 "uuid": "REPORTS",

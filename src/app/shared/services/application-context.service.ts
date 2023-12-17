@@ -47,6 +47,7 @@ export class ApplicationContextService {
         user.access_token = data?.access_token;
         user.expirationTime = data?.expires_in;
         user.userId = data?.user.userId;
+        user.introducedBy = data?.user.introducedBy;
         user.email = data?.user.email;
         user.firstName = data?.user.firstName;
         user.lastName = data?.user.lastName;

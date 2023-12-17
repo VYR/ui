@@ -1,0 +1,496 @@
+<div class="form-container">
+    <app-master-container>
+        <ng-container header>Add Product</ng-container>
+        <ng-container icons>
+            <button mat-icon-button (click)="reset()">
+                <i class="las la-sync"></i>
+            </button>
+            <button mat-icon-button (click)="goBack()">
+                <i class="las la-times"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <div fxLayout="column" class="add-form-wrapper">
+                <!-- <div class="header-info">
+                    <i class="las la-info-circle"></i> All information below must be in ENGLISH only. Special characters
+                    are not allowed
+                </div> -->
+                <form [formGroup]="addBeneficiaryForm" class="add">
+                    <!--Country drop down-->
+                    <div fxLayout="row" fxLayoutGap="2rem" fxLayoutAlign="start center">
+                        <mat-form-field fxFlex="100">
+                            <mat-label>Category</mat-label>
+                            <mat-select
+                                formControlName="categoryId" >
+                                <mat-option
+                                    (onSelectionChange)="onCountrySelected($event, category)"
+                                    *ngFor="let category of categoryList; let i = index"
+                                    [value]="category.id"
+                                >
+                                    {{ category.name }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!--Bank name drop down only for Qatar-->
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="2rem"
+                        fxLayoutAlign="start center"
+                        *ngIf="addBeneficiaryForm.controls['bankCountry'].value === 'QA'"
+                    >
+                        <mat-form-field fxFlex="50">
+                            <mat-label>Bank Name</mat-label>
+                            <mat-select
+                                [disabled]="addBeneficiaryForm.controls['currency'].value"
+                                formControlName="bankName"
+                            >
+                                <mat-option
+                                    (onSelectionChange)="onBankSelected($event, bank)"
+                                    *ngFor="let bank of bankList; let i = index"
+                                    [value]="bank.name"
+                                >
+                                    {{ bank.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50">
+                            <mat-label>Bank City</mat-label>
+                            <input formControlName="bankCity" matInput placeholder="Bank City" />
+                        </mat-form-field>
+                    </div>
+
+                    <!--Currency-->
+                    <div fxLayout="row" fxLayoutGap="2rem" fxLayoutAlign="start center">
+                        <mat-form-field fxFlex="100">
+                            <mat-label>Currency</mat-label>
+                            <mat-select
+                                [disabled]="
+                                    addBeneficiaryForm.controls['swiftCode'].value === 'QIDBQAQA' ||
+                                    addBeneficiaryForm.controls['swiftCode'].value === 'CITIQAQX'
+                                "
+                                formControlName="currency"
+                            >
+                                <mat-option
+                                    (onSelectionChange)="onCurrencySelected($event, currency)"
+                                    *ngFor="let currency of currencyList; let i = index"
+                                    [value]="currency.code"
+                                >
+                                    {{ currency.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Amount</mat-label>
+                            <input
+                                type="number"
+                                min="0"
+                                maxlength="13"
+                                aria-label="Amount"
+                                matInput
+                                formControlName="lcAmount"
+                            />
+                        </mat-form-field>
+                    </div>
+
+                    <!--Bank code-->
+                    <div *ngIf="payeeType !== 'WQIB'">
+                        <div [ngSwitch]="addBeneficiaryForm.controls['bankCountry'].value">
+                            <div *ngSwitchCase="'QA'">
+                                <div fxLayout="row">
+                                    <mat-form-field fxFlex="100">
+                                        <mat-label>Swift /BIC Code</mat-label>
+                                        <input
+                                            matInput
+                                            type="text"
+                                            readonly
+                                            formControlName="swiftCode"
+                                            placeholder="Swift/BIC Code"
+                                        />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div *ngSwitchCase="'IN'" fxLayout="row">
+                                <mat-form-field
+                                    fxFlex="100"
+                                    *ngIf="addBeneficiaryForm.controls['currency'].value === 'INR'"
+                                >
+                                    <mat-label>IFSC Code</mat-label>
+                                    <input matInput type="text" formControlName="ifscCode" placeholder="IFSC Code" />
+                                </mat-form-field>
+                                <div
+                                    fxFlex="100"
+                                    *ngIf="addBeneficiaryForm.controls['currency'].value === 'USD'"
+                                    fxLayout="row"
+                                    fxLayoutGap="2rem"
+                                    fxLayoutAlign="start center"
+                                >
+                                    <mat-form-field fxFlex="80">
+                                        <mat-label>Swift /BIC Code</mat-label>
+                                        <input
+                                            matInput
+                                            type="text"
+                                            formControlName="swiftCode"
+                                            placeholder="Swift /BIC Code"
+                                            (change)="onSwiftCodeChange()"
+                                        />
+                                        <div *ngIf="invalidSwiftMsg !== ''" class="input-info">
+                                            <i class="las la-info-circle"></i><span>{{ invalidSwiftMsg }}</span>
+                                        </div>
+                                        <div *ngIf="validSwiftMsg !== ''" class="input-success">
+                                            <i class="las la-check-circle"></i><span>{{ validSwiftMsg }}</span>
+                                        </div>
+                                    </mat-form-field>
+                                    <div fxFlex="20">
+                                        <button
+                                            mat-button
+                                            mat-stroked-button
+                                            [disabled]="!addBeneficiaryForm.controls['swiftCode'].value"
+                                            (click)="validateSwiftCode(addBeneficiaryForm.controls['swiftCode'].value)"
+                                            color="primary"
+                                        >
+                                            Validate
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngSwitchCase="'US'" fxLayout="row">
+                                <mat-form-field fxFlex="100">
+                                    <mat-label>FEDWIRE</mat-label>
+                                    <input matInput type="text" formControlName="fedwire" placeholder="FEDWIRE" />
+                                </mat-form-field>
+                            </div>
+
+                            <div *ngSwitchCase="'CA'" fxLayout="row">
+                                <mat-form-field
+                                    fxFlex="100"
+                                    *ngIf="addBeneficiaryForm.controls['currency'].value === 'CAD'"
+                                >
+                                    <mat-label>Transit Number</mat-label>
+                                    <input
+                                        matInput
+                                        type="text"
+                                        formControlName="transitNo"
+                                        placeholder="Transit Number"
+                                    />
+                                </mat-form-field>
+                                <div
+                                    fxFlex="100"
+                                    *ngIf="addBeneficiaryForm.controls['currency'].value === 'USD'"
+                                    fxLayout="row"
+                                    fxLayoutGap="2rem"
+                                    fxLayoutAlign="start center"
+                                >
+                                    <mat-form-field fxFlex="80">
+                                        <mat-label>Swift /BIC Code</mat-label>
+                                        <input
+                                            matInput
+                                            type="text"
+                                            formControlName="swiftCode"
+                                            placeholder="Swift /BIC Code"
+                                            (change)="onSwiftCodeChange()"
+                                        />
+                                        <div *ngIf="invalidSwiftMsg !== ''" class="input-info">
+                                            <i class="las la-info-circle"></i><span>{{ invalidSwiftMsg }}</span>
+                                        </div>
+                                        <div *ngIf="validSwiftMsg !== ''" class="input-success">
+                                            <i class="las la-check-circle"></i><span>{{ validSwiftMsg }}</span>
+                                        </div>
+                                    </mat-form-field>
+                                    <div fxFlex="20">
+                                        <button
+                                            mat-button
+                                            mat-stroked-button
+                                            [disabled]="!addBeneficiaryForm.controls['swiftCode'].value"
+                                            (click)="validateSwiftCode(addBeneficiaryForm.controls['swiftCode'].value)"
+                                            color="primary"
+                                        >
+                                            Validate
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngSwitchCase="'AU'" fxLayout="row">
+                                <mat-form-field
+                                    fxFlex="100"
+                                    *ngIf="addBeneficiaryForm.controls['currency'].value === 'AUD'"
+                                >
+                                    <mat-label>BSB NO</mat-label>
+                                    <input matInput type="text" formControlName="bsbNo" placeholder="BSB NO" />
+                                </mat-form-field>
+                                <div
+                                    fxFlex="100"
+                                    *ngIf="addBeneficiaryForm.controls['currency'].value === 'USD'"
+                                    fxLayout="row"
+                                    fxLayoutGap="2rem"
+                                    fxLayoutAlign="start center"
+                                >
+                                    <mat-form-field fxFlex="80">
+                                        <mat-label>Swift /BIC Code</mat-label>
+                                        <input
+                                            matInput
+                                            type="text"
+                                            formControlName="swiftCode"
+                                            placeholder="Swift /BIC Code"
+                                            (change)="onSwiftCodeChange()"
+                                        />
+                                        <div *ngIf="invalidSwiftMsg !== ''" class="input-info">
+                                            <i class="las la-info-circle"></i><span>{{ invalidSwiftMsg }}</span>
+                                        </div>
+                                        <div *ngIf="validSwiftMsg !== ''" class="input-success">
+                                            <i class="las la-check-circle"></i><span>{{ validSwiftMsg }}</span>
+                                        </div>
+                                    </mat-form-field>
+                                    <div fxFlex="20">
+                                        <button
+                                            mat-button
+                                            mat-stroked-button
+                                            [disabled]="!addBeneficiaryForm.controls['swiftCode'].value"
+                                            (click)="validateSwiftCode(addBeneficiaryForm.controls['swiftCode'].value)"
+                                            color="primary"
+                                        >
+                                            Validate
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngSwitchDefault>
+                                <div fxLayout="row" fxLayoutGap="2rem" fxLayoutAlign="start center">
+                                    <mat-form-field fxFlex="100">
+                                        <mat-label>Swift /BIC Code</mat-label>
+                                        <input
+                                            matInput
+                                            type="text"
+                                            formControlName="swiftCode"
+                                            placeholder="Swift /BIC Code"
+                                            (change)="onSwiftCodeChange()"
+                                        />
+                                        <div *ngIf="invalidSwiftMsg !== ''" class="input-info">
+                                            <i class="las la-info-circle"></i><span>{{ invalidSwiftMsg }}</span>
+                                        </div>
+                                        <div *ngIf="validSwiftMsg !== ''" class="input-success">
+                                            <i class="las la-check-circle"></i><span>{{ validSwiftMsg }}</span>
+                                        </div>
+                                    </mat-form-field>
+                                    <button
+                                        mat-button
+                                        mat-stroked-button
+                                        [disabled]="!addBeneficiaryForm.controls['swiftCode'].value"
+                                        (click)="validateSwiftCode(addBeneficiaryForm.controls['swiftCode'].value)"
+                                        color="primary"
+                                    >
+                                        Validate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        fxLayout="row"
+                        fxLayout.xs="column"
+                        fxLayoutGap="2rem"
+                        *ngIf="addBeneficiaryForm.controls['bankCountry'].value !== 'QA'"
+                    >
+                        <mat-form-field fxFlex="50">
+                            <mat-label>Bank Name</mat-label>
+                            <input matInput formControlName="bankName" placeholder="Bank Name" />
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50">
+                            <mat-label>Bank City</mat-label>
+                            <input matInput formControlName="bankCity" placeholder="Bank City" />
+                        </mat-form-field>
+                    </div>
+
+                    <!--Beneficiary name-->
+                    <div fxLayout="column">
+                        <mat-form-field fxFlex="100">
+                            <mat-label>Beneficiary Name</mat-label>
+                            <input
+                                #tooltip="matTooltip"
+                                [matTooltipPosition]="'right'"
+                                matTooltip="Beneficiary name can contain maximum of 66 characters for International payee and 55 characters for Domestic / Internal payee."
+                                matInput
+                                maxlength="{{ payeeType === 'INTL' ? '66' : 55 }}"
+                                formControlName="nickName"
+                                placeholder="Beneficiary Name"
+                            />
+                            <div
+                                class="input-error"
+                                *ngIf="addBeneficiaryForm.controls['nickName']?.errors?.['forbiddenName']"
+                            >
+                                <i class="las la-exclamation-circle"></i
+                                ><small
+                                    >Beneficiary name must have atleast a space and not contain special
+                                    characters</small
+                                >
+                            </div>
+                            <div
+                                class="input-error"
+                                *ngIf="addBeneficiaryForm.controls['nickName']?.errors?.['forbiddenLength']"
+                            >
+                                <i class="las la-exclamation-circle"></i
+                                ><small
+                                    >Beneficiary name can contain maximum of 66 characters for International payee and
+                                    55 characters for Domestic / Internal payee.</small
+                                >
+                            </div>
+                        </mat-form-field>
+                    </div>
+
+                    <!--Account Number-->
+                    <div *ngIf="!showIBAN; else iban" fxLayout="column">
+                        <div fxLayout="row" fxLayoutGap="2rem" fxLayoutAlign="start center">
+                            <mat-form-field fxFlex="100">
+                                <mat-label>Account Number</mat-label>
+                                <input
+                                    matInput
+                                    appAlphaNumeric
+                                    formControlName="accountNo"
+                                    placeholder="Account Number"
+                                    (change)="onIBANAccountChange()"
+                                />
+                                <div *ngIf="invalidIbanMsg !== ''" class="input-error">
+                                    <i class="las la-exclamation-circle"></i><span>{{ invalidIbanMsg }}</span>
+                                </div>
+                                <div *ngIf="validIbanMsg !== ''" class="input-success">
+                                    <i class="las la-check-circle"></i><span>{{ validIbanMsg }}</span>
+                                </div>
+                            </mat-form-field>
+                            <button
+                                mat-button
+                                type="submit"
+                                (click)="verifyIbanOrAccount(addBeneficiaryForm.controls['accountNo'].value)"
+                                class="mat-stroked-button disabled"
+                            >
+                                Added
+                            </button>
+                        </div>
+
+                        <mat-form-field fxFlex="100">
+                            <mat-label>Confirm Account Number</mat-label>
+                            <input
+                                (paste)="(false)"
+                                matInput
+                                appAlphaNumeric
+                                formControlName="confirmAccount"
+                                placeholder="Confirm Account"
+                            />
+                            <div
+                                class="input-error"
+                                *ngIf="addBeneficiaryForm.controls['confirmAccount']?.errors?.['mismatch']"
+                            >
+                                <i class="las la-exclamation-circle"></i><small>Account missmatched</small>
+                            </div>
+                        </mat-form-field>
+                    </div>
+
+                    <!--Iban Number-->
+                    <ng-template #iban>
+                        <div fxLayout="row" fxLayoutGap="2rem" fxLayoutAlign="start center">
+                            <mat-form-field fxFlex="100">
+                                <mat-label>Iban Number</mat-label>
+                                <input
+                                    matInput
+                                    appAlphaNumeric
+                                    formControlName="iban"
+                                    placeholder="Iban Number"
+                                    (change)="onIBANAccountChange()"
+                                />
+                                <div *ngIf="invalidIbanMsg !== ''" class="input-error">
+                                    <i class="las la-exclamation-circle"></i><span>{{ invalidIbanMsg }}</span>
+                                </div>
+                                <div *ngIf="validIbanMsg !== ''" class="input-success">
+                                    <i class="las la-check-circle"></i><span>{{ validIbanMsg }}</span>
+                                </div>
+                            </mat-form-field>
+                            <button
+                                mat-button
+                                type="submit"
+                                (click)="verifyIbanOrAccount(addBeneficiaryForm.controls['iban'].value)"
+                                [disabled]="!addBeneficiaryForm.controls['iban'].value"
+                                color="primary"
+                                mat-stroked-button
+                            >
+                                Added
+                            </button>
+                        </div>
+                        <!--Confirm Number-->
+                        <div fxLayout="row" fxLayoutGap="2rem" fxLayoutAlign="start center">
+                            <mat-form-field fxFlex="100">
+                                <mat-label>Confirm IBAN</mat-label>
+                                <input
+                                    (paste)="(false)"
+                                    matInput
+                                    appAlphaNumeric
+                                    formControlName="confirmIban"
+                                    placeholder="Confirm IBAN"
+                                />
+                                <div
+                                    class="input-error"
+                                    *ngIf="addBeneficiaryForm.controls['confirmIban']?.errors?.['mismatch']"
+                                >
+                                    <i class="las la-exclamation-circle"></i><small>IBAN missmatched</small>
+                                </div>
+                            </mat-form-field>
+                        </div>
+                    </ng-template>
+
+                    <!--Relationship with the Beneficiary-->
+                    <div fxLayout="row" fxLayoutGap="2rem" fxLayoutAlign="start center">
+                        <mat-form-field fxFlex="100">
+                            <mat-label>Relationship with Beneficiary</mat-label>
+                            <mat-select formControlName="relationshipWithBeneficiary">
+                                <mat-option
+                                    *ngFor="let relations of beneficiaryRelations; let i = index"
+                                    [value]="relations.code"
+                                >
+                                    {{ relations.name }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2rem">
+                        <!--Beneficiary street-->
+                        <mat-form-field>
+                            <mat-label>Beneficiary Address</mat-label>
+                            <input matInput formControlName="street" placeholder="Beneficiary Address" />
+                        </mat-form-field>
+
+                        <!--Beneficiary City-->
+                        <mat-form-field>
+                            <mat-label>Beneficiary City</mat-label>
+                            <input matInput formControlName="beneficiaryCity" placeholder="Beneficiary City" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Beneficiary Nationality</mat-label>
+                            <mat-select formControlName="beneficiaryCountry">
+                                <mat-option *ngFor="let country of countryList; let i = index" [value]="country.code">
+                                    {{ country.name }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!--Bank details-->
+                    <div fxLayout="row" fxLayoutAlign="end center">
+                        <button
+                            flex="20"
+                            class="mat-raised-button mat-primary"
+                            type="submit"
+                            mat-stroked-button
+                            [disabled]="!isAddBeneficiaryFormValid"
+                            (click)="addBeneficiary('VERIFY')"
+                            color="primary"
+                        >
+                            Add
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </ng-container>
+    </app-master-container>
+</div>

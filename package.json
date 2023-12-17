@@ -1,5 +1,5 @@
 {
-    "name": "cib",
+    "name": "save-gold-scheme",
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
@@ -8,9 +8,9 @@
         "lint": "ng lint",
         "start": "npm run pre-start& npm run set-env-dev & ng serve --port 4203",
         "build": "ng build",
-        "build-sit": "npm run set-env-sit & npm run pre-build &  ng build  --aot --base-href=/cib/",
-        "build-uat": "npm run set-env-uat & npm run pre-build & ng build  --aot --base-href=/cib/",
-        "build-prod": "npm run set-env-prod & npm run pre-build  &  ng build  --aot --base-href=/cib/",
+        "build-sit": "npm run set-env-sit & npm run pre-build &  ng build  --aot --base-href=/save-gold-scheme/",
+        "build-uat": "npm run set-env-uat & npm run pre-build & ng build  --aot --base-href=/save-gold-scheme/",
+        "build-prod": "npm run set-env-prod & npm run pre-build  &  ng build  --aot --base-href=/save-gold-scheme/",
         "test-ci": "ng test --watch=false",
         "e2e:ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
         "remove-unused-import": "node ./node_modules/tslint/bin/tslint --config tslint-imports.json --fix --project.",
@@ -23,10 +23,10 @@
         "set-env-uat": "node hooks/set-env-uat",
         "set-env-prod": "node hooks/set-env-prod",
         "prepare": "husky install",
-        "prepare-war-sit": "npm run build-sit && cd dist/cib && jar -cvf ../../cib.war .",
-        "prepare-war-uat": "npm run build-uat && cd dist/cib && jar -cvf ../../cib.war .",
-        "prepare-war-prod": "npm run build-prod && cd dist/cib && jar -cvf ../../cib.war .",
-        "pre-commit": " git add cib.war && npx pretty-quick --staged && npm run lint --fix"
+        "prepare-war-sit": "npm run build-sit && cd dist/save-gold-scheme && jar -cvf ../../save-gold-scheme.war .",
+        "prepare-war-uat": "npm run build-uat && cd dist/save-gold-scheme && jar -cvf ../../save-gold-scheme.war .",
+        "prepare-war-prod": "npm run build-prod && cd dist/save-gold-scheme && jar -cvf ../../save-gold-scheme.war .",
+        "pre-commit": " git add save-gold-scheme.war && npx pretty-quick --staged && npm run lint --fix"
     },
     "private": true,
     "dependencies": {

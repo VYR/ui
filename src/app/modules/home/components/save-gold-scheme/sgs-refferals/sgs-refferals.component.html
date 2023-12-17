@@ -1,0 +1,21 @@
+<app-outlet-container>
+    <app-master-container>
+        <ng-container header>{{type===1?'MY REFERRALS':'REPORTS'}}</ng-container>
+        <ng-container body> 
+            <div fxLayout="column" fxFlex="100">
+                <mat-tab-group class="form-tabs">
+                    <mat-tab label="Individual">
+                        <ng-template matTabContent>
+                            <app-sgs-scheme-individual [type]="2"></app-sgs-scheme-individual>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Group">
+                        <ng-template matTabContent>
+                            <app-sgs-scheme-group  [type]="2"></app-sgs-scheme-group>
+                        </ng-template>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </ng-container>
+    </app-master-container>
+</app-outlet-container>

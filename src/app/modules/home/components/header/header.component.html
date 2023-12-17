@@ -5,9 +5,9 @@
     </div>
 
     <div class="icon-menus" fxLayout="row" fxLayoutAlign="center center">
-        <ng-container *appHasAccessToUser="[USER_TYPE.CORPORATE_USER]">
+        <ng-container>
             <ng-container *ngFor="let menuItem of iconMenus">
-                <ng-container *appHasEntitlementAccessTo="menuItem.uuid">
+                <ng-container >
                     <div routerLinkActive="menu-item-active">
                         <button [routerLink]="[menuItem.path]" mat-icon-button aria-label="menuItem.name">
                             <i [ngClass]="menuItem.icon"></i>

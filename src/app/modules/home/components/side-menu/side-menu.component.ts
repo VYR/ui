@@ -21,9 +21,7 @@ export class SideMenuComponent {
         appContext.currentUser.subscribe((res) => {
             this.currentUser = res;
             const modules: Array<any> = configService.get('modules');
-            console.log(modules);
             this.menu = (modules[this.currentUser.userType] || []).filter((x: any) => !x.location);
-            console.log(this.menu);
         });
     }
 

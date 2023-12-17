@@ -1,0 +1,7 @@
+<ng-container *ngIf="data.type==='schemeType'">
+    <app-sgs-schemes></app-sgs-schemes>
+</ng-container>
+
+<ng-container *ngIf="data.type==='clients'">
+    <app-sgs-users [roleType]="0"></app-sgs-users>
+</ng-container>

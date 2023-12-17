@@ -1,0 +1,27 @@
+<app-outlet-container>
+    
+    <app-master-container>
+        <ng-container header>
+             {{roleType===0?'Clients':'Dealers'}}
+        </ng-container>
+        <ng-container icons>
+            <button mat-icon-button >
+                <i class="las la-file-excel"></i>
+            </button>
+            <button mat-icon-button >
+                <i class="las la-file-pdf"></i>
+            </button>
+            <button mat-icon-button >
+                <i class="las la-plus"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <app-cib-table
+                [config]="config"
+                (_lazyLoad)="lazyLoad($event)"
+                (_select)="onSelect($event)"
+                (_clickCell)="onClickCell($event)"
+            ></app-cib-table>
+        </ng-container>
+    </app-master-container>
+</app-outlet-container>

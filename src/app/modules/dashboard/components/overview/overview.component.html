@@ -1,35 +1,4 @@
 <ng-container>
-    <app-queue-status  *appHasAccessToRole="[ROLE_NAME.ADMIN,ROLE_NAME.DEALER]"></app-queue-status>
+    <app-queue-status  ></app-queue-status>
 </ng-container>
 
-<ng-container>
-    <app-master-container
-        *appHasAccessToRole="[ROLE_NAME.USER]"
-        #approved
-        [opened]="true"
-        [collapsable]="true"
-    >
-        <ng-container icons>
-            <button mat-button color="accent" (click)="viewAllRequests(APP_ROUTES.DASHBOARD_DETAILED)">View All</button>
-        </ng-container>
-        <ng-container body>
-            <app-my-requests [status]="'All'" #myRequests></app-my-requests>
-        </ng-container>
-    </app-master-container>
-</ng-container>
-<app-master-container
-    *appHasAccessToRole="[ROLE_NAME.ADMIN, ROLE_NAME.DEALER]"
-    #pending
-    [collapsable]="true"
->
-    <ng-container header>
-        <span class="count" *ngIf="approverRequest.config">{{ approverRequest.config.totalRecords }}</span> Approver
-        Requests
-    </ng-container>
-    <ng-container icons>
-        <button mat-button color="accent" (click)="viewAllRequests(APP_ROUTES.DASHBOARD_DETAILED)">View All</button>
-    </ng-container>
-    <ng-container body>
-        <app-approver-requests #approverRequest></app-approver-requests>
-    </ng-container>
-</app-master-container>
