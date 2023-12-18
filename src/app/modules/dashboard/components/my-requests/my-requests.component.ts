@@ -6,8 +6,6 @@ import { CibDialogService, CibDialogType } from 'src/app/shared/services/cib-dia
 import { DashboardSandbox } from '../../dashboard.sandbox';
 import { DashboardRequestDetailsPopupComponent } from '../dashboard-request-details-popup/dashboard-request-details-popup.component';
 import { DashboardRequestDetailsComponent } from '../dashboard-request-details/dashboard-request-details.component';
-import { DashboardSalaryPostingDetailsPopupComponent } from '../dashboard-salary-posting-details-popup/dashboard-salary-posting-details-popup.component';
-import { DashboardTradeFinanceDetailsPopupComponent } from '../dashboard-trade-finance-details-popup/dashboard-trade-finance-details-popup.component';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
 import { INDIVIDUAL_SCHEME_TABLE_COLUMNS, USER_TABLE_COLUMNS } from 'src/app/modules/home/components/save-gold-scheme/constants/meta-data';
 
@@ -106,53 +104,7 @@ export class MyRequestsComponent implements OnChanges {
     }
 
     openSummary(event: any) {
-        if (event.data.requestType.includes('TRANSFER_BULK')) {
-            const ref = this.dialog.openOverlayPanel(
-                'BULK TRANSFER',
-                DashboardRequestDetailsPopupComponent,
-                event.data
-            );
-            ref.afterClosed().subscribe((res: any) => {});
-        } else if (event.data.requestType.includes('BULK_TRANSFER_SALARY_POSTING')) {
-            const ref = this.dialog.openOverlayPanel(
-                'SALARY POSTING',
-                DashboardSalaryPostingDetailsPopupComponent,
-                event.data
-            );
-            ref.afterClosed().subscribe((res: any) => {});
-        } else if (
-            event.data.requestType === 'BANK_GUARANTEE_SUBMIT' ||
-            event.data.requestType === 'BANK_GUARANTEE_AMMEND'
-        ) {
-            let payload = {
-                type: 'BG',
-                data: event.data,
-            };
-            const header = 'Reference No: ' + (event.data.requestData.bgApplicationId || event.data.id);
-            if (event.data.requestData) {
-                const ref = this.dialog.openOverlayPanel(header, DashboardTradeFinanceDetailsPopupComponent, payload);
-                ref.afterClosed().subscribe((res: any) => {});
-            }
-        } else if (
-            event.data.requestType === 'TRADEFINANCE_IMPORT_LC_SUBMIT' ||
-            event.data.requestType === 'TRADEFINANCE_LC_AMEND_SUBMIT'
-        ) {
-            let payload = {
-                type: 'LC',
-                data: event.data,
-            };
-            const header = 'Reference No: ' + (event.data.requestData.applnId || event.data.requestData.lcRefNo);
-            if (event.data.requestData) {
-                const ref = this.dialog.openOverlayPanel(header, DashboardTradeFinanceDetailsPopupComponent, payload);
-                ref.afterClosed().subscribe((res: any) => {});
-            }
-        } else {
-            const ref = this.dialog.openDrawer('REQUEST SUMMARY', DashboardRequestDetailsComponent, {
-                mode: DECISION.VIEW,
-                data: [event.data],
-            });
-            ref.afterClosed().subscribe((res) => {});
-        }
+      
     }
 
     deleteRequest(event: any) {

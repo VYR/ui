@@ -25,10 +25,8 @@ import { QueueStatusComponent } from './components/queue-status/queue-status.com
 import { ApproverRequestsModuleWiseComponent } from './components/approver-requests-module-wise/approver-requests-module-wise.component';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { DashboardRequestDetailsPopupComponent } from './components/dashboard-request-details-popup/dashboard-request-details-popup.component';
-import { DashboardTradeFinanceDetailsPopupComponent } from './components/dashboard-trade-finance-details-popup/dashboard-trade-finance-details-popup.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { kycPopupComponent } from './components/kyc-popup/kyc-popup.component';
-import { DashboardSalaryPostingDetailsPopupComponent } from './components/dashboard-salary-posting-details-popup/dashboard-salary-posting-details-popup.component';
 @NgModule({
     declarations: [
         DashboardComponent,
@@ -46,9 +44,7 @@ import { DashboardSalaryPostingDetailsPopupComponent } from './components/dashbo
         QueueStatusComponent,
         ApproverRequestsModuleWiseComponent,
         DashboardRequestDetailsPopupComponent,
-        DashboardTradeFinanceDetailsPopupComponent,
         kycPopupComponent,
-        DashboardSalaryPostingDetailsPopupComponent,
     ],
     imports: [
         CommonModule,
