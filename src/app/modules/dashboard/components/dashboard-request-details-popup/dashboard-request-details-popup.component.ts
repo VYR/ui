@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DECISION } from 'src/app/shared/enums';
 import { CIBTableConfig } from 'src/app/cib-components/cib-table/models/config.model';
-import { BULK_UPLOAD_HEADER } from 'src/app/modules/transfers/constants/meta-data';
+import { INDIVIDUAL_SCHEME_PAY_TABLE_COLUMNS } from 'src/app/modules/home/components/save-gold-scheme/constants/meta-data';
 
 @Component({
     selector: 'app-dashboard-request-details-popup',
@@ -59,7 +59,7 @@ export class DashboardRequestDetailsPopupComponent implements OnInit {
             data.fileName = this.data.requestData.userFileName;
         });
         this.tableConfig = {
-            columns: BULK_UPLOAD_HEADER,
+            columns: INDIVIDUAL_SCHEME_PAY_TABLE_COLUMNS,
             data: this.data.requestData.fileJSON,
             selection: false,
             totalRecords: this.data.requestData.fileJSON.length,

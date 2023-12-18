@@ -26,7 +26,6 @@ import { ApproverRequestsModuleWiseComponent } from './components/approver-reque
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { DashboardRequestDetailsPopupComponent } from './components/dashboard-request-details-popup/dashboard-request-details-popup.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { kycPopupComponent } from './components/kyc-popup/kyc-popup.component';
 @NgModule({
     declarations: [
         DashboardComponent,
@@ -43,8 +42,7 @@ import { kycPopupComponent } from './components/kyc-popup/kyc-popup.component';
         MyCompletedRequestsComponent,
         QueueStatusComponent,
         ApproverRequestsModuleWiseComponent,
-        DashboardRequestDetailsPopupComponent,
-        kycPopupComponent,
+        DashboardRequestDetailsPopupComponent
     ],
     imports: [
         CommonModule,
