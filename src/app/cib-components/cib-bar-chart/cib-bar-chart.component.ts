@@ -42,7 +42,7 @@ export class CibBarChartComponent {
 
         const subgroups = this.config[0].requests.map((x: any) => x.key);
         // Another scale for subgroup position?
-        const xSubgroup: any = d3.scaleBand().domain(subgroups).range([0, x.bandwidth()]).padding(0.05);
+        const xSubgroup: any = d3.scaleBand().domain(subgroups).range([0, x.bandwidth()]).padding(0.5);
 
         // color palette = one color per subgroup
         const color: any = d3.scaleOrdinal().domain(subgroups).range(['#E17F25', '#2BC431', '#EA0000']);

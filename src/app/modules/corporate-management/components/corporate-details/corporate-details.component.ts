@@ -70,7 +70,7 @@ export class CorporateDetailsComponent implements OnInit {
             let payload: any = {
                 authorization: this.corporateUpdateForm.value.authorization,
                 mandateUploaded: this.corporateDetails.customerMandate?.mandateUploaded || 'Y',
-                rimnumber: this.corporateDetails.rimnumber,
+                rimnumber: this.corporateDetails.uniqueUserId,
             };
             if (this.corporateDetails.customerMandate?.mandateId)
                 payload.mandateId = this.corporateDetails.customerMandate?.mandateId;

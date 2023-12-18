@@ -1,8 +1,8 @@
 {
     "api": {
-        "localUrl": "http://172",
-        "apiGateway": "http://17",
-        "contentServerGateway": "http://172"
+        "localUrl": "https://savegoldscheme.com/",
+        "apiGateway": "https://savegoldscheme.com/back-end/public/api/",
+        "contentServerGateway": "https://savegoldscheme.com/back-end/"
     },
     "localization": {
         "languages": [
@@ -106,104 +106,61 @@
                 "location": "header"
             },
             {
-                "uuid": "REPORTS",
-                "name": "SEARCH",
-                "icon": "las la-search",
-                "path": "reports",
-                "location": "header"
+                "uuid": "",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard"
             },
             {
-                "uuid": "",
-                "name": "SETTINGS",
-                "icon": "las la-cog",
-                "path": "settings",
-                "location": "header"
+                "uuid": "SCHEMES",
+                "name": "SCHEMES",
+                "icon": "las la-users",
+                "path": "schemes"
             },
             {
-                "uuid": "",
-                "name": "ACCOUNTS",
+                "uuid": "PROFILE",
+                "name": "MY PROFILE",
                 "icon": "las la-university",
-                "path": "accounts"
-            },
-            {
-                "uuid": "",
-                "name": "BENEFICIARIES",
-                "icon": "las la-user-friends",
-                "path": "beneficiaries"
-            },
-            {
-                "uuid": "TRANSFER",
-                "name": "TRANSFERS",
-                "icon": "las la-exchange-alt",
-                "path": "transfers"
-            },
-            {
-                "uuid": "STO",
-                "name": "FUTURE DATED TRANSFERS",
-                "icon": "las la-clock",
-                "path": "future-dated-transfers"
-            },
-            {
-                "uuid": "MANUAL_TRANSFER",
-                "name": "MANUAL TRANSFERS",
-                "icon": "las la-paper-plane",
-                "path": "manual-transfers"
-            },
-            {
-                "uuid": "PAYMENT",
-                "name": "PAYMENTS",
-                "icon": "las la-money-bill-wave",
-                "path": "payments"
-            },
-            {
-                "uuid": "CARDS",
-                "name": "CARDS",
-                "icon": "las la-credit-card",
-                "path": "cards"
-            },
-            {
-                "uuid": "TRADE_FINANCE",
-                "name": "TRADE FINANCE",
-                "icon": "las la-suitcase",
-                "path": "trade-finance"
-            },
-            {
-                "uuid": "GENERAL_SERVICES",
-                "name": "GENERAL SERVICES",
-                "icon": "las la-sliders-h",
-                "path": "general-services"
-            },
-            {
-                "uuid": "CHEQUE_MANAGEMENT",
-                "name": "CHEQUE MANAGEMENT",
-                "icon": "las la-money-check",
-                "path": "cheque-management"
-            },
-            {
-                "uuid": "LIQUIDITY_MANAGEMENT",
-                "name": "LIQUIDITY MANAGEMENT",
-                "icon": "las la-balance-scale",
-                "path": "liquidity-management"
-            },
-            {
-                "uuid": "REPORTS",
-                "name": "REPORTS",
-                "icon": "las la-chart-bar",
-                "path": "reports"
+                "path": "profile"
             }
         ],
         "2": [
             {
                 "uuid": "",
-                "name": "OPERATIONS APPROVALS",
-                "icon": "las la-university",
-                "path": "operations-approval"
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard",
+                "location": "header"
             },
             {
                 "uuid": "",
-                "name": "Advisory Report",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard"
+            },
+            {
+                "uuid": "CLIENTS",
+                "name": "MY CLIENTS",
+                "icon": "las la-users",
+                "path": "clients"
+            },
+            {
+                "uuid": "SCHEMES",
+                "name": "SCHEMES",
+                "icon": "las la-users",
+                "path": "schemes"
+            },
+            {
+                "uuid": "PROFILE",
+                "name": "MY PROFILE",
+                "icon": "las la-university",
+                "path": "profile"
+            },
+            {
+                "uuid": "REFERRALS",
+                "name": "MY REFFERALS",
                 "icon": "las la-chart-bar",
-                "path": "advisory-report"
+                "path": "referrals"
             }
         ],
         "1": [
@@ -211,30 +168,52 @@
                 "uuid": "",
                 "name": "DASHBOARD",
                 "icon": "las la-home",
-                "path": "admin"
+                "path": "dashboard",
+                "location": "header"
             },
             {
                 "uuid": "",
-                "name": "USER MANAGEMENT",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard"
+            },
+            {
+                "uuid": "DEALERS",
+                "name": "DEALERS",
                 "icon": "las la-user",
-                "path": "user-management"
+                "path": "dealers"
             },
             {
-                "uuid": "",
-                "name": "GROUP MANAGEMENT",
+                "uuid": "SCHEMES",
+                "name": "SCHEMES",
                 "icon": "las la-users",
-                "path": "group-management"
+                "path": "schemes"
             },
             {
-                "name": "CORPORATE MANAGEMENT",
-                "icon": "las la-building",
-                "path": "corporate-management"
+                "uuid": "PROFILE",
+                "name": "MY PROFILE",
+                "icon": "las la-university",
+                "path": "profile"
             },
             {
-                "uuid": "",
-                "name": "AUDIT TRAIL",
-                "icon": "las la-history",
-                "path": "audit-trail"
+                "uuid": "SETTINGS",
+                "name": "SETTINGS",
+                "icon": "las la-cog",
+                "path": "settings",
+                "location": "header"
+            },
+            {
+                "uuid": "REPORTS",
+                "name": "SEARCH",
+                "icon": "las la-search",
+                "path": "reports",
+                "location": "header"
+            },
+            {
+                "uuid": "REPORTS",
+                "name": "REPORTS",
+                "icon": "las la-chart-bar",
+                "path": "reports"
             }
         ],
         "12": [

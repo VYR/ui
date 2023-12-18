@@ -21,8 +21,8 @@
                     [matAutocomplete]="rims"
                 />
                 <mat-autocomplete autoActiveFirstOption #rims="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredRIMs | async" [value]="option.rimnumber">
-                        {{ option.rimnumber }} - {{ option.firstnameeng }}
+                    <mat-option *ngFor="let option of filteredRIMs | async" [value]="option.uniqueUserId">
+                        {{ option.uniqueUserId }} - {{ option.firstnameeng }}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
@@ -51,7 +51,7 @@
                 (click)="onSearch()"
                 [disabled]="
                     form.invalid ||
-                    !(form.value.rimNumber || form.value.email || form.value.email || form.value.mobilePhone)
+                    !(form.value.uniqueUserId || form.value.email || form.value.email || form.value.mobilePhone)
                 "
             >
                 Search

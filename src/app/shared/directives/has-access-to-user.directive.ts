@@ -20,7 +20,7 @@ export class HasAccessToUserDirective {
 
     @Input() public set appHasAccessToUser(types: Array<USER_TYPE>) {
         // this means open URL
-        const has = !types.includes(this.userType);
+        const has = types.includes(this.userType);
         if (has) {
             this.viewContainer.createEmbeddedView(this.templateRef);
         } else {

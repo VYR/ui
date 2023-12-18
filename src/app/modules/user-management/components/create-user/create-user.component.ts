@@ -139,18 +139,18 @@ export class CreateUserComponent implements OnInit {
                         unselected: Array<any> = [];
                     const rimNumbers = [
                         ...new Set([
-                            ...(rims || []).map((x: any) => x.rimnumber),
-                            ...(userRIMs || []).map((x: any) => x.customer.rimnumber),
+                            ...(rims || []).map((x: any) => x.uniqueUserId),
+                            ...(userRIMs || []).map((x: any) => x.customer.uniqueUserId),
                         ]),
                     ];
                     rimNumbers.forEach((x: any) => {
-                        const presence = (userRIMs || []).findIndex((y: any) => y.customer.rimnumber === x);
+                        const presence = (userRIMs || []).findIndex((y: any) => y.customer.uniqueUserId === x);
                         if (presence !== -1) {
                             const rimInfo = userRIMs[presence];
                             const index = this.userTypes.findIndex((type: any) => type.value === rimInfo.role.type);
                             const role = index !== -1 ? this.userTypes[index] : {};
                             selected.push({
-                                rimNumber: rimInfo.customer.rimnumber,
+                                rimNumber: rimInfo.customer.uniqueUserId,
                                 checked: rimInfo.enabled,
                                 fullAccountPrivilege: rimInfo.fullAccountPrivilege || false,
                                 role,
@@ -229,7 +229,7 @@ export class CreateUserComponent implements OnInit {
 
     updateUser() {
         const req = this._prepareRequest(this.entitlementInfo.value, false);
-        req.userRims = req.userRim.map((x: any) => x.customer.rimnumber);
+        req.userRims = req.userRim.map((x: any) => x.customer.uniqueUserId);
         req.userRim = [];
         this.sandbox.updateUser(req).subscribe((res) => this._onUpdate.emit(true));
     }
@@ -283,7 +283,7 @@ export class CreateUserComponent implements OnInit {
         rimInfo.forEach((x: any) => {
             const req: any = {};
             if (this.screenMode === SCREEN_MODE.CREATE || addNewRole ? x.checked : true) {
-                req.customer = { rimnumber: x.rimNumber };
+                req.customer = { rimnumber: x.uniqueUserId };
                 req.enabled = x.checked;
                 req.userRimId = x.userRimId;
                 req.isAdd = this.screenMode === SCREEN_MODE.CREATE || addNewRole;

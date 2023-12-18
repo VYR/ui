@@ -20,7 +20,7 @@ import {
 })
 export class CreateComponent implements OnInit {
     entitlementsList: Array<any> = [];
-    selectedRim: any;
+    selectedUserId: any;
     selectedGroup: any = null;
     selectedRouter: any = null;
     showEntitlementsSection: boolean = false;
@@ -51,13 +51,13 @@ export class CreateComponent implements OnInit {
                 this.entitlementsList = res.data;
                 this.showForm();
                 if (this.selectedGroup) {
-                    this.selectedRim = this.selectedGroup.customer;
+                    this.selectedUserId = this.selectedGroup.customer;
                     this.showEntitlementsSection = true;
                 }
             }
         });
         this.form = this.fb.group({
-            rimNumber: [this.selectedGroup ? this.selectedGroup.customer.rimnumber : null, [Validators.required]],
+            rimNumber: [this.selectedGroup ? this.selectedGroup.customer.uniqueUserId : null, [Validators.required]],
             groupName: [this.selectedGroup ? this.selectedGroup.group.name : null, [Validators.required]],
             verifierGroup: [this.selectedGroup ? this.selectedGroup.group.verifierGroup : false],
             entitlements: this.fb.array([]),
@@ -154,8 +154,8 @@ export class CreateComponent implements OnInit {
     onSelectGroup(target: any) {
         if (this.selectedGroup) return;
         this.showEntitlementsSection = false;
-        this.selectedRim = this.rimsList.filter((rim: any) => rim.rimnumber == target.value)[0] || null;
-        this.showEntitlementsSection = this.selectedRim ? true : false;
+        this.selectedUserId = this.rimsList.filter((rim: any) => rim.uniqueUserId == target.value)[0] || null;
+        this.showEntitlementsSection = this.selectedUserId ? true : false;
     }
 
     getEntitlementName(index: number) {
@@ -178,7 +178,7 @@ export class CreateComponent implements OnInit {
         });
 
         let payload: any = {
-            customer: this.selectedRim,
+            customer: this.selectedUserId,
             group: {
                 name: formData.groupName,
                 verifierGroup: formData.verifierGroup,

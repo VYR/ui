@@ -7,6 +7,7 @@ import { DashboardRequestDetailsPopupComponent } from '../dashboard-request-deta
 import { DashboardRequestDetailsComponent } from '../dashboard-request-details/dashboard-request-details.component';
 import { DashboardSalaryPostingDetailsPopupComponent } from '../dashboard-salary-posting-details-popup/dashboard-salary-posting-details-popup.component';
 import { DashboardTradeFinanceDetailsPopupComponent } from '../dashboard-trade-finance-details-popup/dashboard-trade-finance-details-popup.component';
+import { DEALERS_TABLE_COLUMNS } from 'src/app/modules/home/components/save-gold-scheme/constants/meta-data';
 
 @Component({
     selector: 'app-approver-requests',
@@ -21,58 +22,13 @@ export class ApproverRequestsComponent implements OnChanges {
     DECISION = DECISION;
     selectedRequests: Array<any> = [];
     query: any;
-    columns = [
-        {
-            key: 'created',
-            displayName: 'Date',
-            type: ColumnType.date,
-            sortable: true,
-        },
-        {
-            key: 'requestDescription',
-            displayName: 'Type',
-            sortable: true,
-        },
-        {
-            key: 'cibRef',
-            displayName: 'Request Id',
-            type: ColumnType.link,
-            sortable: true,
-        },
-        {
-            key: 'currency',
-            displayName: 'Currency',
-            minWidth: 5,
-        },
-        {
-            key: 'txnAmount',
-            displayName: 'Amount',
-            type: ColumnType.amount,
-            sortable: true,
-        },
-        {
-            key: 'currentState',
-            displayName: 'Workflow Status',
-            type: ColumnType.status,
-        },
-        {
-            key: 'reject',
-            displayName: 'Reject',
-            type: ColumnType.reject,
-        },
-        {
-            key: 'approve',
-            displayName: 'Approve',
-            type: ColumnType.approve,
-        },
-    ];
     @Input() durationType!: any;
     constructor(private dialog: CibDialogService, private sandbox: DashboardSandbox) {}
     config!: CIBTableConfig;
     ngOnChanges() {
         console.log(this.durationType);
         if (this.query) {
-            //this.lazyLoad(this.query);
+            this.lazyLoad(this.query);
         }
     }
     lazyLoad(query: any) {
@@ -85,19 +41,39 @@ export class ApproverRequestsComponent implements OnChanges {
         // this.sandbox
         //     .getRequestList(query, REQUEST_STATUS.PENDING, REQUEST_LIST_TYPE.ACTION_PENDING)
         //     .subscribe((res) => {
-        //         this.selectedRequests = [];
-        //         let options = [5, 10, 25];
-        //         if (res.totalRecords > 25) options.push(res.totalRecords);
-        //         const config = {
-        //             columns: this.columns,
-        //             data: res.data,
-        //             selection: true,
-        //             totalRecords: res.totalRecords || 0,
-        //             pageSizeOptions: options,
-        //         };
-        //         this._onUpdateCount.emit(res.totalRecords || 0);
-        //         this.config = config;
-        //         this.query = query;
+            const res={data:[
+                {
+                    created:new Date(),
+                    userId:'SGS387465',
+                    name:'Yellamandarao Vemula',
+                    schemeType:'Individual',
+                    txnAmount:2365476,
+                    currentState:'Approved'
+
+                },
+                {
+                    created:new Date(),
+                    userId:'SGS387465',
+                    name:'Yellamandarao Vemula',
+                    schemeType:'Individual',
+                    txnAmount:2365476,
+                    currentState:'Approved'
+
+                }
+            ],totalRecords:10};
+                this.selectedRequests = [];
+                let options = [5, 10, 25];
+                if (res.totalRecords > 25) options.push(res.totalRecords);
+                const config = {
+                    columns: DEALERS_TABLE_COLUMNS,
+                    data: res.data,
+                    selection: true,
+                    totalRecords: res.totalRecords || 0,
+                    pageSizeOptions: options,
+                };
+                this._onUpdateCount.emit(res.totalRecords || 0);
+                this.config = config;
+                this.query = query;
         //     });
     }
 

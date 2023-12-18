@@ -3,6 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { USER_TYPE } from 'src/app/shared/enums';
 import { RoleGuard } from 'src/app/shared/guards/role.guard';
 import { HomeComponent } from './home.component';
+import { SgsSchemesComponent } from './components/save-gold-scheme/sgs-schemes/sgs-schemes.component';
+import { SgsReportsComponent } from './components/save-gold-scheme/sgs-reports/sgs-reports.component';
+import { SgsProfileComponent } from './components/save-gold-scheme/sgs-profile/sgs-profile.component';
+import { SgsUsersComponent } from './components/save-gold-scheme/sgs-users/sgs-users.component';
+import { SgsDealersComponent } from './components/save-gold-scheme/sgs-dealers/sgs-dealers.component';
+import { SgsRefferalsComponent } from './components/save-gold-scheme/sgs-refferals/sgs-refferals.component';
+import { SgsSettingsComponent } from './components/save-gold-scheme/sgs-settings/sgs-settings.component';
 
 const routes: Routes = [
     {
@@ -15,6 +22,41 @@ const routes: Routes = [
                 canLoad: [RoleGuard],
             },
             {
+                path: 'clients',
+                component: SgsUsersComponent,
+                canLoad: [RoleGuard],
+            },
+            {
+                path: 'dealers',
+                component: SgsDealersComponent,
+                canLoad: [RoleGuard],
+            },
+            {
+                path: 'schemes',
+                component: SgsSchemesComponent,
+                canLoad: [RoleGuard],
+            },
+            {
+                path: 'profile',
+                component: SgsProfileComponent,
+                canLoad: [RoleGuard],
+            },
+            {
+                path: 'reports',
+                component: SgsReportsComponent,
+                canLoad: [RoleGuard],
+            },
+            {
+                path: 'referrals',
+                component: SgsRefferalsComponent,
+                canLoad: [RoleGuard],
+            },
+            {
+                path: 'settings',                
+                component: SgsSettingsComponent,
+                canLoad: [RoleGuard],
+            },
+            /*{
                 path: 'accounts',
                 loadChildren: () => import('../accounts/accounts.module').then((m) => m.AccountsModule),
                 canLoad: [RoleGuard],
@@ -70,11 +112,6 @@ const routes: Routes = [
                     import('../liquidity-management/liquidity-management.module').then(
                         (m) => m.LiquidityManagementModule
                     ),
-                canLoad: [RoleGuard],
-            },
-            {
-                path: 'settings',
-                loadChildren: () => import('../settings/settings.module').then((m) => m.SettingsModule),
                 canLoad: [RoleGuard],
             },
             {
@@ -139,7 +176,7 @@ const routes: Routes = [
                 path: 'unauthorized-access/:module',
                 loadChildren: () => import('../no-access/no-access.module').then((m) => m.NoAccessModule),
                 data: {},
-            },
+            },*/
             {
                 path: '',
                 redirectTo: 'dashboard',

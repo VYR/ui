@@ -3,8 +3,11 @@ import { USER_TYPE } from '../enums';
 export class UserContext {
     public userName!: string;
     public userId!: string;
+    public introducedBy!: string;    
     public firstName!: string;
     public lastName!: string;
+    public aadhar!: string;
+    public pan!: string;
     public mobilePhone!: string;
     public stpUser!: boolean;
     public mobileAccess!: boolean;
@@ -24,7 +27,7 @@ export class UserContext {
     public entitlement!: Array<string>;
     public sysConfig!: any;
     public rmDetails!: any;
-    selectedRim!: string;
+    selectedUserId!: string;
     public sysConfigAllInfo!: Array<any>;
     public forcePasswordChange!: boolean;
     public expirationTime!: number;
@@ -32,7 +35,7 @@ export class UserContext {
 }
 
 export class Organization {
-    rimNumber!: string;
+    uniqueUserId!: string;
     legalId!: string;
     legalDocName!: string;
     legaldocExpDate!: string;

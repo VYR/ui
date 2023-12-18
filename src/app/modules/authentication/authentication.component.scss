@@ -10,13 +10,14 @@
     background-image: url('../../../assets/images/login_bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     .auth-container {
         background: $qib-divider-color;
         border-radius: 6px;
-        min-height: 480px;
+        // min-height: 380px;
         margin: auto;
         height: auto;
-        width: 80%;
+        width: 50%;
         .router-outlet {
             background: $qib-white;
             border-left: 5px solid $qib-primary-color;

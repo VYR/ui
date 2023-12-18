@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "cib": {
+        "save-gold-scheme": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -20,7 +20,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/cib",
+                        "outputPath": "dist/release",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -60,7 +60,7 @@
                             "src/styles.scss"
                         ],
                         "stylePreprocessorOptions": {
-                            "includePaths": ["src/assets/theme-cib"]
+                            "includePaths": ["src/assets/theme-save-gold-scheme"]
                         },
                         "scripts": [
                             "node_modules/jquery/dist/jquery.min.js",
@@ -110,10 +110,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "cib:build:production"
+                            "browserTarget": "save-gold-scheme:build:production"
                         },
                         "development": {
-                            "browserTarget": "cib:build:development"
+                            "browserTarget": "save-gold-scheme:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -121,7 +121,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "cib:build"
+                        "browserTarget": "save-gold-scheme:build"
                     }
                 },
                 "test": {
@@ -139,7 +139,7 @@
                             "node_modules/slick-carousel/slick/slick-theme.scss"
                         ],
                         "stylePreprocessorOptions": {
-                            "includePaths": ["src/assets/theme-cib"]
+                            "includePaths": ["src/assets/theme-save-gold-scheme"]
                         },
                         "scripts": [
                             "node_modules/jquery/dist/jquery.min.js",

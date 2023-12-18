@@ -131,7 +131,7 @@ export class DashboardSandbox {
                 },
             ],
         };
-        const rimNumber = this.userContext.organizationSelected?.rimNumber || "2";
+        const rimNumber = this.userContext.organizationSelected?.uniqueUserId || "2";
         return this.service.getNetwoth({ rimNumber }).pipe(
             map((res: any) => {
                 const info = res.data[rimNumber];

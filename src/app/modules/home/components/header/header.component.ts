@@ -20,7 +20,6 @@ export class HeaderComponent {
     constructor(
         private router: Router,
         private appContext: ApplicationContextService,
-        private sandbox: HomeSandbox,
         private config: ConfigService
     ) {
         this.appContext.currentUser.subscribe((res: any) => (this.user = res));

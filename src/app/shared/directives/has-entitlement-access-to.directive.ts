@@ -22,7 +22,7 @@ export class HasEntitlementAccessToDirective {
     }
 
     @Input() public set appHasEntitlementAccessTo(uuid: string) {
-        this._show = uuid ? uuid.split(',').some((x: string) => !this.entitlements.includes(x)) : true;
+        this._show = uuid ? uuid.split(',').some((x: string) => this.entitlements.includes(x)) : true;
     }
 
     @Input()

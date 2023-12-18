@@ -1,13 +1,13 @@
 <div class="pending-requests">
     <ng-container *ngIf="!isStpUser">
         <app-master-container
-            *appHasAccessToRole="[ROLE_NAME.ROLE_USER_MAKER, ROLE_NAME.ROLE_USER_MAKER_CHECKER]"
+            *appHasAccessToRole="[ROLE_NAME.USER, ROLE_NAME.ROLE_USER_MAKER_CHECKER]"
             #approved
             [opened]="true"
             [collapsable]="true"
         >
             <ng-container header>
-                <span class="count" *ngIf="myRequests.config">{{ myRequests.config.totalRecords }}</span> Own Requests
+                <span class="count" *ngIf="myRequests.config">{{ myRequests.config.totalRecords }}</span> Payments Pending
             </ng-container>
 
             <ng-container icons>
@@ -24,13 +24,4 @@
             </ng-container>
         </app-master-container>
     </ng-container>
-
-    <app-approver-requests-module-wise
-        *appHasAccessToRole="[
-            ROLE_NAME.ROLE_USER_CHECKER,
-            ROLE_NAME.ROLE_USER_VERIFIER,
-            ROLE_NAME.ROLE_USER_MAKER_CHECKER
-        ]"
-    >
-    </app-approver-requests-module-wise>
 </div>

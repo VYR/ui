@@ -86,7 +86,7 @@ export class MatrixComponent implements OnInit {
     }
 
     getSelectedCorporate(value: any) {
-        this.sandbox.getGroupDefinition({ rim: value.rimnumber }).subscribe((res: any) => {
+        this.sandbox.getGroupDefinition({ rim: value.uniqueUserId }).subscribe((res: any) => {
             if (res.data) {
                 this.entitlementsList = res.data;
                 if (this.entitlementsList.length > 0) {
@@ -144,10 +144,10 @@ export class MatrixComponent implements OnInit {
             }
         });
         let payload: any = {
-            rimNumber: this.selectedCorpGroup.rimnumber,
+            rimNumber: this.selectedCorpGroup.uniqueUserId,
             matrix: matrix,
         };
-        this.sandbox.updateGroupMatrix(payload, { rimNumber: this.selectedCorpGroup.rimnumber }).subscribe();
+        this.sandbox.updateGroupMatrix(payload, { rimNumber: this.selectedCorpGroup.uniqueUserId }).subscribe();
     }
 
     getEntitlementName(index: number) {

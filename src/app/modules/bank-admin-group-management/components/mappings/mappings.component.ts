@@ -117,7 +117,7 @@ export class MappingsComponent implements OnInit {
         this.showUsersSection = false;
         this.userGroupList = [];
         this.selectedCorpGroup = value;
-        this.sandbox.getGroupByRIM({ rim: value.rimnumber }).subscribe((res: any) => {
+        this.sandbox.getGroupByRIM({ rim: value.uniqueUserId }).subscribe((res: any) => {
             if (res.data) this.userGroupList = res.data;
         });
     }
@@ -131,7 +131,7 @@ export class MappingsComponent implements OnInit {
         let userType = this.selectedUserGroup?.group.verifierGroup ? 'verifier' : 'checker';
         this.sandbox
             .getGroupUsers({
-                rim: this.selectedCorpGroup.rimnumber,
+                rim: this.selectedCorpGroup.uniqueUserId,
                 groupId: this.selectedUserGroup?.group.groupId,
                 userType,
             })
@@ -176,7 +176,7 @@ export class MappingsComponent implements OnInit {
         ref.afterClosed().subscribe((result: any) => {
             if (result.decision == DECISION.CONFIRM) {
                 let params: any = {
-                    rim: this.selectedCorpGroup.rimnumber,
+                    rim: this.selectedCorpGroup.uniqueUserId,
                     groupId: this.selectedUserGroup?.group.groupId,
                     groupName: this.selectedUserGroup?.group.name,
                     userId: user.data.userId,

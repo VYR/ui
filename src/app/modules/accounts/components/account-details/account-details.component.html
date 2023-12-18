@@ -59,7 +59,7 @@
             <div fxLayout="row" fxLayoutGap="0.7rem" *ngIf="isCIBTransactionalAccount">
                 <ng-container *appHasEntitlementAccessTo="'TRANSFER'">
                     <button
-                        *appHasAccessToRole="['ROLE_USER_MAKER', 'ROLE_USER_MAKER_CHECKER']"
+                        *appHasAccessToRole="['USER', 'ROLE_USER_MAKER_CHECKER']"
                         mat-button
                         class="mat-raised-button mat-primary"
                         type="submit"
@@ -72,7 +72,7 @@
                 </ng-container>
                 <ng-container *appHasEntitlementAccessTo="'PAYMENT'">
                     <button
-                        *appHasAccessToRole="['ROLE_USER_MAKER', 'ROLE_USER_MAKER_CHECKER']"
+                        *appHasAccessToRole="['USER', 'ROLE_USER_MAKER_CHECKER']"
                         mat-button
                         type="submit"
                         class="mat-raised-button mat-primary"

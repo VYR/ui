@@ -11,19 +11,13 @@ export class KnowMoreComponent {
 
     otherLinks = [
         {
-            icon: 'assets/images/qib_forgot_cred.png',
+            icon: 'assets/images/sgs_forgot_cred.png',
             heading: 'View Demos',
             subLink: 'Click to view our demos',
             alt: 'View demo',
         },
         {
-            icon: 'assets/images/qib_online_acc.png',
-            heading: 'New Corporate User?',
-            subLink: 'Download Registration Form',
-            alt: 'Download form',
-        },
-        {
-            icon: 'assets/images/qib_security_tip.png',
+            icon: 'assets/images/sgs_security_tip.png',
             heading: 'Security Tips',
             subLink: 'How We Protect You!',
             alt: 'Security Tips',
@@ -31,11 +25,11 @@ export class KnowMoreComponent {
         {
             icon: 'assets/images/contactUs.png',
             headingOne: 'Call Us:',
-            subLink1: 'T: +974 40335241, +974 40335158 or +974 40335157',
+            subLink1: 'T: +91 040389241, +91 040389241 or +91 040389241',
             headingTwo: 'Mail Us:',
-            subLink2: 'COB@qib.com.qa',
-            headingThree: 'Working Hours (Sunday - Thursday):',
-            subLink3: '7.30 am - 2.30 pm',
+            subLink2: 'contact@sgs.com',
+            headingThree: 'Working Hours (Monday - Friday):',
+            subLink3: '10.30 am - 5.30 pm',
             alt: 'Call Us',
         },
     ];
@@ -49,8 +43,8 @@ export class KnowMoreComponent {
                 var w = window.innerWidth;
                 var h = window.innerHeight;
                 window.open(
-                    'https://www.qib.com.qa/en/wholesale/corporate/corporate-online-banking/#tab-2',
-                    'CIB',
+                    '#',
+                    'SGS',
                     'innerWidth=w,innerHeight=h,resizable,scrollbars,status'
                 );
                 break;
@@ -58,8 +52,8 @@ export class KnowMoreComponent {
                 var w = window.innerWidth;
                 var h = window.innerHeight;
                 window.open(
-                    'https://www.qib.com.qa/en/useful-tools/security-tips/index.aspx',
-                    'CIB',
+                    '#',
+                    'SGS',
                     'innerWidth=w,innerHeight=h,resizable,scrollbars,status'
                 );
                 break;

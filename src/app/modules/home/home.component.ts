@@ -62,7 +62,8 @@ export class HomeComponent implements OnInit {
         IdleTimeoutService.runSecondTimer = false;
         if (type === 'LOGOUT') {
             IdleTimeoutService.runTimer = false;
-            this.sandbox.logout().subscribe();
+            this.sandbox.logout();
+            //.subscribe();
         } else {
             this.idleTimeoutService.initilizeSessionTimeout();
         }

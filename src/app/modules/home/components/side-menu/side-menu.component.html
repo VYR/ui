@@ -1,10 +1,10 @@
 <div class="side-menu" *ngIf="currentUser">
     <div class="header-logo" fxLayoutAlign="center center">
-        <img alt="QIB Logo" src="assets/images/cib_logo_postlogin.png" />
+        <img alt="QIB Logo" src="assets/images/sgs_logo_postlogin.gif" />
     </div>
     <div *appHasAccessToUser="[USER_TYPE.CORPORATE_USER]" class="rim-card-active">
         <div class="rim-number">
-            <div>{{ currentUser.organizationSelected.rimNumber }}</div>
+            <div>{{ currentUser.organizationSelected.uniqueUserId }}</div>
         </div>
         <div class="customer-name">
             {{ currentUser.organizationSelected.firstName }} {{ currentUser.organizationSelected.lastName }}
@@ -31,7 +31,6 @@
                     class="menu-item"
                     fxLayout="row"
                     fxLayoutAlign="start center"
-                    *appHasEntitlementAccessTo="menuItem.uuid"
                 >
                     <div flex="20" class="menu-icon">
                         <i [ngClass]="menuItem.icon"></i>
@@ -50,11 +49,11 @@
                 matRipple
                 class="rim-card"
                 (click)="toggleRimSelection(rim)"
-                [ngClass]="{ 'rim-card-active': rim.rimNumber === currentUser.organizationSelected.rimNumber }"
+                [ngClass]="{ 'rim-card-active': rim.uniqueUserId === currentUser.organizationSelected.uniqueUserId }"
             >
                 <div class="left">
                     <div class="rim-number">
-                        <div>{{ rim.rimNumber }}</div>
+                        <div>{{ rim.uniqueUserId }}</div>
                     </div>
                     <div class="customer-name">{{ rim.firstName }} {{ rim.lastName }}</div>
                 </div>

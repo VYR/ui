@@ -29,7 +29,7 @@
                         (selectionChange)="getSelectedCorporate($event.value)"
                     >
                         <mat-option *ngFor="let corporate of corporatesList" [value]="corporate">
-                            {{ corporate.rimnumber }}
+                            {{ corporate.uniqueUserId }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

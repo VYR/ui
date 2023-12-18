@@ -1,0 +1,21 @@
+<app-master-container>
+    <ng-container header>
+        Scheme Type : {{('Rs.'+(data.data?.individualAmount ? data.data?.individualAmount : data.data?.groupAmountPerMonth)) + ' - '+config.totalRecords+' Months'}}
+    </ng-container>
+    <ng-container icons>
+        <button mat-icon-button >
+            <i class="las la-file-excel"></i>
+        </button>
+        <button mat-icon-button >
+            <i class="las la-file-pdf"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <app-cib-table
+            [config]="config"
+            (_lazyLoad)="lazyLoad($event)"
+            (_select)="onSelect($event)"
+            (_clickCell)="onClickCell($event)"
+        ></app-cib-table>
+    </ng-container>
+</app-master-container>

@@ -9,6 +9,7 @@ import { DashboardRequestDetailsComponent } from '../dashboard-request-details/d
 import { DashboardSalaryPostingDetailsPopupComponent } from '../dashboard-salary-posting-details-popup/dashboard-salary-posting-details-popup.component';
 import { DashboardTradeFinanceDetailsPopupComponent } from '../dashboard-trade-finance-details-popup/dashboard-trade-finance-details-popup.component';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
+import { INDIVIDUAL_SCHEME_TABLE_COLUMNS, USER_TABLE_COLUMNS } from 'src/app/modules/home/components/save-gold-scheme/constants/meta-data';
 
 @Component({
     selector: 'app-my-requests',
@@ -19,49 +20,6 @@ export class MyRequestsComponent implements OnChanges {
     @Input() duration: any;
     @Input() status: any;
     @Input() durationType!: any;
-    columns = [
-        {
-            key: 'created',
-            displayName: 'Date',
-            type: ColumnType.date,
-            sortable: true,
-        },
-        {
-            key: 'requestDescription',
-            displayName: 'Type',
-            sortable: true,
-        },
-        {
-            key: 'cibRef',
-            displayName: 'Request Id',
-            type: ColumnType.link,
-            sortable: true,
-        },
-        {
-            key: 'currency',
-            displayName: 'Currency',
-            minWidth: 5,
-        },
-        {
-            key: 'txnAmount',
-            displayName: 'Amount',
-            type: ColumnType.amount,
-            sortable: true,
-        },
-        {
-            key: 'currentState',
-            displayName: 'Workflow Status',
-            type: ColumnType.status,
-            sortable: true,
-        },
-        {
-            key: 'delete',
-            displayName: '',
-            type: ColumnType.icon,
-            icon: 'la-trash-alt',
-            callBackFn: this.checkForAction,
-        },
-    ];
     query!: any;
 
     constructor(private router: Router, private dialog: CibDialogService, private sandbox: DashboardSandbox) {}
@@ -70,13 +28,13 @@ export class MyRequestsComponent implements OnChanges {
         if (this.query) {
             this.config = new CIBTableConfig();
             this.query = new CIBTableQuery();
-            //this.getRequests();
+            this.getRequests();
         }
     }
     lazyLoad(query: CIBTableQuery) {
         this.query = query;
         this.query.dateRange = this.duration;
-       // this.getRequests();
+        this.getRequests();
     }
 
     checkForAction(data: any) {
@@ -97,16 +55,36 @@ export class MyRequestsComponent implements OnChanges {
         } else if (this.status === 'PENDING' && !query.dateRange) {
             query.fetchAll = false;
         }
-        this.sandbox.getRequestList(query, this.status, REQUEST_LIST_TYPE.MY_QUEUE).subscribe((res) => {
+        //this.sandbox.getRequestList(query, this.status, REQUEST_LIST_TYPE.MY_QUEUE).subscribe((res) => {
+            const res={data:[
+                {
+                    created:new Date(),
+                    userId:'SGS387465',
+                    name:'Yellamandarao Vemula',
+                    schemeType:'Individual',
+                    txnAmount:2365476,
+                    currentState:'Approved'
+
+                },
+                {
+                    created:new Date(),
+                    userId:'SGS387465',
+                    name:'Yellamandarao Vemula',
+                    schemeType:'Individual',
+                    txnAmount:2365476,
+                    currentState:'Approved'
+
+                }
+            ],totalRecords:10};
             const config = {
-                columns: this.columns,
+                columns: INDIVIDUAL_SCHEME_TABLE_COLUMNS,
                 data: res.data,
                 selection: false,
                 totalRecords: res.totalRecords || 0,
                 pageSizeOptions: [5, 10, 25],
             };
             this.config = config;
-        });
+       // });
     }
 
     onSelect(event: any) {}

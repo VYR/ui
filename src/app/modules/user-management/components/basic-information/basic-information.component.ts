@@ -26,7 +26,7 @@ export class BasicInformationComponent implements OnInit {
                 let selectRole = this.options.userTypes.find((role: any) => {
                     return role.value == x.role.type;
                 });
-                this.rimRole.push({ rimRole: x.customer.rimnumber + '(' + selectRole.label + ')' });
+                this.rimRole.push({ rimRole: x.customer.uniqueUserId + '(' + selectRole.label + ')' });
             });
             this.rimList = this.rimRole?.map((item: any) => item.rimRole).join();
             this.businessName = this.userRimInfo[0]?.customer.business.businessName;

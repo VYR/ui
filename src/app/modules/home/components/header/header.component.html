@@ -5,9 +5,9 @@
     </div>
 
     <div class="icon-menus" fxLayout="row" fxLayoutAlign="center center">
-        <ng-container *appHasAccessToUser="[USER_TYPE.CORPORATE_USER]">
+        <ng-container>
             <ng-container *ngFor="let menuItem of iconMenus">
-                <ng-container *appHasEntitlementAccessTo="menuItem.uuid">
+                <ng-container >
                     <div routerLinkActive="menu-item-active">
                         <button [routerLink]="[menuItem.path]" mat-icon-button aria-label="menuItem.name">
                             <i [ngClass]="menuItem.icon"></i>
@@ -37,6 +37,14 @@
             <div *ngIf="user.email" class="profile-header-option">
                 <i class="las la-envelope"></i>
                 <div>{{ user.email }}</div>
+            </div>
+            <div *ngIf="user.aadhar" class="profile-header-option">
+                <i class="las la-envelope"></i>
+                <div>{{ user.aadhar }}</div>
+            </div>
+            <div *ngIf="user.pan" class="profile-header-option">
+                <i class="las la-credit-card"></i>
+                <div>{{ user.pan }}</div>
             </div>
             <div *ngIf="user.currentSignIn" class="profile-header-option">
                 <i class="las la-clock"></i>
