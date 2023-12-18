@@ -1,7 +1,7 @@
 {
     "api": {
         "localUrl": "http://localhost/",
-        "apiGateway": "https://www.puppysoftwares.com/save-gold-scheme/back-end/public/api/",
+        "apiGateway": "https://savegoldscheme.com/back-end/public/api/",
         "contentServerGateway": "http://localhost:8000/"
     },
     "localization": {
