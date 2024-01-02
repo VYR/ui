@@ -41,7 +41,7 @@ export class DashboardRequestDetailsComponent implements OnInit {
             requestObject.requestDescription = data.requestDescription;
             requestObject.currency = data.currency || 'QAR';
             requestObject.amount = data.txnAmount > 0 ? data.txnAmount : null;
-            requestObject.cibRef = data.cibRef;
+            requestObject.sgsRef = data.sgsRef;
             requestObject.created = data.created;
             requestObject.createdBy = data.createdBy;
             requestObject.updated = data.updated;
@@ -164,16 +164,16 @@ export class DashboardRequestDetailsComponent implements OnInit {
                 }
             }
 
-            //STO_WITH_IN_QIB && STO_WITH_IN_QATAR && STO_INTERNATIONAL && TRANSFER_WITH_IN_ACCOUNT && TRANSFER_WITH_IN_QATAR && TRANSFER_INTERNATIONAL
+            //STO_WITH_IN_SGS && STO_WITH_IN_QATAR && STO_INTERNATIONAL && TRANSFER_WITH_IN_ACCOUNT && TRANSFER_WITH_IN_QATAR && TRANSFER_INTERNATIONAL
             if (
                 [
-                    'STO_WITH_IN_QIB',
+                    'STO_WITH_IN_SGS',
                     'STO_WITH_IN_QATAR',
                     'STO_INTERNATIONAL',
                     'TRANSFER_WITH_IN_ACCOUNT',
                     'TRANSFER_INTERNATIONAL',
                     'TRANSFER_WITH_IN_QATAR',
-                    'TRANSFER_WITH_IN_QIB',
+                    'TRANSFER_WITH_IN_SGS',
                 ].indexOf(data.requestType) !== -1
             ) {
                 if (data?.requestData) {

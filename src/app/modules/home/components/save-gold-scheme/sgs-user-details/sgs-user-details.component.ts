@@ -1,6 +1,6 @@
 import { Component, OnInit , Inject} from '@angular/core';
 import { HomeSandbox } from '../../../home.sandbox';
-import { CibDialogService } from 'src/app/shared/services/cib-dialog.service';
+import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
 import { Router } from '@angular/router';
 import { UtilService } from 'src/app/utility';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -17,7 +17,7 @@ export class SgsUserDetailsComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<SgsUserDetailsComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any,
     private sandBox: HomeSandbox,
-        private dialog: CibDialogService,
+        private dialog: SgsDialogService,
         private router: Router,
         private utilService: UtilService
     ) {

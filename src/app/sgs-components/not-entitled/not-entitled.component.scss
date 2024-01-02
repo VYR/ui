@@ -1,0 +1,17 @@
+@import 'variables';
+
+.no-entitlement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+
+    .info {
+        background-color: white;
+        color: $sweety-primary-color;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-weight: bold;
+    }
+}

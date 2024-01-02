@@ -1,0 +1,13 @@
+<div class="filter-menu-item-container">
+    <div *ngIf="title" class="title">
+        <span class="type">{{ title }}</span>
+    </div>
+    <div *ngIf="title" class="divider"></div>
+    <div class="options">
+        <ng-container *ngFor="let item of options; let i = index">
+            <div class="chip" (click)="onSelectChip(i)" [ngClass]="{ 'chip-active': i === selectedIndex }">
+                {{ category ? (item | sgsDefinition: category) : item }}
+            </div>
+        </ng-container>
+    </div>
+</div>

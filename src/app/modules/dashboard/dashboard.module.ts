@@ -4,7 +4,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
-import { CibComponentsModule } from 'src/app/cib-components/cib-components.module';
+import { SgsComponentsModule } from 'src/app/sgs-components/sgs-components.module';
 import { DashboardComponent } from './dashboard.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { DeleteRequestConfirmComponent } from './components/delete-request-confirm/delete-request-confirm.component';
@@ -48,7 +48,7 @@ import { MatMenuModule } from '@angular/material/menu';
         CommonModule,
         DashboardRoutingModule,
         FlexLayoutModule,
-        CibComponentsModule,
+        SgsComponentsModule,
         MatButtonModule,
         MatTabsModule,
         DirectivesModule,

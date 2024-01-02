@@ -1,0 +1,52 @@
+<mat-form-field fxFlex="100" *ngIf="type === 0; else benAccounts" [formGroup]="parentForm">
+    <mat-label>To Account</mat-label>
+    <span *ngIf="toAccount?.available_bal" class="amount-above-selection">
+        {{ toAccount?.currency + ' ' + (toAccount?.current_balance | number: '1.2-4') }}
+    </span>
+    <mat-select
+        aria-label="To Account"
+        required
+        formControlName="toAccount"
+        [(ngModel)]="toAccount"
+        (selectionChange)="selectToAccount()"
+    >
+        <mat-select-trigger>
+            <span>{{ toAccount?.t24_iban + ' - ' + toAccount?.category?.description }}</span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let acc of toAccounts" [value]="acc">
+            <div fxLayout="row" fxLayoutAlign="space-between">
+                <span>{{ acc?.t24_iban + ' - ' + acc?.category?.description }}</span>
+                <span> {{ acc?.currency + ' ' + (acc?.current_balance | number: '1.2-4') }}</span>
+            </div>
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<ng-template #benAccounts>
+    <mat-form-field fxFlex="100" [formGroup]="parentForm">
+        <mat-label>To Account</mat-label>
+        <mat-select
+            aria-label="To Account"
+            required
+            formControlName="toAccount"
+            [(ngModel)]="toAccount"
+            (selectionChange)="selectToAccount()"
+        >
+            <mat-select-trigger>
+                <span *ngIf="toAccount?.iban; else noIban">{{ toAccount?.iban + ' - ' + toAccount?.nickName }}</span>
+                <ng-template #noIban>
+                    <span>{{ toAccount?.accountNo + ' - ' + toAccount?.nickName }}</span>
+                </ng-template>
+            </mat-select-trigger>
+            <mat-option *ngFor="let acc of toAccounts" [value]="acc">
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                    <span *ngIf="acc?.iban; else noIban">{{ acc?.iban + ' - ' + acc?.nickName }}</span>
+                    <ng-template #noIban>
+                        <span>{{ acc?.accountNo + ' - ' + acc?.nickName }}</span>
+                    </ng-template>
+                    <span> {{ acc?.currency }}</span>
+                </div>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</ng-template>

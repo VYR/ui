@@ -1,0 +1,37 @@
+<div class="master-container" [ngClass]="variant">
+    <ng-container *ngIf="collapsable; else normalHeader">
+        <div #header class="header" [ngClass]="{ collapsable: collapsable, 'header-opened': opened }" fxLayout="column">
+            <div class="collapsable-header">
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                <button (click)="toggle()" mat-icon-button class="toggle-btn" aria-label="close">
+                    <i *ngIf="opened; else closed" class="las la-angle-down"></i>
+                    <ng-template #closed>
+                        <i class="las la-angle-right"></i>
+                    </ng-template>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #normalHeader>
+        <div #header class="header" [ngClass]="{ collapsable: collapsable, 'header-opened': opened }" fxLayout="column">
+            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+        </div>
+    </ng-template>
+    <div *ngIf="opened" #body class="body">
+        <ng-content select="[body]"></ng-content>
+    </div>
+</div>
+
+<ng-template #headerTemplate>
+    <div class="header-content" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="title">
+            <ng-content select="[header]"></ng-content>
+        </div>
+        <div class="icons" fxLayoutAlign="center center">
+            <ng-content select="[icons]"></ng-content>
+        </div>
+    </div>
+    <div>
+        <ng-content select="[description]"></ng-content>
+    </div>
+</ng-template>

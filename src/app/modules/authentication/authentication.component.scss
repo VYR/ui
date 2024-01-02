@@ -1,10 +1,10 @@
 @import 'variables';
 .authentication {
     position: absolute;
-    top: $qib-header-height;
-    bottom: $qib-footer-height;
+    top: $sweety-header-height;
+    bottom: $sweety-footer-height;
     overflow-y: auto;
-    background: $qib-divider-color;
+    background: $sweety-divider-color;
     z-index: 1;
     width: 100%;
     background-image: url('../../../assets/images/login_bg.jpg');
@@ -12,15 +12,15 @@
     background-size: cover;
     background-position: center;
     .auth-container {
-        background: $qib-divider-color;
+        background: $sweety-divider-color;
         border-radius: 6px;
         // min-height: 380px;
         margin: auto;
         height: auto;
         width: 50%;
         .router-outlet {
-            background: $qib-white;
-            border-left: 5px solid $qib-primary-color;
+            background: $sweety-white;
+            border-left: 5px solid $sweety-primary-color;
             margin-left: 1px;
             border-top-left-radius: 6px;
             border-bottom-left-radius: 6px;

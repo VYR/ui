@@ -1,0 +1,6 @@
+<div class="toggle-control" [formGroup]="formGroup">
+    <span *ngIf="label" class="label">{{ label }} <span *ngIf="showAsterik" class="show-asterik">*</span></span>
+    <mat-button-toggle-group [disabled]="disabled" [formControlName]="formControlName" aria-label="Select an option">
+        <mat-button-toggle *ngFor="let option of options" [value]="option">{{ option.label }} </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>

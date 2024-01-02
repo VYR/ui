@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CIBTableConfig, CIBTableQuery, ColumnType } from 'src/app/cib-components/cib-table/models/config.model';
-import { CibDialogService, CibDialogType } from 'src/app/shared/services/cib-dialog.service';
+import { SGSTableConfig, SGSTableQuery, ColumnType } from 'src/app/sgs-components/sgs-table/models/config.model';
+import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { HomeSandbox } from '../../../home.sandbox';
 import { GROUP_SCHEME_PAY_TABLE_COLUMNS, INDIVIDUAL_SCHEME_PAY_TABLE_COLUMNS, INDIVIDUAL_SCHEME_TABLE_COLUMNS } from '../constants/meta-data';
 import { DECISION } from 'src/app/shared/enums';
@@ -17,13 +17,13 @@ import { UtilService } from 'src/app/utility';
 })
 export class SgsSchemeDetailsComponent implements OnInit {
   @Input() type=1;
-  config!: CIBTableConfig;
-  query!: CIBTableQuery;
+  config!: SGSTableConfig;
+  query!: SGSTableQuery;
   DECISION=DECISION;
   constructor(public dialogRef: MatDialogRef<SgsUpdateUserComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any,
     private sandBox: HomeSandbox,
-        private dialog: CibDialogService,
+        private dialog: SgsDialogService,
         private router: Router,
         private utilService: UtilService
     ) {
@@ -33,7 +33,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
     ngOnInit(): void {
       this.lazyLoad(this.query);
     }
-    lazyLoad(query: CIBTableQuery) {
+    lazyLoad(query: SGSTableQuery) {
   
       this.getRequests();
     }
@@ -138,7 +138,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
           this.deleteRequest(event);
       } else {
           if (event.data.currentState === 'Awaiting Approval') {
-              // this.sandbox.getPendingReqHistory({ refNo: event.data.cibRef }).subscribe((res: any) => {
+              // this.sandbox.getPendingReqHistory({ refNo: event.data.sgsRef }).subscribe((res: any) => {
               //     event.data['pendingHistory'] = res.data;
               //     this.openSummary(event);
               // });
@@ -154,14 +154,14 @@ export class SgsSchemeDetailsComponent implements OnInit {
             mode: event.key === 'edit'?DECISION.ADD:DECISION.VIEW,
             type:5,//Payment
             data: event.data,
-        },CibDialogType.small);
+        },SgsDialogType.small);
         ref.afterClosed().subscribe((res) => {});
       }
       
   }
   
   deleteRequest(event: any) {
-      const ref = this.dialog.openDialog(CibDialogType.small, DeleteRequestConfirmComponent, event.data);
+      const ref = this.dialog.openDialog(SgsDialogType.small, DeleteRequestConfirmComponent, event.data);
       ref.afterClosed().subscribe((result: any) => {
           if (result.decision === DECISION.CONFIRM) {
               // this.sandbox.deleteRequest(result.data).subscribe((res) => {

@@ -1,0 +1,53 @@
+@import 'variables';
+:host {
+    width: 100%;
+    .container {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        border: solid $sweety-divider-color 0.1rem;
+        place-content: space-between;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        font-size: 3rem;
+        background-color: $sweety-divider-color;
+        z-index: 9;
+        .mat-icon-button {
+            font-size: 1.5rem;
+            color: $sweety-primary-color;
+            z-index: 10;
+            cursor: pointer;
+        }
+        .la-cloud-upload-alt {
+            font-size: 3rem;
+            color: $sweety-color-grey;
+            cursor: pointer;
+        }
+        .la-check-circle {
+            font-size: 3rem;
+            color: $sweety-green;
+        }
+        .body {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            .label {
+                font-size: 0.875rem;
+                color: $sweety-light-grey;
+            }
+            .description {
+                font-size: 0.625rem;
+                color: $sweety-color-orange;
+            }
+            .file-name {
+                font-size: 0.625rem;
+                color: $sweety-primary-color;
+                font-weight: bold;
+            }
+            .error {
+                font-size: 0.625rem;
+                color: $sweety-red;
+            }
+        }
+    }
+}

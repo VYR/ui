@@ -13,7 +13,7 @@ import { TranslationModule } from './shared/translation/translation.module';
 import { HttpCoreModule } from './http-core';
 import { UtilityModule } from './utility';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { CibComponentsModule } from './cib-components/cib-components.module';
+import { SgsComponentsModule } from './sgs-components/sgs-components.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 registerLocaleData(en);
@@ -34,7 +34,7 @@ export function configLoaderFactory(config: ConfigService): any {
         TranslationModule,
         HttpCoreModule,
         UtilityModule,
-        CibComponentsModule,
+        SgsComponentsModule,
         MatAutocompleteModule,
     ],
     providers: [

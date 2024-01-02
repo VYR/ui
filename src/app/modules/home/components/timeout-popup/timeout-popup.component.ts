@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CibDrawerLayoutComponent } from 'src/app/cib-components/cib-drawer-layout/cib-drawer-layout.component';
+import { SgsDrawerLayoutComponent } from 'src/app/sgs-components/sgs-drawer-layout/sgs-drawer-layout.component';
 
 @Component({
     selector: 'app-timeout-popup',
@@ -9,7 +9,7 @@ import { CibDrawerLayoutComponent } from 'src/app/cib-components/cib-drawer-layo
 })
 export class TimeoutPopupComponent implements OnInit {
     timeLeft!: string;
-    constructor(public dialogRef: MatDialogRef<CibDrawerLayoutComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+    constructor(public dialogRef: MatDialogRef<SgsDrawerLayoutComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     ngOnInit(): void {
         this.data.status.subscribe((status: string) => {

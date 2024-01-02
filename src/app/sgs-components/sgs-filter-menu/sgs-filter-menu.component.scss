@@ -1,0 +1,35 @@
+@import 'variables';
+
+.filter-menu-item-container {
+    padding-bottom: 0;
+    .options {
+        flex-flow: row wrap;
+        box-sizing: border-box;
+        display: flex;
+        max-width: 22rem;
+        gap: 0.5rem;
+        .chip {
+            padding: 0.125rem 0.5rem;
+            font-size: 0.75rem;
+            background: $sweety-divider-color;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            color: $sweety-text-color;
+
+            &.chip-active {
+                background: $sweety-nav-bar-background;
+                color: $sweety-background-blue;
+            }
+        }
+        .chip:hover {
+            background: $sweety-nav-bar-background;
+            color: $sweety-background-blue;
+        }
+    }
+
+    .title {
+        color: $sweety-primary-color;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+}

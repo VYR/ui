@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PieChartConfig } from 'src/app/cib-components/cib-pie-chart/models/pie-chart.model';
-import { CIBTableConfig } from 'src/app/cib-components/cib-table/models/config.model';
-import { CibDialogService } from 'src/app/shared/services/cib-dialog.service';
+import { PieChartConfig } from 'src/app/sgs-components/sgs-pie-chart/models/pie-chart.model';
+import { SGSTableConfig } from 'src/app/sgs-components/sgs-table/models/config.model';
+import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
 import { DashboardSandbox } from '../../dashboard.sandbox';
 
 @Component({
@@ -14,8 +14,8 @@ export class PortfolioComponent implements OnInit {
     networth: any = {};
     hasAssets!: boolean;
     hasLiabilities!: boolean;
-    constructor(private router: Router, private dialog: CibDialogService, private sandbox: DashboardSandbox) {}
-    tableConfig!: CIBTableConfig;
+    constructor(private router: Router, private dialog: SgsDialogService, private sandbox: DashboardSandbox) {}
+    tableConfig!: SGSTableConfig;
     minHeight: number = 0;
     config: PieChartConfig = {
         id: 'PORTFOLIO_OVERVIEW',

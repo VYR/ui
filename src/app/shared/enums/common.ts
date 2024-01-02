@@ -58,7 +58,7 @@ export enum DECISION {
 }
 
 export enum STO_TYPE {
-    WQIB = 'WQIB',
+    WSGS = 'WSGS',
     WQAR = 'WQAR',
     INTL = 'INTL',
 }
@@ -81,8 +81,8 @@ export enum CARD_TYPES {
 }
 
 export enum SYSTEM_CONFIG {
-    BACK_DATE = 'cib.backdated.allowed.approval.days',
-    FX_DISCLAIMER = 'cib.showFx',
+    BACK_DATE = 'sgs.backdated.allowed.approval.days',
+    FX_DISCLAIMER = 'sgs.showFx',
 }
 
 export enum USER_TYPE {

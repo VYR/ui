@@ -1,0 +1,54 @@
+@import 'variables';
+.menu-bar {
+    display: flex;
+    gap: 0.75rem;
+    background: $sweety-nav-bar-background;
+    justify-content: start;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    .menu-item {
+        color: $sweety-primary-color;
+        text-transform: none;
+        font-weight: bold;
+        margin: 0;
+        padding: 0.7rem 0.8rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .menu-icon {
+            font-size: 1.5rem;
+        }
+    }
+    .menu-item-active {
+        color: $sweety-tab-active-border;
+    }
+    .menu-item:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 0.175rem;
+        width: 0;
+        background: transparent;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: width 0.5s ease, background-color 0.5s ease;
+    }
+    .menu-item:hover:after {
+        width: 100%;
+        background: $sweety-tab-active-border;
+    }
+    .menu-item-active::after {
+        width: 100%;
+        background: $sweety-tab-active-border;
+    }
+    .menu-item:hover ~ .menu-item-active::after {
+        width: 0%;
+    }
+}
+
+.disbleMenuItem {
+    pointer-events: none;
+    color: #78a8c7 !important;
+}

@@ -1,0 +1,14 @@
+<mat-form-field class="chip-list">
+    <mat-chip-list #chipList>
+        <input
+            [(ngModel)]="inputCtrl"
+            [placeholder]="placeholder"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (blur)="add($event)"
+        />
+    </mat-chip-list>
+    <mat-chip *ngFor="let value of selectedValues" (removed)="remove(value)">
+        {{ value }}<button matChipRemove><i class="las la-times"></i></button>
+    </mat-chip>
+</mat-form-field>

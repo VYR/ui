@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { NoAccessRoutingModule } from './no-access-routing.module';
 import { NoAccessComponent } from './no-access.component';
-import { CibComponentsModule } from 'src/app/cib-components/cib-components.module';
+import { SgsComponentsModule } from 'src/app/sgs-components/sgs-components.module';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     declarations: [NoAccessComponent],
-    imports: [CommonModule, NoAccessRoutingModule, CibComponentsModule, MatButtonModule],
+    imports: [CommonModule, NoAccessRoutingModule, SgsComponentsModule, MatButtonModule],
 })
 export class NoAccessModule {}

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CIBTableConfig, CIBTableQuery, ColumnType } from 'src/app/cib-components/cib-table/models/config.model';
+import { SGSTableConfig, SGSTableQuery, ColumnType } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { DECISION, REQUEST_LIST_TYPE, REQUEST_STATUS, ROLE_NAME } from 'src/app/shared/enums';
-import { CibDialogService, CibDialogType } from 'src/app/shared/services/cib-dialog.service';
+import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { DashboardSandbox } from '../../dashboard.sandbox';
 import { DashboardRequestDetailsPopupComponent } from '../dashboard-request-details-popup/dashboard-request-details-popup.component';
 import { DashboardRequestDetailsComponent } from '../dashboard-request-details/dashboard-request-details.component';
@@ -41,7 +41,7 @@ export class MyCompletedRequestsComponent {
             sortable: true,
         },
         {
-            key: 'cibRef',
+            key: 'sgsRef',
             displayName: 'Request Id',
             type: ColumnType.link,
             sortable: true,
@@ -70,12 +70,12 @@ export class MyCompletedRequestsComponent {
     ];
 
     searchForm!: UntypedFormGroup;
-    config: CIBTableConfig = new CIBTableConfig();
+    config: SGSTableConfig = new SGSTableConfig();
     query: any;
     role!: ROLE_NAME;
     constructor(
         private router: Router,
-        private dialog: CibDialogService,
+        private dialog: SgsDialogService,
         public fb: UntypedFormBuilder,
         private sandbox: DashboardSandbox
     ) {
@@ -90,7 +90,7 @@ export class MyCompletedRequestsComponent {
         });
     }
 
-    lazyLoad(query: CIBTableQuery) {
+    lazyLoad(query: SGSTableQuery) {
         this.query = query;
         this.sandbox
             .getRequestList(query, REQUEST_STATUS.COMPLETED, REQUEST_LIST_TYPE.MAKER_COMPLETED)
@@ -137,7 +137,7 @@ export class MyCompletedRequestsComponent {
     }
 
     deleteRequest(event: any) {
-        const ref = this.dialog.openDialog(CibDialogType.small, DeleteRequestConfirmComponent, event.data);
+        const ref = this.dialog.openDialog(SgsDialogType.small, DeleteRequestConfirmComponent, event.data);
         ref.afterClosed().subscribe((result: any) => {
             if (result.decision === DECISION.CONFIRM) {
                 this.sandbox.deleteRequest(result.data).subscribe((res) => {

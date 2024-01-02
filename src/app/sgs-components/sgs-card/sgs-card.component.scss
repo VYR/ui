@@ -1,0 +1,19 @@
+@import 'variables';
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin: 0.25rem auto;
+    cursor: pointer;
+    background-color: $sweety-divider-color;
+}
+
+.card-active {
+    background: $sweety-background-grey;
+}
+
+.card:hover {
+    background: $sweety-background-grey;
+}

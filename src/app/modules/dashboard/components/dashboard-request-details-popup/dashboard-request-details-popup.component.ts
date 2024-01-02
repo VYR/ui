@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DECISION } from 'src/app/shared/enums';
-import { CIBTableConfig } from 'src/app/cib-components/cib-table/models/config.model';
+import { SGSTableConfig } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { INDIVIDUAL_SCHEME_PAY_TABLE_COLUMNS } from 'src/app/modules/home/components/save-gold-scheme/constants/meta-data';
 
 @Component({
@@ -10,7 +10,7 @@ import { INDIVIDUAL_SCHEME_PAY_TABLE_COLUMNS } from 'src/app/modules/home/compon
     styleUrls: ['./dashboard-request-details-popup.component.scss'],
 })
 export class DashboardRequestDetailsPopupComponent implements OnInit {
-    tableConfig!: CIBTableConfig;
+    tableConfig!: SGSTableConfig;
     constructor(
         public dialogRef: MatDialogRef<DashboardRequestDetailsPopupComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any

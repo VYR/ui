@@ -1,8 +1,8 @@
 {
     "api": {
-        "localUrl": "https://online.qib.com.qa/cib/",
-        "apiGateway": "https://online.qib.com.qa/",
-        "contentServerGateway": "https://online.qib.com.qa/auth/getContent?path="
+        "localUrl": "",
+        "apiGateway": "",
+        "contentServerGateway": ""
     },
     "localization": {
         "languages": [

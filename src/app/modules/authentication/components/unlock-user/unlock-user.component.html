@@ -34,7 +34,7 @@
         </div>
         <div class="login-form" *ngIf="isRequestUser">
             <form class="body-card-login-form" (ngSubmit)="onUnlockUserConfirm()" autocomplete="off" fxLayout="column">
-                <app-cib-otp (otpValueEvent)="otp = $event" [email]="email"></app-cib-otp>
+                <app-sgs-otp (otpValueEvent)="otp = $event" [email]="email"></app-sgs-otp>
                 <div
                     fxFlex="100"
                     fxLayout="row"

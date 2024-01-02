@@ -1,0 +1,11 @@
+<div fxFlex fxLayout="column" class="container">
+    <div class="header">
+        <span class="title" [innerHTML]="data.header | safe: 'html'"></span>
+    </div>
+    <span class="body" [innerHTML]="data.body | safe: 'html'"></span>
+
+    <div class="btn-container" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        <button mat-button class="mat-raised-button" (click)="onCancel()">Cancel</button>
+        <button mat-button class="mat-raised-button mat-primary" (click)="onConfirm()">Confirm</button>
+    </div>
+</div>

@@ -10,7 +10,7 @@ import {
     ValidationErrors,
     UntypedFormControl,
 } from '@angular/forms';
-import { CibDialogService } from 'src/app/shared/services/cib-dialog.service';
+import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
 import { UtilService } from 'src/app/utility';
 import { HomeSandbox } from '../../../home.sandbox';
 import { UserContext } from 'src/app/shared/models';
@@ -27,7 +27,7 @@ export class SgsUpdateUserComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private sandBox: HomeSandbox,
         public fb: UntypedFormBuilder,
-        private dialog: CibDialogService,
+        private dialog: SgsDialogService,
         private router: Router,
         private utilService: UtilService
     ) {

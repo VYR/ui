@@ -12,7 +12,6 @@ config_encrypted/*
 /node_modules
 npm-debug.log
 yarn-error.log
-cib.war
 
 # IDEs and editors
 .idea/

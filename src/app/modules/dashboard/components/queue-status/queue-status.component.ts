@@ -1,7 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { PieChartConfig } from 'src/app/cib-components/cib-pie-chart/models/pie-chart.model';
+import { PieChartConfig } from 'src/app/sgs-components/sgs-pie-chart/models/pie-chart.model';
 import { DashboardSandbox } from '../../dashboard.sandbox';
-import { CIBDefinition } from 'src/app/shared/pipes/cib-definition.pipe';
+import { SGSDefinition } from 'src/app/shared/pipes/sgs-definition.pipe';
 
 @Component({
     selector: 'app-queue-status',
@@ -29,32 +29,11 @@ export class QueueStatusComponent implements AfterViewInit {
     modules = [];
     props = ['approvedCount', 'pendingCount', 'rejectedCount'];
     barConfig: any = [];
-    filterPipe = new CIBDefinition();
+    filterPipe = new SGSDefinition();
     constructor(private sandbox: DashboardSandbox) {}
 
     ngAfterViewInit(): void {
-       // this.sandbox.getMakerRequestCount().subscribe((res: any) => {
-        const res1:any={data:{requestCount:[
-            {
-                uuid:'Individual',
-                pendingCount:200,
-                approvedCount:20,
-                rejectedCount:156
-            },
-            {
-                uuid:'Group',
-                pendingCount:200,
-                approvedCount:20,
-                rejectedCount:156
-            },
-            {
-                uuid:'ALL',
-                pendingCount:123,
-                approvedCount:58,
-                rejectedCount:86,
-                total:23
-            }
-        ]}};
+        this.sandbox.getSgsRequestCount().subscribe((res1: any) => {
             if (!res1.data.requestCount) return;
             this.modules = res1.data.requestCount;
             this.modules.forEach((module: any) => {
@@ -99,13 +78,13 @@ export class QueueStatusComponent implements AfterViewInit {
             //     this.config.total = all['total'];
             // }
             const res={
-                total:[{label:'a',total:"20"},{label:'b',total:"20"},{label:'Total',total:"20"}],
+                total:[{label:'a',total:"20"},{label:'b',total:"20"},{label:'c',total:"20"},{label:'Total',total:"20"}],
                 assets:[],
                 liabilities:[]
             };
                 this.config.total = this.getValue(res.total[2].total);
                 this.config.totalLabel = res.total[2].label;
-                [0, 1].forEach((x: number) => {
+                [0, 1,2].forEach((x: number) => {
                     this.config.data[x] = {
                         ...this.config.data[x],
                         value: this.getValue(res.total[x].total),
@@ -118,7 +97,7 @@ export class QueueStatusComponent implements AfterViewInit {
                         ),
                     };
                 });
-        //});
+        });
     }
     
     getValue(value: any) {

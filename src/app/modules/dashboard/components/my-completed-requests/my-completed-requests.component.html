@@ -12,7 +12,7 @@
                 <mat-label>Search By Type</mat-label>
                 <mat-select aria-label="type" formControlName="type">
                     <mat-option *ngFor="let module of moduleTypes" [value]="module">
-                        <span>{{ module | cibDefinition: 'UUID' }}</span>
+                        <span>{{ module | sgsDefinition: 'UUID' }}</span>
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -20,12 +20,12 @@
     </ng-container>
     <ng-container body>
         <div class="my-completed-requests">
-            <app-cib-table
+            <app-sgs-table
                 [config]="config"
                 (_lazyLoad)="lazyLoad($event)"
                 (_select)="onSelect($event)"
                 (_clickCell)="onClickCell($event)"
-            ></app-cib-table>
+            ></app-sgs-table>
         </div>
     </ng-container>
 </app-master-container>

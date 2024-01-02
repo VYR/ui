@@ -1,7 +1,7 @@
 <ng-container *ngFor="let transaction of transactions; let i = index">
     <app-master-container [variant]="'secondary'" [opened]="i === 0" [collapsable]="true">
         <ng-container header>
-            <div>{{ transaction.cibRef }}</div>
+            <div>{{ transaction.sgsRef }}</div>
         </ng-container>
         <ng-container body>
             <div fxFlex="column">
@@ -60,7 +60,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="transaction.type">
-                        <app-label-value [label]="'Type'" [value]="transaction.type | cibDefinition: 'UUID'">
+                        <app-label-value [label]="'Type'" [value]="transaction.type | sgsDefinition: 'UUID'">
                         </app-label-value>
                     </ng-container>
 
@@ -123,7 +123,7 @@
                     <ng-container *ngIf="transaction.payeeType">
                         <app-label-value
                             [label]="'Payee Type'"
-                            [value]="transaction.payeeType | cibDefinition: 'PAYEE'"
+                            [value]="transaction.payeeType | sgsDefinition: 'PAYEE'"
                         >
                         </app-label-value>
                     </ng-container>
@@ -188,7 +188,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="transaction.tenor">
-                        <app-label-value [label]="'Tenor'" [value]="transaction.tenor | cibDefinition: 'TENOR'">
+                        <app-label-value [label]="'Tenor'" [value]="transaction.tenor | sgsDefinition: 'TENOR'">
                         </app-label-value>
                     </ng-container>
 
@@ -408,7 +408,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="transaction.bulkPayments?.length > 0">
-                        <app-cib-card *ngFor="let payData of transaction.bulkPayments">
+                        <app-sgs-card *ngFor="let payData of transaction.bulkPayments">
                             <app-label-value
                                 *ngIf="payData.amount"
                                 [label]="'Amount'"
@@ -437,7 +437,7 @@
                             <app-label-value
                                 *ngIf="payData.payeeType"
                                 [label]="'Payee Type'"
-                                [value]="payData.payeeType | cibDefinition: 'PAYEE'"
+                                [value]="payData.payeeType | sgsDefinition: 'PAYEE'"
                             >
                             </app-label-value>
 
@@ -568,7 +568,7 @@
                                 [value]="payData.paymentDate"
                             >
                             </app-label-value>
-                        </app-cib-card>
+                        </app-sgs-card>
                     </ng-container>
 
                     <div class="activity-section" *ngIf="showActivityHistory">
@@ -602,15 +602,15 @@
     </app-master-container>
 </ng-container>
 <div class="action-section" *ngIf="mode !== DECISION.VIEW">
-    <app-cib-fx-disclaimer
+    <app-sgs-fx-disclaimer
         *ngIf="mode !== DECISION.REJECT"
         (checkboxValueEvent)="checkboxValueEvent($event)"
         [fxTransaction]="hasFXDisclaimer"
         [fxThreshold]="hasThresholdDisclaimer"
         [fxRequestTypeValid]="transactions[0]?.requestType"
         [fxRequestType]="transactions[0]?.currency === 'USD' ? true : false"
-    ></app-cib-fx-disclaimer>
-    <app-cib-otp class="otp-comp" (otpValueEvent)="otp = $event" [showMore]="true"></app-cib-otp>
+    ></app-sgs-fx-disclaimer>
+    <app-sgs-otp class="otp-comp" (otpValueEvent)="otp = $event" [showMore]="true"></app-sgs-otp>
     <mat-form-field *ngIf="mode === DECISION.REJECT">
         <mat-label>Reason:</mat-label>
         <input matInput [(ngModel)]="notes" placeholder="Reason to reject..." />

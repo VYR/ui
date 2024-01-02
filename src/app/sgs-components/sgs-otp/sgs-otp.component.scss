@@ -1,0 +1,26 @@
+@import 'variables';
+.otp-container {
+    .title {
+        font-weight: 600;
+    }
+    font-size: 0.875rem;
+    color: $sweety-text-color;
+    gap: 1rem;
+}
+
+.otp-display-text {
+    margin-top: 0.938rem;
+    font-size: 0.75rem;
+}
+
+.resend-text {
+    cursor: pointer;
+    color: $sweety-badge-background;
+    text-decoration: underline;
+}
+
+.disabled-resend {
+    pointer-events: none;
+    color: $sweety-text-color;
+    text-decoration: none;
+}

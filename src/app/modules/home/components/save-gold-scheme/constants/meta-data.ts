@@ -1,4 +1,4 @@
-import { ColumnType } from 'src/app/cib-components/cib-table/models/config.model';
+import { ColumnType } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SALARY_POSTING_COLUMNS } from 'src/app/shared/enums';
 
 export const USER_TABLE_COLUMNS =  [

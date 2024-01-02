@@ -1,5 +1,5 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { NotEntitledComponent } from 'src/app/cib-components/not-entitled/not-entitled.component';
+import { NotEntitledComponent } from 'src/app/sgs-components/not-entitled/not-entitled.component';
 import { UserContext } from '../models';
 import { ApplicationContextService } from '../services/application-context.service';
 

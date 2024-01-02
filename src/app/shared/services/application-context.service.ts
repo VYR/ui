@@ -5,7 +5,7 @@ import { CacheService } from 'src/app/cache/cache.service';
 import { USER_TYPE } from '../enums';
 import { APP_ROUTES } from '../enums/routes';
 import { Organization, UserContext } from '../models';
-import { CibDialogService } from './cib-dialog.service';
+import { SgsDialogService } from './sgs-dialog.service';
 
 @Injectable({
     providedIn: 'root',
@@ -13,7 +13,7 @@ import { CibDialogService } from './cib-dialog.service';
 export class ApplicationContextService {
     public currentUser: Observable<UserContext>;
     private currentUserSubject = new BehaviorSubject<UserContext>(new UserContext());
-    constructor(private router: Router, private cache: CacheService, private dialog: CibDialogService) {
+    constructor(private router: Router, private cache: CacheService, private dialog: SgsDialogService) {
         const userContext = JSON.parse(this.cache.get('USER_CONTEXT'));
         if (userContext) this.currentUserSubject.next(userContext);
         this.currentUser = this.currentUserSubject.asObservable();

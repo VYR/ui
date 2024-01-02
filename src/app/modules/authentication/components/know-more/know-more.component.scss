@@ -2,7 +2,7 @@
 :host {
     width: 100%;
     .know-more {
-        background: $qib-primary-color;
+        background: $sweety-primary-color;
         background-image: url('../../../../../assets/images/pattern.png');
         border-bottom-right-radius: 0.313rem;
         border-top-right-radius: 0.313rem;
@@ -14,12 +14,12 @@
             box-sizing: border-box;
             padding: 1rem 0;
             .link {
-                background: $qib-background-blue;
+                background: $sweety-background-blue;
                 padding: 0.5rem 1rem;
                 border-radius: 0.375rem;
                 margin: 0.6em;
-                background: $qib-background-blue;
-                color: $qib-text-white;
+                background: $sweety-background-blue;
+                color: $sweety-text-white;
                 .link-heading {
                     font-size: 0.9em;
                     font-family: 'dax-regularregular', 'Open Sans', Helvetica, sans-serif;
@@ -33,7 +33,7 @@
                     font-style: italic;
                     cursor: pointer;
                     text-decoration: none;
-                    color: $qib-text-white;
+                    color: $sweety-text-white;
                     font-size: 0.9em;
                     font-family: 'daxlight', 'Open Sans', Helvetica, sans-serif;
                     font-weight: 400;

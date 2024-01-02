@@ -202,7 +202,7 @@ export class DashboardSandbox {
         return this.service.deleteRequest(request.id).pipe(
             tap((res: any) => {
                 if (res && res.status === 'SUCCESS') {
-                    this.util.displayNotification(`Request ${request.cibRef} is deleted successfully!`, 'success');
+                    this.util.displayNotification(`Request ${request.sgsRef} is deleted successfully!`, 'success');
                 }
             })
         );
@@ -230,8 +230,8 @@ export class DashboardSandbox {
         return this.service.getRequestCount(role.toUpperCase());
     }
 
-    getMakerRequestCount() {
-        return this.service.getMakerRequestCount();
+    getSgsRequestCount() {
+        return this.service.getSgsRequestCount();
     }
 
     getPendingReqHistory(params: any) {

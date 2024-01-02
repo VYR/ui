@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { CibComponentsModule } from 'src/app/cib-components/cib-components.module';
+import { SgsComponentsModule } from 'src/app/sgs-components/sgs-components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { KnowMoreComponent } from './components/know-more/know-more.component';
@@ -41,7 +41,7 @@ import { UnlockUserComponent } from './components/unlock-user/unlock-user.compon
         AuthenticationRoutingModule,
         MatButtonModule,
         MatIconModule,
-        CibComponentsModule,
+        SgsComponentsModule,
         FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule,

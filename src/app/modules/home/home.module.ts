@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { CibComponentsModule } from 'src/app/cib-components/cib-components.module';
+import { SgsComponentsModule } from 'src/app/sgs-components/sgs-components.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeSandbox } from './home.sandbox';
 import { HeaderComponent } from './components/header/header.component';
@@ -32,15 +32,16 @@ import { SgsSchemeGroupComponent } from './components/save-gold-scheme/sgs-schem
 import { SgsRefferalsComponent } from './components/save-gold-scheme/sgs-refferals/sgs-refferals.component';
 import { SgsSettingsComponent } from './components/save-gold-scheme/sgs-settings/sgs-settings.component';
 import { SgsSchemeDetailsComponent } from './components/save-gold-scheme/sgs-scheme-details/sgs-scheme-details.component';
+import { SgsEmployeesComponent } from './components/save-gold-scheme/sgs-employees/sgs-employees.component';
 @NgModule({
     declarations: [HomeComponent, HeaderComponent, SideMenuComponent, TimeoutPopupComponent, 
         SgsReportsComponent, SgsUsersComponent, SgsDealersComponent, SgsCreateUserComponent,
         SgsUpdateUserComponent, SgsSchemesComponent, SgsProfileComponent, DeleteRequestConfirmComponent, 
-        SgsUserDetailsComponent, SgsSchemeIndividualComponent, SgsSchemeGroupComponent, SgsRefferalsComponent, SgsSettingsComponent, SgsSchemeDetailsComponent],
+        SgsUserDetailsComponent, SgsSchemeIndividualComponent, SgsSchemeGroupComponent, SgsRefferalsComponent, SgsSettingsComponent, SgsSchemeDetailsComponent, SgsEmployeesComponent],
     imports: [
         CommonModule,
         HomeRoutingModule,
-        CibComponentsModule,
+        SgsComponentsModule,
         FlexLayoutModule,
         MatMenuModule,
         MatRippleModule,

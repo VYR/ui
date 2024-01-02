@@ -4,8 +4,8 @@
     width: 80vw;
     height: 80vh;
     .demo-header {
-        background: $qib-primary-color;
-        color: $qib-dashboard-header-color;
+        background: $sweety-primary-color;
+        color: $sweety-dashboard-header-color;
         margin-bottom: 0;
         .custom-header {
             padding: 0.625rem;
@@ -13,17 +13,17 @@
     }
 
     .list-active {
-        background-color: $qib-divider-color;
+        background-color: $sweety-divider-color;
     }
 
     .demo-sidemenu {
         overflow-y: auto;
-        border-right: 0.0625rem solid $qib-divider-color;
+        border-right: 0.0625rem solid $sweety-divider-color;
         border-radius: 0;
         margin-top: 0.3125rem;
         mat-list-item {
             font-size: 0.875rem;
-            border-bottom: 0.0625rem solid $qib-divider-color;
+            border-bottom: 0.0625rem solid $sweety-divider-color;
         }
     }
 

@@ -1,0 +1,18 @@
+@import 'variables';
+.toggle-control {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    .label {
+        font-size: 0.65rem;
+        color: $sweety-text-color !important;
+        font-weight: 600;
+        .show-asterik {
+            color: $sweety-red;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 0.1rem;
+            vertical-align: middle;
+        }
+    }
+}

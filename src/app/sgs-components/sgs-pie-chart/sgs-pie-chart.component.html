@@ -1,0 +1,21 @@
+<div class="container">
+    <div>
+        <figure width="200" [id]="config.id"></figure>
+    </div>
+    <div class="info">
+        <ng-container *ngFor="let category of config.data">
+            <div class="entry">
+                <div class="name">
+                    <div class="indicator" [style.background]="category.color"></div>
+                    <div>{{ category.name }}:</div>
+                </div>
+                <div>{{ category.value }}</div>
+            </div>
+        </ng-container>
+
+        <div *ngIf="config.total" class="entry">
+            <div><span></span> {{ config.totalLabel ?? 'Total' }}:</div>
+            <div>{{ config.total }}</div>
+        </div>
+    </div>
+</div>

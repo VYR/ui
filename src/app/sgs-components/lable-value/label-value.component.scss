@@ -1,0 +1,26 @@
+@import 'colors';
+.label-value-wrapper {
+    margin: 0.5rem auto;
+    .label {
+        font-size: 0.8125em;
+        color: $sweety-text-color;
+    }
+    .value {
+        font-size: 0.9rem !important;
+        color: $sweety-background-blue;
+        word-wrap: break-word;
+        &.boldText {
+            font-size: 1rem !important;
+            font-weight: 600;
+        }
+    }
+    a {
+        color: $sweety-primary-color;
+        text-decoration: underline;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    div {
+        word-break: break-word;
+    }
+}

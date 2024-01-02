@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { interval, mergeMap, Subscription } from 'rxjs';
 import { UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
-import { CibDialogService, CibDialogType } from 'src/app/shared/services/cib-dialog.service';
+import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { IdleTimeoutService } from 'src/app/shared/services/idle-timeout.service';
 import { TimeoutPopupComponent } from './components/timeout-popup/timeout-popup.component';
 import { HomeSandbox } from './home.sandbox';
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     refreshToken!: Subscription;
 
     constructor(
-        private dialog: CibDialogService,
+        private dialog: SgsDialogService,
         private idleTimeoutService: IdleTimeoutService,
         private sandbox: HomeSandbox,
         private appContext: ApplicationContextService
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
     }
 
     private showSendTimerDialog() {
-        const ref = this.dialog.openDialog(CibDialogType.small, TimeoutPopupComponent, {
+        const ref = this.dialog.openDialog(SgsDialogType.small, TimeoutPopupComponent, {
             status: this.idleTimeoutService.secondLevelUserIdleChecker,
         });
         ref.afterClosed().subscribe((data: any) => {

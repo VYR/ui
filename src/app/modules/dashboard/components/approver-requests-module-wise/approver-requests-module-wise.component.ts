@@ -2,7 +2,7 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { DECISION } from 'src/app/shared/enums';
 import { APP_ROUTES } from 'src/app/shared/enums/routes';
-import { CibDialogService } from 'src/app/shared/services/cib-dialog.service';
+import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
 import { DashboardSandbox } from '../../dashboard.sandbox';
 import { ApproverRequestsComponent } from '../approver-requests/approver-requests.component';
 
@@ -14,7 +14,7 @@ import { ApproverRequestsComponent } from '../approver-requests/approver-request
 export class ApproverRequestsModuleWiseComponent implements OnInit {
     modules: any = [];
     DECISION = DECISION;
-    constructor(private router: Router, private dialog: CibDialogService, private sandbox: DashboardSandbox) {}
+    constructor(private router: Router, private dialog: SgsDialogService, private sandbox: DashboardSandbox) {}
     @ViewChildren('requests') requests!: QueryList<ApproverRequestsComponent>;
     selected: any = {};
     selectedRequests = [];

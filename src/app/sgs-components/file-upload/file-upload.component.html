@@ -1,0 +1,25 @@
+<div appDragDrop (fileDropped)="uploadFile($event)" class="container">
+    <div fxLayout="row" fxLayoutGap="1rem">
+        <i (click)="fileInput.value = ''; fileInput.click()" *ngIf="!file" class="las la-cloud-upload-alt"></i>
+        <i (click)="fileInput.value = ''; fileInput.click()" *ngIf="file" class="las la-check-circle"></i>
+        <div (click)="fileInput.value = ''; fileInput.click()" class="body">
+            <div class="label">{{ label }}</div>
+            <div *ngIf="accept" class="description">Only {{ accept }} files are allowed.</div>
+            <div class="file-name" *ngIf="file">{{ file.name }}</div>
+            <div class="error" *ngIf="error">{{ error }}</div>
+        </div>
+        <input
+            type="file"
+            hidden
+            (change)="uploadFile($event.target)"
+            #fileInput
+            [multiple]="isMultiple"
+            accept="{{ accept }}"
+        />
+    </div>
+    <div fxLayout="row">
+        <button mat-icon-button aria-label="clear" color="primary" *ngIf="file" (click)="deleteFile()">
+            <i class="las la-trash"></i>
+        </button>
+    </div>
+</div>

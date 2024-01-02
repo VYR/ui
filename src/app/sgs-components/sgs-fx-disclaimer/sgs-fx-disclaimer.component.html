@@ -1,0 +1,62 @@
+<div class="disclaimer-container" fxFlex fxLayout="column">
+    <ng-container *ngIf="fxTransaction && showFxBasedOnRM">
+        <div class="input-info">
+            <i class="las la-info-circle"></i><span> {{ rmMsg }}</span>
+        </div>
+        <div class="divider"></div>
+    </ng-container>
+
+    <ng-container *ngIf="fxThreshold && showFXDisclaimerBasedOnConfig">
+        <div class="input-info">
+            <i class="las la-info-circle"></i
+            ><span> Additional charges of 1.25% will apply for USD transfers by debiting QAR Account.</span>
+        </div>
+        <mat-checkbox
+            *ngIf="showCheckbox"
+            aria-label="FX Disclaimer"
+            (change)="onCheckBoxChange()"
+            [(ngModel)]="isDisclaimerChecked"
+        >
+            <span>By checking the box, you accept SGS rates and charges to proceed with the transaction.</span>
+        </mat-checkbox>
+        <div class="divider"></div>
+    </ng-container>
+
+    <ng-container *ngIf="fxThresholdTF && showFXDisclaimerBasedOnConfig">
+        <div class="divider"></div>
+        <div fxLayout="column">
+            <mat-checkbox aria-label="Additional charges" (change)="onFxCheckBoxChange($event)">
+                <span class="tf-disclaimer"
+                    >I/We agree and authorize you to debit my/our account held with SGS for the additional charges of
+                    1.25% being foreign currency arrangement fee which will be applied for currency conversions from QAR
+                    to USD at the time of L/C, IBC, L/G settlement.
+                </span>
+            </mat-checkbox>
+            <mat-error *ngIf="!isThresholdTFChecked">
+                You must accept the Additional charges before you can proceed.</mat-error
+            >
+        </div>
+        <div class="divider"></div>
+    </ng-container>
+    <ng-container *ngIf="fxAdviceReport">
+        <div class="ar-disclaimer c-print-text-block c-print-line-between">
+            I/We agree and authorize you to debit my/our account held with SGS for the additional charges of 1.25% being
+            foreign currency arrangement fee which will be applied for currency conversions from QAR to USD at the time
+            of L/C, IBC, L/G settlement.
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="isRequestTypeChecked && fxRequestType">
+        <div class="divider"></div>
+        <div fxLayout="column">
+            <mat-checkbox aria-label="Additional charges" (change)="onFxCheckBoxChange($event)">
+                <span class="tf-disclaimer"
+                    >I/We agree and authorize you to debit my/our account held with SGS for the additional charges of
+                    1.25% being foreign currency arrangement fee which will be applied for currency conversions from QAR
+                    to USD at the time of L/C, IBC, L/G settlement.
+                </span>
+            </mat-checkbox>
+        </div>
+        <div class="divider"></div>
+    </ng-container>
+</div>

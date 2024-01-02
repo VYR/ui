@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
-import { ColumnType, CIBTableConfig } from 'src/app/cib-components/cib-table/models/config.model';
+import { ColumnType, SGSTableConfig } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { DECISION, REQUEST_LIST_TYPE, REQUEST_STATUS } from 'src/app/shared/enums';
-import { CibDialogService } from 'src/app/shared/services/cib-dialog.service';
+import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
 import { DashboardSandbox } from '../../dashboard.sandbox';
 import { DashboardRequestDetailsPopupComponent } from '../dashboard-request-details-popup/dashboard-request-details-popup.component';
 import { DashboardRequestDetailsComponent } from '../dashboard-request-details/dashboard-request-details.component';
@@ -21,8 +21,8 @@ export class ApproverRequestsComponent implements OnChanges {
     selectedRequests: Array<any> = [];
     query: any;
     @Input() durationType!: any;
-    constructor(private dialog: CibDialogService, private sandbox: DashboardSandbox) {}
-    config!: CIBTableConfig;
+    constructor(private dialog: SgsDialogService, private sandbox: DashboardSandbox) {}
+    config!: SGSTableConfig;
     ngOnChanges() {
         console.log(this.durationType);
         if (this.query) {
@@ -87,7 +87,7 @@ export class ApproverRequestsComponent implements OnChanges {
             this.triggerAction(DECISION.VERIFY, DECISION.REJECT, [event.data]);
         } else {
             if (event.data.currentState === 'Awaiting Approval') {
-                this.sandbox.getPendingReqHistory({ refNo: event.data.cibRef }).subscribe((res: any) => {
+                this.sandbox.getPendingReqHistory({ refNo: event.data.sgsRef }).subscribe((res: any) => {
                     event.data['pendingHistory'] = res.data;
                     this.openSummary(event);
                 });

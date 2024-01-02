@@ -8,7 +8,7 @@ import {
     ValidatorFn,
     ValidationErrors,
 } from '@angular/forms';
-import { CibDialogService } from 'src/app/shared/services/cib-dialog.service';
+import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
 import { UtilService } from 'src/app/utility';
 import { HomeSandbox } from '../../../home.sandbox';
 @Component({
@@ -41,7 +41,7 @@ export class SgsCreateUserComponent implements OnInit {
   constructor(
       private sandBox: HomeSandbox,
       public fb: UntypedFormBuilder,
-      private dialog: CibDialogService,
+      private dialog: SgsDialogService,
       private router: Router,
       private utilService: UtilService
   ) {}
@@ -158,7 +158,7 @@ export class SgsCreateUserComponent implements OnInit {
       if (event.isUserInput) {
           this.addBeneficiaryForm.controls['swiftCode'].setValue(bankObj.swiftCode);
           if (bankObj.code === 'QISBQAQA') {
-              this.payeeType = 'WQIB';
+              this.payeeType = 'WSGS';
           }
           if (bankObj.code === 'QIDBQAQA') {
               this.payeeType = 'WQAR';
@@ -178,7 +178,7 @@ export class SgsCreateUserComponent implements OnInit {
               this.addBeneficiaryForm.controls['bankCountry'].value === 'QA' &&
               this.addBeneficiaryForm.controls['swiftCode'].value === 'QISBQAQA'
           )
-              this.payeeType = 'WQIB';
+              this.payeeType = 'WSGS';
           else if (this.addBeneficiaryForm.controls['bankCountry'].value === 'QA' && currencyObj.code === 'QAR')
               this.payeeType = 'WQAR';
           else this.payeeType = 'INTL';
@@ -198,7 +198,7 @@ export class SgsCreateUserComponent implements OnInit {
           fedwire: this.addBeneficiaryForm.controls['fedwire'].value,
           transitNo: this.addBeneficiaryForm.controls['transitNo'].value,
           bsbNo: this.addBeneficiaryForm.controls['bsbNo'].value,
-          accountNo: this.addBeneficiaryForm.controls[this.payeeType == 'WQIB' ? 'iban' : 'accountNo'].value,
+          accountNo: this.addBeneficiaryForm.controls[this.payeeType == 'WSGS' ? 'iban' : 'accountNo'].value,
           swiftCode: this.addBeneficiaryForm.controls['swiftCode'].value,
           relationshipWithBeneficiary: this.addBeneficiaryForm.controls['relationshipWithBeneficiary'].value,
           nickName: this.addBeneficiaryForm.controls['nickName'].value,
@@ -216,7 +216,7 @@ export class SgsCreateUserComponent implements OnInit {
                   title: 'Beneficiary Create',
                   nickName: this.addBeneficiaryForm.controls['nickName'].value,
                   iban: this.addBeneficiaryForm.controls['iban'].value,
-                  accountNo: this.addBeneficiaryForm.controls[this.payeeType == 'WQIB' ? 'iban' : 'accountNo'].value,
+                  accountNo: this.addBeneficiaryForm.controls[this.payeeType == 'WSGS' ? 'iban' : 'accountNo'].value,
                   currency: this.addBeneficiaryForm.controls['currency'].value,
                   bankName: this.addBeneficiaryForm.controls['bankName'].value,
                   bankCountry: this.getCountryName(this.addBeneficiaryForm.controls['bankCountry'].value),

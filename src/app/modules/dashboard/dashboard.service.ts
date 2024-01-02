@@ -68,8 +68,8 @@ export class DashboardService {
         return this.http.get(url, params);
     }
 
-    getMakerRequestCount() {
-        return this.http.get(Operations.MAKER_REQUEST_COUNT);
+    getSgsRequestCount() {
+        return this.http.get(Operations.SGS_REQUEST_COUNT);
     }
 
     getPendingReqHistory(params: any) {

@@ -94,7 +94,7 @@
                     </div>
 
                     <!--Bank code-->
-                    <div *ngIf="payeeType !== 'WQIB'">
+                    <div *ngIf="payeeType !== 'WSGS'">
                         <div [ngSwitch]="addBeneficiaryForm.controls['bankCountry'].value">
                             <div *ngSwitchCase="'QA'">
                                 <div fxLayout="row">

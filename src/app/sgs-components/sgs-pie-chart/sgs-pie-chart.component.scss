@@ -1,0 +1,40 @@
+:host {
+    width: 100%;
+    .container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px;
+        border-radius: 15px;
+        justify-content: space-around;
+        .info {
+            width: 40%;
+            h2 {
+                color: #0a354d;
+            }
+            .entry {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px dotted #ccc;
+                padding: 10px 0;
+                .name {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                }
+                .indicator {
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+            }
+        }
+        figure {
+            min-width: 200px;
+            margin: 0 !important;
+        }
+    }
+}
