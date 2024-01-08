@@ -83,9 +83,10 @@
                                 >
                                 </mat-slide-toggle>
                                 <div *ngSwitchCase="ColumnType.amount">{{ element[column.key] | number: '1.2-4' }}</div>
+                                <div *ngSwitchCase="ColumnType.number">{{ element[column.key] | number }}</div>
                                 <div *ngSwitchCase="ColumnType.date">{{ element[column.key] | date: 'medium' }}</div>
                                 <div *ngSwitchCase="ColumnType.status">
-                                    <span [appTextHighlight]="element[column.key]">{{ element[column.key] }}</span>
+                                    <span class="status" [appTextHighlight]="element[column.key]">{{ element[column.key] }}</span>
                                 </div>
                                 <div *ngSwitchCase="ColumnType.toolTip">
                                     <span

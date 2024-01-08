@@ -30,7 +30,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     public getServerErrorMessage(error: HttpErrorResponse): string {
         return navigator.onLine
             ? error
-                ? error.error?.errors[0]?.message
+                ? error.error?.message
                 : this.getClientErrorMessage()
             : 'No Internet Connection';
     }

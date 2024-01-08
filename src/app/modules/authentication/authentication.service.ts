@@ -16,18 +16,18 @@ export class AuthenticationService {
     }
 
     forgotPasswordReq(request: any) {
-        return this.http.post(Operations.FORGOT_PASSWORD_REQ, request);
+        return this.http.post('Operations.FORGOT_PASSWORD_REQ', request);
     }
 
     resetPassword(req: any) {
-        return this.http.post(Operations.RESET_PASSWORD_REQ, req);
+        return this.http.post('Operations.RESET_PASSWORD_REQ', req);
     }
 
     unlockUserReq(request: any) {
-        return this.http.put(Operations.UNLOCK_USER_REQ, request);
+        return this.http.put('Operations.UNLOCK_USER_REQ', request);
     }
 
     logout() {
-        return this.http.post(Operations.LOGOUT, null);
+        return this.http.post('Operations.LOGOUT', null);
     }
 }

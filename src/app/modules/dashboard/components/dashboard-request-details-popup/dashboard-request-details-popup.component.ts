@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DECISION } from 'src/app/shared/enums';
 import { SGSTableConfig } from 'src/app/sgs-components/sgs-table/models/config.model';
-import { INDIVIDUAL_SCHEME_PAY_TABLE_COLUMNS } from 'src/app/modules/home/components/save-gold-scheme/constants/meta-data';
+import { SCHEME_PAY_TABLE_COLUMNS } from 'src/app/modules/home/components/save-gold-scheme/constants/meta-data';
 
 @Component({
     selector: 'app-dashboard-request-details-popup',
@@ -59,7 +59,7 @@ export class DashboardRequestDetailsPopupComponent implements OnInit {
             data.fileName = this.data.requestData.userFileName;
         });
         this.tableConfig = {
-            columns: INDIVIDUAL_SCHEME_PAY_TABLE_COLUMNS,
+            columns: SCHEME_PAY_TABLE_COLUMNS,
             data: this.data.requestData.fileJSON,
             selection: false,
             totalRecords: this.data.requestData.fileJSON.length,

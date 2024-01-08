@@ -25,7 +25,7 @@ export class SideMenuComponent {
         });
     }
 
-    public toggleRimSelection(selected: Organization) {
-        this.homeSandBox.rimSelect(selected).subscribe(() => {});
+    public toggleUserSelection(selected: Organization) {
+        this.homeSandBox.userSelect(selected).subscribe(() => {});
     }
 }

@@ -118,10 +118,13 @@ export class ServerInteractionService {
             url = `${url}/${pathVariables}`;
         } else if (typeof pathVariables === 'object') {
             const keys = Object.keys(pathVariables!);
+            let values:Array<any>=[];
             keys.forEach((key) => {
                 const reg = new RegExp(`{${key}}`, 'g');
                 url = url.replace(reg, (pathVariables as any)[key]);
+                values.push( (pathVariables as any)[key]);
             });
+            url=url+'/'+values.join('/');
         }
         return url;
     }

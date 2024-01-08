@@ -2,8 +2,8 @@
     <div class="header-logo" fxLayoutAlign="center center">
         <img alt="SGS Logo" src="assets/images/sgs_logo_postlogin.gif" />
     </div>
-    <div *appHasAccessToUser="[USER_TYPE.CORPORATE_USER]" class="rim-card-active">
-        <div class="rim-number">
+    <div  class="user-card-active">
+        <div class="user-number">
             <div>{{ currentUser.organizationSelected.uniqueUserId }}</div>
         </div>
         <div class="customer-name">
@@ -13,7 +13,7 @@
             class="click-info"
             *ngIf="currentUser.organizations.length > 1"
             matRipple
-            [matMenuTriggerFor]="rimSelection"
+            [matMenuTriggerFor]="userSelection"
             fxLayoutAlign="space-between center"
         >
             <span>Click here switch accounts</span>
@@ -42,20 +42,20 @@
     </div>
 </div>
 
-<mat-menu #rimSelection="matMenu">
-    <div mat-menu-content class="rim-selection-container">
-        <ng-container *ngFor="let rim of currentUser.organizations">
+<mat-menu #userSelection="matMenu">
+    <div mat-menu-content class="user-selection-container">
+        <ng-container *ngFor="let user of currentUser.organizations">
             <div
                 matRipple
-                class="rim-card"
-                (click)="toggleRimSelection(rim)"
-                [ngClass]="{ 'rim-card-active': rim.uniqueUserId === currentUser.organizationSelected.uniqueUserId }"
+                class="user-card"
+                (click)="toggleUserSelection(user)"
+                [ngClass]="{ 'user-card-active': user.uniqueUserId === currentUser.organizationSelected.uniqueUserId }"
             >
                 <div class="left">
-                    <div class="rim-number">
-                        <div>{{ rim.uniqueUserId }}</div>
+                    <div class="user-number">
+                        <div>{{ user.uniqueUserId }}</div>
                     </div>
-                    <div class="customer-name">{{ rim.firstName }} {{ rim.lastName }}</div>
+                    <div class="customer-name">{{ user.firstName }} {{ user.lastName }}</div>
                 </div>
                 <div class="dot"></div>
             </div>

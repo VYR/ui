@@ -86,13 +86,12 @@ export enum SYSTEM_CONFIG {
 }
 
 export enum USER_TYPE {
-    CORPORATE_USER = 0,
-    BANK_ADMIN = 1,
-    BANK_USER = 2,
-    SUPER_ADMIN = 10,
-    BANK_ADMIN_APPROVER = 12,
-    CSD_USER = 13,
+    SCHEME_MEMBER = 0,
+    PROMOTER = 2,
+    SUPER_ADMIN = 1,
+    EMPLOYEE = 3,
 }
+
 export enum SCREEN_MODE {
     EDIT = 'Edit',
     CREATE = 'Create',
@@ -113,4 +112,11 @@ export enum SALARY_POSTING_COLUMNS {
     CURRENCY = 'CURRENCY',
     REF_NO = 'REFERENCE NUMBER',
     REMARK = 'REMARK',
+}
+
+export enum STATUSES {
+     Pending = 'pending',
+     Active = 'active',
+     Inactive = 'inactive',
+     Rejected = 'rejected',
 }

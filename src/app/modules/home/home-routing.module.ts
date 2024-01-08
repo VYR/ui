@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { USER_TYPE } from 'src/app/shared/enums';
 import { RoleGuard } from 'src/app/shared/guards/role.guard';
 import { HomeComponent } from './home.component';
 import { SgsSchemesComponent } from './components/save-gold-scheme/sgs-schemes/sgs-schemes.component';
 import { SgsReportsComponent } from './components/save-gold-scheme/sgs-reports/sgs-reports.component';
 import { SgsProfileComponent } from './components/save-gold-scheme/sgs-profile/sgs-profile.component';
 import { SgsUsersComponent } from './components/save-gold-scheme/sgs-users/sgs-users.component';
-import { SgsDealersComponent } from './components/save-gold-scheme/sgs-dealers/sgs-dealers.component';
 import { SgsRefferalsComponent } from './components/save-gold-scheme/sgs-refferals/sgs-refferals.component';
 import { SgsSettingsComponent } from './components/save-gold-scheme/sgs-settings/sgs-settings.component';
+import { SgsSchemeTypesComponent } from './components/save-gold-scheme/sgs-scheme-types/sgs-scheme-types.component';
 
 const routes: Routes = [
     {
@@ -27,12 +26,17 @@ const routes: Routes = [
                 canLoad: [RoleGuard],
             },
             {
+                path: 'scheme-types',
+                component: SgsSchemeTypesComponent,
+                canLoad: [RoleGuard],
+            },
+            {
                 path: 'promoters',
                 component: SgsUsersComponent,
                 canLoad: [RoleGuard],
             },
             {
-                path: 'employees',
+                path: 'users',
                 component: SgsUsersComponent,
                 canLoad: [RoleGuard],
             },

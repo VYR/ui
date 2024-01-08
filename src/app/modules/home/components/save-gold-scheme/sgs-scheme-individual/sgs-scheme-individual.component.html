@@ -2,28 +2,21 @@
 <app-outlet-container>
     
     <app-master-container>
-        <ng-container header *appHasAccessToRole="['ADMIN']">
+        <ng-container header >
              Individual Schemes
         </ng-container>
-        <ng-container header *appHasAccessToRole="['USER','DEALER']">
-            {{type===1?' Individual Schemes You Joined':' Individual Schemes Referrals'}}
-        </ng-container>
         <ng-container icons>
-            <button mat-icon-button >
+            <button mat-icon-button (click)="downloadExcel()">
                 <i class="las la-file-excel"></i>
             </button>
-            <button mat-icon-button >
-                <i class="las la-file-pdf"></i>
-            </button>
-            <button mat-icon-button *appHasAccessToRole="['ADMIN']">
+            <button mat-icon-button *ngIf="type=='addSchemes' && currentUserType==1" (click)="addScheme()">
                 <i class="las la-plus"></i>
             </button>
         </ng-container>
         <ng-container body>
             <app-sgs-table
-                [config]="config"
+                [config]="tableConfig"
                 (_lazyLoad)="lazyLoad($event)"
-                (_select)="onSelect($event)"
                 (_clickCell)="onClickCell($event)"
             ></app-sgs-table>
         </ng-container>

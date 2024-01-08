@@ -1,9 +1,14 @@
 import { ColumnType } from 'src/app/sgs-components/sgs-table/models/config.model';
-import { SALARY_POSTING_COLUMNS } from 'src/app/shared/enums';
+export const ROLES:any = {
+    '0' : 'Scheme Member',
+    '2' : 'Promoter',
+    '1' : 'Admin',
+    '3' : 'Employee',
+}
 
 export const USER_TABLE_COLUMNS =  [
     {
-        key: 'created',
+        key: 'created_at',
         displayName: 'Join Date',
         type: ColumnType.date,
         sortable: true,
@@ -15,7 +20,7 @@ export const USER_TABLE_COLUMNS =  [
         sortable: true,
     },
     {
-        key: 'schemeType',
+        key: 'schemes',
         displayName: 'Schemes',
         sortable: true,
         type: ColumnType.link,
@@ -39,16 +44,22 @@ export const USER_TABLE_COLUMNS =  [
         key: 'mobilePhone',
         displayName: 'Mobile Number',
         sortable: true,
+    }, 
+    {
+        key: 'updated_at',
+        displayName: 'Updated Date',
+        type: ColumnType.date,
+        sortable: true,
     },
     {
-        key: 'currentState',
+        key: 'status',
         displayName: 'Status',
         type: ColumnType.status,
         sortable: true,
     }
 ];
 
-export const INDIVIDUAL_SCHEME_PAY_TABLE_COLUMNS =  [
+export const SCHEME_PAY_TABLE_COLUMNS =  [
     {
         key: 'paidDate',
         displayName: 'Paid Date',
@@ -62,18 +73,18 @@ export const INDIVIDUAL_SCHEME_PAY_TABLE_COLUMNS =  [
         sortable: true,
     },
     {
-        key: 'individualAmount',
+        key: 'amount_paid',
         displayName: 'Amount',
         type: ColumnType.amount,
         sortable: true,
     },
     {
-        key: 'individualMonthToPay',
+        key: 'month_paid',
         displayName: 'Month',
         sortable: true,
     },
     {
-        key: 'currentState',
+        key: 'status',
         displayName: 'Status',
         type: ColumnType.status,
         sortable: true,
@@ -81,24 +92,36 @@ export const INDIVIDUAL_SCHEME_PAY_TABLE_COLUMNS =  [
 ];
 export const INDIVIDUAL_SCHEME_TABLE_COLUMNS =  [
     {
-        key: 'created',
+        key: 'created_at',
         displayName: 'Created Date',
         type: ColumnType.date,
         sortable: true,
     },
     {
-        key: 'individualAmount',
-        displayName: 'Amount',
+        key: 'coins',
+        displayName: 'No of Coins',
+        type: ColumnType.number,
+        sortable: true,
+    },
+    {
+        key: 'no_of_months',
+        displayName: 'No of Months',
+        sortable: true,
+    }, 
+    {
+        key: 'amount_per_month',
+        displayName: 'Amount Per Month',
         type: ColumnType.amount,
         sortable: true,
     },
     {
-        key: 'individualMonths',
-        displayName: 'No of Months',
+        key: 'updated_at',
+        displayName: 'Updated Date',
+        type: ColumnType.date,
         sortable: true,
     },
     {
-        key: 'currentState',
+        key: 'status',
         displayName: 'Status',
         type: ColumnType.status,
         sortable: true,
@@ -106,61 +129,36 @@ export const INDIVIDUAL_SCHEME_TABLE_COLUMNS =  [
 ];
 export const GROUP_SCHEME_TABLE_COLUMNS =  [
     {
-        key: 'created',
+        key: 'created_at',
         displayName: 'Created Date',
         type: ColumnType.date,
         sortable: true,
-    },    
+    },
     {
-        key: 'groupTotalAmount',
+        key: 'total_amount',
         displayName: 'Total Amount',
         type: ColumnType.amount,
         sortable: true,
-    }, 
-    {
-        key: 'groupMonths',
-        displayName: 'No of Months',
-        sortable: true,
     },
     {
-        key: 'groupAmountPerMonth',
+        key: 'no_of_months',
+        displayName: 'No of Months',
+        sortable: true,
+    }, 
+    {
+        key: 'amount_per_month',
         displayName: 'Amount Per Month',
         type: ColumnType.amount,
         sortable: true,
     },
     {
-        key: 'currentState',
-        displayName: 'Status',
-        type: ColumnType.status,
-        sortable: true,
-    }
-];
-export const GROUP_SCHEME_PAY_TABLE_COLUMNS =  [
-    {
-        key: 'paidDate',
-        displayName: 'Paid Date',
+        key: 'updated_at',
+        displayName: 'Updated Date',
         type: ColumnType.date,
         sortable: true,
     },
     {
-        key: 'dueDate',
-        displayName: 'Due Date',
-        type: ColumnType.date,
-        sortable: true,
-    },  
-    {
-        key: 'groupAmount',
-        displayName: 'Total Amount',
-        type: ColumnType.amount,
-        sortable: true,
-    }, 
-    {
-        key: 'groupMonthToPay',
-        displayName: 'Month',
-        sortable: true,
-    },
-    {
-        key: 'currentState',
+        key: 'status',
         displayName: 'Status',
         type: ColumnType.status,
         sortable: true,
@@ -214,4 +212,30 @@ export const DEALERS_TABLE_COLUMNS = [
         type: ColumnType.approve,
     },
 ];
+
+export const STATUSES:Array<string>= [
+    'pending',
+    'active',
+    'inactive',
+    'rejected'
+];
+export const USER_TYPES:Array<any>= [
+    {
+        id:0,
+        name:'Scheme Member'
+    },
+    {
+        id:1,
+        name:'Admin'
+    },
+    {
+        id:2,
+        name:'Promoters'
+    },
+    {
+        id:3,
+        name:'Employees'
+    }
+];
+
 

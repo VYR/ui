@@ -11,7 +11,7 @@
                 width: 100%;
             }
         }
-        .rim-card-active {
+        .user-card-active {
             color: white;
             padding: 0.5rem;
             border-radius: 0.5rem;
@@ -75,14 +75,14 @@
     }
 }
 
-.rim-selection-container {
+.user-selection-container {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     align-items: center;
     justify-content: center;
     font-size: 0.75rem;
-    .rim-card {
+    .user-card {
         min-width: 11.65rem;
         padding: 0.5rem 1rem;
         border-radius: 0.5rem;
@@ -91,7 +91,7 @@
         display: flex;
         align-items: center;
         background: $sweety-divider-color;
-        .rim-number {
+        .user-number {
             font-size: 0.875rem;
             font-weight: bold;
         }
@@ -104,7 +104,7 @@
         color: $sweety-primary-color;
         background: $sweety-nav-bar-background;
     }
-    .rim-card-active {
+    .user-card-active {
         min-width: 11.65rem;
         padding: 0.5rem 1rem;
         border-radius: 0.5rem;

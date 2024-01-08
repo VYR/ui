@@ -78,12 +78,12 @@ export class QueueStatusComponent implements AfterViewInit {
             //     this.config.total = all['total'];
             // }
             const res={
-                total:[{label:'a',total:"20"},{label:'b',total:"20"},{label:'c',total:"20"},{label:'Total',total:"20"}],
+                total:[{label:'a',total:"20"},{label:'b',total:"20"},{label:'c',total:"20"},{label:'Total',total:"60"}],
                 assets:[],
                 liabilities:[]
             };
-                this.config.total = this.getValue(res.total[2].total);
-                this.config.totalLabel = res.total[2].label;
+                this.config.total = this.getValue(res.total[3].total);
+                this.config.totalLabel = res.total[3].label;
                 [0, 1,2].forEach((x: number) => {
                     this.config.data[x] = {
                         ...this.config.data[x],

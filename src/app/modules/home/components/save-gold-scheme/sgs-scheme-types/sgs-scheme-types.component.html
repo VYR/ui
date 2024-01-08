@@ -1,17 +1,13 @@
-
 <app-outlet-container>
-    
     <app-master-container>
-        <ng-container header >
-            Group Schemes
-       </ng-container>
+        <ng-container header>SCHEME TYPES</ng-container>
         <ng-container icons>
-            <button mat-icon-button  (click)="downloadExcel()">
+            <button mat-icon-button (click)="downloadExcel()">
                 <i class="las la-file-excel"></i>
             </button>
-            <button mat-icon-button *ngIf="type=='addSchemes' && currentUserType==1" (click)="addScheme()">
+            <!-- <button mat-icon-button (click)="addSchemeType()">
                 <i class="las la-plus"></i>
-            </button>
+            </button> -->
         </ng-container>
         <ng-container body>
             <app-sgs-table
@@ -21,4 +17,5 @@
             ></app-sgs-table>
         </ng-container>
     </app-master-container>
+    
 </app-outlet-container>

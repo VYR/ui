@@ -85,15 +85,21 @@
                 "name": "DASHBOARD",
                 "icon": "las la-home",
                 "path": "dashboard"
+            },                
+            {
+                "uuid": "",
+                "name": "SCHEME TYPES",
+                "icon": "las la-users",
+                "path": "scheme-types"
             },
             {
-                "uuid": "SCHEMES",
+                "uuid": "",
                 "name": "SCHEMES",
                 "icon": "las la-users",
                 "path": "schemes"
             },
             {
-                "uuid": "PROFILE",
+                "uuid": "",
                 "name": "MY PROFILE",
                 "icon": "las la-university",
                 "path": "profile"
@@ -112,41 +118,47 @@
                 "name": "DASHBOARD",
                 "icon": "las la-home",
                 "path": "dashboard"
+            },               
+            {
+                "uuid": "",
+                "name": "SCHEME TYPES",
+                "icon": "las la-users",
+                "path": "scheme-types"
             },
             {
-                "uuid": "EMPLOYEES",
-                "name": "EMPLOYEES",
-                "icon": "las la-user",
-                "path": "employees"
-            },
-            {
-                "uuid": "SCHEMES",
+                "uuid": "",
                 "name": "SCHEMES",
                 "icon": "las la-users",
                 "path": "schemes"
             },
             {
-                "uuid": "PROFILE",
+                "uuid": "",
+                "name": "USERS",
+                "icon": "las la-user",
+                "path": "users"
+            },
+            {
+                "uuid": "",
                 "name": "MY PROFILE",
                 "icon": "las la-university",
                 "path": "profile"
             },
             {
-                "uuid": "SETTINGS",
+                "uuid": "",
                 "name": "SETTINGS",
                 "icon": "las la-cog",
                 "path": "settings",
                 "location": "header"
             },
             {
-                "uuid": "REPORTS",
+                "uuid": "",
                 "name": "SEARCH",
                 "icon": "las la-search",
                 "path": "reports",
                 "location": "header"
             },
             {
-                "uuid": "REPORTS",
+                "uuid": "",
                 "name": "REPORTS",
                 "icon": "las la-chart-bar",
                 "path": "reports"
@@ -167,19 +179,19 @@
                 "path": "dashboard"
             },
             {
-                "uuid": "CLIENTS",
+                "uuid": "",
                 "name": "MY SCHEME MEMBERS",
                 "icon": "las la-users",
                 "path": "scheme-members"
             },
             {
-                "uuid": "PROFILE",
+                "uuid": "",
                 "name": "MY PROFILE",
                 "icon": "las la-university",
                 "path": "profile"
             },
             {
-                "uuid": "REFERRALS",
+                "uuid": "",
                 "name": "MY REFFERALS",
                 "icon": "las la-chart-bar",
                 "path": "referrals"
@@ -201,19 +213,19 @@
                 "path": "dashboard"
             },
             {
-                "uuid": "PROMOTERS",
+                "uuid": "",
                 "name": "MY PROMOTERS",
                 "icon": "las la-users",
                 "path": "promoters"
             },
             {
-                "uuid": "PROFILE",
+                "uuid": "",
                 "name": "MY PROFILE",
                 "icon": "las la-university",
                 "path": "profile"
             },
             {
-                "uuid": "REFERRALS",
+                "uuid": "",
                 "name": "MY REFFERALS",
                 "icon": "las la-chart-bar",
                 "path": "referrals"

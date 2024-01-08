@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SgsDealersComponent } from './sgs-dealers.component';
+import { SgsDetailsComponent } from './sgs-details.component';
 
-describe('SgsDealersComponent', () => {
-  let component: SgsDealersComponent;
-  let fixture: ComponentFixture<SgsDealersComponent>;
+describe('SgsDetailsComponent', () => {
+  let component: SgsDetailsComponent;
+  let fixture: ComponentFixture<SgsDetailsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SgsDealersComponent ]
+      declarations: [ SgsDetailsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SgsDealersComponent);
+    fixture = TestBed.createComponent(SgsDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

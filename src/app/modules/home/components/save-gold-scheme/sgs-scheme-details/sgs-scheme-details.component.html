@@ -1,20 +1,19 @@
 <app-master-container>
     <ng-container header>
-        Scheme Type : {{('Rs.'+(data.data?.individualAmount ? data.data?.individualAmount : data.data?.groupAmountPerMonth)) + ' - '+config.totalRecords+' Months'}}
+        {{'Rs.'+data.data?.amount_per_month + ' - '+data?.data?.no_of_months+' Months'}}
     </ng-container>
     <ng-container icons>
         <button mat-icon-button >
             <i class="las la-file-excel"></i>
         </button>
-        <button mat-icon-button >
+        <!-- <button mat-icon-button >
             <i class="las la-file-pdf"></i>
-        </button>
+        </button> -->
     </ng-container>
     <ng-container body>
         <app-sgs-table
             [config]="config"
             (_lazyLoad)="lazyLoad($event)"
-            (_select)="onSelect($event)"
             (_clickCell)="onClickCell($event)"
         ></app-sgs-table>
     </ng-container>

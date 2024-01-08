@@ -11,6 +11,7 @@ export class TextHighlightDirective implements OnChanges {
         processed: '#2BC431',
         active: '#2BC431',
         blocked: '#EA0000',
+        inactive: '#EA0000',
         'payment overdue': '#e18025',
         approved: '#2BC431',
         rejected: '#EA0000',

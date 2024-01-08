@@ -61,7 +61,7 @@ export class ApplicationContextService {
        // user.isBankAdmin = data?.isBankAdmin;
         //user.h2hEnabled = data?.h2hEnabled;
        // user.isSurveyRequired = data?.isSurveyRequired;
-        user.entitlement = data?.user?.entitlement.split(',') || [];
+        user.entitlement = ( data?.user?.entitlement)?data?.user?.entitlement.split(',') || []:[];
         user.forcePasswordChange = data?.forcePasswordChange;
        // user.rmDetails = data?.rmDetails || {};
         user.userType = this._getUserType(data?.user?.userType || '');
@@ -76,25 +76,19 @@ export class ApplicationContextService {
         let role: USER_TYPE;
         switch (userType) {
             case 0:
-                role = USER_TYPE.CORPORATE_USER;
+                role = USER_TYPE.SCHEME_MEMBER;
                 break;
             case 1:
-                role = USER_TYPE.BANK_ADMIN;
-                break;
-            case 2:
-                role = USER_TYPE.BANK_USER;
-                break;
-            case 10:
                 role = USER_TYPE.SUPER_ADMIN;
                 break;
-            case 12:
-                role = USER_TYPE.BANK_ADMIN_APPROVER;
+            case 2:
+                role = USER_TYPE.PROMOTER;
                 break;
-            case 13:
-                role = USER_TYPE.CSD_USER;
+            case 3:
+                role = USER_TYPE.EMPLOYEE;
                 break;
             default:
-                role = USER_TYPE.CORPORATE_USER;
+                role = USER_TYPE.SCHEME_MEMBER;
                 break;
         }
         return role;
@@ -103,24 +97,19 @@ export class ApplicationContextService {
     private _navigateToModule(userRole: USER_TYPE) {
         let url;
         switch (userRole) {
-            case USER_TYPE.CORPORATE_USER:
+            case USER_TYPE.SCHEME_MEMBER:
                 url = APP_ROUTES.VALIDATE_OTP;
                 break;
-            case USER_TYPE.BANK_USER:
+            case USER_TYPE.PROMOTER:
                 url = APP_ROUTES.OPERATION_APPROVAL;
                 break;
-            case USER_TYPE.BANK_ADMIN:
+            case USER_TYPE.SUPER_ADMIN:
                 url = APP_ROUTES.ADMIN_DASHBOARD;
                 break;
-            case USER_TYPE.BANK_ADMIN_APPROVER:
+            case USER_TYPE.EMPLOYEE:
                 url = APP_ROUTES.ADMIN_DASHBOARD_APPROVER;
                 break;
-            case USER_TYPE.CSD_USER:
-                url = APP_ROUTES.CSD_HOME;
-                break;
-            case USER_TYPE.SUPER_ADMIN:
-                url = APP_ROUTES.ADMIN_USER_MANAGEMENT;
-                break;
+
 
             default:
                 url = APP_ROUTES.VALIDATE_OTP;
@@ -141,7 +130,7 @@ export class ApplicationContextService {
         return user.organizations[index != -1 ? index : 0];
     }
 
-    public updateRimSelection(organization: Organization, data: any) {
+    public updateUserSelection(organization: Organization, data: any) {
         const userContext = JSON.parse(this.cache.get('USER_CONTEXT')) || new UserContext();
         userContext.entitlement = data?.entitlement;
         userContext.isKYCUpdated = data.isKYCUpdated === '0' ? false : true;

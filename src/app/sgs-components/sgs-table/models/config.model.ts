@@ -46,4 +46,5 @@ export enum ColumnType {
     switch = 'switch',
     toolTip = 'toolTip',
     html = 'html',
+    number = 'number',
 }

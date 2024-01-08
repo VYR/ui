@@ -9,6 +9,6 @@ export class SgsComponentsService {
     constructor(private http: ServerInteractionService) {}
 
     resendOtp(req: any) {
-        return this.http.post(Operations.RESEND_OTP, req);
+        return this.http.post('Operations.RESEND_OTP', req);
     }
 }

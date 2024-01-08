@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { SGSTableConfig, SGSTableQuery, ColumnType } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
@@ -15,6 +15,7 @@ import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-
 })
 export class SgsSchemesComponent implements OnInit {
 
+  @Input() type='addSchemes';
   constructor(private router: Router, private dialog: SgsDialogService, private sandbox: HomeSandbox) {}
 
   ngOnInit(): void {
