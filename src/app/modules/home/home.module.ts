@@ -24,8 +24,6 @@ import { MatInputModule } from '@angular/material/input';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
-import { SgsSchemeIndividualComponent } from './components/save-gold-scheme/sgs-scheme-individual/sgs-scheme-individual.component';
-import { SgsSchemeGroupComponent } from './components/save-gold-scheme/sgs-scheme-group/sgs-scheme-group.component';
 import { SgsRefferalsComponent } from './components/save-gold-scheme/sgs-refferals/sgs-refferals.component';
 import { SgsSettingsComponent } from './components/save-gold-scheme/sgs-settings/sgs-settings.component';
 import { SgsSchemeDetailsComponent } from './components/save-gold-scheme/sgs-scheme-details/sgs-scheme-details.component';
@@ -45,8 +43,6 @@ import { SgsDetailsComponent } from './components/save-gold-scheme/sgs-details/s
         SgsSchemesComponent, 
         SgsProfileComponent, 
         DeleteRequestConfirmComponent, 
-         SgsSchemeIndividualComponent, 
-         SgsSchemeGroupComponent, 
          SgsRefferalsComponent, 
          SgsSettingsComponent, 
          SgsSchemeDetailsComponent, 

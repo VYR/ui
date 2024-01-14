@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { HomeSandbox } from '../../../home.sandbox';
-import { INDIVIDUAL_SCHEME_TABLE_COLUMNS } from '../constants/meta-data';
+import { SCHEME_TABLE_COLUMNS } from '../constants/meta-data';
 import { DECISION } from 'src/app/shared/enums';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
 import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
@@ -19,9 +19,9 @@ export class SgsSchemesComponent  implements OnInit {
   @Input() schemesConfig:any={type:'addSchemes'};
   currentUserType=-1;
   tableConfig!: SGSTableConfig;
-  query: SGSTableQuery=new SGSTableQuery();  
+  query!: SGSTableQuery;  
   sortedData:Array<any>=[];  
-  INDIVIDUAL_SCHEME_TABLE_COLUMNS=INDIVIDUAL_SCHEME_TABLE_COLUMNS;
+  SCHEME_TABLE_COLUMNS=SCHEME_TABLE_COLUMNS;
   schemeTypes:Array<any>=[];
   selectedSchemeType:any;
   constructor(private router: Router, private dialog: SgsDialogService, private sandbox: HomeSandbox) {}
@@ -29,8 +29,6 @@ export class SgsSchemesComponent  implements OnInit {
   ngOnInit(): void {
       console.log(this.schemesConfig);
       this.currentUserType=this.sandbox.currentUser.userType;
-      this.query.sortKey='created_at';
-      this.query.sortDirection=SortDirection.desc;
       this.getSgsSchemeTypes();
   }
   getSgsSchemeTypes() {
@@ -41,6 +39,13 @@ export class SgsSchemesComponent  implements OnInit {
             const isAsc = true;
             return this.compare(a['scheme_type_name'], b['scheme_type_name'], isAsc);
         });
+        if(this.schemeTypes.length>0){
+          this.selectedSchemeType=this.schemeTypes[0];
+          this.query=new SGSTableQuery();
+          this.query.sortKey='created_at';
+          this.query.sortDirection=SortDirection.desc;
+          this.getSgsSchemes();
+        }
       }
     });
   }
@@ -53,12 +58,14 @@ export class SgsSchemesComponent  implements OnInit {
   lazyLoad(event: SGSTableQuery) {
       console.log(this.query);
       console.log(event);
-      this.query.pageIndex=event?.pageIndex || 0;
-      if(event.sortKey)
-          this.query.sortKey=event.sortKey;
-      if(event.sortDirection)
-      this.query.sortDirection=event.sortDirection;
-      this.getSgsSchemes();
+      if(this.query){
+        this.query.pageIndex=event?.pageIndex || 0;
+        if(event.sortKey)
+            this.query.sortKey=event.sortKey;
+        if(event.sortDirection)
+        this.query.sortDirection=event.sortDirection;
+        this.getSgsSchemes();
+      }      
   }
 
   compare(a: number | string, b: number | string, isAsc: boolean) {
@@ -96,17 +103,36 @@ export class SgsSchemesComponent  implements OnInit {
                   type: ColumnType.link,
               };
           
+              let individualCol=  {
+                  key: 'coins',
+                  displayName: 'No of Coins',
+                  type: ColumnType.number,
+                  sortable: true,
+              };
+              let groupCol= {
+                  key: 'total_amount',
+                  displayName: 'Total Amount',
+                  type: ColumnType.amount,
+                  sortable: true,
+              };
               if(this.schemesConfig.type==='referrals'){
-                  this.INDIVIDUAL_SCHEME_TABLE_COLUMNS.splice(4,0,{
+                  this.SCHEME_TABLE_COLUMNS.splice(4,0,{
                       key: 'referralAmount',
                       displayName: 'Earned Amount',
                       type: ColumnType.amount,
                       sortable:true
                   });
               }
-              let referralCols=[...this.INDIVIDUAL_SCHEME_TABLE_COLUMNS];
-              let clientCols=[...this.INDIVIDUAL_SCHEME_TABLE_COLUMNS, detailsCol];
-              let adminCols=[...this.INDIVIDUAL_SCHEME_TABLE_COLUMNS, editCol, delCol];        
+              let colsArray:any=[...this.SCHEME_TABLE_COLUMNS];
+              if(this.selectedSchemeType.id==1){
+                colsArray.splice(1,0,individualCol);
+              }
+              if(this.selectedSchemeType.id==2){
+                colsArray.splice(1,0,groupCol);
+              }
+              let referralCols=[...colsArray];
+              let clientCols=[...colsArray, detailsCol];
+              let adminCols=[...colsArray, editCol, delCol];        
               let colArray:any = [];
               if(this.currentUserType==1 && this.schemesConfig.type=='addSchemes')
               colArray=adminCols;
@@ -184,7 +210,7 @@ export class SgsSchemesComponent  implements OnInit {
   }
   
   downloadExcel(){
-      this.sandbox.downloadExcel(this.sortedData,'schemes','IndividualSchemes');
+      this.sandbox.downloadExcel(this.sortedData,'schemes',(this.schemesConfig?.userId?this.schemesConfig?.userId+'_':'')+this.selectedSchemeType?.scheme_type_name || 'schemes');
   }
 }
 

@@ -1,12 +1,12 @@
 <app-outlet-container>
     <app-master-container>
-        <ng-container header *ngIf="schemesConfig.type==='addSchemes'"> SCHEMES</ng-container>
+        <ng-container header> SCHEMES</ng-container>
         <ng-container icons>
             <mat-form-field>
                 <mat-label>Scheme Type</mat-label>
                 <mat-select [(ngModel)]="selectedSchemeType">
                     <mat-option *ngFor="let schemeType of schemeTypes" [value]="schemeType" 
-                    (onSelectionChange)="getSchemesByType($event,schemeType.id)">{{
+                    (onSelectionChange)="getSchemesByType($event,schemeType)">{{
                         schemeType.scheme_type_name
                     }}</mat-option>
                 </mat-select>

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SGSTableConfig, SGSTableQuery, ColumnType } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { HomeSandbox } from '../../../home.sandbox';
-import { INDIVIDUAL_SCHEME_TABLE_COLUMNS } from '../constants/meta-data';
+import { SCHEME_TABLE_COLUMNS } from '../constants/meta-data';
 import { DECISION } from 'src/app/shared/enums';
 import { SgsUpdateUserComponent } from '../sgs-update-user/sgs-update-user.component';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
@@ -61,7 +61,7 @@ export class SgsRefferalsComponent implements OnInit {
             type: ColumnType.icon,
             icon: 'la-trash',
         };
-        let colArray = [...INDIVIDUAL_SCHEME_TABLE_COLUMNS, editCol, delCol];
+        let colArray = [...SCHEME_TABLE_COLUMNS, editCol, delCol];
         const config = {
             columns: colArray,
             data: res.data,
