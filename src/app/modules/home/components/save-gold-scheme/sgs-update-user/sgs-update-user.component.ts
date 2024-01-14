@@ -54,13 +54,6 @@ export class SgsUpdateUserComponent implements OnInit {
             pan: new UntypedFormControl({ value: this.data.data.pan, disabled: true }),
         });
     }
-    onUpdateUser(event: boolean) {
-        this.dialogRef.close();
-    }
-
-    ngOnDestroy() {
-        this.dialogRef.close();
-    }
    
     public updateUserForm!: UntypedFormGroup;
 schemes: any = [

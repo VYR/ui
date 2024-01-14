@@ -21,7 +21,7 @@ export class UserContext {
     access_token!: string;
     public email!: string;
     userType!: USER_TYPE;
-    role!: Role;
+    role!: string;
     public organizations!: Array<Organization>;
     public organizationSelected!: Organization;
     public entitlement!: Array<string>;
@@ -32,6 +32,7 @@ export class UserContext {
     public forcePasswordChange!: boolean;
     public expirationTime!: number;
     public kycPopType!: number;
+    public id!: number;
 }
 
 export class Organization {

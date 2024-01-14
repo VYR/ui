@@ -3,7 +3,7 @@
         {{'Rs.'+data.data?.amount_per_month + ' - '+data?.data?.no_of_months+' Months'}}
     </ng-container>
     <ng-container icons>
-        <button mat-icon-button >
+        <button mat-icon-button (click)="downloadExcel()">
             <i class="las la-file-excel"></i>
         </button>
         <!-- <button mat-icon-button >

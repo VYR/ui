@@ -170,7 +170,7 @@ export class DashboardSandbox {
             sort: query.sortDirection,
         };
         if (status === REQUEST_STATUS.PENDING) request.fetchAll = query.fetchAll;
-        const role: string = this.userContext.role?.name || '';
+        const role: string = this.userContext.role || '';
         return this.service.getRequestList(request, status, type, role.toUpperCase()).pipe(
             map((res: any) => {
                 const response: any = {};
@@ -226,7 +226,7 @@ export class DashboardSandbox {
     }
 
     getRequestCount() {
-        const role: string = this.userContext.role.name;
+        const role: string = this.userContext.role;
         return this.service.getRequestCount(role.toUpperCase());
     }
 

@@ -85,13 +85,7 @@
                 "name": "DASHBOARD",
                 "icon": "las la-home",
                 "path": "dashboard"
-            },                
-            {
-                "uuid": "",
-                "name": "SCHEME TYPES",
-                "icon": "las la-users",
-                "path": "scheme-types"
-            },
+            },  
             {
                 "uuid": "",
                 "name": "SCHEMES",
@@ -149,19 +143,6 @@
                 "icon": "las la-cog",
                 "path": "settings",
                 "location": "header"
-            },
-            {
-                "uuid": "",
-                "name": "SEARCH",
-                "icon": "las la-search",
-                "path": "reports",
-                "location": "header"
-            },
-            {
-                "uuid": "",
-                "name": "REPORTS",
-                "icon": "las la-chart-bar",
-                "path": "reports"
             }
         ],        
         "2": [
@@ -189,15 +170,8 @@
                 "name": "MY PROFILE",
                 "icon": "las la-university",
                 "path": "profile"
-            },
-            {
-                "uuid": "",
-                "name": "MY REFFERALS",
-                "icon": "las la-chart-bar",
-                "path": "referrals"
             }
-        ],
-        
+        ],        
         "3": [
             {
                 "uuid": "",
@@ -223,12 +197,6 @@
                 "name": "MY PROFILE",
                 "icon": "las la-university",
                 "path": "profile"
-            },
-            {
-                "uuid": "",
-                "name": "MY REFFERALS",
-                "icon": "las la-chart-bar",
-                "path": "referrals"
             }
         ]
     }

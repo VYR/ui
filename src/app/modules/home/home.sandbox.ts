@@ -19,7 +19,6 @@ export class HomeSandbox {
     ) {
         this.currentUser=appContext.getCurrentUser();
     }
-
     userSelect(organization: Organization) {
         return this.service.userSelection(organization.uniqueUserId).pipe(
             tap((res: any) => {
@@ -32,19 +31,19 @@ export class HomeSandbox {
         return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
     logout() {
-        // return this.authService.logout().pipe(
-        //     tap((res: any) => {
-        //         this.appContext.logout();
-        //     })
-        // );
-        this.appContext.logout();
+        return this.authService.logout().pipe(
+            tap((res: any) => {
+                this.utilService.displayNotification('success','Logged out successfully');
+                this.appContext.logout();
+            })
+        );
     }
 
     refreshToken() {
         const access_token = this.appContext.getCurrentUser().access_token;
         return this.service.refreshToken().pipe(
             tap((res: any) => {
-                if (res.data && res.data.Authorization) this.appContext.updateToken(res.data.Authorization);
+                if (res?.access_token) this.appContext.updateToken(res.access_token);
             })
         );
     }
@@ -70,7 +69,7 @@ export class HomeSandbox {
             tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
             tempObject['Scheme Type'] = ele?.scheme_type_name || '';
             tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
-            tempObject['Status'] = ele?.status || '';
+            tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
         }
         if(type==='schemes'){
             tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
@@ -81,7 +80,33 @@ export class HomeSandbox {
             tempObject['No Of Months'] = ele?.no_of_months || '';
             tempObject['Amount Per Month'] = ele?.amount_per_month || '';
             tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
-            tempObject['Status'] = ele?.status || '';
+            tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
+        }
+        if(type==='payments'){
+            console.log(ele);
+            tempObject['Joining Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
+            tempObject['Paid Date'] = ele?.paidDate?moment(ele.paidDate).format('DD-MM-YYYY  hh:mm A'):'';
+            tempObject['Due Date'] = moment(ele.dueDate).format('DD-MM-YYYY  hh:mm A');
+            tempObject['Amount'] = ele?.amount_paid || '';
+            tempObject['Month'] = ele?.month_paid || '';
+            tempObject['Late Fee'] = ele?.lateFee || '';
+            tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
+        }
+        if(type==='users'){
+            console.log(ele);
+            tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
+            tempObject['User ID'] = ele?.userId || '';
+            tempObject['User Type'] = ele?.role || '';
+            tempObject['First Name'] = ele?.firstName || '';
+            tempObject['Last Name'] = ele?.lastName || '';
+            tempObject['Full Name'] = ele?.userName || '';
+            tempObject['Email'] = ele?.email || '';
+            tempObject['Mobile'] = ele?.mobilePhone || '';
+            tempObject['PAN Number'] = ele?.pan || '';
+            tempObject['Aadhar Number'] = ele?.aadhar || '';
+            tempObject['Introduced By'] = ele?.introducedBy || '';
+            tempObject['Updated Date'] = moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
+            tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
         }
         return tempObject;
     }
@@ -104,7 +129,20 @@ export class HomeSandbox {
     getSgsSchemeTypes() {
         return this.service.getSgsSchemeTypes();
     }    
-    
+    getSettings() {
+        return this.service.getSettings();
+    }    
+      
+    updateSettings(params: any) {        
+        return this.service.updateSettings(params).pipe(
+            tap((res: any) => {                
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    }  
     addUpdateSchemes(params: any) {        
         return this.service.addUpdateSchemes(params).pipe(
             tap((res: any) => {                
@@ -116,12 +154,14 @@ export class HomeSandbox {
         );
     }
 
-    getSgsSchemes(type:number) {
-        return this.service.getSgsSchemes().pipe(
-            tap((res: any) => {
-                
-                if (res?.data) {
-                   res.data=(res?.data || []).filter((value:any) => value.scheme_type_id===type);
+    getSgsSchemes(params:any) {
+        return this.service.getSgsSchemes(params).pipe(
+            tap((res: any) => {                
+                if (res?.data?.data) {
+                   res.data.data=(res.data.data || []).map((value:any) => {
+                    value.name=(value.scheme_type_id===1?'Coins: '+value.coins:'Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
+                    return value;
+                  })
                 }
             })
         );
@@ -138,37 +178,10 @@ export class HomeSandbox {
     }
 
     getSgsUsers(params:any) {
-        console.log(params);
-        console.log(params.userType===-1 && params.status==='All');
-        return this.service.getSgsUsers().pipe(
-            tap((res: any) => {                
-                if (res?.data) {
-                    if(params.userType===-1 && params.status==='All')
-                    res.data=(res?.data || []).filter((value:any) => 
-                    value.userId!==this.currentUser.userId
-                    );
-                    if(params.userType>-1 && params.status==='All')
-                    res.data=(res?.data || []).filter((value:any) => 
-                    value.userId!==this.currentUser.userId && 
-                    value.userType==params.userType
-                    );
-                    if(params.userType==-1 && params.status!=='All')
-                    res.data=(res?.data || []).filter((value:any) => 
-                    value.userId!==this.currentUser.userId &&                     
-                    value.status==params.status
-                    );                    
-                    if(params.userType>-1 && params.status!=='All')
-                    res.data=(res?.data || []).filter((value:any) => 
-                    value.userId!==this.currentUser.userId && 
-                    value.userType==params.userType && 
-                    value.status==params.status
-                    );
-                }
-            })
-        );
+        return this.service.getSgsUsers(params);
     }
-    getAllUsers() {
-        return this.service.getSgsUsers().pipe(
+    getAllUsers(params:any) {
+        return this.service.getSgsUsers(params).pipe(
             tap((res: any) => {                
                 if (res?.data) {
                    res.data=(res?.data || []).filter((value:any) => value.userId!==this.currentUser.userId);

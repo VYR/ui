@@ -27,6 +27,7 @@ export class SgsEditFormsComponent implements OnInit {
   public updateUserForm!: UntypedFormGroup;
   public updateSchemeTypesForm!: UntypedFormGroup;
   public updateSchemesForm!: UntypedFormGroup;
+  public updateSettingsForm!: UntypedFormGroup;
   statuses:any=STATUSES;
   schemeTypes:Array<any>=[];
   constructor(public dialogRef: MatDialogRef<SgsEditFormsComponent>, 
@@ -59,24 +60,20 @@ export class SgsEditFormsComponent implements OnInit {
       status: new UntypedFormControl(this.data?.data?.status || null),
     });
     this.updateUserForm = this.fb.group({
-        schemeType: new UntypedFormControl({ value: 1, disabled: true }),
-        firstName: new UntypedFormControl({ value: this.data.data.firstName, disabled: this.data.mode === DECISION.VIEW }),
-        lastName: new UntypedFormControl({ value: this.data.data.lastName, disabled: this.data.mode === DECISION.VIEW }),
-        email: new UntypedFormControl({ value: this.data.data.email, disabled: this.data.mode === DECISION.VIEW }),
-        mobilePhone: new UntypedFormControl({ value: this.data.data.mobilePhone, disabled: this.data.mode === DECISION.VIEW }),
-        individualCommission: new UntypedFormControl({ value: this.data.data.individualCommission, disabled: this.data.mode === DECISION.VIEW }),
-        groupCommission: new UntypedFormControl({ value: this.data.data.groupCommission, disabled: this.data.mode === DECISION.VIEW }),
-        individualAmount: new UntypedFormControl({ value: this.data.data.individualAmount, disabled: this.data.mode === DECISION.VIEW }),
-        individualMonths: new UntypedFormControl({ value: this.data.data.individualMonths, disabled: this.data.mode === DECISION.VIEW }),
-        groupTotalAmount: new UntypedFormControl({ value: this.data.data.groupTotalAmount, disabled: this.data.mode === DECISION.VIEW }),
-        groupMonths: new UntypedFormControl({ value: this.data.data.groupMonths, disabled: this.data.mode === DECISION.VIEW }),
-        groupAmountPerMonth: new UntypedFormControl({ value: this.data.data.groupAmountPerMonth, disabled: this.data.mode === DECISION.VIEW }),
-        userId: new UntypedFormControl({ value: this.data.data.userId, disabled: true }),
-        introducedBy: new UntypedFormControl({ value: this.data.data.introducedBy, disabled: true }),
-        aadhar: new UntypedFormControl({ value: this.data.data.aadhar, disabled: true }),
-        pan: new UntypedFormControl({ value: this.data.data.pan, disabled: true }),
+      id: new UntypedFormControl(this.data.data?.id),
+      firstName: new UntypedFormControl(this.data.data?.firstName, Validators.required),
+      lastName: new UntypedFormControl(this.data.data?.lastName, Validators.required),
+      password: new UntypedFormControl(null),
+      role: new UntypedFormControl(this.data.data?.role),
+      userType: new UntypedFormControl(this.data.data?.userType),
+      mobilePhone: new UntypedFormControl(this.data.data?.mobilePhone, Validators.required)
     });
 
+    this.updateSettingsForm = this.fb.group({
+      id: new UntypedFormControl(this.data?.data?.id || 0),
+      individual_commission: new UntypedFormControl(this.data?.data?.individual_commission || 0),
+      group_commission: new UntypedFormControl(this.data?.data?.group_commission || 0),
+    });
     if(this.data?.data?.scheme_type_id===1){
         this.updateSchemesForm.controls['coins'].setValidators(Validators.required);
         this.updateSchemesForm.controls['total_amount'].clearValidators();
@@ -104,7 +101,36 @@ export class SgsEditFormsComponent implements OnInit {
         }
     });
   }
-
+  submitUserForm(){
+    const formData=this.updateUserForm.value;   
+     console.log(formData);
+    let requestObject:any={};
+    Object.keys(formData).forEach((key) => {
+        if(formData[key] !=null)
+        requestObject[key] = formData[key];
+    });
+    console.log(requestObject);
+    this.sandBox.addUpdateUsers(formData).subscribe((res:any) => {
+        if(res?.data){          
+          this.dialogRef.close(res.data);
+        }
+    });
+  }
+  submitSettingsForm(){
+    const formData=this.updateSettingsForm.value;   
+     console.log(formData);
+    let requestObject:any={};
+    Object.keys(formData).forEach((key) => {
+        if(formData[key] !=null)
+        requestObject[key] = formData[key];
+    });
+    console.log(requestObject);
+    this.sandBox.updateSettings(formData).subscribe((res:any) => {
+        if(res?.data){          
+          this.dialogRef.close(res.data);
+        }
+    });
+  }
   getSelectBoxName(countryCode: string) {
       return this.utilService.getNameFromList(countryCode, this.statuses, 'name', 'id');
   }

@@ -25,9 +25,9 @@ export class HomeComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-       // this.idleTimeoutService.initilizeSessionTimeout();
+        this.idleTimeoutService.initilizeSessionTimeout();
         this.idleTimeoutService.userIdlenessChecker!.subscribe((status: string) => {
-            //this.initiateFirstTimer(status);
+            this.initiateFirstTimer(status);
         });
         const currentUser = this.appContext.getCurrentUser();
         this.refreshToken = interval(((currentUser.expirationTime || 1800) - 120) * 1000)
@@ -62,8 +62,7 @@ export class HomeComponent implements OnInit {
         IdleTimeoutService.runSecondTimer = false;
         if (type === 'LOGOUT') {
             IdleTimeoutService.runTimer = false;
-            this.sandbox.logout();
-            //.subscribe();
+            this.sandbox.logout().subscribe();
         } else {
             this.idleTimeoutService.initilizeSessionTimeout();
         }

@@ -84,7 +84,7 @@ export class MyCompletedRequestsComponent {
             id: [null],
             type: ['ALL'],
         });
-        const role = this.sandbox.userContext.role.name.toUpperCase();
+        const role = this.sandbox.userContext.role.toUpperCase();
         this.searchForm.valueChanges.subscribe((res: any) => {
             this.onSearch(this.searchForm.value);
         });

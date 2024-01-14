@@ -36,6 +36,8 @@
                                     {{ element[column.key] }}
                                 </a>
                                 <button
+                                    class="mat-raised-button mat-primary"
+                                    type="button"
                                     (click)="_clickCell.emit({ key: column.key, data: element })"
                                     *ngSwitchCase="ColumnType.button"
                                     mat-button

@@ -17,113 +17,93 @@ import { SgsSchemeDetailsComponent } from '../sgs-scheme-details/sgs-scheme-deta
 })
 export class SgsSchemeIndividualComponent implements OnInit {
 
-    @Input() type='addSchemes';
+    @Input() schemesConfig:any;
     currentUserType=-1;
     tableConfig!: SGSTableConfig;
-    query!: SGSTableQuery;  
-    detailsName='clientDetails';
+    query: SGSTableQuery=new SGSTableQuery();  
     sortedData:Array<any>=[];  
     INDIVIDUAL_SCHEME_TABLE_COLUMNS=INDIVIDUAL_SCHEME_TABLE_COLUMNS;
     constructor(private router: Router, private dialog: SgsDialogService, private sandbox: HomeSandbox) {}
     
     ngOnInit(): void {
+        console.log(this.schemesConfig);
         this.currentUserType=this.sandbox.currentUser.userType;
-        if(this.sandbox.currentUser.userType==1)
-            this.detailsName='adminDetails';
-        else if(this.sandbox.currentUser.userType==2)
-            this.detailsName='promoterDetails';
-        else if(this.sandbox.currentUser.userType==3)
-            this.detailsName='employeeDetails';
-
-        console.log(this.sandbox.currentUser.userType);
-        this.getSgsSchemes();
+        this.query.sortKey='created_at';
+        this.query.sortDirection=SortDirection.desc;
     }
     lazyLoad(event: SGSTableQuery) {
-        if (event.sortKey) {
-            event.sortKey = event.sortKey === 'term' ? 'sortTerm' : event.sortKey;
-            this.sortedData = this.sortedData.sort((a: any, b: any) => {
-                const isAsc = event.sortDirection === 'ASC';
-                return this.compare(a[event.sortKey], b[event.sortKey], isAsc);
-            });
-            this.loadDataTable();
-        }
-    }
-    loadDataTable() {
-        let editCol = {
-            key: 'edit',
-            displayName: 'Edit',
-            type: ColumnType.icon,
-            icon: 'la-edit',
-        };
-        let delCol = {
-            key: 'delete',
-            displayName: 'Delete',
-            type: ColumnType.icon,
-            icon: 'la-trash',
-        };        
-        let detailsCol = {
-            key: 'details',
-            displayName: 'Details',
-            type: ColumnType.link,
-        };       
-        let referralCol = {
-            key: 'referral',
-            displayName: 'Details',
-            type: ColumnType.link,
-        };
-        this.INDIVIDUAL_SCHEME_TABLE_COLUMNS=INDIVIDUAL_SCHEME_TABLE_COLUMNS.map((value:any)=>{
-            if(value.key==='created' && this.sandbox.currentUser.userType!=1){
-                value.displayName='Joined Date';
-                return value;
-            }
-            else 
-            return value;
-        });
-    
-if(this.type==='referrals'){
-            this.INDIVIDUAL_SCHEME_TABLE_COLUMNS.splice(3,0,{
-                key: 'referralAmount',
-                displayName: 'Earned Amount',
-                type: ColumnType.amount,
-                sortable:true
-            });
-            this.detailsName='referral';
-        }
-        let referralCols=[...this.INDIVIDUAL_SCHEME_TABLE_COLUMNS, referralCol];
-        let clientCols=[...this.INDIVIDUAL_SCHEME_TABLE_COLUMNS, detailsCol];
-        let dealerCols=[...this.INDIVIDUAL_SCHEME_TABLE_COLUMNS, detailsCol];
-        let adminCols=[...this.INDIVIDUAL_SCHEME_TABLE_COLUMNS, editCol, delCol];        
-        let colArray = clientCols;
-        if(this.currentUserType==1 && this.type=='addSchemes')
-        colArray=adminCols;
-        else if(this.currentUserType==1 && this.type=='userDetails')
-        colArray=clientCols;
-
-        this.tableConfig = {
-            columns: colArray,
-            data: this.sortedData,
-            selection: false,
-            totalRecords: this.sortedData.length,
-            clientPagination: true,
-        };
+        console.log(this.query);
+        console.log(event);
+        this.query.pageIndex=event?.pageIndex || 0;
+        if(event.sortKey)
+            this.query.sortKey=event.sortKey;
+        if(event.sortDirection)
+        this.query.sortDirection=event.sortDirection;
+        this.getSgsSchemes();
     }
 
     compare(a: number | string, b: number | string, isAsc: boolean) {
         return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     } 
     getSgsSchemes() {
-        this.sandbox.getSgsSchemes(1).subscribe((res:any) => {       
-            if(res?.data){
-                this.sortedData=res?.data || [];
-                console.log(this.sortedData);
-                this.sortedData=this.sortedData.map((value:any) => {
+        let query:any={...this.query};
+        query.schemeType=1;
+        if(this.schemesConfig.type=='userDetails'){
+            query.userId=this.schemesConfig?.userId || 0;
+        }
+        this.sandbox.getSgsSchemes(query).subscribe((res:any) => {       
+            if(res?.data?.data){
+                this.sortedData=res?.data?.data || [];
+                if(this.currentUserType===0 || ([1,2].includes(this.currentUserType) && this.schemesConfig.type=='userDetails'))
+                 this.sortedData=this.sortedData.map((value:any) => {                                   
                     value['details']='Details';
                     return value;
-                });
-                this.query=new SGSTableQuery();
-                this.query.sortKey='created_at';
-                this.query.sortDirection=SortDirection.desc;
-                this.lazyLoad(this.query);
+                });               
+                let editCol = {
+                    key: 'edit',
+                    displayName: 'Edit',
+                    type: ColumnType.icon,
+                    icon: 'la-edit',
+                };
+                let delCol = {
+                    key: 'delete',
+                    displayName: 'Delete',
+                    type: ColumnType.icon,
+                    icon: 'la-trash',
+                };        
+                let detailsCol = {
+                    key: 'details',
+                    displayName: 'Details',
+                    type: ColumnType.link,
+                };
+            
+                if(this.schemesConfig.type==='referrals'){
+                    this.INDIVIDUAL_SCHEME_TABLE_COLUMNS.splice(4,0,{
+                        key: 'referralAmount',
+                        displayName: 'Earned Amount',
+                        type: ColumnType.amount,
+                        sortable:true
+                    });
+                }
+                let referralCols=[...this.INDIVIDUAL_SCHEME_TABLE_COLUMNS];
+                let clientCols=[...this.INDIVIDUAL_SCHEME_TABLE_COLUMNS, detailsCol];
+                let adminCols=[...this.INDIVIDUAL_SCHEME_TABLE_COLUMNS, editCol, delCol];        
+                let colArray:any = [];
+                if(this.currentUserType==1 && this.schemesConfig.type=='addSchemes')
+                colArray=adminCols;
+                else if(this.currentUserType!==3 && this.schemesConfig.type=='userDetails')
+                if(this.currentUserType===0 || ([1,2].includes(this.currentUserType) && this.schemesConfig.type=='userDetails'))
+                colArray=clientCols;
+                else if(this.schemesConfig.type==='referrals')
+                colArray=referralCols;
+        
+                this.tableConfig = {
+                    columns: colArray,
+                    data: this.sortedData,
+                    selection: false,
+                    totalRecords: this.sortedData.length,
+                    clientPagination: true,
+                };
             }      
         });
     }
@@ -149,7 +129,7 @@ if(this.type==='referrals'){
     }
 
     openSummary(event: any) {   
-        const ref = this.dialog.openOverlayPanel('Update Scheme', 
+        const ref = this.dialog.openOverlayPanel('Update Individual Scheme', 
         SgsEditFormsComponent, {
         type:'schemes',
         data: event.data,
@@ -160,7 +140,7 @@ if(this.type==='referrals'){
         });         
     }
     addScheme(){
-    const ref = this.dialog.openOverlayPanel('Add Scheme', 
+    const ref = this.dialog.openOverlayPanel('Add Individual Scheme', 
         SgsAddFormsComponent, {
         type:'schemes',
         data:{scheme_type_id:1},

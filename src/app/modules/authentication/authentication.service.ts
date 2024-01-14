@@ -28,6 +28,6 @@ export class AuthenticationService {
     }
 
     logout() {
-        return this.http.post('Operations.LOGOUT', null);
+        return this.http.post(Operations.LOGOUT, null);
     }
 }

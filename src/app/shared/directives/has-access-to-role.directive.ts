@@ -13,7 +13,7 @@ export class HasAccessToRoleDirective {
         private viewContainer: ViewContainerRef
     ) {
         this.appContext.currentUser.subscribe((res: UserContext) => {
-            this.role = ((res && res.role && res.role.name) || '').toUpperCase();
+            this.role = ((res && res.role && res.role) || '').toUpperCase();
         });
     }
 

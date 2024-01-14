@@ -14,7 +14,7 @@ export class HomeService {
     }
 
     refreshToken() {
-        return this.http.get('Operations.REFRESH_TOKEN');
+        return this.http.get(Operations.REFRESH_TOKEN);
     }
 
 
@@ -40,8 +40,8 @@ export class HomeService {
             return this.http.post(Operations.ADD_UPDATE_SCHEMES, params);
     } 
 
-    getSgsSchemes() {
-        return this.http.get(Operations.GET_SCHEMES);
+    getSgsSchemes(params:any) {
+        return this.http.get(Operations.GET_SCHEMES,params);
     }    
     addUpdateUsers(params:any) {
         if(params?.id)
@@ -50,7 +50,13 @@ export class HomeService {
             return this.http.post(Operations.ADD_UPDATE_USERS, params);
     } 
 
-    getSgsUsers() {
-        return this.http.get(Operations.GET_USERS);
+    getSgsUsers(params:any) {
+        return this.http.get(Operations.GET_USERS,params);
     }
+    getSettings() {
+        return this.http.get(Operations.SETTINGS);
+    }    
+    updateSettings(params:any) {
+        return this.http.post(Operations.SETTINGS, params);
+    } 
 }

@@ -9,7 +9,7 @@ export const ROLES:any = {
 export const USER_TABLE_COLUMNS =  [
     {
         key: 'created_at',
-        displayName: 'Join Date',
+        displayName: 'Created Date',
         type: ColumnType.date,
         sortable: true,
     },
@@ -18,12 +18,6 @@ export const USER_TABLE_COLUMNS =  [
         displayName: 'User ID',
         type: ColumnType.link,
         sortable: true,
-    },
-    {
-        key: 'schemes',
-        displayName: 'Schemes',
-        sortable: true,
-        type: ColumnType.link,
     },
     {
         key: 'firstName',
@@ -61,6 +55,12 @@ export const USER_TABLE_COLUMNS =  [
 
 export const SCHEME_PAY_TABLE_COLUMNS =  [
     {
+        key: 'created_at',
+        displayName: 'Joining Date',
+        type: ColumnType.date,
+        sortable: true,
+    },
+    {
         key: 'paidDate',
         displayName: 'Paid Date',
         type: ColumnType.date,
@@ -81,6 +81,11 @@ export const SCHEME_PAY_TABLE_COLUMNS =  [
     {
         key: 'month_paid',
         displayName: 'Month',
+        sortable: true,
+    },
+    {
+        key: 'lateFee',
+        displayName: 'Late Fee',
         sortable: true,
     },
     {

@@ -53,22 +53,15 @@ export class ApplicationContextService {
         user.lastName = data?.user.lastName;
         user.aadhar = data?.user.aadhar;
         user.pan = data?.user.pan;
+        user.id = data?.user.id;
         user.mobilePhone = data?.user.mobilePhone;
-       // user.stpUser = data?.stpUser;
         user.enabled = (data?.user?.enabled || true) === 'true';
         user.currentSignIn = new Date();
         user.lastSignIn = data?.lastSignIn;
-       // user.isBankAdmin = data?.isBankAdmin;
-        //user.h2hEnabled = data?.h2hEnabled;
-       // user.isSurveyRequired = data?.isSurveyRequired;
         user.entitlement = ( data?.user?.entitlement)?data?.user?.entitlement.split(',') || []:[];
         user.forcePasswordChange = data?.forcePasswordChange;
-       // user.rmDetails = data?.rmDetails || {};
         user.userType = this._getUserType(data?.user?.userType || '');
-        user.role = {name:data?.user?.role || null};
-       // user.sysConfig = data?.sysConfig ? this._parseSystemConfig(data?.sysConfig || '') : null;
-       // user.sysConfigAllInfo = data?.sysConfig;
-       // user.kycPopType = data?.kycPopType;
+        user.role = data?.user?.role || null;
         return user;
     }
 
@@ -170,7 +163,9 @@ export class ApplicationContextService {
         console.log(currentUser);
         return Boolean(currentUser && currentUser.access_token);
     }
-
+    public setUserContext(user: UserContext){
+        this._setUserContext(user);
+    }
     private _setUserContext(user: UserContext) {
         this.cache.set('USER_CONTEXT', JSON.stringify(user));
         this.currentUserSubject.next(user);

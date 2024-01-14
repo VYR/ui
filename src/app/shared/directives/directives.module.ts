@@ -9,6 +9,7 @@ import { HasAccessToUserDirective } from './has-access-to-user.directive';
 import { DropzoneDirective } from './dropzone.directive';
 import { DisableControlDirective } from './disable-control.directive';
 import { AlphaNumericDirective } from './alpha-numeric.directive';
+import {  OnlyNumbersDirective } from './only-numbers.directive';
 
 @NgModule({
     declarations: [
@@ -21,11 +22,13 @@ import { AlphaNumericDirective } from './alpha-numeric.directive';
         DropzoneDirective,
         DisableControlDirective,
         AlphaNumericDirective,
+        OnlyNumbersDirective,
     ],
     exports: [
         HasEntitlementAccessToDirective,
         DragDropDirective,
         AlphaNumericDirective,
+        OnlyNumbersDirective,
         HasAccessToRoleDirective,
         TextHighlightDirective,
         ContainerRefDirective,

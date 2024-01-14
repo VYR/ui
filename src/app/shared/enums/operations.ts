@@ -1,5 +1,7 @@
 export enum Operations {
     LOGIN = 'login',
+    LOGOUT = 'logout',
+    REFRESH_TOKEN = 'refresh',
     VALIDATE_OTP = 'validateOtp',
     SGS_REQUEST_COUNT = 'sgsRequestCount',
     DELETE_RECORD='deleteRecord',
@@ -8,5 +10,6 @@ export enum Operations {
     ADD_UPDATE_SCHEMES='addUpdateSchemes',
     GET_SCHEMES='getSchemes',
     ADD_UPDATE_USERS='addUpdateUsers',
-    GET_USERS='getUsers'
+    GET_USERS='getUsers',
+    SETTINGS='settings'
 }

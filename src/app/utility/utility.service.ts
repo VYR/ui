@@ -34,7 +34,7 @@ export class UtilService {
         const message: string =
             messageTranslationCode && messageTranslationCode !== ''
                 ? this.translateService.instant(messageTranslationCode)
-                : 'An Internal error has occured while processing your request.';
+                : 'An Internal error has occured while processing your request.123';
         let title: string = titleTranslationCode ? this.translateService.instant(titleTranslationCode) : null;
         const options = this.configService.get('notifications') ? this.configService.get('notifications').options : {};
         switch (type) {

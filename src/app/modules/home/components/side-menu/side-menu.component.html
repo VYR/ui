@@ -4,20 +4,10 @@
     </div>
     <div  class="user-card-active">
         <div class="user-number">
-            <div>{{ currentUser.organizationSelected.uniqueUserId }}</div>
+            <div>{{ currentUser.userId }}</div>
         </div>
         <div class="customer-name">
-            {{ currentUser.organizationSelected.firstName }} {{ currentUser.organizationSelected.lastName }}
-        </div>
-        <div
-            class="click-info"
-            *ngIf="currentUser.organizations.length > 1"
-            matRipple
-            [matMenuTriggerFor]="userSelection"
-            fxLayoutAlign="space-between center"
-        >
-            <span>Click here switch accounts</span>
-            <i class="las la-angle-right"></i>
+            {{ currentUser.firstName }} {{ currentUser.lastName }}
         </div>
     </div>
 

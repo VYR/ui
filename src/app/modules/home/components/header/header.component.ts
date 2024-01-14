@@ -23,10 +23,15 @@ export class HeaderComponent {
         private config: ConfigService
     ) {
         this.appContext.currentUser.subscribe((res: any) => (this.user = res));
-        this.iconMenus = this.config.get('modules')[this.user.userType].filter((x: any) => x.location === 'header');
-        router.events.subscribe((event: any) => {
-            this.activeRouter = event.url;
-        });
+        if(this.user?.userType){
+            this.iconMenus = this.config.get('modules')[this.user.userType].filter((x: any) => x.location === 'header');
+            router.events.subscribe((event: any) => {
+                this.activeRouter = event.url;
+            });
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
     }
 
     onSettingsClick() {

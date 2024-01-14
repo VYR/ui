@@ -1,21 +1,43 @@
 <app-outlet-container>
     <app-master-container>
-        <ng-container header *ngIf="type==='addSchemes'"> SCHEMES</ng-container>
+        <ng-container header *ngIf="schemesConfig.type==='addSchemes'"> SCHEMES</ng-container>
+        <ng-container icons>
+            <mat-form-field>
+                <mat-label>Scheme Type</mat-label>
+                <mat-select [(ngModel)]="selectedSchemeType">
+                    <mat-option *ngFor="let schemeType of schemeTypes" [value]="schemeType" 
+                    (onSelectionChange)="getSchemesByType($event,schemeType.id)">{{
+                        schemeType.scheme_type_name
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
+                <i class="las la-file-excel"></i>
+            </button>
+            <button mat-icon-button *ngIf="schemesConfig.type=='addSchemes' && currentUserType==1" (click)="addScheme()">
+                <i class="las la-plus"></i>
+            </button>
+        </ng-container>
         <ng-container body>
-            <div fxLayout="column" fxFlex="100">
+            <!-- <div fxLayout="column" fxFlex="100">
                 <mat-tab-group class="form-tabs">
                     <mat-tab label="Individual">
                         <ng-template matTabContent>
-                            <app-sgs-scheme-individual [type]="type"></app-sgs-scheme-individual>
+                            <app-sgs-scheme-individual [schemesConfig]="schemesConfig"></app-sgs-scheme-individual>
                         </ng-template>
                     </mat-tab>
                     <mat-tab label="Group">
                         <ng-template matTabContent>
-                            <app-sgs-scheme-group [type]="type"></app-sgs-scheme-group>
+                            <app-sgs-scheme-group [schemesConfig]="schemesConfig"></app-sgs-scheme-group>
                         </ng-template>
                     </mat-tab>
                 </mat-tab-group>
-            </div>
+            </div> -->
+            <app-sgs-table
+            [config]="tableConfig"
+            (_lazyLoad)="lazyLoad($event)"
+            (_clickCell)="onClickCell($event)"
+        ></app-sgs-table>
         </ng-container>
     </app-master-container>
     

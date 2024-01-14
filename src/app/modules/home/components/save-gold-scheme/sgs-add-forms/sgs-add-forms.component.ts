@@ -29,6 +29,12 @@ export class SgsAddFormsComponent implements OnInit {
   public addSchemesForm!: UntypedFormGroup;
   statuses:any=STATUSES;
   schemeTypes:Array<any>=[];
+  schemes:Array<any>=[];
+  verifyValidations:any={
+    mobilePhone:false,
+    aadhar:false,
+    pan:false
+  }
   constructor(public dialogRef: MatDialogRef<SgsAddFormsComponent>, 
       @Inject(MAT_DIALOG_DATA) public data: any,
       private sandBox: HomeSandbox,
@@ -56,12 +62,13 @@ export class SgsAddFormsComponent implements OnInit {
     });
     this.addUserForm = this.fb.group({
         role: new UntypedFormControl(this.data?.data?.role || null),
-        userType: new UntypedFormControl(this.data?.data?.userType || null),
+        userType: new UntypedFormControl(this.data?.data?.userType===0?0:(this.data?.data?.userType || null)),
         scheme_type_id: new UntypedFormControl(null),
         scheme_id: new UntypedFormControl(null),
         firstName: new UntypedFormControl(null,Validators.required),
         lastName: new UntypedFormControl(null,Validators.required),
-        email: new UntypedFormControl(null,Validators.required),
+        email: new UntypedFormControl(null,[Validators.required,Validators.email,
+          Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
         password: new UntypedFormControl(null,Validators.required),
         mobilePhone: new UntypedFormControl(null),
         introducedBy: new UntypedFormControl(this.data?.data?.introducedBy),
@@ -69,13 +76,44 @@ export class SgsAddFormsComponent implements OnInit {
         pan: new UntypedFormControl(null),
     });
     if(this.data?.data?.scheme_type_id===1){
-        this.addSchemesForm.controls['coins'].setValidators(Validators.required);
+        this.addSchemesForm.controls['coins']?.setValidators(Validators.required);
         this.addSchemesForm.controls['total_amount'].clearValidators();
     }
     if(this.data?.data?.scheme_type_id===2){
-        this.addSchemesForm.controls['total_amount'].setValidators(Validators.required);
+        this.addSchemesForm.controls['total_amount']?.setValidators(Validators.required);
         this.addSchemesForm.controls['coins'].clearValidators();
     }
+    if(this.data?.data?.userType===0){
+      this.addUserForm.controls['scheme_type_id']?.setValidators([Validators.required]);
+      this.addUserForm.controls['scheme_id']?.setValidators([Validators.required]);
+      this.addUserForm.controls['aadhar']?.setValidators([Validators.required,Validators.minLength(12),Validators.maxLength(12)]);
+      this.addUserForm.controls['pan']?.setValidators([Validators.required,Validators.minLength(10),Validators.maxLength(10)]);
+      this.addUserForm.controls['mobilePhone']?.setValidators([Validators.required,Validators.minLength(10),Validators.maxLength(10),this.mobileVerificationCheck()]);       
+      this.addUserForm.updateValueAndValidity();
+    }
+    else{
+      this.addUserForm.controls['scheme_type_id'].clearValidators();
+      this.addUserForm.controls['scheme_id'].clearValidators();
+      this.addUserForm.controls['aadhar'].clearValidators();
+      this.addUserForm.controls['pan'].clearValidators();
+      this.addUserForm.controls['mobilePhone'].clearValidators();      
+      this.addUserForm.updateValueAndValidity();
+    }
+  }
+
+  public mobileVerificationCheck(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+        if (control.value && control.value != '') {
+            if (this.data?.data?.currentUserType===2 && !this.verifyValidations.mobilePhone && control.value.length===10) {
+                return { verifyMobile: { value: control.value } };
+            }
+        }
+        return null;
+    };
+  }
+  skipValidationForNow(controlName:string){
+    this.verifyValidations[controlName]=true;
+    this.addUserForm.controls[controlName].updateValueAndValidity();
   }
 
   submitSchemeTypesForm(){
@@ -124,10 +162,23 @@ export class SgsAddFormsComponent implements OnInit {
             return this.compare(a['scheme_type_name'], b['scheme_type_name'], isAsc);
         });
         const index=this.schemeTypes.findIndex((value:any) => value.id===this.data?.data?.scheme_type_id);
-        console.log(index);
         if(index!=-1)
         this.addSchemesForm.controls['scheme_type_id'].setValue(this.schemeTypes[index].id)
       }
+    });
+  }
+  getSchemesByType(event:any,type:any){
+    this.schemes=[];
+    if (event.isUserInput)
+    this.sandBox.getSgsSchemes(type).subscribe((res:any) => {       
+        if(res?.data){
+            this.schemes=res?.data || [];
+            const sortkey=type===1?'coins':'total_amount';
+            this.schemes = this.schemes.sort((a: any, b: any) => {
+              const isAsc = true;
+              return this.compare(a[sortkey], b[sortkey], isAsc);
+          });
+        }      
     });
   }
 

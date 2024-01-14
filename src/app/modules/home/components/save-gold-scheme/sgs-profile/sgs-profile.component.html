@@ -4,7 +4,7 @@
 
             <app-master-container>
                 <ng-container header>
-                    {{type===1?'PROFILE':'SETTINGS'}}
+                    PROFILE
                 </ng-container>
                 
                 <ng-container icons>
@@ -13,7 +13,7 @@
                     </button>
                 </ng-container>
                 <ng-container body>
-                    <div fxLayout="column" fxFlex="50" *ngIf="type===1">
+                    <div fxLayout="column" fxFlex="50">
                         <app-label-value 
                             *ngIf="data?.userId" 
                             [label]="'User ID'" 
@@ -54,19 +54,6 @@
                             *ngIf="data?.pan" 
                             [label]="'PAN Number:'" 
                             [value]="data.pan">
-                        </app-label-value>
-                    </div>
-                    
-                    <div fxLayout="column" fxFlex="50" *ngIf="type===2">
-                        <app-label-value 
-                            *ngIf="settings?.individualCommission" 
-                            [label]="'Individual Commission'" 
-                            [value]="settings.individualCommission+'%'">
-                        </app-label-value>
-                        <app-label-value 
-                            *ngIf="settings?.groupCommission" 
-                            [label]="'Group Commission'" 
-                            [value]="settings.groupCommission+'%'">
                         </app-label-value>
                     </div>
                 </ng-container>

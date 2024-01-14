@@ -18,6 +18,7 @@ export class SgsRefferalsComponent implements OnInit {
   config!: SGSTableConfig;
   query!: SGSTableQuery;
   @Input() type=1;
+  schemesConfig:any={type:'referrals'};
   constructor(private router: Router, private dialog: SgsDialogService, private sandbox: HomeSandbox) {}
    
 

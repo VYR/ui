@@ -17,7 +17,7 @@ import { SgsSchemeDetailsComponent } from '../sgs-scheme-details/sgs-scheme-deta
 })
 export class SgsSchemeGroupComponent  implements OnInit {
 
-    @Input() type='addSchemes';
+    @Input() schemesConfig:any;
     currentUserType=-1;
     tableConfig!: SGSTableConfig;
     query!: SGSTableQuery;  
@@ -65,11 +65,6 @@ export class SgsSchemeGroupComponent  implements OnInit {
             key: 'details',
             displayName: 'Details',
             type: ColumnType.link,
-        };       
-        let referralCol = {
-            key: 'referral',
-            displayName: 'Details',
-            type: ColumnType.link,
         };
         this.GROUP_SCHEME_TABLE_COLUMNS=GROUP_SCHEME_TABLE_COLUMNS.map((value:any)=>{
             if(value.key==='created' && this.sandbox.currentUser.userType!=1){
@@ -81,7 +76,7 @@ export class SgsSchemeGroupComponent  implements OnInit {
         });
     
 
-        if(this.type==='referrals'){
+        if(this.schemesConfig.type==='referrals'){
             this.GROUP_SCHEME_TABLE_COLUMNS.splice(4,0,{
                 key: 'referralAmount',
                 displayName: 'Earned Amount',
@@ -90,15 +85,17 @@ export class SgsSchemeGroupComponent  implements OnInit {
             });
             this.detailsName='referral';
         }
-        let referralCols=[...this.GROUP_SCHEME_TABLE_COLUMNS, referralCol];
+        let referralCols=[...this.GROUP_SCHEME_TABLE_COLUMNS];
         let clientCols=[...this.GROUP_SCHEME_TABLE_COLUMNS, detailsCol];
         let dealerCols=[...this.GROUP_SCHEME_TABLE_COLUMNS, detailsCol];
         let adminCols=[...this.GROUP_SCHEME_TABLE_COLUMNS, editCol, delCol];        
-        let colArray = clientCols;
-        if(this.currentUserType==1 && this.type=='addSchemes')
+        let colArray:any = [];
+        if(this.currentUserType==1 && this.schemesConfig.type=='addSchemes')
         colArray=adminCols;
-        else if(this.currentUserType==1 && this.type=='userDetails')
+        else if(this.currentUserType!==3 && this.schemesConfig.type=='userDetails')
         colArray=clientCols;
+        else if(this.schemesConfig.type==='referrals')
+        colArray=referralCols;
 
         this.tableConfig = {
             columns:  colArray,
@@ -113,9 +110,14 @@ export class SgsSchemeGroupComponent  implements OnInit {
         return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     } 
     getSgsSchemes() {
-        this.sandbox.getSgsSchemes(2).subscribe((res:any) => {       
-            if(res?.data){
-                this.sortedData=res?.data || [];
+        let params:any={schemeType:2};
+        if(this.schemesConfig.type=='userDetails'){
+            params.userId=this.schemesConfig?.userId || 0;
+        }
+        this.sandbox.getSgsSchemes(params).subscribe((res:any) => {  
+            console.log(res);     
+            if(res?.data?.data){
+                this.sortedData=res?.data?.data || [];
                 console.log(this.sortedData);
                 this.sortedData=this.sortedData.map((value:any) => {
                     value['details']='Details';
@@ -150,7 +152,7 @@ export class SgsSchemeGroupComponent  implements OnInit {
     }
 
     openSummary(event: any) {   
-        const ref = this.dialog.openOverlayPanel('Update Scheme', 
+        const ref = this.dialog.openOverlayPanel('Update Group Scheme', 
         SgsEditFormsComponent, {
         type:'schemes',
         data: event.data,
@@ -162,7 +164,7 @@ export class SgsSchemeGroupComponent  implements OnInit {
         
     }
     addScheme(){
-    const ref = this.dialog.openOverlayPanel('Add Scheme', 
+    const ref = this.dialog.openOverlayPanel('Add Group Scheme', 
         SgsAddFormsComponent, {
         type:'schemes',
         data:{scheme_type_id:2},

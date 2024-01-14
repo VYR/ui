@@ -6,10 +6,10 @@
             Group Schemes
        </ng-container>
         <ng-container icons>
-            <button mat-icon-button  (click)="downloadExcel()">
+            <button mat-icon-button *ngIf="sortedData.length>0"  (click)="downloadExcel()">
                 <i class="las la-file-excel"></i>
             </button>
-            <button mat-icon-button *ngIf="type=='addSchemes' && currentUserType==1" (click)="addScheme()">
+            <button mat-icon-button *ngIf="schemesConfig.type=='addSchemes' && currentUserType==1" (click)="addScheme()">
                 <i class="las la-plus"></i>
             </button>
         </ng-container>

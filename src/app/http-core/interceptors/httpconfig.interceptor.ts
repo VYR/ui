@@ -28,7 +28,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         const isLoggedIn = this.currentUser && this.currentUser.access_token;
         if (isLoggedIn) {
             request = request.clone({
-                headers: request.headers.set('Authorization', this.currentUser.access_token),
+                headers: request.headers.set('Authorization', 'Bearer '+this.currentUser.access_token),
             });
         }
 

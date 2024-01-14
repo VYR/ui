@@ -97,6 +97,7 @@ export class SgsTableComponent implements OnChanges, AfterViewInit {
         this.query.sortKey = event.active;
         this.query.sortDirection = event.direction == 'desc' ? SortDirection.desc : SortDirection.asc;
         this.paginator.pageIndex = 0;
+        this.query.pageIndex=0;
         this._lazyLoad.emit(this.query);
     }
 

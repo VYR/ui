@@ -3,6 +3,14 @@
         "baseUrl": "apiGateway",
         "path": "login"
     },
+    "logout": {
+        "baseUrl": "apiGateway",
+        "path": "logout"
+    },
+    "refresh": {
+        "baseUrl": "apiGateway",
+        "path": "refresh"
+    },
     "validateOtp": {
         "baseUrl": "apiGateway",
         "path": "login/verify"
@@ -34,6 +42,10 @@
     "getUsers": {
         "baseUrl": "apiGateway",
         "path": "users"
+    },    
+    "settings": {
+        "baseUrl": "apiGateway",
+        "path": "common/settings"
     },
     
     "deleteRecord": {
