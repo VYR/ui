@@ -145,6 +145,7 @@ export class SgsUsersComponent implements OnInit {
                 columns: colArray,
                 data: this.sortedData,
                 selection: false,
+                showPagination:true,
                 totalRecords: total,
                 clientPagination: false,
             };

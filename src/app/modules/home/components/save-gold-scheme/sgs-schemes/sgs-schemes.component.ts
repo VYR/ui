@@ -9,6 +9,8 @@ import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-
 import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
 import { SgsSchemeDetailsComponent } from '../sgs-scheme-details/sgs-scheme-details.component';
+import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
+import { UserContext } from 'src/app/shared/models';
 @Component({
   selector: 'app-sgs-schemes',
   templateUrl: './sgs-schemes.component.html',
@@ -24,11 +26,18 @@ export class SgsSchemesComponent  implements OnInit {
   SCHEME_TABLE_COLUMNS=SCHEME_TABLE_COLUMNS;
   schemeTypes:Array<any>=[];
   selectedSchemeType:any;
-  constructor(private router: Router, private dialog: SgsDialogService, private sandbox: HomeSandbox) {}
+  currentUser!:UserContext;
+  constructor(private appContext: ApplicationContextService, private dialog: SgsDialogService, private sandbox: HomeSandbox) {
+    this.appContext.currentUser.subscribe((res) => (this.currentUser = res));
+  }
   
   ngOnInit(): void {
       console.log(this.schemesConfig);
-      this.currentUserType=this.sandbox.currentUser.userType;
+      this.currentUserType=this.currentUser.userType;
+      if(this.currentUserType==0){
+        this.schemesConfig.type='userDetails';
+        this.schemesConfig.userId=this.currentUser.userId;
+      }
       this.getSgsSchemeTypes();
   }
   getSgsSchemeTypes() {
@@ -115,6 +124,25 @@ export class SgsSchemesComponent  implements OnInit {
                   type: ColumnType.amount,
                   sortable: true,
               };
+              
+              let createCol=   {
+                  key: 'created_at',
+                  displayName: 'Created Date',
+                  type: ColumnType.date,
+                  sortable: true,
+              };
+              let joiningCol=   {
+                  key: 'start_at',
+                  displayName: 'Start Date',
+                  type: ColumnType.date,
+                  sortable: true,
+              };
+              let updateCol= {
+                  key: 'updated_at',
+                  displayName: 'Updated Date',
+                  type: ColumnType.date,
+                  sortable: true,
+              };
               if(this.schemesConfig.type==='referrals'){
                   this.SCHEME_TABLE_COLUMNS.splice(4,0,{
                       key: 'referralAmount',
@@ -124,6 +152,13 @@ export class SgsSchemesComponent  implements OnInit {
                   });
               }
               let colsArray:any=[...this.SCHEME_TABLE_COLUMNS];
+              if(this.currentUserType==1  && this.schemesConfig.type=='addSchemes'){
+                colsArray.splice(0,0,createCol);
+                colsArray.splice(-1,0,updateCol);
+              }
+              else {
+                colsArray.splice(0,0,joiningCol);
+              }
               if(this.selectedSchemeType.id==1){
                 colsArray.splice(1,0,individualCol);
               }
@@ -146,6 +181,7 @@ export class SgsSchemesComponent  implements OnInit {
                   columns: colArray,
                   data: this.sortedData,
                   selection: false,
+                  showPagination:true,
                   totalRecords: this.sortedData.length,
                   clientPagination: true,
               };
@@ -162,7 +198,7 @@ export class SgsSchemesComponent  implements OnInit {
           const ref = this.dialog.openOverlayPanel('Payment Details', 
           SgsSchemeDetailsComponent, {
           type:'schemes',
-          data: event.data,
+          data: {...event.data,...{userId:this.schemesConfig.userId,currentUser:this.currentUser}},
           },SgsDialogType.large);
           ref.afterClosed().subscribe((res) => {
           //if(res?.id===event.data.id)
@@ -188,7 +224,7 @@ export class SgsSchemesComponent  implements OnInit {
   const ref = this.dialog.openOverlayPanel('Add '+this.selectedSchemeType.scheme_type_name, 
       SgsAddFormsComponent, {
       type:'schemes',
-      data:{scheme_type_id:1},
+      data:{scheme_type_id:this.selectedSchemeType?.id|| 0,currentUserType:this.currentUser.userType,userId:this.schemesConfig?.userId},
       },SgsDialogType.medium);
       ref.afterClosed().subscribe((res) => {
       if(res?.id>0)

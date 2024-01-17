@@ -34,12 +34,10 @@ export class ForgotPasswordComponent implements OnInit {
 
     onRequestPasswordClick() {
         const payload = {
-            email: this.forgotPasswordForm.controls['userName'].value.toUpperCase(),
-            action: 'VERIFY',
+            email: this.forgotPasswordForm.controls['userName'].value
         };
-
         this.sandox.forgotPasswordReq(payload).subscribe((response: any) => {
-            if (response.statusCode === 200) {
+            if (response) {
                 this.email = payload.email;
                 this.isRequestPassword = true;
             }

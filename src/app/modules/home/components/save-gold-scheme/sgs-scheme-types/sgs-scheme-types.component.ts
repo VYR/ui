@@ -75,6 +75,7 @@ export class SgsSchemeTypesComponent implements OnInit {
         columns: this.columns,
         data: this.sortedData,
         selection: false,
+        showPagination:true,
         totalRecords: this.sortedData.length,
         clientPagination: true,
     };

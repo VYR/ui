@@ -22,50 +22,85 @@
     </form>
 </ng-container>
 
-<ng-container *ngIf="data.type==='schemes'">
-    <form  [formGroup]="addSchemesForm" >
-        <div  fxLayout="column" fxLayoutGap="0.3rem">   
-            <ng-container > 
-                <div class="disableMe" fxFlex="100">              
-                    <mat-form-field  fxFlex="100">
-                        <mat-label>Scheme Type</mat-label>
-                        <mat-select formControlName="scheme_type_id">
-                            <mat-option *ngFor="let schemeType of schemeTypes" [value]="schemeType.id" >{{
-                                schemeType.scheme_type_name
-                            }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <mat-form-field *ngIf="addSchemesForm.controls['scheme_type_id'].value === 2">
-                    <mat-label>Total Amount</mat-label>
-                    <input type="number" matInput formControlName="total_amount" placeholder="Total Amount" />
-                </mat-form-field>
-                <mat-form-field *ngIf="addSchemesForm.controls['scheme_type_id'].value === 1">
-                    <mat-label>Coins</mat-label>
-                    <input type="number" matInput formControlName="coins" placeholder="Coins" />
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>No Of Months</mat-label>
-                    <input type="number" matInput formControlName="no_of_months" placeholder="No Of Months" />
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Amount Per Month</mat-label>
-                    <input type="number" matInput formControlName="amount_per_month" placeholder="Amount Per Month" />
-                </mat-form-field>
+<ng-container *ngIf="data.type==='schemes'">    
+    <ng-container *ngIf="this.data?.data?.currentUserType===2">
+        <form  [formGroup]="addUserToSchemeForm" >
+            <div  fxLayout="column" fxLayoutGap="0.3rem">         
+                <mat-form-field  fxFlex="100">
+                    <mat-label>Scheme Type</mat-label>
+                    <mat-select formControlName="scheme_type_id">
+                        <mat-option *ngFor="let schemeType of schemeTypes" [value]="schemeType.id" 
+                        (onSelectionChange)="getSchemesByType($event,schemeType.id)">{{
+                            schemeType.scheme_type_name
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>          
+                <mat-form-field  fxFlex="100">
+                    <mat-label>Select Scheme</mat-label>
+                    <mat-select formControlName="scheme_id">
+                        <mat-option *ngFor="let scheme of schemes" [value]="scheme.id">
+                        {{scheme.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field> 
                 <div fxLayout="row">
                     <button
                         class="mat-raised-button mat-primary"
                         type="submit"
-                        [disabled]="addSchemesForm.invalid"
+                        [disabled]="addUserToSchemeForm.invalid" 
                         mat-button
-                        (click)="submitSchemesForm()"
+                        (click)="submitUserSchemeForm()"
                     >
-                    Submit
+                        Submit
                     </button>
-                </div>
-            </ng-container>     
-        </div>
-    </form>
+                </div>            
+            </div>
+        </form> 
+    </ng-container>    
+    <ng-container *ngIf="this.data?.data?.currentUserType===1">
+        <form  [formGroup]="addSchemesForm" >
+            <div  fxLayout="column" fxLayoutGap="0.3rem">   
+                <ng-container > 
+                    <div class="disableMe" fxFlex="100">              
+                        <mat-form-field  fxFlex="100">
+                            <mat-label>Scheme Type</mat-label>
+                            <mat-select formControlName="scheme_type_id">
+                                <mat-option *ngFor="let schemeType of schemeTypes" [value]="schemeType.id" >{{
+                                    schemeType.scheme_type_name
+                                }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field *ngIf="addSchemesForm.controls['scheme_type_id'].value === 2">
+                        <mat-label>Total Amount</mat-label>
+                        <input type="number" matInput formControlName="total_amount" placeholder="Total Amount" />
+                    </mat-form-field>
+                    <mat-form-field *ngIf="addSchemesForm.controls['scheme_type_id'].value === 1">
+                        <mat-label>Coins</mat-label>
+                        <input type="number" matInput formControlName="coins" placeholder="Coins" />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>No Of Months</mat-label>
+                        <input type="number" matInput formControlName="no_of_months" placeholder="No Of Months" />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Amount Per Month</mat-label>
+                        <input type="number" matInput formControlName="amount_per_month" placeholder="Amount Per Month" />
+                    </mat-form-field>
+                    <div fxLayout="row">
+                        <button
+                            class="mat-raised-button mat-primary"
+                            type="submit"
+                            [disabled]="addSchemesForm.invalid"
+                            mat-button
+                            (click)="submitSchemesForm()"
+                        >
+                        Submit
+                        </button>
+                    </div>
+                </ng-container>     
+            </div>
+        </form>
+    </ng-container>
 </ng-container>
 <ng-container *ngIf="data.type==='users'">
     <form  [formGroup]="addUserForm" >
@@ -202,5 +237,22 @@
             </div>            
         </div>
     </form>  
+</ng-container>
+<ng-container *ngIf="data.type==='payment'">
+    <form  [formGroup]="addPaymentForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">       
+            <img src="assets/images/qr-code.png" class="qr-code"/>
+            <button
+                class="mat-raised-button mat-primary"
+                type="submit"
+                [disabled]="addPaymentForm.invalid" 
+                mat-button
+                (click)="submitPaymentForm()"
+            >
+                Make Payment
+            </button>
+   
+        </div>
+    </form>
 </ng-container>
 

@@ -1,11 +1,12 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { SGSTableConfig, SGSTableQuery, ColumnType } from 'src/app/sgs-components/sgs-table/models/config.model';
+import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { HomeSandbox } from '../../../home.sandbox';
 import { SCHEME_PAY_TABLE_COLUMNS } from '../constants/meta-data';
 import { DECISION, USER_TYPE } from 'src/app/shared/enums';
-import { SgsUpdateUserComponent } from '../sgs-update-user/sgs-update-user.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
+import { UserContext } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-sgs-scheme-details',
@@ -15,83 +16,119 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class SgsSchemeDetailsComponent implements OnInit {
   @Input() type=1;
   config!: SGSTableConfig;
-  query!: SGSTableQuery;
+  query: SGSTableQuery=new SGSTableQuery();
   DECISION=DECISION;
-  sortedData:Array<any>=[];
-  constructor(public dialogRef: MatDialogRef<SgsUpdateUserComponent>, 
+  sortedData:Array<any>=[];  
+  currentUser!:UserContext;
+  constructor(public dialogRef: MatDialogRef<SgsSchemeDetailsComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any,
     private sandBox: HomeSandbox,
     private dialog: SgsDialogService,
     ) 
-  {console.log(this.data.data);}
+  {
+    console.log(this.data.data);
+  }
   
-  ngOnInit(): void {
-    this.lazyLoad(this.query);
+  ngOnInit(): void {    
+    this.currentUser=this.data?.data?.currentUser;
+    this.query.sortKey='created_at';
+    this.query.sortDirection=SortDirection.desc;
   }
 
-  lazyLoad(query: SGSTableQuery) {
-
-    this.getRequests();
+  lazyLoad(event: SGSTableQuery) {
+    if(this.query){
+      this.query.pageIndex=event?.pageIndex || 0;
+      if(event.sortKey)
+          this.query.sortKey=event.sortKey;
+      if(event.sortDirection)
+      this.query.sortDirection=event.sortDirection;
+    } 
+    this.getPayments();
   }
     
-  getRequests() {     
-    let res:any={data:[]};
-    for(let i=1;i<=this.data?.data?.no_of_months;i++){
-      let data:any={
-            created_at:this.data?.data?.created_at,
-            amount_paid: this.data?.data?.amount_per_month,   
-            month_paid:i,
-            dueDate: new Date().setMonth(new Date().getMonth()+i),
-            pay:'Pay',
-            remind:'Send Reminder',
-            pdf:'Pdf',
-            status:'Due'
-        };
-        if(i==1){
-          data['paidDate']=new Date().setMonth(new Date().getMonth()-1);
-          data['status']='Paid';
+  getPayments() {   
+    this.sandBox.getPayments({scheme_member_id:this.data?.data?.scheme_member_id,scheme_id:this.data?.data?.id}).subscribe((res1: any) => {
+      
+        
+        let res:any={data:[]};
+        for(let i=1;i<=this.data?.data?.no_of_months;i++){
+          let data:any={
+                created_at:this.data?.data?.start_at,
+                amount_paid: this.data?.data?.amount_per_month, 
+                scheme_id: this.data?.data?.id, 
+                scheme_member_id: this.data?.data?.scheme_member_id,  
+                userId: this.data?.data?.userId,   
+                month_paid:i,
+                dueDate: new Date().setMonth(new Date().getMonth()+i),
+                pay:'Pay',
+                remind:'Send Reminder',
+                txnNo:'',
+                pdf:'Pdf',
+                status:'Due'
+            };           
+            res.data.push(data);
         }
-        res.data.push(data);
-    }
-    let payCol = {
-        key: 'pay',
-        displayName: 'Pay',
-        type: ColumnType.approve,
-        callBackFn: this.restrictPayment
-    };
-    let remindCol = {
-        key: 'remind',
-        displayName: 'Send Reminder',
-        type: ColumnType.button,
-        callBackFn: this.restrictPayment
-    };
-    let pdfCol=
-    {
-        key: 'pdf',
-        displayName: 'Receipt',
-        type: ColumnType.icon,
-        icon: 'la-file-pdf',
-        callBackFn: this.checkForPdfAction,
-        minWidth: 3,
-    };
-    let colArray:any=[...SCHEME_PAY_TABLE_COLUMNS];
-    if(this.sandBox.currentUser.userType===0)
-    colArray=[...SCHEME_PAY_TABLE_COLUMNS, payCol,pdfCol];
-    if(this.sandBox.currentUser.userType===2)
-    colArray=[...SCHEME_PAY_TABLE_COLUMNS, remindCol];
-    res.data = res.data.sort((a: any, b: any) => {
-        const isAsc =true;
-        return this.sandBox.compare(a['month_paid'], b['month_paid'], isAsc);
+        if(res1?.data){ 
+          const paidData:Array<any>= res1?.data || [];
+          if(paidData.length>0){
+            res.data=res.data.map((data:any) => {
+              const currentPaid:Array<any>=paidData.filter((x:any) => x.month_paid==data.month_paid);
+              if(currentPaid.length>0){
+                data['amount_paid']=currentPaid[0].amount_paid;
+                data['txnNo']=currentPaid[0].txnNo;
+                data['paidDate']=currentPaid[0].created_at;
+                data['status']='Paid';
+              }
+              return data;
+            });
+          }
+          
+        }
+        let payCol = {
+            key: 'pay',
+            displayName: 'Pay',
+            type: ColumnType.approve,
+            callBackFn: this.restrictPayment
+        };
+        let remindCol = {
+            key: 'remind',
+            displayName: 'Send Reminder',
+            type: ColumnType.button,
+            callBackFn: this.restrictPayment
+        };
+        let pdfCol=
+        {
+            key: 'pdf',
+            displayName: 'Receipt',
+            type: ColumnType.icon,
+            icon: 'la-file-pdf',
+            callBackFn: this.checkForPdfAction,
+            minWidth: 3,
+        };
+        let colArray:any=[...SCHEME_PAY_TABLE_COLUMNS];
+        console.log(this.currentUser);
+        console.log(this.currentUser.userType===0);
+        if([0,1].includes(this.currentUser.userType))
+        colArray=[...SCHEME_PAY_TABLE_COLUMNS, payCol,pdfCol];
+        if(this.currentUser.userType===2)
+        colArray=[...SCHEME_PAY_TABLE_COLUMNS, remindCol];
+        res.data = res.data.sort((a: any, b: any) => {
+            const isAsc =true;
+            return this.sandBox.compare(a['month_paid'], b['month_paid'], isAsc);
+        });
+        this.sortedData=res.data;
+        const config = {
+            columns: colArray,
+            data: this.sortedData,
+            selection: false,
+            showPagination:false,
+            totalRecords: this.sortedData.length || 0,
+            pageSizeOptions: [5, 10, 25],
+        };
+        this.config = config;
+     
+    
     });
-    this.sortedData=res.data;
-    const config = {
-        columns: colArray,
-        data: this.sortedData,
-        selection: false,
-        totalRecords: this.sortedData.length || 0,
-        pageSizeOptions: [5, 10, 25],
-    };
-    this.config = config;
   }
 
   restrictPayment(data: any) {
@@ -105,12 +142,14 @@ export class SgsSchemeDetailsComponent implements OnInit {
   onClickCell(event: any) {
       console.log(event);
       if(event.key==='pay'){
-        const ref = this.dialog.openOverlayPanel('Pay', SgsUpdateUserComponent, {
-            mode: event.key === 'edit'?DECISION.ADD:DECISION.VIEW,
-            type:5,//Payment
+        const ref = this.dialog.openOverlayPanel('Pay', SgsAddFormsComponent, {
+            type:'payment',
             data: event.data,
         },SgsDialogType.small);
-        ref.afterClosed().subscribe((res) => {});
+        ref.afterClosed().subscribe((res) => {
+          if(res?.id>0)
+          this.getPayments();
+          }); 
       }
   }
   

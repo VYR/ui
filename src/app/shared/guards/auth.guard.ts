@@ -8,6 +8,7 @@ export class AuthGuard implements CanLoad {
     constructor(private router: Router, private appContext: ApplicationContextService) {}
 
     public canLoad(): boolean {
+        console.log(this.appContext.isAuthenticated());
         if (!this.appContext.isAuthenticated()) {
             this.router.navigate(['login']);
             return false;

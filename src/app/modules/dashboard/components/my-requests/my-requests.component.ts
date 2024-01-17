@@ -78,6 +78,7 @@ export class MyRequestsComponent implements OnChanges {
                 columns: SCHEME_TABLE_COLUMNS,
                 data: res.data,
                 selection: false,
+                showPagination:true,
                 totalRecords: res.totalRecords || 0,
                 pageSizeOptions: [5, 10, 25],
             };

@@ -91,14 +91,19 @@ export class AuthenticationSandbox implements OnDestroy {
     }
 
     public forgotPasswordReq(payLoad: any): any {
-        return this.authenticationService.forgotPasswordReq(payLoad).pipe(takeUntil(this.unsubscribe$));
+        return this.authenticationService.forgotPasswordReq(payLoad).pipe(takeUntil(this.unsubscribe$),
+            tap((res: any) => {                
+                if (res) {
+                    this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
     }
 
     public forgotPasswordConfirm(passwordInfo: any, otp: string, userInfo: any): any {
         const payload = {
-            email: userInfo.userName.toUpperCase(),
-            action: 'CONFIRM',
-            newPassword: this.encryptDecrypt.encrypt(passwordInfo.confirmPasswrd),
+            email: userInfo.userName,
+            newPassword: passwordInfo.confirmPasswrd,
             validateOTPRequest: {
                 softTokenUser: '',
                 otp: otp,

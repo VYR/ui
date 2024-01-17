@@ -25,7 +25,7 @@ export class EncryptDecryptService {
     }
 
     public generateKey(salt: string) {
-        return CryptoJS.PBKDF2('Q!bP@ssw0rdC!B', CryptoJS.enc.Hex.parse(salt), {
+        return CryptoJS.PBKDF2('SGs@1243$#', CryptoJS.enc.Hex.parse(salt), {
             keySize: 4,
             iterations: 1000,
         });

@@ -66,6 +66,7 @@ export class ApproverRequestsComponent implements OnChanges {
                     columns: SCHEME_TABLE_COLUMNS,
                     data: res.data,
                     selection: true,
+                    showPagination:true,
                     totalRecords: res.totalRecords || 0,
                     pageSizeOptions: options,
                 };

@@ -14,25 +14,11 @@
             <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
                 <i class="las la-file-excel"></i>
             </button>
-            <button mat-icon-button *ngIf="schemesConfig.type=='addSchemes' && currentUserType==1" (click)="addScheme()">
+            <button mat-icon-button *ngIf="(schemesConfig.type=='addSchemes' && currentUserType==1 && this.selectedSchemeType?.id) || currentUserType==2" (click)="addScheme()">
                 <i class="las la-plus"></i>
             </button>
         </ng-container>
         <ng-container body>
-            <!-- <div fxLayout="column" fxFlex="100">
-                <mat-tab-group class="form-tabs">
-                    <mat-tab label="Individual">
-                        <ng-template matTabContent>
-                            <app-sgs-scheme-individual [schemesConfig]="schemesConfig"></app-sgs-scheme-individual>
-                        </ng-template>
-                    </mat-tab>
-                    <mat-tab label="Group">
-                        <ng-template matTabContent>
-                            <app-sgs-scheme-group [schemesConfig]="schemesConfig"></app-sgs-scheme-group>
-                        </ng-template>
-                    </mat-tab>
-                </mat-tab-group>
-            </div> -->
             <app-sgs-table
             [config]="tableConfig"
             (_lazyLoad)="lazyLoad($event)"

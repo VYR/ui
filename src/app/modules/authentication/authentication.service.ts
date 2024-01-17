@@ -16,7 +16,7 @@ export class AuthenticationService {
     }
 
     forgotPasswordReq(request: any) {
-        return this.http.post('Operations.FORGOT_PASSWORD_REQ', request);
+        return this.http.post(Operations.FORGOT_PASSWORD_REQ, request);
     }
 
     resetPassword(req: any) {

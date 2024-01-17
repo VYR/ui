@@ -3,6 +3,7 @@ export class SGSTableConfig {
     data: Array<any> = [];
     pageSize?: number;
     totalRecords!: number;
+    showPagination: boolean = true;
     selection!: boolean;
     clientPagination?: boolean;
     pageSizeOptions?: Array<number> = [];

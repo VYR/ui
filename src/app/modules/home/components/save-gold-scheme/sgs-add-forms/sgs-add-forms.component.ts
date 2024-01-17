@@ -27,6 +27,8 @@ export class SgsAddFormsComponent implements OnInit {
   public addUserForm!: UntypedFormGroup;
   public addSchemeTypesForm!: UntypedFormGroup;
   public addSchemesForm!: UntypedFormGroup;
+  public addUserToSchemeForm!: UntypedFormGroup;
+  public addPaymentForm!: UntypedFormGroup;
   statuses:any=STATUSES;
   schemeTypes:Array<any>=[];
   schemes:Array<any>=[];
@@ -74,6 +76,18 @@ export class SgsAddFormsComponent implements OnInit {
         introducedBy: new UntypedFormControl(this.data?.data?.introducedBy),
         aadhar: new UntypedFormControl(null),
         pan: new UntypedFormControl(null),
+    });
+    this.addUserToSchemeForm = this.fb.group({
+        scheme_type_id: new UntypedFormControl({value:this.data?.data?.scheme_type_id || null,disabled:true}),
+        scheme_id: new UntypedFormControl(null,Validators.required),
+        userId: new UntypedFormControl(this.data?.data?.userId)
+    });
+    
+    this.addPaymentForm = this.fb.group({
+        scheme_member_id: new UntypedFormControl(this.data?.data?.scheme_member_id || 0),
+        scheme_id: new UntypedFormControl(this.data?.data?.scheme_id || 0),
+        amount_paid: new UntypedFormControl(this.data?.data?.amount_paid || 0),
+        month_paid: new UntypedFormControl(this.data?.data?.month_paid || 0),
     });
     if(this.data?.data?.scheme_type_id===1){
         this.addSchemesForm.controls['coins']?.setValidators(Validators.required);
@@ -133,7 +147,14 @@ export class SgsAddFormsComponent implements OnInit {
         }
     });
   }
-
+  submitUserSchemeForm(){
+    const formData=this.addUserToSchemeForm.value;
+    this.sandBox.addUpdateSchemeMembers(formData).subscribe((res:any) => {
+        if(res?.data){          
+          this.dialogRef.close(res.data);
+        }
+    });
+  }
   submitUsersForm(){
     const formData=this.addUserForm.value;
     console.log(formData);
@@ -143,13 +164,24 @@ export class SgsAddFormsComponent implements OnInit {
         requestObject[key] = formData[key];
     });
     console.log(requestObject);
-    this.sandBox.addUpdateUsers(formData).subscribe((res:any) => {
+    if(requestObject.hasOwnProperty('pan')){
+      requestObject.pan=requestObject.pan.toUpperCase();
+    }
+    this.sandBox.addUpdateUsers(requestObject).subscribe((res:any) => {
         if(res?.data){          
           this.dialogRef.close(res.data);
         }
     });
   }
-
+  submitPaymentForm(){
+    const formData:any=this.addPaymentForm.value;
+    formData.amount_paid=parseFloat(formData.amount_paid);
+    this.sandBox.addUpdatePayment(formData).subscribe((res:any) => {
+        if(res?.data){          
+          this.dialogRef.close(res.data);
+        }
+    });
+  }
   compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
@@ -162,17 +194,19 @@ export class SgsAddFormsComponent implements OnInit {
             return this.compare(a['scheme_type_name'], b['scheme_type_name'], isAsc);
         });
         const index=this.schemeTypes.findIndex((value:any) => value.id===this.data?.data?.scheme_type_id);
-        if(index!=-1)
-        this.addSchemesForm.controls['scheme_type_id'].setValue(this.schemeTypes[index].id)
+        if(index!=-1){
+          this.addSchemesForm.controls['scheme_type_id'].setValue(this.schemeTypes[index].id);
+          this.getSchemesByType({isUserInput:true},this.schemeTypes[index].id);
+        }
       }
     });
   }
   getSchemesByType(event:any,type:any){
     this.schemes=[];
     if (event.isUserInput)
-    this.sandBox.getSgsSchemes(type).subscribe((res:any) => {       
-        if(res?.data){
-            this.schemes=res?.data || [];
+    this.sandBox.getSgsSchemes({schemeType:type}).subscribe((res:any) => {       
+        if(res?.data?.data){
+            this.schemes=res?.data?.data || [];
             const sortkey=type===1?'coins':'total_amount';
             this.schemes = this.schemes.sort((a: any, b: any) => {
               const isAsc = true;

@@ -30,6 +30,7 @@ export class RoleGuard implements CanLoad, CanActivate {
         let hasAccess: boolean = false;
         if (this.appContext.isAuthenticated()) {
             const features = this.modules[this.currentUser.userType].filter((x: any) => x.path === route.path);
+            console.log(features);
             if (!features.length) {
                 hasAccess = false;
             } 

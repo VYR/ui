@@ -106,7 +106,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Mobile Number</mat-label>
-                <input matInput formControlName="mobilePhone" placeholder="Mobile Number" />
+                <input matInput maxlength="10" appOnlyNumbers formControlName="mobilePhone" placeholder="Mobile Number" />
             </mat-form-field>
             <div fxLayout="row">
                 <button
@@ -128,11 +128,11 @@
         <div  fxLayout="column" fxLayoutGap="0.3rem">
             <mat-form-field>
                 <mat-label>Individual Commission</mat-label>
-                <input matInput formControlName="individual_commission" placeholder="Individual Commission %" />
+                <input matInput appOnlyNumbers formControlName="individual_commission" placeholder="Individual Commission %" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Group Commission</mat-label>
-                <input matInput formControlName="group_commission" placeholder="Group Commission %" />
+                <input matInput appOnlyNumbers formControlName="group_commission" placeholder="Group Commission %" />
             </mat-form-field>            
             <div fxLayout="row">
                 <button

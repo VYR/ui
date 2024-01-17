@@ -56,52 +56,43 @@ export const USER_TABLE_COLUMNS =  [
 export const SCHEME_PAY_TABLE_COLUMNS =  [
     {
         key: 'created_at',
-        displayName: 'Joining Date',
+        displayName: 'Start Date',
         type: ColumnType.date,
-        sortable: true,
     },
     {
         key: 'paidDate',
         displayName: 'Paid Date',
         type: ColumnType.date,
-        sortable: true,
     },
     {
         key: 'dueDate',
         displayName: 'Due Date',
         type: ColumnType.date,
-        sortable: true,
     },
     {
         key: 'amount_paid',
         displayName: 'Amount',
         type: ColumnType.amount,
-        sortable: true,
     },
     {
         key: 'month_paid',
         displayName: 'Month',
-        sortable: true,
+    },
+    {
+        key: 'txnNo',
+        displayName: 'Payment ID',
     },
     {
         key: 'lateFee',
         displayName: 'Late Fee',
-        sortable: true,
     },
     {
         key: 'status',
         displayName: 'Status',
         type: ColumnType.status,
-        sortable: true,
     }
 ];
 export const SCHEME_TABLE_COLUMNS =  [
-    {
-        key: 'created_at',
-        displayName: 'Created Date',
-        type: ColumnType.date,
-        sortable: true,
-    },
     {
         key: 'no_of_months',
         displayName: 'No of Months',
@@ -111,12 +102,6 @@ export const SCHEME_TABLE_COLUMNS =  [
         key: 'amount_per_month',
         displayName: 'Amount Per Month',
         type: ColumnType.amount,
-        sortable: true,
-    },
-    {
-        key: 'updated_at',
-        displayName: 'Updated Date',
-        type: ColumnType.date,
         sortable: true,
     },
     {

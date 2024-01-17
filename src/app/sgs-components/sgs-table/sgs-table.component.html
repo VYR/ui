@@ -136,16 +136,17 @@
             <tr mat-row *matRowDef="let row; columns: columns"></tr>
         </table>
     </div>
-
-    <mat-paginator
-        #paginator
-        [pageIndex]="currentPage"
-        [pageSize]="pageSize"
-        [pageSizeOptions]="pageSizeOptions"
-        (page)="handlePageEvent($event)"
-        aria-label="Select page"
-    >
-    </mat-paginator>
+    <ng-container *ngIf="showPagination">
+        <mat-paginator 
+            #paginator
+            [pageIndex]="currentPage"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="handlePageEvent($event)"
+            aria-label="Select page"
+        >
+        </mat-paginator>
+    </ng-container>
 </ng-container>
 <ng-template #nodata>
     <div class="no-records">No records found.</div>

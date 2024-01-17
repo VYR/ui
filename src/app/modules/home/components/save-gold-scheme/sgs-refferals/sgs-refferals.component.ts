@@ -66,6 +66,7 @@ export class SgsRefferalsComponent implements OnInit {
             columns: colArray,
             data: res.data,
             selection: false,
+            showPagination:true,
             totalRecords: res.totalRecords || 0,
             pageSizeOptions: [5, 10, 25],
         };

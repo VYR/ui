@@ -23,7 +23,7 @@ export class HeaderComponent {
         private config: ConfigService
     ) {
         this.appContext.currentUser.subscribe((res: any) => (this.user = res));
-        if(this.user?.userType){
+        if(this.user?.userType>-1){
             this.iconMenus = this.config.get('modules')[this.user.userType].filter((x: any) => x.location === 'header');
             router.events.subscribe((event: any) => {
                 this.activeRouter = event.url;

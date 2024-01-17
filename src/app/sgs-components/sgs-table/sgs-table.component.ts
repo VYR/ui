@@ -34,7 +34,7 @@ export class SgsTableComponent implements OnChanges, AfterViewInit {
     pageSize = 5;
     currentPage = 0;
     pageSizeOptions: number[] = [5, 10, 25];
-
+    showPagination:boolean=true;
     columnDefs: Array<SGSTableColumn> = [];
     columns: Array<String> = [];
     dataSource = new MatTableDataSource<any>([]);
@@ -58,6 +58,7 @@ export class SgsTableComponent implements OnChanges, AfterViewInit {
         this.columns = this.config.columns.map((x) => x.key);
         if (this.config.selection) this.columns.push('select');
         if (this.config.pageSizeOptions) this.pageSizeOptions = this.config.pageSizeOptions;
+        this.showPagination=this.config.showPagination;
         this.dataSource.data = this.config.data;
         setTimeout(() => {
             if (this.paginator) this.paginator!.length = this.config.totalRecords;

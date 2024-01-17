@@ -9,8 +9,8 @@ import { Operations } from 'src/app/shared/enums/operations';
 export class HomeService {
     constructor(private http: ServerInteractionService) {}
 
-    userSelection(rimNumber: string) {
-        return this.http.post('Operations.USER_SELECTION', { rimNumber });
+    userSelection(number: string) {
+        return this.http.post('Operations.USER_SELECTION', { number });
     }
 
     refreshToken() {
@@ -38,6 +38,21 @@ export class HomeService {
             return this.http.post(Operations.ADD_UPDATE_SCHEMES, params,{id:params?.id || 0});
         else 
             return this.http.post(Operations.ADD_UPDATE_SCHEMES, params);
+    }     
+    addUpdateSchemeMembers(params:any) {
+        if(params?.id)
+            return this.http.post(Operations.ADD_UPDATE_SCHEME_MEMBERS, params,{id:params?.id || 0});
+        else 
+            return this.http.post(Operations.ADD_UPDATE_SCHEME_MEMBERS, params);
+    } 
+    getSchemeMembers(params:any) {
+        return this.http.get(Operations.GET_SCHEME_MEMBERS,params);
+    }    
+    addUpdatePayment(params:any) {
+        if(params?.id)
+            return this.http.post(Operations.ADD_UPDATE_PAYMENT, params,{id:params?.id || 0});
+        else 
+            return this.http.post(Operations.ADD_UPDATE_PAYMENT, params);
     } 
 
     getSgsSchemes(params:any) {
@@ -52,6 +67,10 @@ export class HomeService {
 
     getSgsUsers(params:any) {
         return this.http.get(Operations.GET_USERS,params);
+    }
+    
+    getPayments(params:any) {
+        return this.http.get(Operations.GET_PAYMENTS,params);
     }
     getSettings() {
         return this.http.get(Operations.SETTINGS);

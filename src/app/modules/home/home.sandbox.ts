@@ -84,11 +84,12 @@ export class HomeSandbox {
         }
         if(type==='payments'){
             console.log(ele);
-            tempObject['Joining Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
+            tempObject['Start Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
             tempObject['Paid Date'] = ele?.paidDate?moment(ele.paidDate).format('DD-MM-YYYY  hh:mm A'):'';
             tempObject['Due Date'] = moment(ele.dueDate).format('DD-MM-YYYY  hh:mm A');
             tempObject['Amount'] = ele?.amount_paid || '';
             tempObject['Month'] = ele?.month_paid || '';
+            tempObject['Payment ID'] = ele?.txnNo || '';
             tempObject['Late Fee'] = ele?.lateFee || '';
             tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
         }
@@ -152,6 +153,26 @@ export class HomeSandbox {
                 }
             })
         );
+    }  
+    addUpdateSchemeMembers(params: any) {        
+        return this.service.addUpdateSchemeMembers(params).pipe(
+            tap((res: any) => {                
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    } 
+    addUpdatePayment(params: any) {        
+        return this.service.addUpdatePayment(params).pipe(
+            tap((res: any) => {                
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
     }
 
     getSgsSchemes(params:any) {
@@ -161,7 +182,7 @@ export class HomeSandbox {
                    res.data.data=(res.data.data || []).map((value:any) => {
                     value.name=(value.scheme_type_id===1?'Coins: '+value.coins:'Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
                     return value;
-                  })
+                  });
                 }
             })
         );
@@ -179,6 +200,13 @@ export class HomeSandbox {
 
     getSgsUsers(params:any) {
         return this.service.getSgsUsers(params);
+    }
+    
+    getSchemeMembers(params:any) {
+        return this.service.getSchemeMembers(params);
+    }
+    getPayments(params:any) {
+        return this.service.getPayments(params);
     }
     getAllUsers(params:any) {
         return this.service.getSgsUsers(params).pipe(

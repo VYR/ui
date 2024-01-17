@@ -62,6 +62,7 @@ export class DashboardRequestDetailsPopupComponent implements OnInit {
             columns: SCHEME_PAY_TABLE_COLUMNS,
             data: this.data.requestData.fileJSON,
             selection: false,
+            showPagination:true,
             totalRecords: this.data.requestData.fileJSON.length,
             clientPagination: true,
         };

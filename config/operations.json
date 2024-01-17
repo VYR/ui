@@ -11,6 +11,10 @@
         "baseUrl": "apiGateway",
         "path": "refresh"
     },
+    "forgotPasswordRequest": {
+        "baseUrl": "apiGateway",
+        "path": "forgot"
+    },
     "validateOtp": {
         "baseUrl": "apiGateway",
         "path": "login/verify"
@@ -43,6 +47,22 @@
         "baseUrl": "apiGateway",
         "path": "users"
     },    
+    "addUpdatePayment": {
+        "baseUrl": "apiGateway",
+        "path": "add-update-payment"
+    },
+    "getPayments": {
+        "baseUrl": "apiGateway",
+        "path": "payments"
+    },
+    "addUpdateSchemeMembers":{
+        "baseUrl": "apiGateway",
+        "path": "add-update-scheme-members"
+    },
+    "getSchemeMembers": {
+        "baseUrl": "apiGateway",
+        "path": "scheme-members"
+    },
     "settings": {
         "baseUrl": "apiGateway",
         "path": "common/settings"
