@@ -65,20 +65,26 @@ export class HomeSandbox {
 
     getExcelColumns(type:any,ele:any){
         let tempObject: any = {};
-        if(type==='scheme_types'){
+        if(type==='category'){
             tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
-            tempObject['Scheme Type'] = ele?.scheme_type_name || '';
+            tempObject['Category Name'] = ele?.category_name || '';
             tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
             tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
         }
-        if(type==='schemes'){
+        if(type==='subCategories'){
             tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
-            if(ele?.scheme_type_id===1)
-            tempObject['No Of Coins'] = ele?.coins || '';
-            if(ele?.scheme_type_id===2)
-            tempObject['Total Amount'] = ele?.total_amount || '';
-            tempObject['No Of Months'] = ele?.no_of_months || '';
-            tempObject['Amount Per Month'] = ele?.amount_per_month || '';
+            tempObject['Sub Category Name'] = ele?.sub_category_name || '';
+            tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
+            tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
+        }
+        if(type==='product'){            
+            tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
+            tempObject['Product Name'] = ele?.product_name || '';
+            tempObject['Actual Price'] = ele?.product_actual_price || '';
+            tempObject['Discount Percent(%)'] = ele?.product_discount_percent || '';
+            tempObject['Discount Price(Rs.)'] = ele?.product_discount_price || '';
+            tempObject['Selling Price'] = ele?.product_selling_price || '';
+            tempObject['Product Description'] = ele?.product_desc || '';
             tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
             tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
         }
@@ -126,7 +132,7 @@ export class HomeSandbox {
     addUpdateSchemeTypes(params: any) {        
         return this.service.addUpdateSchemeTypes(params);
     }
-    
+  
     getSgsSchemeTypes() {
         return this.service.getSgsSchemeTypes();
     }    
@@ -217,4 +223,115 @@ export class HomeSandbox {
             })
         );
     }
+
+    uploadFiles(params:any) {
+        return this.service.uploadFiles(params).pipe(
+            tap((res: any) => {                
+                if(res?.message)
+                {
+                  this.utilService.displayNotification(res.message,'success');
+                }
+            })
+        );
+    } 
+        
+    getFiles(params:any) {
+        return this.service.getFiles(params).pipe(
+            tap((res: any) => {                
+                if (res?.data?.data) {
+                   res.data.data=(res.data.data || []).map((value:any) => {
+                    value.url=res?.url+value?.path;
+                    value.active=false;
+                    value.isSelected=false;
+                    return value;
+                  });
+                }
+            })
+        );
+    }
+    
+    addUpdateCategories(params: any) {        
+        return this.service.addUpdateCategories(params).pipe(
+            tap((res: any) => {                
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    } 
+
+    getCategories(params: any) {        
+        return this.service.getCategories(params).pipe(
+            tap((res: any) => {                
+                if (res?.data?.data) {
+                   res.data.data=(res.data.data || []).map((value:any) => {
+                    value.url=res?.url+value?.path;
+                    return value;
+                  });
+                }
+            })
+        );
+    }     
+    addUpdateSubCategories(params: any) {        
+        return this.service.addUpdateSubCategories(params).pipe(
+            tap((res: any) => {                
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    } 
+
+    getSubCategories(params: any) {        
+        return this.service.getSubCategories(params).pipe(
+            tap((res: any) => {                
+                if (res?.data?.data) {
+                   res.data.data=(res.data.data || []).map((value:any) => {
+                    value.url=res?.url+value?.path;
+                    return value;
+                  });
+                }
+            })
+        );
+    }     
+    addUpdateProducts(params: any) {        
+        return this.service.addUpdateProducts(params).pipe(
+            tap((res: any) => {                
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    } 
+
+    getProducts(params: any) {        
+        return this.service.getProducts(params).pipe(
+            tap((res: any) => {                
+                if (res?.data?.data) {
+                   res.data.data=(res.data.data || []).map((value:any) => {
+                    value.url=res?.url+value?.path;
+                    return value;
+                  });
+                }
+            })
+        );
+    }     
+    addUpdateOrders(params: any) {        
+        return this.service.addUpdateOrders(params).pipe(
+            tap((res: any) => {                
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    } 
+
+    getOrders(params: any) {        
+        return this.service.getOrders(params);
+    } 
+
 }

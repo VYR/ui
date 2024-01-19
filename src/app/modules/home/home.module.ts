@@ -12,44 +12,43 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 import { TimeoutPopupComponent } from './components/timeout-popup/timeout-popup.component';
-import { SgsReportsComponent } from './components/save-gold-scheme/sgs-reports/sgs-reports.component';
-import { SgsUsersComponent } from './components/save-gold-scheme/sgs-users/sgs-users.component';
-import { SgsUpdateUserComponent } from './components/save-gold-scheme/sgs-update-user/sgs-update-user.component';
-import { SgsSchemesComponent } from './components/save-gold-scheme/sgs-schemes/sgs-schemes.component';
-import { SgsProfileComponent } from './components/save-gold-scheme/sgs-profile/sgs-profile.component';
-import { DeleteRequestConfirmComponent } from './components/save-gold-scheme/delete-request-confirm/delete-request-confirm.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
-import { SgsRefferalsComponent } from './components/save-gold-scheme/sgs-refferals/sgs-refferals.component';
-import { SgsSettingsComponent } from './components/save-gold-scheme/sgs-settings/sgs-settings.component';
-import { SgsSchemeDetailsComponent } from './components/save-gold-scheme/sgs-scheme-details/sgs-scheme-details.component';
-import { SgsSchemeTypesComponent } from './components/save-gold-scheme/sgs-scheme-types/sgs-scheme-types.component';
-import { SgsEditFormsComponent } from './components/save-gold-scheme/sgs-edit-forms/sgs-edit-forms.component';
-import { SgsAddFormsComponent } from './components/save-gold-scheme/sgs-add-forms/sgs-add-forms.component';
-import { SgsDetailsComponent } from './components/save-gold-scheme/sgs-details/sgs-details.component';
+import { OnlineFoodCategoriesComponent } from './components/online-food/online-food-categories/online-food-categories.component';
+import { OnlineFoodProductsComponent } from './components/online-food/online-food-products/online-food-products.component';
+import { OnlineFoodOrdersComponent } from './components/online-food/online-food-orders/online-food-orders.component';
+import { OnlineFoodUsersComponent } from './components/online-food/online-food-users/online-food-users.component';
+import { OnlineFoodImagesComponent } from './components/online-food/online-food-images/online-food-images.component';
+import { OnlineFoodProfileComponent } from './components/online-food/online-food-profile/online-food-profile.component';
+import { OnlineFoodSettingsComponent } from './components/online-food/online-food-settings/online-food-settings.component';
+import { OnlineFoodAddFormComponent } from './components/online-food/online-food-add-form/online-food-add-form.component';
+import { OnlineFoodEditFormComponent } from './components/online-food/online-food-edit-form/online-food-edit-form.component';
+import { OnlineFoodViewDetailsComponent } from './components/online-food/online-food-view-details/online-food-view-details.component';
+import { OnlineFoodSubCategoriesComponent } from './components/online-food/online-food-sub-categories/online-food-sub-categories.component';
+import { DeleteRequestConfirmComponent } from "./components/online-food/delete-request-confirm/delete-request-confirm.component";
+import { OnlineFoodImageSelectionComponent } from './components/online-food/online-food-image-selection/online-food-image-selection.component';
 @NgModule({
     declarations: [
         HomeComponent, 
         HeaderComponent, 
         SideMenuComponent, 
-        TimeoutPopupComponent, 
-        SgsReportsComponent, 
-        SgsUsersComponent,  
-        SgsUpdateUserComponent, 
-        SgsSchemesComponent, 
-        SgsProfileComponent, 
+        TimeoutPopupComponent,
         DeleteRequestConfirmComponent, 
-         SgsRefferalsComponent, 
-         SgsSettingsComponent, 
-         SgsSchemeDetailsComponent, 
-         SgsSchemeTypesComponent, 
-         SgsEditFormsComponent, 
-         SgsAddFormsComponent, 
-         SgsDetailsComponent
+        OnlineFoodCategoriesComponent,        
+        OnlineFoodProductsComponent, 
+        OnlineFoodOrdersComponent, 
+        OnlineFoodUsersComponent, 
+        OnlineFoodImagesComponent, 
+        OnlineFoodProfileComponent, 
+        OnlineFoodSettingsComponent, 
+        OnlineFoodAddFormComponent, 
+        OnlineFoodEditFormComponent, 
+        OnlineFoodViewDetailsComponent, 
+        OnlineFoodSubCategoriesComponent, OnlineFoodImageSelectionComponent
     ],
     imports: [
         CommonModule,

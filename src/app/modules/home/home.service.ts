@@ -28,7 +28,7 @@ export class HomeService {
         else 
             return this.http.post(Operations.ADD_UPDATE_SCHEME_TYPES, params);
     } 
-       
+   
     getSgsSchemeTypes() {
         return this.http.get(Operations.GET_SCHEME_TYPES);
     }  
@@ -78,4 +78,48 @@ export class HomeService {
     updateSettings(params:any) {
         return this.http.post(Operations.SETTINGS, params);
     } 
+
+    uploadFiles(params:any) {
+        return this.http.post(Operations.UPLOAD_FILES, params);
+    } 
+    
+    getFiles(params:any) {
+        return this.http.get(Operations.GET_FILES,params);
+    }
+    addUpdateCategories(params:any) {
+        if(params?.id)
+            return this.http.post(Operations.ADD_UPDATE_CATEGORIES, params,{id:params?.id || 0});
+        else 
+            return this.http.post(Operations.ADD_UPDATE_CATEGORIES, params);
+    }       
+    getCategories(params:any) {
+        return this.http.get(Operations.GET_CATEGORIES,params);
+    }
+    addUpdateSubCategories(params:any) {
+        if(params?.id)
+            return this.http.post(Operations.ADD_UPDATE_SUB_CATEGORIES, params,{id:params?.id || 0});
+        else 
+            return this.http.post(Operations.ADD_UPDATE_SUB_CATEGORIES, params);
+    }       
+    getSubCategories(params:any) {
+        return this.http.get(Operations.GET_SUB_CATEGORIES,params);
+    }
+    addUpdateProducts(params:any) {
+        if(params?.id)
+            return this.http.post(Operations.ADD_UPDATE_PRODUCTS, params,{id:params?.id || 0});
+        else 
+            return this.http.post(Operations.ADD_UPDATE_PRODUCTS, params);
+    }       
+    getProducts(params:any) {
+        return this.http.get(Operations.GET_PRODUCTS,params);
+    }
+    addUpdateOrders(params:any) {
+        if(params?.id)
+            return this.http.post(Operations.ADD_UPDATE_ORDERS, params,{id:params?.id || 0});
+        else 
+            return this.http.post(Operations.ADD_UPDATE_ORDERS, params);
+    }       
+    getOrders(params:any) {
+        return this.http.get(Operations.GET_ORDERS,params);
+    }
 }

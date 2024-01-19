@@ -1,0 +1,65 @@
+@import 'colors';
+.image{
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    cursor: pointer;
+}
+.wrap{
+    flex-wrap: wrap;
+}
+.mb-1{
+    margin-bottom: 1rem;
+}
+.border-inactive{
+    border: 0.2rem solid #dde7dc;
+}
+.border-active{
+    border: 0.2rem solid rgb(10, 155, 10);
+    cursor: default;
+}
+.file-details {
+    display: flex;
+    flex-direction: column;
+    background-color: $sweety-divider-color;
+    border: solid $sweety-divider-color 0.1rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    .la-check-circle {
+        font-size: 1rem;
+        color: $sweety-green;
+    }
+
+    .items {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.5rem;
+
+        .file-name {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 0.2rem;
+        }
+    }
+}
+
+.length-allowed {
+    text-align: right;
+    width: 100%;
+}
+
+.no-file {
+    line-height: 3rem;
+    text-align: center;
+}
+
+.delete-file{
+    position: absolute;
+    cursor: pointer;
+}
+.thumbnail{
+    position: relative;
+}

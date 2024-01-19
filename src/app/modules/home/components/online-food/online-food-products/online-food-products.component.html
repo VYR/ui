@@ -1,0 +1,40 @@
+<app-outlet-container>
+    <app-master-container>
+        <ng-container header>Products</ng-container>
+        <ng-container icons>
+            <div fxLayout="row" fxLayoutGap="2rem">
+                <mat-form-field>
+                    <mat-label>Select Category</mat-label>
+                    <mat-select [(ngModel)]="selectedCategory">
+                        <mat-option *ngFor="let category of categories" [value]="category" 
+                        (onSelectionChange)="getSubCategoriesByCategory($event,category)">{{
+                            category.category_name
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Select Sub Category</mat-label>
+                    <mat-select [(ngModel)]="selectedSubCategory">
+                        <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory" 
+                        (onSelectionChange)="getProductsBySubCategories($event,subCategory)">{{
+                            subCategory.sub_category_name
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
+                    <i class="las la-file-excel"></i>
+                </button>
+                <button mat-icon-button  *ngIf="selectedSubCategory?.id>0"  (click)="addProduct()">
+                    <i class="las la-plus"></i>
+                </button> 
+            </div>
+        </ng-container>
+        <ng-container body>
+            <app-sgs-table
+            [config]="tableConfig"
+            (_lazyLoad)="lazyLoad($event)"
+            (_clickCell)="onClickCell($event)"
+        ></app-sgs-table>
+        </ng-container>
+    </app-master-container>    
+</app-outlet-container>

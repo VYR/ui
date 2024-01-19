@@ -1,0 +1,86 @@
+
+<div fxLayout="column" fxFlex="100" *ngIf="data?.type==='viewUserDetails'">
+    <app-label-value 
+        *ngIf="data?.data?.userId" 
+        [label]="'User ID'" 
+        [value]="data?.data?.userId">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.introducedBy" 
+        [label]="'Introduced By'" 
+        [value]="data?.data?.introducedBy">
+    </app-label-value>
+    
+    <app-label-value 
+        *ngIf="data?.data?.firstName" 
+        [label]="'First Name:'" 
+        [value]="data?.data?.firstName">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.lastName" 
+        [label]="'Last Name:'" 
+        [value]="data?.data?.lastName">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.email" 
+        [label]="'Email ID:'" 
+        [value]="data?.data?.email">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.mobilePhone" 
+        [label]="'Mobile Number:'" 
+        [value]="'+91 - '+data?.data?.mobilePhone">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.aadhar" 
+        [label]="'Aadhar Number:'" 
+        [value]="data?.data?.aadhar">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.pan" 
+        [label]="'PAN Number:'" 
+        [value]="data?.data?.pan">
+    </app-label-value>
+</div>
+<div fxLayout="column" fxFlex="100" *ngIf="data?.type==='product'">    
+    <app-label-value 
+        *ngIf="data?.data?.product_name" 
+        [label]="'Product Name'" 
+        [value]="data?.data?.product_name">
+    </app-label-value>  
+    <ng-container  *ngIf="data?.data?.url">
+        <img  [src]="data?.data?.url" class="image-preview"/> 
+    </ng-container> 
+    <app-label-value 
+        *ngIf="data?.data?.product_actual_price" 
+        [label]="'Actual Price'" 
+        [value]="'Rs.'+(data?.data?.product_actual_price  | number: '1.2-4')">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.product_discount_percent" 
+        [label]="'Discount Percent(%)'" 
+        [value]="data?.data?.product_discount_percent+'%'">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.product_discount_price" 
+        [label]="'Discount Price(Rs.)'" 
+        [value]="'Rs.'+(data?.data?.product_discount_price  | number: '1.2-4')">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.product_selling_price" 
+        [label]="'Selling Price'" 
+        [value]="'Rs.'+(data?.data?.product_selling_price  | number: '1.2-4')">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.product_desc" 
+        [label]="'Product Description'" 
+        [value]="data?.data?.product_desc">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.status" 
+        [label]="'Status'" 
+        [appTextHighlight]="data?.data?.status"
+        [value]="data?.data?.status">
+    </app-label-value>
+</div>
+

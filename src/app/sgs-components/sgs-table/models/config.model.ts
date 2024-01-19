@@ -18,6 +18,8 @@ export class SGSTableColumn {
     UUID?: string = '';
     minWidth?: number;
     extraText?: string;
+    width?: string;
+    height?: string;
     callBackFn?: (param: any) => boolean | undefined;
 }
 
@@ -48,4 +50,5 @@ export enum ColumnType {
     toolTip = 'toolTip',
     html = 'html',
     number = 'number',
+    image = 'image',
 }

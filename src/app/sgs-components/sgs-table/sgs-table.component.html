@@ -87,6 +87,9 @@
                                 <div *ngSwitchCase="ColumnType.amount">{{ element[column.key] | number: '1.2-4' }}</div>
                                 <div *ngSwitchCase="ColumnType.number">{{ element[column.key] | number }}</div>
                                 <div *ngSwitchCase="ColumnType.date">{{ element[column.key] | date: 'medium' }}</div>
+                                <ng-container *ngSwitchCase="ColumnType.image">
+                                    <img [style.width]="column?.width || '4rem'" [style.height]="column?.height || '4rem'" [src]="element[column.key]" alt="Image" srcset="" />
+                                </ng-container>
                                 <div *ngSwitchCase="ColumnType.status">
                                     <span class="status" [appTextHighlight]="element[column.key]">{{ element[column.key] }}</span>
                                 </div>

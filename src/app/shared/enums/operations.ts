@@ -16,5 +16,15 @@ export enum Operations {
     GET_PAYMENTS='getPayments',
     ADD_UPDATE_SCHEME_MEMBERS='addUpdateSchemeMembers',
     GET_SCHEME_MEMBERS='getSchemeMembers',
-    SETTINGS='settings'
+    SETTINGS='settings',
+    UPLOAD_FILES='uploadFiles',
+    GET_FILES='getFiles',
+    ADD_UPDATE_CATEGORIES='addUpdateCategories',
+    GET_CATEGORIES='getCategories',
+    ADD_UPDATE_SUB_CATEGORIES='addUpdateSubCategories',
+    GET_SUB_CATEGORIES='getSubCategories',
+    ADD_UPDATE_PRODUCTS='addUpdateProducts',
+    GET_PRODUCTS='getProducts',
+    ADD_UPDATE_ORDERS='addUpdateOrders',
+    GET_ORDERS='getOrders'
 }

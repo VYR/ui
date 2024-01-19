@@ -5,7 +5,6 @@ import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
 import { DashboardSandbox } from '../../dashboard.sandbox';
 import { DashboardRequestDetailsPopupComponent } from '../dashboard-request-details-popup/dashboard-request-details-popup.component';
 import { DashboardRequestDetailsComponent } from '../dashboard-request-details/dashboard-request-details.component';
-import { SCHEME_TABLE_COLUMNS } from 'src/app/modules/home/components/save-gold-scheme/constants/meta-data';
 
 @Component({
     selector: 'app-approver-requests',
@@ -63,7 +62,7 @@ export class ApproverRequestsComponent implements OnChanges {
                 let options = [5, 10, 25];
                 if (res.totalRecords > 25) options.push(res.totalRecords);
                 const config = {
-                    columns: SCHEME_TABLE_COLUMNS,
+                    columns: [],
                     data: res.data,
                     selection: true,
                     showPagination:true,

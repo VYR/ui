@@ -1,0 +1,314 @@
+<ng-container *ngIf="data.type==='category'">
+    <form  [formGroup]="addCategoriesForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">       
+            <ng-container >
+                <mat-form-field>
+                    <mat-label>Category Name</mat-label>
+                    <input matInput formControlName="category_name" placeholder="Enter Category Name" />                   
+                </mat-form-field> 
+                <mat-label>Category Image</mat-label>
+                <img (click)="openImagesPanel()" [src]="categoryImage" class="image-preview"/> 
+                <input  formControlName="category_image_id" hidden />     
+               
+                <div fxLayout="row">
+                    <button
+                        class="mat-raised-button mat-primary"
+                        type="submit"
+                        [disabled]="addCategoriesForm.invalid" 
+                        mat-button
+                        (click)="submitCategoriesForm()"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </ng-container>     
+        </div>
+    </form>
+</ng-container>
+<ng-container *ngIf="data.type==='subCategory'">    
+    <form  [formGroup]="addSubCategoriesForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">   
+            <div class="disableMe" fxFlex="100">              
+                <mat-form-field  fxFlex="100">
+                    <mat-label>Select Category</mat-label>
+                    <mat-select formControlName="category_id">
+                        <mat-option *ngFor="let category of categories" [value]="category.id" >{{
+                            category.category_name
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <mat-form-field>
+                <mat-label>Sub Category Name</mat-label>
+                <input matInput formControlName="sub_category_name" placeholder="Enter Sub Category Name" />                   
+            </mat-form-field> 
+            <mat-label>Sub Category Image</mat-label>
+            <img (click)="openImagesPanel()" [src]="subCategoryImage" class="image-preview"/> 
+            <input  formControlName="sub_category_image_id" hidden /> 
+            <div fxLayout="row">
+                <button
+                    class="mat-raised-button mat-primary"
+                    type="submit"
+                    [disabled]="addSubCategoriesForm.invalid"
+                    mat-button
+                    (click)="submitSubCategoriesForm()"
+                >
+                Submit
+                </button>
+            </div> 
+        </div>
+    </form>
+</ng-container>
+<ng-container *ngIf="data.type==='product'">
+    <form  [formGroup]="addProductForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem"> 
+            <div class="disableMe" fxFlex="100">              
+                <mat-form-field  fxFlex="100">
+                    <mat-label>Select Category</mat-label>
+                    <mat-select formControlName="product_category_id">
+                        <mat-option *ngFor="let category of categories" [value]="category.id" >{{
+                            category.category_name
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="disableMe" fxFlex="100">              
+                <mat-form-field  fxFlex="100">
+                    <mat-label>Select Sub Category</mat-label>
+                    <mat-select formControlName="product_sub_category_id">
+                        <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory.id" >{{
+                            subCategory.sub_category_name
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <mat-form-field>
+                <mat-label>Product Name</mat-label>
+                <input matInput formControlName="product_name" placeholder="Enter Product Name" />
+            </mat-form-field> 
+            <mat-label>Product Image</mat-label>
+            <img (click)="openImagesPanel()" [src]="productImage" class="image-preview"/> 
+            <input  formControlName="product_image_id" hidden /> 
+            <mat-form-field>
+                <mat-label>Actual Price</mat-label>
+                <input matInput formControlName="product_actual_price" 
+                placeholder="Enter Actual Price" 
+                maxlength="10"
+                (keyup)="calculateSellingPrice()"
+                (keydown)="calculateSellingPrice()"
+                appOnlyNumbers
+                />
+            </mat-form-field>             
+            <mat-form-field  fxFlex="100">
+                <mat-label>Select Discount Type</mat-label>
+                <mat-select formControlName="discount_type">
+                    <mat-option (onSelectionChange)="updateCalculation($event,discountType)" *ngFor="let discountType of ['Percent','Price']" [value]="discountType" >{{
+                        discountType
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="addProductForm.controls['discount_type']?.value === 'Percent'">
+                <mat-label>Discount Percent</mat-label>
+                <input matInput formControlName="product_discount_percent" 
+                placeholder="Enter Discount Percent" 
+                (keyup)="calculateSellingPrice()"
+                (keydown)="calculateSellingPrice()"
+                maxlength="2"
+                appOnlyNumbers
+                />
+                <i matSuffix >%</i>
+            </mat-form-field>
+            <mat-form-field *ngIf="addProductForm.controls['discount_type']?.value === 'Price'">
+                <mat-label>Discount Price</mat-label>
+                <input matInput formControlName="product_discount_price" 
+                placeholder="Enter Discount Price" 
+                (keyup)="calculateSellingPrice()"
+                (keydown)="calculateSellingPrice()"
+                maxlength="4"
+                appOnlyNumbers
+                />
+            </mat-form-field>
+            <div class="disableMe" fxFlex="100">
+                <mat-form-field fxFlex="100">
+                    <mat-label>Selling Price</mat-label>
+                    <input matInput formControlName="product_selling_price" 
+                    placeholder="Enter Selling Price" 
+                    maxlength="10"
+                    appOnlyNumbers
+                    />
+                </mat-form-field> 
+            </div>
+            <mat-form-field>
+                <mat-label>Product Description</mat-label>
+                <textarea matInput
+                formControlName="product_desc" 
+                placeholder="Enter Product Description"></textarea>
+            </mat-form-field>
+            <div fxLayout="row">
+                <button
+                    class="mat-raised-button mat-primary"
+                    type="submit"
+                    [disabled]="addProductForm.invalid" 
+                    mat-button
+                    (click)="submitProductForm()"
+                >
+                    Submit
+                </button>
+            </div>            
+        </div>
+    </form>  
+</ng-container>
+<!-- <ng-container *ngIf="data.type==='users'">
+    <form  [formGroup]="addUserForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">
+            <div class="disableMe" fxFlex="100"> 
+                <mat-form-field>
+                    <mat-label>Introduced By</mat-label>
+                    <input matInput formControlName="introducedBy" placeholder="Introduced By" />
+                </mat-form-field> 
+            </div>           
+            <mat-form-field  fxFlex="100" *ngIf="data?.data?.currentUserType===2">
+                <mat-label>Scheme Type</mat-label>
+                <mat-select formControlName="scheme_type_id">
+                    <mat-option *ngFor="let schemeType of categories" [value]="schemeType.id" 
+                    (onSelectionChange)="getSubCategoriesByCategory($event,schemeType.id)">{{
+                        schemeType.scheme_type_name
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>          
+            <mat-form-field  fxFlex="100" *ngIf="data?.data?.currentUserType===2">
+                <mat-label>Select Scheme</mat-label>
+                <mat-select formControlName="scheme_id">
+                    <mat-option *ngFor="let scheme of subCategories" [value]="scheme.id">
+                    {{scheme.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="First Name" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" placeholder="Last Name" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email ID</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Email ID" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Password" />
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutGap="1rem">
+                <mat-form-field [fxFlex]="data?.data?.currentUserType===2?50:100">
+                    <mat-label>Mobile Number</mat-label>
+                    <input matInput formControlName="mobilePhone" 
+                    placeholder="Mobile Number" 
+                    maxlength="10"
+                    appOnlyNumbers
+                    />
+                </mat-form-field>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                >
+                    Verify
+                </button>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                    (click)="skipValidationForNow('mobilePhone')"
+                >
+                    Skip for Now
+                </button>                
+            </div> 
+            <mat-error fxFlex="100" *ngIf="addUserForm.controls['mobilePhone']?.errors?.['verifyMobile']">
+                Please verify Mobile Number</mat-error>
+            <div fxLayout="row" fxLayoutGap="1rem">
+                <mat-form-field [fxFlex]="data?.data?.currentUserType===2?50:100">
+                    <mat-label>Aadhar Number</mat-label>
+                    <input matInput formControlName="aadhar"                     
+                    maxlength="12"
+                    appOnlyNumbers
+                    placeholder="Aadhar Number" />
+                </mat-form-field>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                >
+                    Verify
+                </button>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                    (click)="skipValidationForNow('aadhar')"
+                >
+                    Skip for Now
+                </button>
+            </div> 
+            <div fxLayout="row" fxLayoutGap="1rem">
+                <mat-form-field [fxFlex]="data?.data?.currentUserType===2?50:100">
+                    <mat-label>PAN Number</mat-label>
+                    <input matInput formControlName="pan"  class="upperCase"                  
+                    maxlength="10"
+                    appAlphaNumeric
+                    placeholder="PAN Number" />
+                </mat-form-field>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                >
+                    Verify
+                </button>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                    (click)="skipValidationForNow('pan')"
+                >
+                    Skip for Now
+                </button>
+            </div> 
+            <div fxLayout="row">
+                <button
+                    class="mat-raised-button mat-primary"
+                    type="submit"
+                    [disabled]="addUserForm.invalid" 
+                    mat-button
+                    (click)="submitUsersForm()"
+                >
+                    Submit
+                </button>
+            </div>            
+        </div>
+    </form>  
+</ng-container> -->
+<ng-container *ngIf="data.type==='payment'">
+    <form  [formGroup]="addPaymentForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">       
+            <img src="assets/images/qr-code.png" class="qr-code"/>
+            <button
+                class="mat-raised-button mat-primary"
+                type="submit"
+                [disabled]="addPaymentForm.invalid" 
+                mat-button
+                (click)="submitPaymentForm()"
+            >
+                Make Payment
+            </button>
+   
+        </div>
+    </form>
+</ng-container>
+

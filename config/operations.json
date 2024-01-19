@@ -67,6 +67,47 @@
         "baseUrl": "apiGateway",
         "path": "common/settings"
     },
+    "addUpdateCategories":{
+        "baseUrl": "apiGateway",
+        "path": "add-update-categories"
+    },
+    "getCategories": {
+        "baseUrl": "apiGateway",
+        "path": "categories"
+    },
+    "addUpdateSubCategories":{
+        "baseUrl": "apiGateway",
+        "path": "add-update-sub-categories"
+    },
+    "getSubCategories": {
+        "baseUrl": "apiGateway",
+        "path": "sub-categories"
+    },
+    "addUpdateProducts":{
+        "baseUrl": "apiGateway",
+        "path": "add-update-products"
+    },
+    "getProducts": {
+        "baseUrl": "apiGateway",
+        "path": "products"
+    },
+    "addUpdateOrders":{
+        "baseUrl": "apiGateway",
+        "path": "add-update-orders"
+    },
+    "getOrders": {
+        "baseUrl": "apiGateway",
+        "path": "orders"
+    },
+    "uploadFiles": {
+        "baseUrl": "apiGateway",
+        "path": "upload-files",
+        "fileUpload": true
+    },
+    "getFiles": {
+        "baseUrl": "apiGateway",
+        "path": "get-files"
+    },
     
     "deleteRecord": {
         "baseUrl": "apiGateway",

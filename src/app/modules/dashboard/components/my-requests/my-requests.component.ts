@@ -7,7 +7,6 @@ import { DashboardSandbox } from '../../dashboard.sandbox';
 import { DashboardRequestDetailsPopupComponent } from '../dashboard-request-details-popup/dashboard-request-details-popup.component';
 import { DashboardRequestDetailsComponent } from '../dashboard-request-details/dashboard-request-details.component';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
-import { SCHEME_TABLE_COLUMNS, USER_TABLE_COLUMNS } from 'src/app/modules/home/components/save-gold-scheme/constants/meta-data';
 
 @Component({
     selector: 'app-my-requests',
@@ -75,7 +74,7 @@ export class MyRequestsComponent implements OnChanges {
                 }
             ],totalRecords:10};
             const config = {
-                columns: SCHEME_TABLE_COLUMNS,
+                columns: [],
                 data: res.data,
                 selection: false,
                 showPagination:true,

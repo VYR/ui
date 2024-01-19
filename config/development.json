@@ -85,12 +85,6 @@
                 "name": "DASHBOARD",
                 "icon": "las la-home",
                 "path": "dashboard"
-            },  
-            {
-                "uuid": "",
-                "name": "SCHEMES",
-                "icon": "las la-users",
-                "path": "schemes"
             },
             {
                 "uuid": "",
@@ -112,18 +106,36 @@
                 "name": "DASHBOARD",
                 "icon": "las la-home",
                 "path": "dashboard"
+            },  
+            {
+                "uuid": "",
+                "name": "Categories",
+                "icon": "las la-users",
+                "path": "categories"
+            }, 
+            {
+                "uuid": "",
+                "name": "Sub Categories",
+                "icon": "las la-users",
+                "path": "sub-categories"
+            },  
+            {
+                "uuid": "",
+                "name": "Images",
+                "icon": "las la-users",
+                "path": "images"
             },               
             {
                 "uuid": "",
-                "name": "SCHEME TYPES",
+                "name": "Products",
                 "icon": "las la-users",
-                "path": "scheme-types"
+                "path": "products"
             },
             {
                 "uuid": "",
-                "name": "SCHEMES",
+                "name": "Orders",
                 "icon": "las la-users",
-                "path": "schemes"
+                "path": "orders"
             },
             {
                 "uuid": "",
@@ -143,60 +155,6 @@
                 "icon": "las la-cog",
                 "path": "settings",
                 "location": "header"
-            }
-        ],        
-        "2": [
-            {
-                "uuid": "",
-                "name": "DASHBOARD",
-                "icon": "las la-home",
-                "path": "dashboard",
-                "location": "header"
-            },
-            {
-                "uuid": "",
-                "name": "DASHBOARD",
-                "icon": "las la-home",
-                "path": "dashboard"
-            },
-            {
-                "uuid": "",
-                "name": "MY SCHEME MEMBERS",
-                "icon": "las la-users",
-                "path": "scheme-members"
-            },
-            {
-                "uuid": "",
-                "name": "MY PROFILE",
-                "icon": "las la-university",
-                "path": "profile"
-            }
-        ],        
-        "3": [
-            {
-                "uuid": "",
-                "name": "DASHBOARD",
-                "icon": "las la-home",
-                "path": "dashboard",
-                "location": "header"
-            },
-            {
-                "uuid": "",
-                "name": "DASHBOARD",
-                "icon": "las la-home",
-                "path": "dashboard"
-            },
-            {
-                "uuid": "",
-                "name": "MY PROMOTERS",
-                "icon": "las la-users",
-                "path": "promoters"
-            },
-            {
-                "uuid": "",
-                "name": "MY PROFILE",
-                "icon": "las la-university",
-                "path": "profile"
             }
         ]
     }
