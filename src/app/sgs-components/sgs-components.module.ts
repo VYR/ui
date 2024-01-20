@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from './footer/footer.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
@@ -58,10 +57,10 @@ import { SgsToggleGroupComponent } from './sgs-toggle-group/sgs-toggle-group.com
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { SgsInputMatcherComponent } from './sgs-input-matcher/sgs-input-matcher.component';
 @NgModule({
     declarations: [
-        FooterComponent,
         SgsOtpComponent,
         HorizontalMenuComponent,
         MasterContainerComponent,
@@ -123,9 +122,9 @@ import { SgsInputMatcherComponent } from './sgs-input-matcher/sgs-input-matcher.
         MatButtonToggleModule,
         MatSlideToggleModule,
         MatTooltipModule,
+        MatSidenavModule
     ],
     exports: [
-        FooterComponent,
         SgsOtpComponent,
         HorizontalMenuComponent,
         MasterContainerComponent,

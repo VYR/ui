@@ -27,7 +27,7 @@ export class SGSTableQuery {
     sortKey!: string;
     sortDirection!: SortDirection;
     pageIndex: number = 0;
-    pageSize: number = 5;
+    pageSize: number = 50;
 }
 
 export enum SortDirection {

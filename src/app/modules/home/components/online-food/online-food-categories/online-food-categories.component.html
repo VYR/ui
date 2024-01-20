@@ -1,20 +1,35 @@
 <app-outlet-container>
-    <app-master-container>
-        <ng-container header>Categories</ng-container>
-        <ng-container icons>
-            <button mat-icon-button (click)="downloadExcel()">
-                <i class="las la-file-excel"></i>
-            </button>
-            <button mat-icon-button (click)="addSchemeType()">
+    <div fxLayout="column" fxFlex="100" >
+        <div fxLayout="row" fxLayoutAlign="space-between" class="heading-title">
+            <div class="title">
+                Add Categories
+            </div>
+            <button mat-icon-button (click)="addCategory()">
                 <i class="las la-plus"></i>
             </button>
-        </ng-container>
-        <ng-container body>
-            <app-sgs-table
-                [config]="tableConfig"
-                (_lazyLoad)="lazyLoad($event)"
-                (_clickCell)="onClickCell($event)"
-            ></app-sgs-table>
-        </ng-container>
-    </app-master-container>    
+        </div>
+    
+             <!-- <app-sgs-table
+                    [config]="tableConfig"
+                    (_lazyLoad)="lazyLoad($event)"
+                    (_clickCell)="onClickCell($event)"
+                ></app-sgs-table> -->
+ 
+        <app-master-container *ngFor="let category of sortedData;let i=index;">
+            <ng-container header>{{category.category_name}}</ng-container>
+            <ng-container body>               
+                <div fxLayout="column" fxLayoutGap="1rem">
+                    <img class="image-preview" [src]="category.url" /> 
+                    <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons">
+                        <button mat-icon-button (click)="deleteData(category)">
+                            <i class="las la-trash"></i>
+                        </button>
+                        <button mat-icon-button (click)="editData(category)">
+                            <i class="las la-edit"></i>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </app-master-container>   
+    </div>
 </app-outlet-container>

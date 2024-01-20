@@ -10,6 +10,8 @@ export class MasterContainerComponent implements AfterViewInit {
     @ViewChild('body') body!: ElementRef;
     @Input() collapsable: boolean = false;
     @Input() opened = true;
+    @Input() headerRequired = true;
+    @Input() bodyRequired = true;
     @Input() variant: string = 'parmary';
     @Output() _onToggle = new EventEmitter<boolean>();
 

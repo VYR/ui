@@ -19,3 +19,187 @@
         flex-flow: column;
     }
 }
+
+
+/*Mobile*/
+.top-menu-spacer {
+    flex: 1 1 auto;
+}
+.bottom-menu-spacer {
+    flex: 0.1 1 auto;
+}
+.middle-container-gap{
+    padding-top: 3.5rem;
+    padding-bottom: 1rem;
+    background: #f1f2f4;
+    height: 100vh;
+}  
+.example-sidenav {
+   /// position: fixed;
+}
+
+:host{ 
+    ::ng-deep{
+        .mat-tab-header{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            border-color: #fff;
+        }
+        .mat-tab-labels{
+            background: #fff;
+            div{
+                background: #fff;
+            }
+        }
+        .mat-toolbar-single-row{
+            padding: 0;
+        }
+        .mat-toolbar{
+            background: #fff;
+            position: fixed;
+            z-index: 2;            
+        }
+        .fixed-top{
+            background: #660aa9;
+            position: fixed;
+            z-index: 2; 
+            top:0; 
+            .las{
+                font-size: 1.2rem; 
+                color:#fff;
+            }
+        }
+        .fixed-bottom{
+            background: #fff;
+            position: fixed;
+            z-index: 2; 
+            bottom:0;
+            .las{
+                font-size: 1.2rem; 
+                color:#645555;
+            }
+        }
+        .mat-drawer-container{
+            background: #80808024;
+        }
+        mat-card{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .mat-card-header-text {
+            margin: 0 0px;
+            background: #fff;
+        }
+        .mat-card-header .mat-card-title {
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+        }
+    }
+}
+// .round-div{
+//     width: 3rem;
+//     height: 3rem;
+//     border-radius: 50%;
+//     margin: 0.2rem;
+//     background-size: cover !important;
+//     background-repeat: no-repeat !important;
+//     overflow: auto;
+//     margin-bottom: 2rem;
+// }
+
+// .overlay-div{
+//     color: #fff;
+//     width: 3rem;
+//     height: 3rem;
+//     border-radius: 50%;
+//     background: #000;
+//     margin-top: -2rem !important;
+//     margin-left: -2rem;
+//     font-size: 1rem;
+//     padding: 2rem;
+//     position: absolute;
+//     opacity: 0.5;
+//     font-weight: bold;
+//     word-wrap: break-word;
+//     overflow: hidden;
+// }
+
+/*
+side menu
+*/
+:host {
+    width: 100%;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    .side-menu {
+        .header-logo {
+            padding: 1rem;
+            img {
+                height: 4.5rem;
+                width: 100%;
+            }
+        }
+        .user-card-active {
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background: $sweety-tab-active-border;
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            min-width: 10rem;
+            gap: 0.15rem;
+            flex-direction: column;
+            margin: 0 1rem;
+            .click-info {
+                font-size: 0.65rem;
+                cursor: pointer;
+                width: 100%;
+                padding: 0.25rem 0.5rem;
+                border-radius: 0.5rem;
+            }
+        }
+        .menu-section {
+            display: flex;
+            justify-content: center;
+            padding: 1.25rem;
+            .menu-group {
+                color: $sweety-primary-color;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                cursor: pointer;
+                font-family: 'dax-regularregular', 'Open Sans', Helvetica, sans-serif;
+                font-weight: 600;
+                .menu-item {
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    cursor: pointer;
+                    padding: 0.315rem 0.5rem;
+                    border-radius: 0.5rem;
+                    background: $sweety-divider-color;
+                    i {
+                        font-size: 1.8em;
+                        padding-right: 10px;
+                        color: $sweety-text-color;
+                    }
+                    .menu-heading {
+                        font-family: 'dax-regularregular', 'Open Sans', Helvetica, sans-serif;
+                        font-size: 12px;
+                        font-weight: 600;
+                    }
+                }
+                .menu-item:hover,
+                .menu-item-active {
+                    background: $sweety-nav-bar-background;
+                    color: $sweety-tab-active-border;
+                    i {
+                        color: $sweety-tab-active-border;
+                    }
+                }
+            }
+        }
+    }
+}

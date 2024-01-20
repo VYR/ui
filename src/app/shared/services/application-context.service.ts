@@ -32,6 +32,11 @@ export class ApplicationContextService {
         }
     }
 
+    public updateContext(user:UserContext): any {
+
+        this._setUserContext(user);
+    }
+
     public setValidatedUser(data: any) {
         const user: UserContext = this._setUserInfo(data);
         user.organizations = this._processOrganizations(data.organization || []);
@@ -162,6 +167,11 @@ export class ApplicationContextService {
         const currentUser = this.getCurrentUser();
         console.log(currentUser);
         return Boolean(currentUser && currentUser.access_token);
+    }
+    public setPageTitle(title: string){
+        let user = this.getCurrentUser();
+        user.pageTitle=title;
+        this._setUserContext(user);
     }
     public setUserContext(user: UserContext){
         this._setUserContext(user);

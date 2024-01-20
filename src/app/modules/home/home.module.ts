@@ -18,6 +18,12 @@ import { MatInputModule } from '@angular/material/input';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatBadgeModule} from '@angular/material/badge';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OnlineFoodCategoriesComponent } from './components/online-food/online-food-categories/online-food-categories.component';
 import { OnlineFoodProductsComponent } from './components/online-food/online-food-products/online-food-products.component';
 import { OnlineFoodOrdersComponent } from './components/online-food/online-food-orders/online-food-orders.component';
@@ -64,7 +70,13 @@ import { OnlineFoodImageSelectionComponent } from './components/online-food/onli
         MatInputModule,
         PipesModule,
         MatTooltipModule,
-        MatTabsModule
+        MatTabsModule,
+        MatSidenavModule,
+        MatListModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatBadgeModule,
+        MatSnackBarModule
 
     ],
     providers: [HomeSandbox],

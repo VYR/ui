@@ -12,7 +12,7 @@
         </ng-container>
         <ng-container body>          
             <div fxLayout="column" fxLayoutGap="2rem">
-                <div fxLayout="row" fxLayoutGap="1rem" *ngIf="isAddImage">             
+                <div fxLayout="column" fxLayoutGap="1rem" *ngIf="isAddImage">             
                     <app-file-upload
                         #fileUpload
                         [label]="'Image Upload'"
@@ -57,7 +57,7 @@
                     </button>
                 </div>            
                 <div fxLayout="row" fxLayoutGap="1rem" class="wrap">
-                    <div *ngFor="let image of imagesList;let i=index;" class="thumbnail">
+                    <div fxFlex="50" *ngFor="let image of imagesList;let i=index;" class="thumbnail">
                         <img (click)="isActive(image)" 
                         [src]="image?.url || 'assets/images/image-preview'" 
                         [class]="image.active?'border-active':'border-inactive'" 

@@ -6,6 +6,9 @@ import { DECISION } from 'src/app/shared/enums';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
 import { OnlineFoodAddFormComponent } from '../online-food-add-form/online-food-add-form.component';
 import { OnlineFoodEditFormComponent } from '../online-food-edit-form/online-food-edit-form.component';
+import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
+import { UserContext } from 'src/app/shared/models';
+
 
 @Component({
   selector: 'app-online-food-categories',
@@ -60,11 +63,14 @@ export class OnlineFoodCategoriesComponent implements OnInit {
       icon: 'la-trash',
     }
   ];
-  constructor(private dialog: SgsDialogService, private sandbox: HomeSandbox) {}
+  constructor(private dialog: SgsDialogService, private sandbox: HomeSandbox, private appContex:ApplicationContextService) {
+    this.appContex.setPageTitle('Categories');
+  }
 
   ngOnInit(): void {
     this.query.sortKey='created_at';
     this.query.sortDirection=SortDirection.desc;
+    this.getCategories();
   }
 
   lazyLoad(event: SGSTableQuery) {
@@ -73,7 +79,7 @@ export class OnlineFoodCategoriesComponent implements OnInit {
         this.query.sortKey=event.sortKey;
     if(event.sortDirection)
     this.query.sortDirection=event.sortDirection;
-    this.getCategories();
+    //this.getCategories();
   }
 
   getCategories() {
@@ -94,17 +100,22 @@ export class OnlineFoodCategoriesComponent implements OnInit {
     });
   }
 
-  addSchemeType(){
+  addCategory(){
     const ref = this.dialog.openOverlayPanel('Add Category', 
       OnlineFoodAddFormComponent, {
         type:'category',
-      },SgsDialogType.medium);
+      },SgsDialogType.large);
       ref.afterClosed().subscribe((res) => {
         if(res?.id>0)
         this.getCategories();
       });
   }
-
+  deleteData(data:any){
+    this.onClickCell({key:'delete',data:data});
+  }
+  editData(data:any){
+    this.onClickCell({key:'edit',data:data});
+  }
   onClickCell(event: any) {
     console.log(event);
     if (event.key === 'delete') {
@@ -114,7 +125,7 @@ export class OnlineFoodCategoriesComponent implements OnInit {
       OnlineFoodEditFormComponent, {
         type:'category',
         data: event.data,
-      },SgsDialogType.medium);
+      },SgsDialogType.large);
       ref.afterClosed().subscribe((res) => {
         if(res?.id===event.data.id)
         this.getCategories();

@@ -1,15 +1,13 @@
 @import 'variables';
 .login-wrapper {
     background: $sweety-white;
-    height: 100%;
     padding: 15px;
     .login-title {
         mat-label {
-            font-size: 1.25rem;
+            font-size: 1rem;
         }
     }
     .login-form {
-        width: 50%;
         .md-block {
             mat-label {
                 font-size: 0.875rem;

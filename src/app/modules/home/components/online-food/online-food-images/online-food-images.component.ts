@@ -3,6 +3,7 @@ import { HomeSandbox } from '../../../home.sandbox';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { DECISION } from 'src/app/shared/enums';
+import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 
 @Component({
   selector: 'app-online-food-images',
@@ -17,7 +18,9 @@ export class OnlineFoodImagesComponent implements OnInit {
   isAddImage=false;
   @Input() isSelection: boolean=false;
   @Output() _onSelect: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private dialog: SgsDialogService, private sandbox:HomeSandbox) { }
+  constructor(private dialog: SgsDialogService, private sandbox:HomeSandbox, private appContext:ApplicationContextService) {
+    if(!this.isSelection)
+    this.appContext.setPageTitle('Images');   }
 
   ngOnInit(): void {
     const params:any={pageIndex:0,pageSize:30};

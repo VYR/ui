@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { interval, mergeMap, Subscription } from 'rxjs';
-import { UserContext } from 'src/app/shared/models';
+import { UserContext, Organization } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { IdleTimeoutService } from 'src/app/shared/services/idle-timeout.service';
 import { TimeoutPopupComponent } from './components/timeout-popup/timeout-popup.component';
 import { HomeSandbox } from './home.sandbox';
+import { ConfigService } from 'src/app/configuration';
+import { USER_TYPE } from 'src/app/shared/enums';
 
 @Component({
     selector: 'app-home',
@@ -16,13 +18,24 @@ import { HomeSandbox } from './home.sandbox';
 export class HomeComponent implements OnInit {
     user: UserContext = new UserContext();
     refreshToken!: Subscription;
+    USER_TYPE = USER_TYPE;
+    menu: Array<any> = [];
+    modules: any = {};
 
+    public activeRouter: any;
     constructor(
         private dialog: SgsDialogService,
         private idleTimeoutService: IdleTimeoutService,
         private sandbox: HomeSandbox,
-        private appContext: ApplicationContextService
-    ) {}
+        private appContext: ApplicationContextService,
+        private configService: ConfigService
+    ) {
+        appContext.currentUser.subscribe((res) => {
+            this.user = res;
+            const modules: Array<any> = configService.get('modules');
+            this.menu = (modules[this.user.userType] || []).filter((x: any) => !x.location);
+        });
+    }
 
     ngOnInit(): void {
         this.idleTimeoutService.initilizeSessionTimeout();

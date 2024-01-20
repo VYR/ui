@@ -89,8 +89,6 @@ export class OnlineFoodAddFormComponent implements OnInit {
     this.addUserForm = this.fb.group({
         role: new UntypedFormControl(this.data?.data?.role || null),
         userType: new UntypedFormControl(this.data?.data?.userType===0?0:(this.data?.data?.userType || null)),
-        scheme_type_id: new UntypedFormControl(null),
-        scheme_id: new UntypedFormControl(null),
         firstName: new UntypedFormControl(null,Validators.required),
         lastName: new UntypedFormControl(null,Validators.required),
         email: new UntypedFormControl(null,[Validators.required,Validators.email,
@@ -98,8 +96,8 @@ export class OnlineFoodAddFormComponent implements OnInit {
         password: new UntypedFormControl(null,Validators.required),
         mobilePhone: new UntypedFormControl(null),
         introducedBy: new UntypedFormControl(this.data?.data?.introducedBy),
-        aadhar: new UntypedFormControl(null),
-        pan: new UntypedFormControl(null),
+        // aadhar: new UntypedFormControl(null),
+        // pan: new UntypedFormControl(null),
     });
 
     this.addUserToSchemeForm = this.fb.group({

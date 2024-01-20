@@ -1,5 +1,5 @@
 .image-preview{
-    width: 25%;
+    width: 100%;
     cursor: pointer;
 }
 
@@ -10,4 +10,8 @@
 .disableMe{
     pointer-events: none;
     opacity: 0.5;
+}
+
+form{
+    margin-bottom: 3rem;
 }

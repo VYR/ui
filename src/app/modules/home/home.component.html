@@ -1,4 +1,4 @@
-<div fxLayout="row" class="home">
+<!-- <div fxLayout="row" class="home">
     <div class="side-menu-section">
         <app-side-menu class=""></app-side-menu>
     </div>
@@ -6,4 +6,116 @@
         <app-header (logoutAction)="action('LOGOUT')"></app-header>
         <router-outlet></router-outlet>
     </div>
+</div> -->
+<div fxLayout="column" class="home">
+<mat-drawer-container autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="over"  hasBackdrop="true">
+        <!-- <app-side-menu class=""></app-side-menu>          -->
+        <div class="side-menu" *ngIf="user">
+            <!-- <div class="header-logo" fxLayoutAlign="center center">
+                <img alt="SGS Logo" src="assets/images/sgs_logo_postlogin.gif" />
+            </div> -->
+            <div  class="user-card-active">
+                <div class="user-number">
+                    <div>{{ user.userId }}</div>
+                </div>
+                <div class="customer-name">
+                    {{ user.firstName }} {{ user.lastName }}
+                </div>
+            </div>
+        
+            <div class="menu-section">
+                <div class="menu-group">
+                    <ng-container *ngFor="let menuItem of menu">
+                        <div
+                            matRipple
+                            [routerLink]="[menuItem.path]"
+                            routerLinkActive="menu-item-active"
+                            class="menu-item"
+                            fxLayout="row"
+                            fxLayoutAlign="start center"
+                            (click)="drawer.toggle()"
+                        >
+                            <div flex="20" class="menu-icon">
+                                <i [ngClass]="menuItem.icon"></i>
+                            </div>
+                            <div flex="80" class="menu-heading upperCase" >{{ menuItem.name }}</div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </mat-drawer>  
+    <div class="total-height">
+        <div class="column-container">
+            <div>
+                <mat-toolbar class="fixed-top">
+                    <button (click)="drawer.toggle()" mat-icon-button>
+                        <i class="las la-bars"></i>
+                    </button>
+                    <div class="las">{{user.pageTitle}}</div>
+                    <span class="top-menu-spacer"></span>
+                    <button mat-icon-button (click)="action('LOGOUT')" >                        
+                        <i class="las la-arrow-circle-right"></i>
+                    </button>
+                    
+                </mat-toolbar>                
+                <div class="middle-container-gap">
+                    <div>
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>              
+                <!-- <mat-toolbar class="fixed-bottom">
+                    <button (click)="drawer.toggle()" mat-icon-button class="menu-icon">
+                        <i class="las la-home"></i>
+                    </button>
+                    <span class="bottom-menu-spacer"></span>
+                    <button mat-icon-button>
+                        <i class="las la-shopping-cart" matBadge="15" matBadgeColor="warn"></i>
+                    </button>
+                </mat-toolbar>  -->
+            </div>
+        </div>
+    </div>  
+  </mat-drawer-container>
 </div>
+
+  <mat-menu #profileMenu="matMenu">
+    <div mat-menu-content class="dropdown-menu-container">
+        <div class="profile-header">
+            <div class="user-name profile-header-option">
+                <i class="las la-user-tie"></i>
+                <div>{{ user.firstName }} {{ user.lastName }}</div>
+            </div>
+            <div *ngIf="user.mobilePhone" class="profile-header-option">
+                <i class="las la-phone"></i>
+                <div>{{ user.mobilePhone }}</div>
+            </div>
+            <div *ngIf="user.email" class="profile-header-option">
+                <i class="las la-envelope"></i>
+                <div>{{ user.email }}</div>
+            </div>
+            <div *ngIf="user.aadhar" class="profile-header-option">
+                <i class="las la-envelope"></i>
+                <div>{{ user.aadhar }}</div>
+            </div>
+            <div *ngIf="user.pan" class="profile-header-option">
+                <i class="las la-credit-card"></i>
+                <div>{{ user.pan }}</div>
+            </div>
+            <div *ngIf="user.currentSignIn" class="profile-header-option">
+                <i class="las la-clock"></i>
+                <div>{{ user.currentSignIn | date: 'medium' }} (Current login)</div>
+            </div>
+            <div *ngIf="user.lastSignIn" class="profile-header-option">
+                <i class="las la-history"></i>
+                <div>{{ user.lastSignIn | date: 'medium' }} (Last login)</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="flex-end center">
+                <button mat-flat-button (click)="action('LOGOUT')" class="profile-footer-option" color="primary">
+                    <div class="logout"><span>Logout</span> <i class="las la-sign-out-alt"></i></div>
+                </button>
+            </div>
+        </div>
+    </div>
+</mat-menu>

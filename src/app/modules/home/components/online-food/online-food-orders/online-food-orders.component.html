@@ -1,1 +1,85 @@
-<p>online-food-orders works!</p>
+<app-outlet-container>
+    <div fxLayout="column" fxFlex="100" >
+        <div fxLayout="row"  fxLayoutAlign="space-between" class="heading-title">
+            <div class="sub-title">
+                Select Status
+            </div>
+        </div>
+        <div fxLayout="column" fxFlex="100" >     
+            <div fxLayout="row" >            
+                <div class="chips" [class]="this.selectedStatus=== category?'active':'inactive'" 
+                *ngFor="let category of statuses;let i=index;"
+                (click)="updateStatus($event,category)">
+                <i class="las la-check" *ngIf="this.selectedStatus=== category"></i><span>{{
+                    category
+                }}</span>
+                </div>
+            </div>  
+        </div> 
+        <app-master-container *ngFor="let item of sortedData;let i=index;">
+            <ng-container header>Order ID: {{item.txnNo}}</ng-container>
+            <ng-container icons>
+                <button mat-icon-button>
+                    <i class="las la-info-circle"></i>
+                </button>
+            </ng-container>
+            <ng-container body>               
+                <div fxLayout="column">
+                    <app-label-value
+                    [label]="'Ordered By'"
+                    [value]="item.userName"
+                    >
+                    </app-label-value>
+                    <app-label-value
+                    [label]="'Email'"
+                    [value]="item.email"
+                    >
+                    </app-label-value>
+                    <app-label-value
+                    [label]="'Mobile'"
+                    [value]="item.mobilePhone"
+                    >
+                    </app-label-value>
+                    <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons">
+                        <button mat-icon-button>
+                            <i class="las la-history"></i><span>{{item.created_at | date:'medium'}}</span>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </app-master-container> 
+    <!-- <app-master-container>
+        <ng-container header>Orders</ng-container>
+        <ng-container icons>
+            <div fxLayout="row" fxLayoutGap="1rem">
+                <mat-form-field>
+                    <mat-label>Select Status</mat-label>
+                    <mat-select [(ngModel)]="selectedStatus">
+                        <mat-option 
+                        (onSelectionChange)="updateStatus($event,status)"
+                        *ngFor="let status of statuses" [value]="status">{{
+                            status
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field> 
+                <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
+                    <i class="las la-file-excel"></i>
+                </button>
+                <button mat-icon-button >
+                    <i class="las la-file-pdf"></i>
+                </button>
+            </div>
+        </ng-container>
+        <ng-container body>
+            <div fxLayout="column" fxFlex="100">               
+                <app-sgs-table
+                    [config]="tableConfig"
+                    (_lazyLoad)="lazyLoad($event)"
+                    (_select)="onSelect($event)"
+                    (_clickCell)="onClickCell($event)"
+                ></app-sgs-table>
+            </div>
+        </ng-container>
+    </app-master-container> -->
+    </div>
+</app-outlet-container>

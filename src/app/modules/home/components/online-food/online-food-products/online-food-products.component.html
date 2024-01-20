@@ -1,8 +1,76 @@
 <app-outlet-container>
-    <app-master-container>
+    <div fxLayout="column" fxFlex="100" >
+        <div fxLayout="row" fxLayoutAlign="space-between" class="heading-title">
+            <div class="title">
+                Add Products
+            </div>
+            <button mat-icon-button *ngIf="selectedSubCategory?.id>0" (click)="addProduct()">
+                <i class="las la-plus"></i>
+            </button>
+        </div>     
+        <div fxLayout="row" *ngIf="categories.length>0" fxLayoutAlign="space-between" class="heading-title">
+            <div class="sub-title">
+                Select Category
+            </div>
+        </div>
+        <div fxLayout="column" fxFlex="100" >     
+            <div fxLayout="row" >            
+                <div class="chips" [class]="this.selectedCategory?.id=== category.id?'active':'inactive'" 
+                *ngFor="let category of categories;let i=index;"
+                (click)="getSubCategoriesByCategory($event,category)">
+                <i class="las la-check" *ngIf="this.selectedCategory?.id=== category.id"></i><span>{{
+                    category.category_name
+                }}</span>
+                </div>
+            </div>  
+        </div>       
+        <div fxLayout="row" *ngIf="subCategories.length>0" fxLayoutAlign="space-between" class="heading-title">
+            <div class="sub-title">
+                select Sub Category
+            </div>
+        </div>     
+        <div fxLayout="row" >            
+            <div class="chips" [class]="this.selectedSubCategory?.id=== category.id?'active':'inactive'" 
+            *ngFor="let category of subCategories;let i=index;"
+            (click)="getProductsBySubCategories($event,category)">
+            <i class="las la-check" *ngIf="this.selectedSubCategory?.id=== category.id"></i><span>{{
+                category.sub_category_name
+            }}</span>
+            </div>
+        </div>
+        <app-master-container *ngFor="let category of sortedData;let i=index;">
+            <ng-container header>{{category.product_name}}</ng-container>
+            <ng-container icons>
+                <button mat-icon-button    (click)="details(category)">
+                    <i class="las la-info-circle"></i>
+                </button>
+            </ng-container>
+            <ng-container body>               
+                <div fxLayout="column" fxLayoutGap="1rem">
+                    <img class="image-preview" [src]="category.url" /> 
+                    <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons">
+                        <button mat-icon-button (click)="deleteData(category)">
+                            <i class="las la-trash"></i>
+                        </button>
+                        <button mat-icon-button (click)="editData(category)">
+                            <i class="las la-edit"></i>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </app-master-container> 
+    <!-- <app-master-container>
         <ng-container header>Products</ng-container>
         <ng-container icons>
-            <div fxLayout="row" fxLayoutGap="2rem">
+            <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
+                    <i class="las la-file-excel"></i>
+                </button>
+            <button mat-icon-button  *ngIf="selectedSubCategory?.id>0"  (click)="addProduct()">
+                <i class="las la-plus"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <div fxLayout="column" fxFlex="100">
                 <mat-form-field>
                     <mat-label>Select Category</mat-label>
                     <mat-select [(ngModel)]="selectedCategory">
@@ -20,21 +88,14 @@
                             subCategory.sub_category_name
                         }}</mat-option>
                     </mat-select>
-                </mat-form-field>
-                <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
-                    <i class="las la-file-excel"></i>
-                </button>
-                <button mat-icon-button  *ngIf="selectedSubCategory?.id>0"  (click)="addProduct()">
-                    <i class="las la-plus"></i>
-                </button> 
+                </mat-form-field> 
             </div>
-        </ng-container>
-        <ng-container body>
             <app-sgs-table
             [config]="tableConfig"
             (_lazyLoad)="lazyLoad($event)"
             (_clickCell)="onClickCell($event)"
         ></app-sgs-table>
         </ng-container>
-    </app-master-container>    
+    </app-master-container>   -->
+    </div>  
 </app-outlet-container>

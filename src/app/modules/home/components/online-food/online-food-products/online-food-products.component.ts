@@ -7,6 +7,7 @@ import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-
 import { OnlineFoodEditFormComponent } from '../online-food-edit-form/online-food-edit-form.component';
 import { OnlineFoodAddFormComponent } from '../online-food-add-form/online-food-add-form.component';
 import { OnlineFoodViewDetailsComponent } from '../online-food-view-details/online-food-view-details.component';
+import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 
 @Component({
   selector: 'app-online-food-products',
@@ -90,7 +91,8 @@ export class OnlineFoodProductsComponent  implements OnInit {
       icon: 'la-trash',
     }
   ];
-  constructor(private dialog: SgsDialogService, private sandbox: HomeSandbox) {}
+  constructor(private dialog: SgsDialogService, private sandbox: HomeSandbox,private appContex:ApplicationContextService) {
+    this.appContex.setPageTitle('Products');}
   
   ngOnInit(): void {
       this.getCategories();
@@ -114,17 +116,13 @@ export class OnlineFoodProductsComponent  implements OnInit {
     });
   }
   getSubCategoriesByCategory(event:any,type:any){
-    if (event.isUserInput){
       this.selectedCategory=type;
       this.getSubCategories();
-    }
   }
 
   getProductsBySubCategories(event:any,type:any){
-    if (event.isUserInput){
       this.selectedSubCategory=type;
       this.getProducts();
-    }
   }
   lazyLoad(event: SGSTableQuery) {
       if(this.query){
@@ -174,7 +172,15 @@ export class OnlineFoodProductsComponent  implements OnInit {
           }      
       });
   }
-
+  deleteData(data:any){
+    this.onClickCell({key:'delete',data:data});
+  }
+  editData(data:any){
+    this.onClickCell({key:'edit',data:data});
+  }
+  details(data:any){
+    this.onClickCell({key:'product_name',data:data});
+  }
   onClickCell(event: any) {
       console.log(event);
       if (event.key === 'delete') {

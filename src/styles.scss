@@ -40,8 +40,69 @@ $sweety1-theme: mat.define-light-theme(
 html,
 body {
     height: 100%;
+    background: #c5c5c5;
 }
 
 .upperCase{
     text-transform: uppercase;
+}
+
+.card-bottom-icons {
+    .las{
+        font-size: 1.25rem;
+        color: #0075b0;
+    }
+}
+
+.heading-title{
+    align-items: baseline !important;
+    margin-left: 0.6rem;
+    margin-bottom: 0.5rem;
+    .title{
+        font-size: 1rem;
+        color: #114edfeb;
+        font-weight: bold;
+    }
+    .las{
+        font-size: 1.25rem;
+        color: #114edfeb;
+        font-weight: bold;
+    }
+    .sub-title{
+        font-size: 0.8rem;
+        color: #ef0f4beb;
+        font-weight: bold;
+    }
+}
+
+.chips{
+    padding: 0.5rem;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    min-width: 5rem;
+    text-align: center;
+    display: flex;
+    color: #fff;
+    margin: 0.5rem;
+    flex: none;
+    align-items: baseline;
+    gap: 0.2rem;
+    justify-content: center;
+    .las{
+        font-size: 1rem;
+    }
+}
+.chips.active{
+    border: 1px solid #0f8123;
+    background: #0f8123;
+}
+.chips.inactive{
+    border: 1px solid #660aa9;
+    background: #660aa9;
+}
+.image-preview{
+    width: 100%;
+    cursor: pointer;
 }

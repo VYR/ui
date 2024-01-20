@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ConfigService } from 'src/app/configuration';
 import { USER_TYPE } from 'src/app/shared/enums';
 import { Organization, UserContext } from 'src/app/shared/models';
@@ -15,6 +15,7 @@ export class SideMenuComponent {
     menu: Array<any> = [];
     modules: any = {};
 
+    @ViewChild('ngOtpInputPin') ngOtpInputPinRef: any;
     public activeRouter: any;
     currentUser: UserContext = new UserContext();
     constructor(appContext: ApplicationContextService, private homeSandBox: HomeSandbox, configService: ConfigService) {

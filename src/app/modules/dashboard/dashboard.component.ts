@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-    constructor() {}
+    constructor(private appContext:ApplicationContextService) {
+        this.appContext.setPageTitle('Dashboard');  }
 }

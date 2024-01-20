@@ -1,7 +1,7 @@
 <div class="side-menu" *ngIf="currentUser">
-    <div class="header-logo" fxLayoutAlign="center center">
+    <!-- <div class="header-logo" fxLayoutAlign="center center">
         <img alt="SGS Logo" src="assets/images/sgs_logo_postlogin.gif" />
-    </div>
+    </div> -->
     <div  class="user-card-active">
         <div class="user-number">
             <div>{{ currentUser.userId }}</div>
@@ -52,3 +52,38 @@
         </ng-container>
     </div>
 </mat-menu>
+<!-- 
+<mat-list>
+    <mat-list-item>
+        <div style="cursor: pointer">
+            <div fxFlex fxLayout="column" fxLayoutAlign="space-between start">
+                <div class="">
+                    <span><i class="las la-user-tie" matListItemIcon></i></span
+                    >.&nbsp;<span>Kiran kumar Challa</span>
+                </div>
+            </div>
+        </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <mat-icon matListItemIcon>redeem</mat-icon>
+        <div matListItemTitle>My Account</div>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon matListItemIcon>redeem</mat-icon>
+        <div matListItemTitle>Offers</div>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon matListItemIcon>redeem</mat-icon>
+        <div matListItemTitle>Discounts</div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <mat-icon matListItemIcon>share</mat-icon>
+        <div matListItemTitle>Share</div>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon matListItemIcon>call</mat-icon>
+        <div matListItemTitle>Customer Care</div>
+    </mat-list-item>
+</mat-list>  -->

@@ -40,8 +40,13 @@ input.mat-input-element {
 
 .mat-dialog-container {
     padding: 0rem !important;
+    height: 100vh !important;
 }
-
+.cdk-overlay-pane{
+    width: 100% !important;
+    max-width: 100vw !important;
+    max-height: 100% !important;
+}
 .mat-toolbar {
     padding: 0rem !important;
 }
@@ -148,8 +153,8 @@ ng-otp-input {
 }
 
 .outlet-container {
-    padding: 0.5rem 1rem;
-    overflow-y: auto;
+    padding: 0.5rem 0rem;
+    // overflow-y: auto;
     display: flex;
     flex-flow: column;
 }
@@ -264,7 +269,7 @@ ng-otp-input {
     .header {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        // justify-content: space-between;
         padding: 0.5rem 1rem;
         margin: 0;
         color: $sweety-white;

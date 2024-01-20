@@ -2,6 +2,7 @@ import { USER_TYPE } from '../enums';
 
 export class UserContext {
     public userName!: string;
+    public pageTitle!: string;
     public userId!: string;
     public introducedBy!: string;    
     public firstName!: string;

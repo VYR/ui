@@ -1,6 +1,6 @@
 import { ColumnType } from 'src/app/sgs-components/sgs-table/models/config.model';
 export const ROLES:any = {
-    '0' : 'Scheme Member',
+    '0' : 'User',
     '2' : 'Promoter',
     '1' : 'Admin',
     '3' : 'Employee',
@@ -121,7 +121,7 @@ export const STATUSES:Array<string>= [
 export const USER_TYPES:Array<any>= [
     {
         id:0,
-        name:'Scheme Member'
+        name:'User'
     },
     {
         id:1,
