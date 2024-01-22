@@ -128,14 +128,7 @@ export class HomeSandbox {
             })
         );
     }
-    
-    addUpdateSchemeTypes(params: any) {        
-        return this.service.addUpdateSchemeTypes(params);
-    }
-  
-    getSgsSchemeTypes() {
-        return this.service.getSgsSchemeTypes();
-    }    
+       
     getSettings() {
         return this.service.getSettings();
     }    
@@ -150,49 +143,7 @@ export class HomeSandbox {
             })
         );
     }  
-    addUpdateSchemes(params: any) {        
-        return this.service.addUpdateSchemes(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
-                }
-            })
-        );
-    }  
-    addUpdateSchemeMembers(params: any) {        
-        return this.service.addUpdateSchemeMembers(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
-                }
-            })
-        );
-    } 
-    addUpdatePayment(params: any) {        
-        return this.service.addUpdatePayment(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
-                }
-            })
-        );
-    }
 
-    getSgsSchemes(params:any) {
-        return this.service.getSgsSchemes(params).pipe(
-            tap((res: any) => {                
-                if (res?.data?.data) {
-                   res.data.data=(res.data.data || []).map((value:any) => {
-                    value.name=(value.scheme_type_id===1?'Coins: '+value.coins:'Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
-                    return value;
-                  });
-                }
-            })
-        );
-    }
     addUpdateUsers(params: any) {        
         return this.service.addUpdateUsers(params).pipe(
             tap((res: any) => {                
@@ -208,12 +159,6 @@ export class HomeSandbox {
         return this.service.getSgsUsers(params);
     }
     
-    getSchemeMembers(params:any) {
-        return this.service.getSchemeMembers(params);
-    }
-    getPayments(params:any) {
-        return this.service.getPayments(params);
-    }
     getAllUsers(params:any) {
         return this.service.getSgsUsers(params).pipe(
             tap((res: any) => {                

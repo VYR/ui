@@ -230,14 +230,7 @@ export class OnlineFoodAddFormComponent implements OnInit {
         }
     });
   }
-  submitUserSchemeForm(){
-    const formData=this.addUserToSchemeForm.value;
-    this.sandBox.addUpdateSchemeMembers(formData).subscribe((res:any) => {
-        if(res?.data){          
-          this.dialogRef.close(res.data);
-        }
-    });
-  }
+
   submitUsersForm(){
     const formData=this.addUserForm.value;
     console.log(formData);
@@ -256,15 +249,7 @@ export class OnlineFoodAddFormComponent implements OnInit {
         }
     });
   }
-  submitPaymentForm(){
-    const formData:any=this.addPaymentForm.value;
-    formData.amount_paid=parseFloat(formData.amount_paid);
-    this.sandBox.addUpdatePayment(formData).subscribe((res:any) => {
-        if(res?.data){          
-          this.dialogRef.close(res.data);
-        }
-    });
-  }
+
   compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }

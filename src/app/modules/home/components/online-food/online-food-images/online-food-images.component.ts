@@ -38,9 +38,9 @@ export class OnlineFoodImagesComponent implements OnInit {
     }
     fileUpload.file = null;*/
     if(files)
-    this.selectedFiles=[files];
-  else 
-  this.selectedFiles.length=0;
+      this.selectedFiles=[files];
+    else 
+    this.selectedFiles.length=0;
   }
   isActive(image:any){
     this.imagesList=this.imagesList.map((value:any) => {

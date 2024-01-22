@@ -141,7 +141,7 @@ export class OnlineFoodSubCategoriesComponent  implements OnInit {
           data: event.data,
           },SgsDialogType.medium);
           ref.afterClosed().subscribe((res) => {
-          if(res?.id===event.data.id)
+          if(res?.id>0)
           this.getSubCategories();
           });
         }

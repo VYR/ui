@@ -10,7 +10,7 @@
                 <img (click)="openImagesPanel()" [src]="categoryImage" class="image-preview"/> 
                 <input  formControlName="category_image_id" hidden />     
                
-                <div fxLayout="row">
+             
                     <button
                         class="mat-raised-button mat-primary"
                         type="submit"
@@ -20,7 +20,6 @@
                     >
                         Submit
                     </button>
-                </div>
             </ng-container>     
         </div>
     </form>
@@ -45,7 +44,6 @@
             <mat-label>Sub Category Image</mat-label>
             <img (click)="openImagesPanel()" [src]="subCategoryImage" class="image-preview"/> 
             <input  formControlName="sub_category_image_id" hidden /> 
-            <div fxLayout="row">
                 <button
                     class="mat-raised-button mat-primary"
                     type="submit"
@@ -55,7 +53,6 @@
                 >
                 Submit
                 </button>
-            </div> 
         </div>
     </form>
 </ng-container>
@@ -144,7 +141,7 @@
                 formControlName="product_desc" 
                 placeholder="Enter Product Description"></textarea>
             </mat-form-field>
-            <div fxLayout="row">
+           
                 <button
                     class="mat-raised-button mat-primary"
                     type="submit"
@@ -154,7 +151,7 @@
                 >
                     Submit
                 </button>
-            </div>            
+                     
         </div>
     </form>  
 </ng-container>
@@ -264,7 +261,7 @@
                     Skip for Now
                 </button>
             </div>  -->
-            <div fxLayout="row">
+         
                 <button
                     class="mat-raised-button mat-primary"
                     type="submit"
@@ -274,25 +271,7 @@
                 >
                     Submit
                 </button>
-            </div>            
         </div>
     </form>  
-</ng-container>
-<ng-container *ngIf="data.type==='payment'">
-    <form  [formGroup]="addPaymentForm" >
-        <div  fxLayout="column" fxLayoutGap="0.3rem">       
-            <img src="assets/images/qr-code.png" class="qr-code"/>
-            <button
-                class="mat-raised-button mat-primary"
-                type="submit"
-                [disabled]="addPaymentForm.invalid" 
-                mat-button
-                (click)="submitPaymentForm()"
-            >
-                Make Payment
-            </button>
-   
-        </div>
-    </form>
 </ng-container>
 

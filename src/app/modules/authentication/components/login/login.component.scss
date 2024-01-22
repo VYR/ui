@@ -2,10 +2,12 @@
 .login-wrapper {
     background: $sweety-white;
     padding: 15px;
+    border-radius: 0.5rem;
     .login-title {
         mat-label {
             font-size: 1rem;
         }
+        align-self: center;
     }
     .login-form {
         .md-block {

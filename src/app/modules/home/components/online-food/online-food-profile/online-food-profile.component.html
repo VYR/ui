@@ -1,59 +1,50 @@
-<app-outlet-container>
-    <div fxLayout="row">
-        <div fxFlex.lg="45" fxFlex.md="45" fxFlex.sm="100" fxFlex.xs="100">
-
-            <app-master-container>                
-                <ng-container icons>
-                    <button mat-icon-button (click)="openPopup()">
-                        <i class="las la-edit"></i>
-                    </button>
-                </ng-container>
-                <ng-container body>
-                    <div fxLayout="column" fxFlex="50">
-                        <app-label-value 
-                            *ngIf="data?.userId" 
-                            [label]="'User ID'" 
-                            [value]="data.userId">
-                        </app-label-value>
-                        <app-label-value 
-                            *ngIf="data?.introducedBy" 
-                            [label]="'Introduced By'" 
-                            [value]="data.introducedBy">
-                        </app-label-value>
-                        
-                        <app-label-value 
-                            *ngIf="data?.firstName" 
-                            [label]="'First Name:'" 
-                            [value]="data.firstName">
-                        </app-label-value>
-                        <app-label-value 
-                            *ngIf="data?.lastName" 
-                            [label]="'Last Name:'" 
-                            [value]="data.lastName">
-                        </app-label-value>
-                        <app-label-value 
-                            *ngIf="data?.email" 
-                            [label]="'Email ID:'" 
-                            [value]="data.email">
-                        </app-label-value>
-                        <app-label-value 
-                            *ngIf="data?.mobilePhone" 
-                            [label]="'Mobile Number:'" 
-                            [value]="'+91 - '+data.mobilePhone">
-                        </app-label-value>
-                        <!-- <app-label-value 
-                            *ngIf="data?.aadhar" 
-                            [label]="'Aadhar Number:'" 
-                            [value]="data.aadhar">
-                        </app-label-value>
-                        <app-label-value 
-                            *ngIf="data?.pan" 
-                            [label]="'PAN Number:'" 
-                            [value]="data.pan">
-                        </app-label-value> -->
-                    </div>
-                </ng-container>
-            </app-master-container>
-        </div>
+<app-sgs-card>
+<div fxLayout="column" class="p-1">
+    <div fxLayout="row" fxLayoutAlign="end" class="card-bottom-icons">
+        <button mat-icon-button (click)="openPopup()">
+            <i class="las la-edit"></i>
+        </button>
     </div>
-</app-outlet-container>
+    <app-label-value 
+        *ngIf="data?.userId" 
+        [label]="'User ID'" 
+        [value]="data.userId">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.introducedBy" 
+        [label]="'Introduced By'" 
+        [value]="data.introducedBy">
+    </app-label-value>
+    
+    <app-label-value 
+        *ngIf="data?.firstName" 
+        [label]="'First Name:'" 
+        [value]="data.firstName">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.lastName" 
+        [label]="'Last Name:'" 
+        [value]="data.lastName">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.email" 
+        [label]="'Email ID:'" 
+        [value]="data.email">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.mobilePhone" 
+        [label]="'Mobile Number:'" 
+        [value]="'+91 - '+data.mobilePhone">
+    </app-label-value>
+    <!-- <app-label-value 
+        *ngIf="data?.aadhar" 
+        [label]="'Aadhar Number:'" 
+        [value]="data.aadhar">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.pan" 
+        [label]="'PAN Number:'" 
+        [value]="data.pan">
+    </app-label-value> -->
+</div>
+</app-sgs-card>

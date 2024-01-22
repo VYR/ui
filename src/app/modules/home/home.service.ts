@@ -21,43 +21,7 @@ export class HomeService {
     deleteRequest(type: number,id:number) {
         return this.http.delete(Operations.DELETE_RECORD,null,{id:id,type:type});
     }    
-    
-    addUpdateSchemeTypes(params:any) {
-        if(params?.id)
-            return this.http.post(Operations.ADD_UPDATE_SCHEME_TYPES, params,{id:params?.id || 0});
-        else 
-            return this.http.post(Operations.ADD_UPDATE_SCHEME_TYPES, params);
-    } 
    
-    getSgsSchemeTypes() {
-        return this.http.get(Operations.GET_SCHEME_TYPES);
-    }  
-    
-    addUpdateSchemes(params:any) {
-        if(params?.id)
-            return this.http.post(Operations.ADD_UPDATE_SCHEMES, params,{id:params?.id || 0});
-        else 
-            return this.http.post(Operations.ADD_UPDATE_SCHEMES, params);
-    }     
-    addUpdateSchemeMembers(params:any) {
-        if(params?.id)
-            return this.http.post(Operations.ADD_UPDATE_SCHEME_MEMBERS, params,{id:params?.id || 0});
-        else 
-            return this.http.post(Operations.ADD_UPDATE_SCHEME_MEMBERS, params);
-    } 
-    getSchemeMembers(params:any) {
-        return this.http.get(Operations.GET_SCHEME_MEMBERS,params);
-    }    
-    addUpdatePayment(params:any) {
-        if(params?.id)
-            return this.http.post(Operations.ADD_UPDATE_PAYMENT, params,{id:params?.id || 0});
-        else 
-            return this.http.post(Operations.ADD_UPDATE_PAYMENT, params);
-    } 
-
-    getSgsSchemes(params:any) {
-        return this.http.get(Operations.GET_SCHEMES,params);
-    }    
     addUpdateUsers(params:any) {
         if(params?.id)
             return this.http.post(Operations.ADD_UPDATE_USERS, params,{id:params?.id || 0});
@@ -69,9 +33,6 @@ export class HomeService {
         return this.http.get(Operations.GET_USERS,params);
     }
     
-    getPayments(params:any) {
-        return this.http.get(Operations.GET_PAYMENTS,params);
-    }
     getSettings() {
         return this.http.get(Operations.SETTINGS);
     }    

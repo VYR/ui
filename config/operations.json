@@ -23,22 +23,6 @@
         "baseUrl": "apiGateway",
         "path": "common/graph"
     },
-    "addUpdateSchemeTypes": {
-        "baseUrl": "apiGateway",
-        "path": "add-update-scheme-types"
-    },
-    "getSchemeTypes": {
-        "baseUrl": "apiGateway",
-        "path": "scheme-types"
-    },
-    "addUpdateSchemes": {
-        "baseUrl": "apiGateway",
-        "path": "add-update-schemes"
-    },
-    "getSchemes": {
-        "baseUrl": "apiGateway",
-        "path": "schemes"
-    },
     "addUpdateUsers": {
         "baseUrl": "apiGateway",
         "path": "add-update-users"
@@ -46,23 +30,7 @@
     "getUsers": {
         "baseUrl": "apiGateway",
         "path": "users"
-    },    
-    "addUpdatePayment": {
-        "baseUrl": "apiGateway",
-        "path": "add-update-payment"
-    },
-    "getPayments": {
-        "baseUrl": "apiGateway",
-        "path": "payments"
-    },
-    "addUpdateSchemeMembers":{
-        "baseUrl": "apiGateway",
-        "path": "add-update-scheme-members"
-    },
-    "getSchemeMembers": {
-        "baseUrl": "apiGateway",
-        "path": "scheme-members"
-    },
+    }, 
     "settings": {
         "baseUrl": "apiGateway",
         "path": "common/settings"

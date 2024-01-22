@@ -13,41 +13,54 @@
                 Select Category
             </div>
         </div>
-        <div fxLayout="column" fxFlex="100" >     
-            <div fxLayout="row" >            
-                <div class="chips" [class]="this.selectedCategory?.id=== category.id?'active':'inactive'" 
-                *ngFor="let category of categories;let i=index;"
-                (click)="getSubCategoriesByCategory($event,category)">
-                <i class="las la-check" *ngIf="this.selectedCategory?.id=== category.id"></i><span>{{
-                    category.category_name
-                }}</span>
+        <div class="column-container">
+            <div>
+                <div class="row-container-overflow">
+                    <div class="chips" [class]="this.selectedCategory?.id=== category.id?'active':'inactive'" 
+                    *ngFor="let category of categories;let i=index;"
+                    (click)="getSubCategoriesByCategory($event,category)">
+                    <i class="las la-check" *ngIf="this.selectedCategory?.id=== category.id"></i><span>{{
+                        category.category_name
+                    }}</span>
+                    </div>
                 </div>
-            </div>  
-        </div>       
+            </div>
+        </div>      
         <div fxLayout="row" *ngIf="subCategories.length>0" fxLayoutAlign="space-between" class="heading-title">
             <div class="sub-title">
                 select Sub Category
             </div>
         </div>     
-        <div fxLayout="row" >            
-            <div class="chips" [class]="this.selectedSubCategory?.id=== category.id?'active':'inactive'" 
-            *ngFor="let category of subCategories;let i=index;"
-            (click)="getProductsBySubCategories($event,category)">
-            <i class="las la-check" *ngIf="this.selectedSubCategory?.id=== category.id"></i><span>{{
-                category.sub_category_name
-            }}</span>
+        
+        <div class="column-container">
+            <div>
+                <div class="row-container-overflow">
+                    <div class="chips" [class]="this.selectedSubCategory?.id=== category.id?'active':'inactive'" 
+                    *ngFor="let category of subCategories;let i=index;"
+                    (click)="getProductsBySubCategories($event,category)">
+                    <i class="las la-check" *ngIf="this.selectedSubCategory?.id=== category.id"></i><span>{{
+                        category.sub_category_name
+                    }}</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <app-master-container *ngFor="let category of sortedData;let i=index;">
-            <ng-container header>{{category.product_name}}</ng-container>
-            <ng-container icons>
-                <button mat-icon-button    (click)="details(category)">
-                    <i class="las la-info-circle"></i>
-                </button>
-            </ng-container>
-            <ng-container body>               
-                <div fxLayout="column" fxLayoutGap="1rem">
-                    <img class="image-preview" [src]="category.url" /> 
+        <div fxLayout="column" fxLayoutGap="2rem" class="mb-2"> 
+            <app-sgs-card *ngFor="let category of sortedData;let i=index;">  
+                <img class="image-preview" [src]="category.url" />       
+                <div fxLayout="column"  class="p-1"> 
+                    <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons ">
+                        <span class="card-title">{{category.product_name}}</span>
+                        <button mat-icon-button    (click)="details(category)">
+                            <i class="las la-info-circle"></i>
+                        </button>
+                    </div>   
+                    <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons price">
+                        <span ><del>Rs.{{category.product_actual_price}}</del></span>
+                        <span  *ngIf="category?.product_discount_percent || category?.product_discount_price">Rs.{{category.product_selling_price}}</span>
+                        <span  *ngIf="category?.product_discount_percent">{{category.product_discount_percent}}% OFF</span>
+                        <span  *ngIf="category?.product_discount_price">Rs.{{category.product_discount_price}} OFF</span>
+                    </div>                    
                     <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons">
                         <button mat-icon-button (click)="deleteData(category)">
                             <i class="las la-trash"></i>
@@ -57,8 +70,8 @@
                         </button>
                     </div>
                 </div>
-            </ng-container>
-        </app-master-container> 
+            </app-sgs-card> 
+        </div>
     <!-- <app-master-container>
         <ng-container header>Products</ng-container>
         <ng-container icons>

@@ -1,10 +1,54 @@
-<app-outlet-container>
-    <app-master-container>
+<div fxLayout="column" fxFlex="100">
+    <div fxLayout="row" fxLayoutAlign="space-between" class="heading-title">
+        <div class="title">
+            Add Images
+        </div>
+        <button mat-icon-button  (click)="isAddImage=!isAddImage">
+            <i class="las la-plus" *ngIf="!isAddImage"></i>
+            <i class="las la-times" *ngIf="isAddImage"></i>
+        </button>
+    </div>  
+    <div fxLayout="column" fxLayoutGap="1rem" *ngIf="isAddImage">             
+        <app-file-upload
+            #fileUpload
+            [label]="'Image Upload'"
+            [maxSize]="5"
+            [isMultiple]="false"
+            [accept]="'.png,.jpeg,.jpg,.PNG,.JPG,.JPEG,.webp,.gif,.GIF'"
+            (_onUpload)="onFileSelected($event, fileUpload)"
+        >
+        </app-file-upload>                     
+        <button
+        *ngIf="selectedFiles.length>0"
+            class="mat-raised-button mat-primary"
+            type="submit"
+            mat-button
+            (click)="uploadFile()">Submit
+        </button>
+    </div>  
+    <div fxLayout="column" fxFlex="100" fxLayoutGap="2rem" class="mb-2">
+        <app-sgs-card *ngFor="let image of imagesList;let i=index;"> 
+            <img (click)="isActive(image)" 
+            [src]="image?.url || 'assets/images/image-preview'" 
+            [class.border-active]="image.active" 
+            class="image-preview" 
+            />             
+            <div fxLayout="column" fxLayoutGap="1rem" class="p-1">                
+                <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons">
+                    <div class="title">{{image.title}}</div>
+                    <button mat-icon-button (click)="deleteRequest(image,i)">
+                        <i class="las la-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </app-sgs-card> 
+    </div>
+    <!-- <app-master-container>
         <ng-container header>Images</ng-container>
         <ng-container icons>
-            <!-- <button mat-icon-button (click)="downloadExcel()">
+            <button mat-icon-button (click)="downloadExcel()">
                 <i class="las la-file-excel"></i>
-            </button> -->
+            </button>
             <button mat-icon-button  (click)="isAddImage=!isAddImage">
                 <i class="las la-plus" *ngIf="!isAddImage"></i>
                 <i class="las la-times" *ngIf="isAddImage"></i>
@@ -68,5 +112,5 @@
                 </div>
             </div>
         </ng-container>
-    </app-master-container>    
-</app-outlet-container>
+    </app-master-container>     -->
+</div>

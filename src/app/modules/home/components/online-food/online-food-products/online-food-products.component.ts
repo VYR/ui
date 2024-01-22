@@ -193,7 +193,7 @@ export class OnlineFoodProductsComponent  implements OnInit {
           data: event.data,
           },SgsDialogType.medium);
           ref.afterClosed().subscribe((res) => {
-          if(res?.id===event.data.id)
+          if(res?.id>0)
             this.getProducts();
         });
       }
@@ -205,7 +205,7 @@ export class OnlineFoodProductsComponent  implements OnInit {
           data: event.data,
           },SgsDialogType.medium);
           ref.afterClosed().subscribe((res) => {
-          if(res?.id===event.data.id)
+          if(res?.id>0)
             this.getProducts();
           });
         }
@@ -226,7 +226,7 @@ export class OnlineFoodProductsComponent  implements OnInit {
       const ref = this.dialog.openDialog(SgsDialogType.small, DeleteRequestConfirmComponent, event.data?.sub_category_name || '');
       ref.afterClosed().subscribe((result: any) => {
           if (result.decision === DECISION.CONFIRM) {
-              this.sandbox.deleteRequest({id:event.data.id,type:2}).subscribe((res:any) => {
+              this.sandbox.deleteRequest({id:event.data.id,type:4}).subscribe((res:any) => {
                   if(res?.deleteStatus === 1)
                   this.getSubCategories();
               });

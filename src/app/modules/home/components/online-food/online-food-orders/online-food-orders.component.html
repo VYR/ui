@@ -5,26 +5,30 @@
                 Select Status
             </div>
         </div>
-        <div fxLayout="column" fxFlex="100" >     
-            <div fxLayout="row" >            
-                <div class="chips" [class]="this.selectedStatus=== category?'active':'inactive'" 
-                *ngFor="let category of statuses;let i=index;"
-                (click)="updateStatus($event,category)">
-                <i class="las la-check" *ngIf="this.selectedStatus=== category"></i><span>{{
-                    category
-                }}</span>
+        
+        <div class="column-container">
+            <div>
+                <div class="row-container-overflow">
+                    <div class="chips" [class]="this.selectedStatus=== category?'active':'inactive'" 
+                    *ngFor="let category of statuses;let i=index;"
+                    (click)="updateStatus($event,category)">
+                    <i class="las la-check" *ngIf="this.selectedStatus=== category"></i><span>{{
+                        category
+                    }}</span>
+                    </div>
                 </div>
-            </div>  
-        </div> 
-        <app-master-container *ngFor="let item of sortedData;let i=index;">
-            <ng-container header>Order ID: {{item.txnNo}}</ng-container>
-            <ng-container icons>
-                <button mat-icon-button>
-                    <i class="las la-info-circle"></i>
-                </button>
-            </ng-container>
-            <ng-container body>               
-                <div fxLayout="column">
+            </div>
+        </div>
+    
+        <div fxLayout="column" fxLayoutGap="2rem" class="mb-2"> 
+            <app-sgs-card *ngFor="let item of sortedData;let i=index;">             
+                <div fxLayout="column" class="p-1">
+                    <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons ">
+                        <span class="card-title">Order ID: {{item.txnNo}}</span>
+                        <button mat-icon-button >
+                            <i class="las la-info-circle"></i>
+                        </button>
+                    </div> 
                     <app-label-value
                     [label]="'Ordered By'"
                     [value]="item.userName"
@@ -40,14 +44,30 @@
                     [value]="item.mobilePhone"
                     >
                     </app-label-value>
+                    <app-label-value
+                    [label]="'Total Items'"
+                    [value]="item.total_products"
+                    >
+                    </app-label-value>
+                    <app-label-value
+                    [label]="'Total Qantity'"
+                    [value]="item.quantity"
+                    >
+                    </app-label-value>
+                    <app-label-value
+                    [label]="'Total Amount Paid'"
+                    [value]="item.amount_paid"
+                    >
+                    </app-label-value>
+                    
                     <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons">
                         <button mat-icon-button>
-                            <i class="las la-history"></i><span>{{item.created_at | date:'medium'}}</span>
+                           Order Date: <i class="las la-history"></i><span>{{item.created_at | date:'medium'}}</span>
                         </button>
                     </div>
                 </div>
-            </ng-container>
-        </app-master-container> 
+            </app-sgs-card> 
+        </div>
     <!-- <app-master-container>
         <ng-container header>Orders</ng-container>
         <ng-container icons>
