@@ -24,19 +24,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule} from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { OnlineFoodCategoriesComponent } from './components/online-food/online-food-categories/online-food-categories.component';
-import { OnlineFoodProductsComponent } from './components/online-food/online-food-products/online-food-products.component';
 import { OnlineFoodOrdersComponent } from './components/online-food/online-food-orders/online-food-orders.component';
-import { OnlineFoodUsersComponent } from './components/online-food/online-food-users/online-food-users.component';
-import { OnlineFoodImagesComponent } from './components/online-food/online-food-images/online-food-images.component';
 import { OnlineFoodProfileComponent } from './components/online-food/online-food-profile/online-food-profile.component';
-import { OnlineFoodSettingsComponent } from './components/online-food/online-food-settings/online-food-settings.component';
-import { OnlineFoodAddFormComponent } from './components/online-food/online-food-add-form/online-food-add-form.component';
 import { OnlineFoodEditFormComponent } from './components/online-food/online-food-edit-form/online-food-edit-form.component';
 import { OnlineFoodViewDetailsComponent } from './components/online-food/online-food-view-details/online-food-view-details.component';
-import { OnlineFoodSubCategoriesComponent } from './components/online-food/online-food-sub-categories/online-food-sub-categories.component';
 import { DeleteRequestConfirmComponent } from "./components/online-food/delete-request-confirm/delete-request-confirm.component";
-import { OnlineFoodImageSelectionComponent } from './components/online-food/online-food-image-selection/online-food-image-selection.component';
+import { LandingComponent } from './components/online-food/landing/landing.component';
+import { AddToCartComponent } from './components/online-food/add-to-cart/add-to-cart.component';
+import { CartComponent } from './components/online-food/cart/cart.component';
 @NgModule({
     declarations: [
         HomeComponent, 
@@ -44,17 +39,13 @@ import { OnlineFoodImageSelectionComponent } from './components/online-food/onli
         SideMenuComponent, 
         TimeoutPopupComponent,
         DeleteRequestConfirmComponent, 
-        OnlineFoodCategoriesComponent,        
-        OnlineFoodProductsComponent, 
         OnlineFoodOrdersComponent, 
-        OnlineFoodUsersComponent, 
-        OnlineFoodImagesComponent, 
         OnlineFoodProfileComponent, 
-        OnlineFoodSettingsComponent, 
-        OnlineFoodAddFormComponent, 
         OnlineFoodEditFormComponent, 
         OnlineFoodViewDetailsComponent, 
-        OnlineFoodSubCategoriesComponent, OnlineFoodImageSelectionComponent
+        LandingComponent, 
+        AddToCartComponent,
+        CartComponent
     ],
     imports: [
         CommonModule,

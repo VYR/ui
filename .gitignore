@@ -3,6 +3,7 @@
 # Compiled output
 /tmp
 /dist
+/config_encrypted
 /out-tsc
 /bazel-out
 /config/env.json

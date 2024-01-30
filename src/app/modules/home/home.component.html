@@ -49,13 +49,17 @@
     <div class="total-height">
         <div class="column-container">
             <div>
-                <mat-toolbar class="fixed-top">
-                    <button (click)="drawer.toggle()" mat-icon-button>
-                        <i class="las la-bars"></i>
+                <mat-toolbar class="fixed-top">                
+                    <div class="card-title ml-1">{{user.pageTitle}}</div>
+                    <span class="top-menu-spacer"></span> 
+                    <button *ngIf="cartItems>0" (click)="openCartPage()" mat-icon-button matBadge="{{cartItems}}"
+                     matBadgeColor="warn" class="mr-1" >                        
+                        <i class="las la-shopping-cart mr-1"></i>
                     </button>
-                    <div class="card-title">{{user.pageTitle}}</div>
-                    <span class="top-menu-spacer"></span>
-                    <button mat-icon-button (click)="action('LOGOUT')" >                        
+                    <button *ngIf="!user?.userId" mat-icon-button (click)="goToPage('/login')" >                        
+                        <i class="las la-user"></i>
+                    </button>
+                    <button class="ml-2" *ngIf="user?.userId" mat-icon-button (click)="action('LOGOUT')" >                        
                         <i class="las la-arrow-circle-right"></i>
                     </button>
                     
@@ -65,15 +69,22 @@
                         <router-outlet></router-outlet>
                     </div>
                 </div>              
-                <!-- <mat-toolbar class="fixed-bottom">
-                    <button (click)="drawer.toggle()" mat-icon-button class="menu-icon">
-                        <i class="las la-home"></i>
-                    </button>
+                <mat-toolbar class="fixed-bottom p-0p5" *ngIf="user?.userId">
+                    <div (click)="goToPage('/landing')">
+                        <i class="las la-home active"></i>
+                        <span class="active">Shop</span>
+                    </div>
                     <span class="bottom-menu-spacer"></span>
-                    <button mat-icon-button>
-                        <i class="las la-shopping-cart" matBadge="15" matBadgeColor="warn"></i>
-                    </button>
-                </mat-toolbar>  -->
+                    <div (click)="openPage('orders')">
+                        <i class="las la-shipping-fast"></i>
+                        <span>Orders</span>
+                    </div>
+                    <span class="bottom-menu-spacer"></span>
+                    <div (click)="openPage('profile')">
+                        <i class="las la-user"></i>
+                        <span>Profile</span>
+                    </div>
+                </mat-toolbar> 
             </div>
         </div>
     </div>  

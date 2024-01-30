@@ -8,6 +8,9 @@ import { TimeoutPopupComponent } from './components/timeout-popup/timeout-popup.
 import { HomeSandbox } from './home.sandbox';
 import { ConfigService } from 'src/app/configuration';
 import { USER_TYPE } from 'src/app/shared/enums';
+import { Router } from '@angular/router';
+import { CartComponent } from './components/online-food/cart/cart.component';
+import { OnlineFoodViewDetailsComponent } from './components/online-food/online-food-view-details/online-food-view-details.component';
 
 @Component({
     selector: 'app-home',
@@ -21,10 +24,12 @@ export class HomeComponent implements OnInit {
     USER_TYPE = USER_TYPE;
     menu: Array<any> = [];
     modules: any = {};
+    cartItems:any=0;
 
     public activeRouter: any;
     constructor(
         private dialog: SgsDialogService,
+        private router:Router,
         private idleTimeoutService: IdleTimeoutService,
         private sandbox: HomeSandbox,
         private appContext: ApplicationContextService,
@@ -34,20 +39,41 @@ export class HomeComponent implements OnInit {
             this.user = res;
             const modules: Array<any> = configService.get('modules');
             this.menu = (modules[this.user.userType] || []).filter((x: any) => !x.location);
+            this.cartItems=(this.user?.cart || []).reduce((total,value) => {return total+value.quantity;},0);
         });
     }
 
     ngOnInit(): void {
-        this.idleTimeoutService.initilizeSessionTimeout();
+    /*     this.idleTimeoutService.initilizeSessionTimeout();
         this.idleTimeoutService.userIdlenessChecker!.subscribe((status: string) => {
             this.initiateFirstTimer(status);
         });
         const currentUser = this.appContext.getCurrentUser();
         this.refreshToken = interval(((currentUser.expirationTime || 1800) - 120) * 1000)
             .pipe(mergeMap(() => this.sandbox.refreshToken()))
-            .subscribe((data: any) => {});
+            .subscribe((data: any) => {}); */
     }
-
+    goToPage(path:any){
+        this.router.navigate([path]);
+    }
+    openCartPage(){
+        const ref = this.dialog.openOverlayPanel('Cart', CartComponent,SgsDialogType.large);
+        ref.afterClosed().subscribe((res) => {});
+    }
+    
+    openPage(page:any){
+        let name='';
+        if(page==='profile'){
+            name='Profile';
+        }
+        if(page==='orders'){
+            name='Orders';
+        }
+        const ref = this.dialog.openOverlayPanel(name, OnlineFoodViewDetailsComponent,{
+            type:page            
+        },SgsDialogType.large);
+        ref.afterClosed().subscribe((res) => {});
+    }
     private initiateFirstTimer(status: string) {
         switch (status) {
             case 'INITIATE_TIMER':

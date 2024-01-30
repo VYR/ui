@@ -9,7 +9,7 @@
         "start": "npm run pre-start& npm run set-env-dev & ng serve --port 4203",
         "build": "ng build",
         "build-sit": "npm run set-env-sit & npm run pre-build &  ng build  --aot --base-href=/save-gold-scheme/",
-        "build-uat": "npm run set-env-uat & npm run pre-build & ng build  --aot --base-href=/kiran/",
+        "build-uat": "npm run set-env-uat & npm run pre-build & ng build  --aot --base-href=/kiran-user/",
         "build-prod": "npm run set-env-prod & npm run pre-build  &  ng build  --aot --base-href=/save-gold-scheme/",
         "test-ci": "ng test --watch=false",
         "e2e:ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",

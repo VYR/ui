@@ -84,3 +84,9 @@
     </app-label-value>
 </div>
 
+<div fxLayout="column" fxFlex="100" *ngIf="data?.type==='profile'">    
+    <app-online-food-profile></app-online-food-profile>
+</div>
+<div fxLayout="column" fxFlex="100" *ngIf="data?.type==='orders'">    
+    <app-online-food-orders></app-online-food-orders>
+</div>

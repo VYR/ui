@@ -10,3 +10,20 @@
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+.login-logo{
+    background-color: #0913ed;
+    color: #fff;
+    width: 8rem;
+    height: 8rem;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 4rem;
+    font-family: sans-serif;
+    position: relative;
+    .logo-text{
+        position: absolute;
+        top: 3.3rem;
+        left: 2rem;
+    }
+}

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
+const routes: Routes = [    
     {
         path: '',
-        loadChildren: () =>
-            import('./modules/authentication/authentication.module').then((m) => m.AuthenticationModule),
+        loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule),
     },
     {
-        path: 'home',
-        loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule),
+        path: 'login',
+        loadChildren: () =>
+            import('./modules/authentication/authentication.module').then((m) => m.AuthenticationModule),
     },
     {
         path: 'service-unavailable',
@@ -18,7 +18,7 @@ const routes: Routes = [
     },
     {
         path: '**',
-        redirectTo: 'login',
+        redirectTo: '/landing',
         pathMatch: 'full',
     },
 ];

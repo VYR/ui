@@ -29,6 +29,7 @@ export class UserContext {
     public sysConfig!: any;
     public rmDetails!: any;
     selectedUserId!: string;
+    public cart!: Array<any>;
     public sysConfigAllInfo!: Array<any>;
     public forcePasswordChange!: boolean;
     public expirationTime!: number;

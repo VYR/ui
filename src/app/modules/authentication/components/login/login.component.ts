@@ -28,11 +28,14 @@ export class LoginComponent implements OnInit {
     }
 
     onForgotPasswordClick() {
-        this.router.navigate(['forgot-password']);
+        this.router.navigate(['/login/forgot-password']);
+    }
+    goToHome() {
+        this.router.navigate(['/']);
     }
 
-    onUnlockPasswordClick() {
-        this.router.navigate(['unlock-user']);
+    onSignUpClick() {
+        this.router.navigate(['/login/signup']);
     }
 
     onCancelClick() {

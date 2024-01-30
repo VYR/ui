@@ -75,14 +75,7 @@
         "0": [
             {
                 "uuid": "",
-                "name": "DASHBOARD",
-                "icon": "las la-home",
-                "path": "dashboard",
-                "location": "header"
-            },
-            {
-                "uuid": "",
-                "name": "DASHBOARD",
+                "name": "MY ORDERS",
                 "icon": "las la-home",
                 "path": "dashboard"
             },

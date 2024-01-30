@@ -100,6 +100,16 @@ export class AuthenticationSandbox implements OnDestroy {
         );
     }
 
+    public signUpPasswordReq(payLoad: any): any {
+        return this.authenticationService.signUpPasswordReq(payLoad).pipe(takeUntil(this.unsubscribe$),
+            tap((res: any) => {                
+                if (res) {
+                    this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    }
+
     public forgotPasswordConfirm(passwordInfo: any, otp: string, userInfo: any): any {
         const payload = {
             email: userInfo.userName,
@@ -114,6 +124,25 @@ export class AuthenticationSandbox implements OnDestroy {
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((response: any) => {
                 this.utilService.displayNotification('Password has been changed successfully!', 'success');
+                this.router.navigate(['login']);
+            });
+    }
+    public signUpPasswordConfirm(passwordInfo: any, otp: string, userInfo: any): any {
+        const payload = {
+            ...userInfo,
+            ...{
+                password: passwordInfo.confirmPasswrd,
+                validateOTPRequest: {
+                    softTokenUser: '',
+                    otp: otp,
+                }
+            }
+        };
+        this.authenticationService
+            .signUpPasswordReq(payload)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((response: any) => {
+                this.utilService.displayNotification('Your account has been created successfully!', 'success');
                 this.router.navigate(['login']);
             });
     }

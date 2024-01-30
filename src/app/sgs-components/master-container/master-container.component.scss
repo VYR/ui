@@ -2,8 +2,6 @@
 .master-container {
     background: white;
     border-radius: 0.5rem;
-    margin-left: 0.4rem;
-    margin-right: 0.4rem;
     .panel-header {
         display: flex;
         align-items: center;
@@ -34,13 +32,13 @@
         .title {
             font-size: 0.8rem;
             font-weight: bold;
-            color: $sweety-text-color;
+            // color: $sweety-text-color;
             align-items: center;
             display: flex;
         }
         ::ng-deep i {
             font-size: 1.25rem;
-            color: $sweety-primary-color;
+            // color: $sweety-primary-color;
         }
     }
     .header-opened {
@@ -62,19 +60,19 @@
         flex-direction: row;
         align-items: start;
         justify-content: center;
-        background-color: $sweety-divider-color;
-        border-bottom: 0.0625rem solid $sweety-divider-color;
+        background-color: #fff;
+        border-bottom: 0.0625rem solid #fff;
         min-height: 2.5rem;
         .title {
             font-size: 0.825rem !important;
-            color: $sweety-background-blue;
+            // color: $sweety-background-blue;
             font-weight: 700;
             align-items: center;
             display: flex;
         }
     }
     .body {
-        border: 0.0625rem solid $sweety-divider-color;
+        border: 0.0625rem solid #fff;
         border-bottom-left-radius: 0.5rem;
         border-bottom-right-radius: 0.5rem;
         margin-top: 0;
@@ -115,7 +113,7 @@
         background: $sweety-nav-bar-background;
         .title {
             font-size: 0.825rem !important;
-            color: $sweety-background-blue;
+            // color: $sweety-background-blue;
             font-weight: 700;
             align-items: center;
             display: flex;

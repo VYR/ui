@@ -29,22 +29,26 @@ export class RoleGuard implements CanLoad, CanActivate {
     canLoad(route: Route): boolean {
         let hasAccess: boolean = false;
         if (this.appContext.isAuthenticated()) {
-            const features = this.modules[this.currentUser.userType].filter((x: any) => x.path === route.path);
-            console.log(features);
+            let features = [];
+            if(this.currentUser.userType===0)
+            features = this.modules[this.currentUser.userType].filter((x: any) => x.path === route.path);
+        
             if (!features.length) {
                 hasAccess = false;
             } 
             else {
                 hasAccess = true;
-            }
+            }            
+            console.log(hasAccess);
             if (!hasAccess) {
                 this.router.navigate(['/home/unauthorized-access', route.path]);
             }
             return true;
         }
+        console.log(hasAccess);
         // not logged in so redirect to login page with the return url
         this.util.displayNotification(`Authentication failed. Kindly login.`, 'error');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
         return true;
     }
 

@@ -15,49 +15,29 @@
         "baseUrl": "apiGateway",
         "path": "forgot"
     },
+    "signUpPasswordRequest": {
+        "baseUrl": "apiGateway",
+        "path": "signup"
+    },
     "validateOtp": {
         "baseUrl": "apiGateway",
         "path": "login/verify"
-    },
-    "sgsRequestCount": {
-        "baseUrl": "apiGateway",
-        "path": "common/graph"
     },
     "addUpdateUsers": {
         "baseUrl": "apiGateway",
         "path": "add-update-users"
     },
-    "getUsers": {
-        "baseUrl": "apiGateway",
-        "path": "users"
-    }, 
-    "settings": {
-        "baseUrl": "apiGateway",
-        "path": "common/settings"
-    },
-    "addUpdateCategories":{
-        "baseUrl": "apiGateway",
-        "path": "add-update-categories"
-    },
     "getCategories": {
         "baseUrl": "apiGateway",
-        "path": "categories"
-    },
-    "addUpdateSubCategories":{
-        "baseUrl": "apiGateway",
-        "path": "add-update-sub-categories"
+        "path": "user-categories"
     },
     "getSubCategories": {
         "baseUrl": "apiGateway",
-        "path": "sub-categories"
-    },
-    "addUpdateProducts":{
-        "baseUrl": "apiGateway",
-        "path": "add-update-products"
+        "path": "user-sub-categories"
     },
     "getProducts": {
         "baseUrl": "apiGateway",
-        "path": "products"
+        "path": "user-products"
     },
     "addUpdateOrders":{
         "baseUrl": "apiGateway",
@@ -66,17 +46,7 @@
     "getOrders": {
         "baseUrl": "apiGateway",
         "path": "orders"
-    },
-    "uploadFiles": {
-        "baseUrl": "apiGateway",
-        "path": "upload-files",
-        "fileUpload": true
-    },
-    "getFiles": {
-        "baseUrl": "apiGateway",
-        "path": "get-files"
-    },
-    
+    },    
     "deleteRecord": {
         "baseUrl": "apiGateway",
         "path": "common/delete"

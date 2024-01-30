@@ -3,9 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationComponent } from './authentication.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/login/login.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ValidateOtpComponent } from './components/validate-otp/validate-otp.component';
-import { UnlockUserComponent } from './components/unlock-user/unlock-user.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 const routes: Routes = [
     {
@@ -13,34 +12,29 @@ const routes: Routes = [
         component: AuthenticationComponent,
         children: [
             {
-                path: 'login',
+                path: '',
                 component: LoginComponent,
+                pathMatch: 'full',
+            },
+            {
+                path: 'signup',
+                component: SignupComponent,
                 pathMatch: 'full',
             },
             {
                 path: 'forgot-password',
                 component: ForgotPasswordComponent,
-                pathMatch: 'full',
-            },
-            {
-                path: 'reset-password',
-                component: ResetPasswordComponent,
-                pathMatch: 'full',
+                pathMatch: 'prefix',
             },
             {
                 path: 'validate-otp',
                 component: ValidateOtpComponent,
-                pathMatch: 'full',
+                pathMatch: 'prefix',
             },
             {
-                path: 'unlock-user',
-                component: UnlockUserComponent,
-                pathMatch: 'full',
-            },
-            {
-                path: '',
-                redirectTo: 'login',
-                pathMatch: 'full',
+                path: '**',
+                redirectTo: '/',
+                pathMatch: 'prefix',
             },
         ],
     },

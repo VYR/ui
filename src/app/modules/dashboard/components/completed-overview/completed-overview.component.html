@@ -1,9 +1,0 @@
-<ng-container *ngIf="!isStpUser">
-    <app-my-completed-requests
-        *appHasAccessToRole="[ROLE_NAME.USER, ROLE_NAME.ROLE_USER_MAKER_CHECKER]"
-    ></app-my-completed-requests>
-</ng-container>
-<div class="divider"></div>
-<app-completed-requests
-    *appHasAccessToRole="[ROLE_NAME.ROLE_USER_VERIFIER, ROLE_NAME.ROLE_USER_CHECKER, ROLE_NAME.ROLE_USER_MAKER_CHECKER]"
-></app-completed-requests>

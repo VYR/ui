@@ -14,7 +14,6 @@ export class OnlineFoodProfileComponent{
   data!:UserContext;
   userTypes=USER_TYPES;
   constructor(private appContext: ApplicationContextService, private dialog: SgsDialogService) {
-    this.appContext.setPageTitle('Profile'); 
     this.appContext.currentUser.subscribe((res: any) => (this.data = res));
   }
   openPopup() {    

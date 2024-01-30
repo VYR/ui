@@ -19,6 +19,10 @@ export class AuthenticationService {
         return this.http.post(Operations.FORGOT_PASSWORD_REQ, request);
     }
 
+    signUpPasswordReq(request: any) {
+        return this.http.post(Operations.SIGNUP_PASSWORD_REQ, request);
+    }
+
     resetPassword(req: any) {
         return this.http.post('Operations.RESET_PASSWORD_REQ', req);
     }

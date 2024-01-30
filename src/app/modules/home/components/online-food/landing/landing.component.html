@@ -1,0 +1,119 @@
+<app-outlet-container>
+    <div fxLayout="column" fxFlex="100" class="px-0p5" >   
+       <!--<div class="title-1">Shop by category</div>
+         <div class="column-container px-0p7 mb-1">
+            <div>
+                <div class="row-container-overflow">
+                    <ng-container  *ngFor="let category of categories;let i=index;">
+                        <div class="category"  (click)="getSubCategoriesByCategory($event,category)">
+                            <img [src]="category.url" class="img-category"/><br>
+                            <div class="category-title">{{category.category_name}}</div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div>
+                <div class="row-container-overflow">                    
+                    <ng-container  *ngFor="let category of subCategories;let i=index;">
+                        <div class="category"  (click)="getProductsBySubCategories($event,category)">
+                            <img [src]="category.url" class="img-category"/><br>
+                        <div class="category-title">{{category.sub_category_name }}</div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>         -->
+        <div fxLayout="column" *ngFor="let category of sortedData"   fxLayoutGap="1rem" class="pb-4">
+            <div class="title-1">{{category.categoryName}}</div>
+            <app-master-container *ngFor="let subcategory of category.subCategories" [variant]="'secondary'" [opened]="true" [collapsable]="true">
+                <ng-container header>{{subcategory.subCategoryName}}</ng-container>
+                <ng-container body>
+                    <div fxLayout="column" class="wrap"  fxLayoutGap="1rem" fxFlex="100">
+                        <div fxLayout="row" fxLayoutAlign="space-between" style="position: relative;" fxLayoutGap="0.5rem" *ngFor="let product of subcategory.products"> 
+                            <div fxLayout="column"  fxLayoutGap="0.5rem"> 
+                                    <div class="card-title">{{product.product_name}}</div>   
+                                    <div>Rs.{{product.product_selling_price}}</div>  
+                                    <div>{{product.product_desc}}</div>                                    
+                            </div>
+                            <div  style="position: relative;">  
+                                <img class="image-preview" [src]="product.url" (click)="details(product)"/>  
+                                <div style="position: relative;">
+                                    <div class="row-container offer-tag">
+                                        <span  *ngIf="product?.product_discount_percent && product?.product_discount_percent>0">{{product.product_discount_percent}}% OFF</span>
+                                        <span  *ngIf="product?.product_discount_price && product?.product_discount_price>0">Rs.{{product.product_discount_price}} OFF</span>
+                                    </div> 
+                                </div>  
+                                <div style="position: relative;">
+                                    <div class="btn-add">
+                                        <div class="add-btn"  (click)="details(product)">ADD</div>
+                                    </div>                        
+                                </div> 
+                            </div>
+                        </div>                      
+                    </div>
+                </ng-container>
+            </app-master-container>            
+        </div>
+    <!-- <app-master-container>
+        <ng-container header>Products</ng-container>
+        <ng-container icons>
+            <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
+                    <i class="las la-file-excel"></i>
+                </button>
+            <button mat-icon-button  *ngIf="selectedSubCategory?.id>0"  (click)="addProduct()">
+                <i class="las la-plus"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <div fxLayout="column" fxFlex="100">
+                <mat-form-field>
+                    <mat-label>Select Category</mat-label>
+                    <mat-select [(ngModel)]="selectedCategory">
+                        <mat-option *ngFor="let category of categories" [value]="category" 
+                        (onSelectionChange)="getSubCategoriesByCategory($event,category)">{{
+                            category.category_name
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Select Sub Category</mat-label>
+                    <mat-select [(ngModel)]="selectedSubCategory">
+                        <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory" 
+                        (onSelectionChange)="getProductsBySubCategories($event,subCategory)">{{
+                            subCategory.sub_category_name
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field> 
+            </div>
+            <app-sgs-table
+            [config]="tableConfig"
+            (_lazyLoad)="lazyLoad($event)"
+            (_clickCell)="onClickCell($event)"
+        ></app-sgs-table>
+        </ng-container>
+    </app-master-container>   -->
+    </div>  
+</app-outlet-container>
+<div *ngIf="showFullProduct" class="product-detail">
+    <div class="column-container">
+        <div class="close" (click)="showFullProduct=false"><i class="las la-times"></i></div>
+        <img [src]="selectedProduct.url" />
+    </div>
+    <div class="row-container p-0p5 align-space-between">
+        <div>Rs.{{selectedProduct.product_selling_price}}</div>
+        <div class="column-container">
+            <app-add-to-cart  [currentValue]="{value:selectedProduct.cart,item:selectedProduct}" (_click)="getUpdatedValue($event)"></app-add-to-cart>
+        </div>
+    </div>
+    <div class="column-container p-0p5">
+        <div>{{selectedProduct.product_desc}}</div>
+    </div>
+</div>
+<div *ngIf="cartItems>0 && showcart" class="bottom-cart-detail">
+    <div class="row-container align-space-between">
+        <div>Total Cart</div>
+        <div>Qty:{{cartItems}}</div>
+        <div>Price:Rs.{{cartTotal}}</div>
+        <div class="close" (click)="showcart=false"><i class="las la-times"></i></div>
+    </div>
+</div>

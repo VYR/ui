@@ -1,0 +1,48 @@
+@import 'variables';
+.forgot-password-wrapper {
+    background: $sweety-white;
+    padding: 15px;
+    margin-bottom: 3rem;
+    border-radius: 0.5rem;
+    .login-title {
+        mat-label {
+            font-size: 1rem;
+        }
+        align-self: center;
+        margin-bottom: 1rem;
+    }
+    .login-form {
+        .md-block {
+            mat-label {
+                font-size: 0.875rem;
+            }
+            i {
+                font-size: 1rem;
+                color: $sweety-badge-background;
+                font-weight: bold;
+            }
+        }
+        .login-btn {
+            margin-top: 0.313rem;
+        }
+        .body-card-login-form {
+            .md-block {
+                color: $sweety-primary-color;
+                i {
+                    font-size: 1rem;
+                    color: $sweety-badge-background;
+                    font-weight: bold;
+                }
+                mat-label {
+                    font-size: 0.875rem;
+                }
+            }
+        }
+    }
+    .password-mismatch {
+        font-size: 0.75rem;
+        width: 100%;
+        padding-bottom: 0.5rem;
+        color: $sweety-red;
+    }
+}

@@ -11,6 +11,7 @@ import * as moment from 'moment';
 })
 export class HomeSandbox {
     currentUser!:UserContext;
+    products:Array<any>=[];
     constructor(
         private service: HomeService,
         private appContext: ApplicationContextService,
@@ -127,22 +128,7 @@ export class HomeSandbox {
                 }
             })
         );
-    }
-       
-    getSettings() {
-        return this.service.getSettings();
-    }    
-      
-    updateSettings(params: any) {        
-        return this.service.updateSettings(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
-                }
-            })
-        );
-    }  
+    }   
 
     addUpdateUsers(params: any) {        
         return this.service.addUpdateUsers(params).pipe(
@@ -155,62 +141,11 @@ export class HomeSandbox {
         );
     }
 
-    getSgsUsers(params:any) {
-        return this.service.getSgsUsers(params);
-    }
-    
-    getAllUsers(params:any) {
-        return this.service.getSgsUsers(params).pipe(
-            tap((res: any) => {                
-                if (res?.data) {
-                   res.data=(res?.data || []).filter((value:any) => value.userId!==this.currentUser.userId);
-                }
-            })
-        );
-    }
-
-    uploadFiles(params:any) {
-        return this.service.uploadFiles(params).pipe(
-            tap((res: any) => {                
-                if(res?.message)
-                {
-                  this.utilService.displayNotification(res.message,'success');
-                }
-            })
-        );
-    } 
-        
-    getFiles(params:any) {
-        return this.service.getFiles(params).pipe(
-            tap((res: any) => {                
-                if (res?.data?.data) {
-                   res.data.data=(res.data.data || []).map((value:any) => {
-                    value.url=res?.url+value?.path;
-                    value.active=false;
-                    value.isSelected=false;
-                    return value;
-                  });
-                }
-            })
-        );
-    }
-    
-    addUpdateCategories(params: any) {        
-        return this.service.addUpdateCategories(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
-                }
-            })
-        );
-    } 
-
     getCategories(params: any) {        
         return this.service.getCategories(params).pipe(
             tap((res: any) => {                
-                if (res?.data?.data) {
-                   res.data.data=(res.data.data || []).map((value:any) => {
+                if (res?.data) {
+                   res.data.data=(res.data || []).map((value:any) => {
                     value.url=res?.url+value?.path;
                     return value;
                   });
@@ -218,35 +153,15 @@ export class HomeSandbox {
             })
         );
     }     
-    addUpdateSubCategories(params: any) {        
-        return this.service.addUpdateSubCategories(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
-                }
-            })
-        );
-    } 
 
     getSubCategories(params: any) {        
         return this.service.getSubCategories(params).pipe(
             tap((res: any) => {                
-                if (res?.data?.data) {
-                   res.data.data=(res.data.data || []).map((value:any) => {
+                if (res?.data) {
+                   res.data.data=(res.data || []).map((value:any) => {
                     value.url=res?.url+value?.path;
                     return value;
                   });
-                }
-            })
-        );
-    }     
-    addUpdateProducts(params: any) {        
-        return this.service.addUpdateProducts(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
                 }
             })
         );
@@ -255,28 +170,59 @@ export class HomeSandbox {
     getProducts(params: any) {        
         return this.service.getProducts(params).pipe(
             tap((res: any) => {                
-                if (res?.data?.data) {
-                   res.data.data=(res.data.data || []).map((value:any) => {
-                    value.url=res?.url+value?.path;
+                if (res?.data) {
+                    let existingCart:Array<any>=this.currentUser?.cart || [];                   
+                   res.data=(res?.data || []).map((value:any) => {
+                    value.subCategories=(value?.subCategories || []).map((value1:any) => {
+                            value.products=(value1?.products || []).map((value2:any) => {
+                            value2.url=res?.url+value2?.path;
+                            value2.cart=0;
+                            if(existingCart.length>0){
+                                const index=existingCart.findIndex((v:any) => v.id==value2.id);
+                                if(index>=0){
+                                    value2.cart=existingCart[index].quantity;
+                                }
+                            }
+                            return value2;
+                          });
+                        return value1;
+                      });
                     return value;
                   });
+                  this.products=res.data;
                 }
             })
         );
     }     
-    addUpdateOrders(params: any) {        
+    addUpdateOrders(params: any,type:any='') {        
         return this.service.addUpdateOrders(params).pipe(
             tap((res: any) => {                
                 if(res?.data?.id >0)
                 {
-                  this.utilService.displayNotification(res?.message,'success');
+                    if(type==='cancel')
+                    this.utilService.displayNotification('Order cancelled successfully','success');
+                else
+                    this.utilService.displayNotification(res?.message,'success');
                 }
             })
         );
     } 
 
-    getOrders(params: any) {        
-        return this.service.getOrders(params);
+    getOrders(params: any) {
+        return this.service.getOrders(params).pipe(
+            tap((res: any) => {                
+                if (res?.data?.data) {
+                   res.data.data=(res?.data?.data || []).map((value:any) => {
+                    value.product_details=JSON.parse(value?.product_details);
+                    value.product_details=(value?.product_details || []).map((value1:any) => {
+                        value1.url=res?.url+value1.url;
+                        return value1;
+                      });
+                    return value;
+                  });
+                }
+            })
+        );
     } 
 
 }

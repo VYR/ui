@@ -1,248 +1,37 @@
-<ng-container *ngIf="data.type==='category'">
-    <form  [formGroup]="updateCategoriesForm" >
-        <div  fxLayout="column" fxLayoutGap="0.3rem">       
-            <ng-container >
-                <mat-form-field>
-                    <mat-label>Category Name</mat-label>
-                    <input matInput formControlName="category_name" placeholder="Enter Category Name" />                   
-                </mat-form-field> 
-                <mat-label>Category Image</mat-label>
-                <img (click)="openImagesPanel()" [src]="categoryImage" class="image-preview"/> 
-                <input  formControlName="category_image_id" hidden />  
-               
-                <mat-form-field>
-                    <mat-label>Status</mat-label>
-                    <mat-select formControlName="status" class="status">
-                        <mat-option *ngFor="let status of statuses" [value]="status">{{
-                            status
-                        }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-             
-                    <button
-                        class="mat-raised-button mat-primary"
-                        type="submit"
-                        [disabled]="updateCategoriesForm.invalid"
-                        mat-stroked-button
-                        color="primary"
-                        (click)="submitCategoriesForm()"
-                    >
-                        Update
-                    </button>
-            
-            </ng-container>     
-        </div>
-    </form>
-</ng-container>
-<ng-container *ngIf="data.type==='subCategory'">
-    <form  [formGroup]="updateSubCategoriesForm" >
-        <div  fxLayout="column" fxLayoutGap="0.3rem">   
-            <div class="disableMe" fxFlex="100">              
-                <mat-form-field  fxFlex="100">
-                    <mat-label>Select Category</mat-label>
-                    <mat-select formControlName="category_id">
-                        <mat-option *ngFor="let category of categories" [value]="category.id" >{{
-                            category.category_name
-                        }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <mat-form-field>
-                <mat-label>Sub Category Name</mat-label>
-                <input matInput formControlName="sub_category_name" placeholder="Enter Sub Category Name" />                   
-            </mat-form-field> 
-            <mat-label>Sub Category Image</mat-label>
-            <img (click)="openImagesPanel()" [src]="subCategoryImage" class="image-preview"/> 
-            <input  formControlName="sub_category_image_id" hidden /> 
-            <mat-form-field>
-                <mat-label>Status</mat-label>
-                <mat-select formControlName="status" class="status">
-                    <mat-option *ngFor="let status of statuses" [value]="status">{{
-                        status
-                    }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-         
-                <button
-                    class="mat-raised-button mat-primary"
-                    type="submit"
-                    [disabled]="updateSubCategoriesForm.invalid"
-                    mat-stroked-button
-                    color="primary"
-                    (click)="submitSubCategoriesForm()"
-                >
-                    Update
-                </button>
-           
-        </div>
-    </form>
-</ng-container>
-<ng-container *ngIf="data.type==='product'">
-    <form  [formGroup]="updateProductForm" >
-        <div  fxLayout="column" fxLayoutGap="0.3rem"> 
-            <div class="disableMe" fxFlex="100">              
-                <mat-form-field  fxFlex="100">
-                    <mat-label>Select Category</mat-label>
-                    <mat-select formControlName="product_category_id">
-                        <mat-option *ngFor="let category of categories" [value]="category.id" >{{
-                            category.category_name
-                        }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="disableMe" fxFlex="100">              
-                <mat-form-field  fxFlex="100">
-                    <mat-label>Select Sub Category</mat-label>
-                    <mat-select formControlName="product_sub_category_id">
-                        <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory.id" >{{
-                            subCategory.sub_category_name
-                        }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <mat-form-field>
-                <mat-label>Product Name</mat-label>
-                <input matInput formControlName="product_name" placeholder="Enter Product Name" />
-            </mat-form-field> 
-            <mat-label>Product Image</mat-label>
-            <img (click)="openImagesPanel()" [src]="productImage" class="image-preview"/> 
-            <input  formControlName="product_image_id" hidden /> 
-            <mat-form-field>
-                <mat-label>Actual Price</mat-label>
-                <input matInput formControlName="product_actual_price" 
-                placeholder="Enter Actual Price" 
-                maxlength="10"
-                (keyup)="calculateSellingPrice()"
-                (keydown)="calculateSellingPrice()"
-                appOnlyNumbers
-                />
-            </mat-form-field>             
-            <mat-form-field  fxFlex="100">
-                <mat-label>Select Discount Type</mat-label>
-                <mat-select formControlName="discount_type">
-                    <mat-option (onSelectionChange)="updateCalculation($event,discountType)"  *ngFor="let discountType of ['Percent','Price']" [value]="discountType" >{{
-                        discountType
-                    }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field *ngIf="updateProductForm.controls['discount_type']?.value === 'Percent'">
-                <mat-label>Discount Percent</mat-label>
-                <input matInput formControlName="product_discount_percent" 
-                placeholder="Enter Discount Percent" 
-                maxlength="2"                
-                (keyup)="calculateSellingPrice()"
-                (keydown)="calculateSellingPrice()"
-                appOnlyNumbers
-                />
-                <i matSuffix >%</i>
-            </mat-form-field>
-            <mat-form-field *ngIf="updateProductForm.controls['discount_type']?.value === 'Price'">
-                <mat-label>Discount Price</mat-label>
-                <input matInput formControlName="product_discount_price" 
-                placeholder="Enter Discount Price" 
-                (keyup)="calculateSellingPrice()"
-                (keydown)="calculateSellingPrice()"
-                maxlength="4"
-                appOnlyNumbers
-                />
-            </mat-form-field>
-            <div class="disableMe" fxFlex="100">
-                <mat-form-field fxFlex="100">
-                    <mat-label>Selling Price</mat-label>
-                    <input matInput formControlName="product_selling_price" 
-                    placeholder="Enter Selling Price" 
-                    maxlength="10"
-                    appOnlyNumbers
-                    />
-                </mat-form-field> 
-            </div>
-            <mat-form-field>
-                <mat-label>Product Description</mat-label>
-                <textarea matInput
-                formControlName="product_desc" 
-                placeholder="Enter Product Description"></textarea>
-            </mat-form-field>            
-            <mat-form-field>
-                <mat-label>Status</mat-label>
-                <mat-select formControlName="status" class="status">
-                    <mat-option *ngFor="let status of statuses" [value]="status">{{
-                        status
-                    }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-          
-                <button
-                    class="mat-raised-button mat-primary"
-                    type="submit"
-                    [disabled]="updateProductForm.invalid" 
-                    mat-button
-                    (click)="submitProductForm()"
-                >
-                    Submit
-                </button>
-                  
-        </div>
-    </form>  
-</ng-container>
 <ng-container *ngIf="data.type==='users'">
     <form  [formGroup]="updateUserForm" >
-        <div  fxLayout="column" fxLayoutGap="0.3rem">
-            <mat-form-field>
-                <mat-label>First Name</mat-label>
-                <input matInput formControlName="firstName" placeholder="First Name" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Last Name</mat-label>
-                <input matInput formControlName="lastName" placeholder="Last Name" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Password</mat-label>
-                <input type="password" matInput formControlName="password" placeholder="Password" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Mobile Number</mat-label>
-                <input matInput maxlength="10" appOnlyNumbers formControlName="mobilePhone" placeholder="Mobile Number" />
-            </mat-form-field>
-        
-                <button
-                    class="mat-raised-button mat-primary"
-                    type="submit"
-                    [disabled]="updateUserForm.invalid"
-                    mat-stroked-button
-                    color="primary"
-                    (click)="submitUserForm()"
-                >
+        <div  fxLayout="column" fxLayoutGap="0.5rem" fxFlex="100">
+            <div  fxLayout="column" fxLayoutGap="0.3rem" class="border-panel">
+                <mat-form-field>
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" placeholder="First Name" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" placeholder="Last Name" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput formControlName="password" placeholder="Password" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Mobile Number</mat-label>
+                    <input matInput maxlength="10" appOnlyNumbers formControlName="mobilePhone" placeholder="Mobile Number" />
+                </mat-form-field>       
+            </div> 
+            <button
+                class="mat-raised-button mat-primary"
+                type="submit"
+                [disabled]="updateUserForm.invalid"
+                mat-stroked-button
+                color="primary"
+                (click)="submitUserForm()"
+            >
                 Update
-                </button>
-       
-        </div> 
+            </button>
+        </div>
     </form> 
 </ng-container>
-<ng-container *ngIf="data.type==='settings'">
-    <form  [formGroup]="updateSettingsForm" >
-        <div  fxLayout="column" fxLayoutGap="0.3rem">
-            <mat-form-field>
-                <mat-label>Individual Commission</mat-label>
-                <input matInput appOnlyNumbers formControlName="individual_commission" placeholder="Individual Commission %" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Group Commission</mat-label>
-                <input matInput appOnlyNumbers formControlName="group_commission" placeholder="Group Commission %" />
-            </mat-form-field>            
-        
-                <button
-                    class="mat-raised-button mat-primary"
-                    type="submit"
-                    [disabled]="updateSettingsForm.invalid"
-                    mat-stroked-button
-                    color="primary"
-                    (click)="submitSettingsForm()"
-                >
-                Update
-                </button>
-          
-        </div> 
-    </form> 
-</ng-container>
+
 
 

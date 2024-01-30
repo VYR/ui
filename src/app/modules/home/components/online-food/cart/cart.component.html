@@ -1,0 +1,102 @@
+<div fxLayout="column" fxFlex="100" fxLayoutGap="1rem" *ngIf="!isCheckout else checkout">
+    <div class="cart-item" fxLayout="row" fxLayoutGap="0.5rem" fxLayoutAlign="space-between" *ngFor="let cart of existingCart">
+        <div>
+            <img [src]="cart.path" />
+        </div>
+        <div class="title">
+            {{cart.name}}
+        </div>
+        <div>
+            <app-add-to-cart [currentValue]="{value:cart.quantity,item:cart}" (_click)="getUpdatedValue($event)"></app-add-to-cart>
+        </div>
+        <div>
+            Rs.{{cart.price}}
+        </div>
+        <div>
+            Rs.{{cart.quantity*cart.price}}
+        </div>
+    </div>
+</div>
+<ng-template #checkout>
+    <form  [formGroup]="placeOrderForm" >
+    <div fxLayout="column" fxFlex="100" fxLayoutGap="1rem" class="checkout">
+        <app-master-container [variant]="'secondary'" [opened]="true" [collapsable]="true">
+            <ng-container header><span class="title">Items</span></ng-container>
+            <ng-container body>
+                <div fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
+                    <div class="cart-item" fxLayout="row" fxLayoutGap="0.5rem" fxLayoutAlign="space-between" *ngFor="let cart of existingCart">
+                        <div><img [src]="cart.path" /></div>
+                        <div class="title">{{cart.name}}</div>
+                        <div> {{cart.quantity}} </div>
+                        <div>X</div>
+                        <div>Rs.{{cart.price}}</div>
+                        <div> Rs.{{cart.quantity*cart.price}}</div>
+                    </div>
+                </div>
+            </ng-container>
+        </app-master-container>
+        <app-master-container [variant]="'secondary'" [opened]="true" [collapsable]="true" *ngIf="!currentUser?.userId">
+            <ng-container header><span class="title">Customer Details</span></ng-container>
+            <ng-container body>
+                <div  fxLayout="column" fxLayoutGap="0.3rem" fxFlex="100">
+                    <mat-form-field>
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="text" formControlName="firstName" placeholder="First Name" />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Last Name</mat-label>
+                        <input matInput  type="text"  formControlName="lastName" placeholder="Last Name" />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput formControlName="email" placeholder="Email" />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Create Password</mat-label>
+                        <input type="password" matInput formControlName="password" placeholder="Create password" />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Mobile Number</mat-label>
+                        <input matInput maxlength="10"  type="text"  appOnlyNumbers formControlName="mobilePhone" placeholder="Mobile Number" />
+                    </mat-form-field>
+                </div> 
+            </ng-container>
+        </app-master-container> 
+        <app-master-container [variant]="'secondary'" [opened]="true" [collapsable]="true">
+            <ng-container header><span class="title">Place Order</span></ng-container>
+            <ng-container body>
+                <div fxLayout="column" fxFlex="100" fxLayoutGap="0.3rem">
+                    <div class="cart-item" fxLayout="row" fxLayoutGap="0.5rem" fxLayoutAlign="space-between">
+                        <div>Total Amount:</div>
+                        <div> Rs.{{cartTotal}}</div>
+                    </div>
+                    <div class="cart-item" fxLayout="row" fxLayoutGap="0.5rem" fxLayoutAlign="space-between">
+                        <div>Delivery Charges:</div>
+                        <div> Free</div>
+                    </div>
+                </div>
+            </ng-container>
+        </app-master-container> 
+        <div  fxLayout="row" fxLayoutGap="0.5rem" fxLayoutAlign="center">
+            <button
+            class="mat-raised-button mat-primary"
+            type="submit"
+            [disabled]="placeOrderForm.invalid"
+            mat-stroked-button
+            color="primary"
+            (click)="placeOrder()"
+        >
+        Place Order
+        </button>
+        </div>
+    </div>
+    </form>
+</ng-template>
+<div *ngIf="cartItems>0 && !isCheckout" class="bottom-cart-detail">
+    <div class="row-container align-space-between">
+        <div>Total Cart</div>
+        <div>Qty:{{cartItems}}</div>
+        <div>Price:Rs.{{cartTotal}}</div>
+        <div class="close" (click)="openCheckoutPage()">Checkout</div>
+    </div>
+</div>

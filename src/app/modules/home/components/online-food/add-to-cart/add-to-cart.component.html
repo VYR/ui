@@ -1,0 +1,6 @@
+<div class="row-container cart-btn" *ngIf="currentValue.value>0">
+    <div (click)="updateCart('sub')"><i class="las la-minus"></i></div>
+    <div>{{currentValue.value}}</div>
+    <div  (click)="updateCart('add')"><i class="las la-plus"></i></div>
+</div>
+<div class="add-btn"  (click)="updateCart('add')" *ngIf="currentValue.value<=0">ADD</div>

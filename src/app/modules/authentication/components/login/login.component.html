@@ -28,10 +28,12 @@
                     />
                     <i matSuffix class="las la-unlock-alt"></i>
                 </mat-form-field>
-                <div fxFlex fxLayoutAlign="end" class="reset-password">
+                <div fxFlex fxLayoutAlign="space-between" class="reset-password">
+                    <span class="login-forgotpass-link" (click)="goToHome()">Back</span>
+                    <span class="login-forgotpass-link">| </span>
                     <span class="login-forgotpass-link" (click)="onForgotPasswordClick()">Forgot Password?</span>
-                    <!-- <span class="login-forgotpass-link">| </span> -->
-                    <!-- <span class="login-forgotpass-link" (click)="onUnlockPasswordClick()">Unlock User?</span> -->
+                    <span class="login-forgotpass-link">| </span>
+                    <span class="login-forgotpass-link" (click)="onSignUpClick()">Sign Up</span>                  
                 </div>
                 <div class="login-btn">
                     <button

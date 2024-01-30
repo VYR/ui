@@ -1,0 +1,20 @@
+
+.category{
+    margin-right: 2rem;
+    text-align: center;
+    .img-category{
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .category-title{
+        color: #000;
+        margin-top: 0.3rem;
+    }
+}
+.btn-add{
+    position: absolute;
+    bottom: 0.1rem;
+    right: 0.1rem;
+}

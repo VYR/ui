@@ -1,105 +1,93 @@
 <app-outlet-container>
-    <div fxLayout="column" fxFlex="100" >
-        <div fxLayout="row"  fxLayoutAlign="space-between" class="heading-title">
-            <div class="sub-title">
-                Select Status
-            </div>
-        </div>
-        
-        <div class="column-container">
-            <div>
-                <div class="row-container-overflow">
-                    <div class="chips" [class]="this.selectedStatus=== category?'active':'inactive'" 
-                    *ngFor="let category of statuses;let i=index;"
-                    (click)="updateStatus($event,category)">
-                    <i class="las la-check" *ngIf="this.selectedStatus=== category"></i><span>{{
-                        category
-                    }}</span>
-                    </div>
+    <div fxLayout="column">
+        <div>
+            <div class="row-container-overflow">
+                <div class="chips" [class]="this.selectedStatus=== category?'active':'inactive'" 
+                *ngFor="let category of statuses;let i=index;"
+                (click)="updateStatus($event,category)">
+                <i class="las la-check" *ngIf="this.selectedStatus=== category"></i><span>{{
+                    category
+                }}</span>
                 </div>
             </div>
         </div>
-    
-        <div fxLayout="column" fxLayoutGap="2rem" class="mb-2"> 
-            <app-sgs-card *ngFor="let item of sortedData;let i=index;">             
-                <div fxLayout="column" class="p-1">
-                    <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons ">
-                        <span class="card-title">Order ID: {{item.txnNo}}</span>
-                        <button mat-icon-button >
-                            <i class="las la-info-circle"></i>
+    </div>
+    <div fxLayout="column"  fxLayoutGap="0.5rem" class="orders">  
+        <app-master-container [variant]="'secondary'" [opened]="true" [collapsable]="true"  *ngFor="let item of sortedData;let i=index;">
+            <ng-container header><span class="title">Order ID: {{item.txnNo}}</span></ng-container>
+            <ng-container body>
+                <div fxLayout="column" fxFlex="100" fxLayoutGap="0.3rem">
+                    <div class="cart-item" fxLayout="row" fxLayoutGap="0.5rem" fxLayoutAlign="space-between" *ngFor="let cart of item.product_details">
+                        <div><img [src]="cart.path" /></div>
+                        <div class="title">{{cart.name}}</div>
+                        <div> {{cart.quantity}} </div>
+                        <div>X</div>
+                        <div>Rs.{{cart.price}}</div>
+                        <div> Rs.{{cart.quantity*cart.price}}</div>
+                    </div>
+                    <div class="order-date">
+                        <i class="las la-history"></i><span>{{item.created_at | date:'medium'}}</span>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="space-between" class="total-amount">
+                        <div>Total Amount:</div>
+                        <div>Rs.{{item.amount_paid}}</div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="end" class="cancel">
+                        <button
+                        *ngIf="item.status==='pending'"
+                            class="mat-raised-button mat-warn"
+                            type="button" 
+                            (click)="cancelOrder(item)"
+                        >
+                            Cancel order
                         </button>
-                    </div> 
-                    <app-label-value
-                    [label]="'Ordered By'"
-                    [value]="item.userName"
-                    >
-                    </app-label-value>
-                    <app-label-value
-                    [label]="'Email'"
-                    [value]="item.email"
-                    >
-                    </app-label-value>
-                    <app-label-value
-                    [label]="'Mobile'"
-                    [value]="item.mobilePhone"
-                    >
-                    </app-label-value>
-                    <app-label-value
-                    [label]="'Total Items'"
-                    [value]="item.total_products"
-                    >
-                    </app-label-value>
-                    <app-label-value
-                    [label]="'Total Qantity'"
-                    [value]="item.quantity"
-                    >
-                    </app-label-value>
-                    <app-label-value
-                    [label]="'Total Amount Paid'"
-                    [value]="item.amount_paid"
-                    >
-                    </app-label-value>
-                    
-                    <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons">
-                        <button mat-icon-button>
-                           Order Date: <i class="las la-history"></i><span>{{item.created_at | date:'medium'}}</span>
+                        <button
+                            *ngIf="item.status==='cancelled'"
+                            class="mat-flat-button mat-primary green"
+                            type="button"
+                            (click)="orderAgain(item)"
+                        >
+                            Order again
+                        </button>
+                        <button
+                            *ngIf="item.status==='completed'"
+                            class="mat-flat-button mat-primary"
+                            type="button"
+                            (click)="orderAgain(item)"
+                        >
+                            Repeat order
                         </button>
                     </div>
                 </div>
-            </app-sgs-card> 
-        </div>
-    <!-- <app-master-container>
-        <ng-container header>Orders</ng-container>
-        <ng-container icons>
-            <div fxLayout="row" fxLayoutGap="1rem">
-                <mat-form-field>
-                    <mat-label>Select Status</mat-label>
-                    <mat-select [(ngModel)]="selectedStatus">
-                        <mat-option 
-                        (onSelectionChange)="updateStatus($event,status)"
-                        *ngFor="let status of statuses" [value]="status">{{
-                            status
-                        }}</mat-option>
-                    </mat-select>
-                </mat-form-field> 
-                <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
-                    <i class="las la-file-excel"></i>
-                </button>
+            </ng-container>
+        </app-master-container>         
+        <!-- <div fxLayout="column" class="orders p-1" *ngFor="let item of sortedData;let i=index;">
+            <div fxLayout="row" fxLayoutAlign="space-between" class="card-bottom-icons ">
+                <span class="card-title">Order ID: {{item.txnNo}}</span>
                 <button mat-icon-button >
-                    <i class="las la-file-pdf"></i>
+                    <i class="las la-info-circle"></i>
+                </button>
+            </div> 
+            <app-label-value
+            [label]="'Total Items'"
+            [value]="item.total_products"
+            >
+            </app-label-value>
+            <app-label-value
+            [label]="'Total Qantity'"
+            [value]="item.quantity"
+            >
+            </app-label-value>
+            <app-label-value
+            [label]="'Total Amount'"
+            [value]="item.amount_paid"
+            >
+            </app-label-value>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+                <button mat-icon-button>
+                Order Date: <i class="las la-history"></i><span>{{item.created_at | date:'medium'}}</span>
                 </button>
             </div>
-        </ng-container>
-        <ng-container body>
-            <div fxLayout="column" fxFlex="100">               
-                <app-sgs-table
-                    [config]="tableConfig"
-                    (_lazyLoad)="lazyLoad($event)"
-                    (_select)="onSelect($event)"
-                    (_clickCell)="onClickCell($event)"
-                ></app-sgs-table>
-            </div>
-        </ng-container>
-    </app-master-container> -->
+        </div>     -->
     </div>
 </app-outlet-container>
