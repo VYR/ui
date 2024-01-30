@@ -48,12 +48,6 @@ export class CartComponent implements OnInit {
       password: new UntypedFormControl(this.currentUser.email, Validators.required),
       mobilePhone: new UntypedFormControl(this.currentUser.mobilePhone, Validators.required)
     });
-    // if(this.currentUser?.userId){
-    //   this.placeOrderForm.controls['firstName'].clearValidators();
-    //   this.placeOrderForm.controls['lastName'].clearValidators();
-    //   this.placeOrderForm.controls['email'].clearValidators();
-    //   this.placeOrderForm.updateValueAndValidity();
-    // }
   }
   getUpdatedValue(obj:any){
     const index=this.existingCart.findIndex((value:any) => value.id==obj.item.id);    
@@ -75,6 +69,9 @@ export class CartComponent implements OnInit {
       if(res?.data?.id >0)
       {        
         this.isCheckout=false;
+        this.existingCart=[];
+        this.currentUser.cart=this.existingCart;
+        this.appContext.updateContext(this.currentUser);
         this.dialogRef.close(res);
       }
       else {        
