@@ -118,6 +118,12 @@ export const STATUSES:Array<string>= [
     'inactive',
     'rejected'
 ];
+export const ORDER_STATUSES:Array<string>= [
+    'pending',
+    'completed',
+    'cancelled',
+    'sent for delivery'
+];
 export const USER_TYPES:Array<any>= [
     {
         id:0,

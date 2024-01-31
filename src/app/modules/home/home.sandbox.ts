@@ -264,19 +264,32 @@ export class HomeSandbox {
             })
         );
     }     
-    addUpdateOrders(params: any) {        
+    addUpdateOrders(params: any,type:any='') {        
         return this.service.addUpdateOrders(params).pipe(
             tap((res: any) => {                
                 if(res?.data?.id >0)
                 {
-                  this.utilService.displayNotification(res?.message,'success');
+                    this.utilService.displayNotification('Order status updated successfully','success');
                 }
             })
         );
     } 
 
     getOrders(params: any) {        
-        return this.service.getOrders(params);
+        return this.service.getOrders(params).pipe(
+            tap((res: any) => {                
+                if (res?.data?.data) {
+                   res.data.data=(res?.data?.data || []).map((value:any) => {
+                    value.product_details=JSON.parse(value?.product_details);
+                    value.product_details=(value?.product_details || []).map((value1:any) => {
+                        value1.url=res?.url+value1.url;
+                        return value1;
+                      });
+                    return value;
+                  });
+                }
+            })
+        );
     } 
 
 }

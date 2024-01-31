@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { HomeSandbox } from '../../../home.sandbox';
-import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from '../constants/meta-data';
+import { ORDER_STATUSES, ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from '../constants/meta-data';
 import { DECISION, USER_TYPE } from 'src/app/shared/enums';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
 import { UserContext } from 'src/app/shared/models';
@@ -21,9 +21,9 @@ export class OnlineFoodOrdersComponent implements OnInit {
   @Input() specificUserId!:any;
   sortedData:Array<any>=[];
   userTypes=[...[{id:-1,name:'All'}],...USER_TYPES];
-  statuses=[...['All'],...STATUSES];
+  statuses=[...['All'],...ORDER_STATUSES];
   selectedUserType=0;
-  selectedStatus='active';
+  selectedStatus='pending';
   currentUser!:UserContext;
   USER_TABLE_COLUMNS= [
     {
@@ -78,7 +78,7 @@ export class OnlineFoodOrdersComponent implements OnInit {
   ngOnInit(): void {       
       this.query.sortKey='created_at';
       this.query.sortDirection=SortDirection.desc;
-      this.getSgsUsers();
+      this.getOrders();
   }
 
   lazyLoad(event: SGSTableQuery) {
@@ -89,19 +89,19 @@ export class OnlineFoodOrdersComponent implements OnInit {
           this.query.sortKey=event.sortKey;
       if(event.sortDirection)
       this.query.sortDirection=event.sortDirection;
-     // this.getSgsUsers();
+     // this.getOrders();
   }
   updateUserType(event:any,id:any){
       if(event.isUserInput){
           this.selectedUserType=id;
-          this.getSgsUsers();
+          this.getOrders();
       }
   }
   updateStatus(event:any,status:string){
           this.selectedStatus=status;
-          this.getSgsUsers();
+          this.getOrders();
   }
-  getSgsUsers() {        
+  getOrders() {        
       let query:any={...this.query};
       console.log(query);
       if(this.specificUserId){
@@ -144,7 +144,14 @@ export class OnlineFoodOrdersComponent implements OnInit {
           }
       });
   }
-
+  updateOrderStatus(item:any,status:any){
+    this.sandbox.addUpdateOrders({id:item.id,status:status}).subscribe((res:any) => {
+            if(res?.data?.id >0)
+            {
+                this.getOrders();
+            }
+        });
+    }
 
   onSelect(event: any) {}
 
@@ -176,7 +183,7 @@ export class OnlineFoodOrdersComponent implements OnInit {
         OnlineFoodEditFormComponent, {type:'users', data:data},SgsDialogType.medium);
         ref.afterClosed().subscribe((res) => {
             if(res?.id>0)
-            this.getSgsUsers();
+            this.getOrders();
         }); 
     }
   }
@@ -208,7 +215,7 @@ export class OnlineFoodOrdersComponent implements OnInit {
       },SgsDialogType.medium);
       ref.afterClosed().subscribe((res) => {
         if(res?.id>0)
-        this.getSgsUsers();
+        this.getOrders();
       });
   }
   deleteRequest(event: any) {
@@ -218,7 +225,7 @@ export class OnlineFoodOrdersComponent implements OnInit {
             this.sandbox.deleteRequest({id:event.data.id,type:3}).subscribe((res:any) => {
                 if(res?.deleteStatus === 1)
                 {
-                  this.getSgsUsers();
+                  this.getOrders();
                 }
             });
         }
