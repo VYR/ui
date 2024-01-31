@@ -198,6 +198,33 @@
                 "icon": "las la-university",
                 "path": "profile"
             }
+        ],        
+        "4": [
+            {
+                "uuid": "",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard",
+                "location": "header"
+            },
+            {
+                "uuid": "",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard"
+            },
+            {
+                "uuid": "",
+                "name": "MY EMPLOYEES",
+                "icon": "las la-users",
+                "path": "employees"
+            },
+            {
+                "uuid": "",
+                "name": "MY PROFILE",
+                "icon": "las la-university",
+                "path": "profile"
+            }
         ]
     }
 }

@@ -110,7 +110,7 @@ export class SgsEditFormsComponent implements OnInit {
         requestObject[key] = formData[key];
     });
     console.log(requestObject);
-    this.sandBox.addUpdateUsers(formData).subscribe((res:any) => {
+    this.sandBox.addUpdateUsers(requestObject).subscribe((res:any) => {
         if(res?.data){          
           this.dialogRef.close(res.data);
         }

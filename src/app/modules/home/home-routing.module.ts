@@ -36,6 +36,11 @@ const routes: Routes = [
                 canLoad: [RoleGuard],
             },
             {
+                path: 'employees',
+                component: SgsUsersComponent,
+                canLoad: [RoleGuard],
+            },
+            {
                 path: 'users',
                 component: SgsUsersComponent,
                 canLoad: [RoleGuard],

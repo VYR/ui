@@ -4,6 +4,7 @@ export const ROLES:any = {
     '2' : 'Promoter',
     '1' : 'Admin',
     '3' : 'Employee',
+    '4' : 'Super Employee',
 }
 
 export const USER_TABLE_COLUMNS =  [
@@ -134,6 +135,10 @@ export const USER_TYPES:Array<any>= [
     {
         id:3,
         name:'Employees'
+    },
+    {
+        id:4,
+        name:'Super Employees'
     }
 ];
 

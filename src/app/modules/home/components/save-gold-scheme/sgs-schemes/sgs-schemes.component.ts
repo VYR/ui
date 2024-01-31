@@ -143,6 +143,12 @@ export class SgsSchemesComponent  implements OnInit {
                   type: ColumnType.date,
                   sortable: true,
               };
+              let totalMebersCol=  {
+                key: 'totalMembers',
+                displayName: 'Total Scheme Members',
+                type: ColumnType.number,
+                sortable: true,
+            };
               if(this.schemesConfig.type==='referrals'){
                   this.SCHEME_TABLE_COLUMNS.splice(4,0,{
                       key: 'referralAmount',
@@ -154,7 +160,7 @@ export class SgsSchemesComponent  implements OnInit {
               let colsArray:any=[...this.SCHEME_TABLE_COLUMNS];
               if(this.currentUserType==1  && this.schemesConfig.type=='addSchemes'){
                 colsArray.splice(0,0,createCol);
-                colsArray.splice(-1,0,updateCol);
+                colsArray.splice(-1,0,totalMebersCol,updateCol);
               }
               else {
                 colsArray.splice(0,0,joiningCol);

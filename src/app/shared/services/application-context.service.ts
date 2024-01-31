@@ -102,7 +102,9 @@ export class ApplicationContextService {
             case USER_TYPE.EMPLOYEE:
                 url = APP_ROUTES.ADMIN_DASHBOARD_APPROVER;
                 break;
-
+            case USER_TYPE.SUPER_EMPLOYEE:
+                url = APP_ROUTES.ADMIN_DASHBOARD_APPROVER;
+                break;
 
             default:
                 url = APP_ROUTES.VALIDATE_OTP;

@@ -90,6 +90,7 @@ export enum USER_TYPE {
     PROMOTER = 2,
     SUPER_ADMIN = 1,
     EMPLOYEE = 3,
+    SUPER_EMPLOYEE = 4,
 }
 
 export enum SCREEN_MODE {

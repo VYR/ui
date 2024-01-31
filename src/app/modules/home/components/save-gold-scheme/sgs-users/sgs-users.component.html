@@ -1,7 +1,7 @@
 <app-outlet-container>
     <app-master-container>
         <ng-container header>
-             {{ currentUser.userType===1?'Users':(currentUser.userType===3?'My Promoters':'My Scheme Members')}}
+             {{ currentUser.userType===1?'Users':((currentUser.userType===4?'My Employees':currentUser.userType===3?'My Promoters':'My Scheme Members'))}}
         </ng-container>
         <ng-container icons>
             <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">

@@ -25,7 +25,7 @@ export class SgsUsersComponent implements OnInit {
     sortedData:Array<any>=[];
     userTypes=[...[{id:-1,name:'All'}],...USER_TYPES];
     statuses=[...['All'],...STATUSES];
-    selectedUserType=3;
+    selectedUserType=4;
     selectedStatus='active';
     currentUser!:UserContext;
     USER_TABLE_COLUMNS=USER_TABLE_COLUMNS;
@@ -35,6 +35,8 @@ export class SgsUsersComponent implements OnInit {
     }
     ngOnInit(): void {       
         if(this.currentUser.userType===1)
+        this.selectedUserType=4;    
+        if(this.currentUser.userType===4)
         this.selectedUserType=3;    
         if(this.currentUser.userType===3)
         this.selectedUserType=2;  
@@ -45,7 +47,9 @@ export class SgsUsersComponent implements OnInit {
         this.query.sortDirection=SortDirection.desc;
     }
     enableAddButtons(){
-        if(this.currentUser.userType===1 && [1,3].includes(this.selectedUserType))
+        if(this.currentUser.userType===1 && [1,4].includes(this.selectedUserType))
+            this.enableAddButton=true;
+        else if(this.currentUser.userType===4 && this.selectedUserType===3)
             this.enableAddButton=true;
         else if(this.currentUser.userType===3 && this.selectedUserType===2)
             this.enableAddButton=true;
