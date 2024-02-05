@@ -7,11 +7,6 @@
     "localization": {
         "languages": [
             {
-                "code": "ar",
-                "name": "AR",
-                "culture": "ar-AR"
-            },
-            {
                 "code": "en",
                 "name": "EN",
                 "culture": "en-EN"
@@ -52,15 +47,6 @@
     "caheProvider": "sessionStorage",
     "cacheEcryption": true,
     "debugging": true,
-    "verticalSlider": {
-        "slidesToShow": 1,
-        "slidesToScroll": 1,
-        "dots": true,
-        "infinite": true,
-        "vertical": true,
-        "autoplay": false,
-        "arrows": false
-    },
     "loginOtp": {
         "resendTimeout": 30000,
         "config": {

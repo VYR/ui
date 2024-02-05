@@ -33,7 +33,7 @@ $sweety1-theme: mat.define-light-theme(
 
 @import 'base';
 * {
-    font-family: 'dax-regularregular', 'Open Sans', Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
 }
 
@@ -44,4 +44,49 @@ body {
 
 .upperCase{
     text-transform: uppercase;
+}
+
+.mt-7{
+    margin-top: 7rem;
+}
+.p-4{
+    padding: 4rem;
+}
+.px-3{
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+.pt-8{
+    padding-top: 8rem;
+}
+.gap-2{
+    gap:2rem;
+}
+.h-33{
+    height: 33rem;
+}
+mx-1{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.row{
+    display: flex;
+    flex-direction: row;  
+}
+.column{
+    display: flex;
+    flex-direction: column;  
+}
+.justify-content-space-around{
+    justify-content: space-around !important;
+}
+.justify-content-space-between{
+    justify-content: space-between !important;
+}
+.align-items-center{
+    align-items: center;
+}
+
+.text-theme {
+    color: #d9b061 !important;
 }

@@ -5,7 +5,6 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { LoginComponent } from './components/login/login.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ValidateOtpComponent } from './components/validate-otp/validate-otp.component';
-import { UnlockUserComponent } from './components/unlock-user/unlock-user.component';
 
 const routes: Routes = [
     {
@@ -13,7 +12,7 @@ const routes: Routes = [
         component: AuthenticationComponent,
         children: [
             {
-                path: 'login',
+                path: '',
                 component: LoginComponent,
                 pathMatch: 'full',
             },
@@ -33,12 +32,7 @@ const routes: Routes = [
                 pathMatch: 'full',
             },
             {
-                path: 'unlock-user',
-                component: UnlockUserComponent,
-                pathMatch: 'full',
-            },
-            {
-                path: '',
+                path: '**',
                 redirectTo: 'login',
                 pathMatch: 'full',
             },

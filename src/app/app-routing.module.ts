@@ -5,7 +5,7 @@ const routes: Routes = [
     {
         path: '',
         loadChildren: () =>
-            import('./modules/authentication/authentication.module').then((m) => m.AuthenticationModule),
+            import('./modules/public-access/public-access.module').then((m) => m.PublicAccessModule),
     },
     {
         path: 'home',
@@ -18,7 +18,7 @@ const routes: Routes = [
     },
     {
         path: '**',
-        redirectTo: 'login',
+        redirectTo: '/',
         pathMatch: 'full',
     },
 ];

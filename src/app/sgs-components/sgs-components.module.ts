@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from './footer/footer.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
@@ -61,7 +60,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SgsInputMatcherComponent } from './sgs-input-matcher/sgs-input-matcher.component';
 @NgModule({
     declarations: [
-        FooterComponent,
         SgsOtpComponent,
         HorizontalMenuComponent,
         MasterContainerComponent,
@@ -125,7 +123,6 @@ import { SgsInputMatcherComponent } from './sgs-input-matcher/sgs-input-matcher.
         MatTooltipModule,
     ],
     exports: [
-        FooterComponent,
         SgsOtpComponent,
         HorizontalMenuComponent,
         MasterContainerComponent,

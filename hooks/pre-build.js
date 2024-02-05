@@ -12,5 +12,4 @@ function mergeAndSaveJsonFiles(rootPth, dest) {
 
 // Merge all localization files into one
 mergeAndSaveJsonFiles('./i18n/en/', './i18n/en.json');
-mergeAndSaveJsonFiles('./i18n/ar/', './i18n/ar.json');
 encryptConfigFiles('./config/', './config_encrypted/');
