@@ -8,6 +8,26 @@ const routes: Routes = [
             import('./modules/public-access/public-access.module').then((m) => m.PublicAccessModule),
     },
     {
+        path: 'admin',
+        loadChildren: () => import('./modules/admin/admin.module').then((m) => m.AdminModule),
+    },
+    {
+        path: 'super-employee',
+        loadChildren: () => import('./modules/super-employee/super-employee.module').then((m) => m.SuperEmployeeModule),
+    },
+    {
+        path: 'employee',
+        loadChildren: () => import('./modules/employee/employee.module').then((m) => m.EmployeeModule),
+    },
+    {
+        path: 'promotor',
+        loadChildren: () => import('./modules/promotor/promotor.module').then((m) => m.PromotorModule),
+    },
+    {
+        path: 'scheme-member',
+        loadChildren: () => import('./modules/scheme-member/scheme-member.module').then((m) => m.SchemeMemberModule),
+    },
+    {
         path: 'home',
         loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule),
     },
