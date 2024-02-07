@@ -16,6 +16,7 @@ import { HomeSandbox } from '../../../home.sandbox';
 import { UserContext } from 'src/app/shared/models';
 import { DECISION } from 'src/app/shared/enums';
 import {  STATUSES} from "../constants/meta-data";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 @Component({
   selector: 'app-sgs-edit-forms',
   templateUrl: './sgs-edit-forms.component.html',
@@ -23,6 +24,8 @@ import {  STATUSES} from "../constants/meta-data";
 })
 export class SgsEditFormsComponent implements OnInit {
 
+  public Editor = ClassicEditor;
+  editorData:any=`<p>Hello, world!</p>`;
   DECISION=DECISION;  
   public updateUserForm!: UntypedFormGroup;
   public updateSchemeTypesForm!: UntypedFormGroup;

@@ -31,6 +31,7 @@ import { SgsSchemeTypesComponent } from './components/save-gold-scheme/sgs-schem
 import { SgsEditFormsComponent } from './components/save-gold-scheme/sgs-edit-forms/sgs-edit-forms.component';
 import { SgsAddFormsComponent } from './components/save-gold-scheme/sgs-add-forms/sgs-add-forms.component';
 import { SgsDetailsComponent } from './components/save-gold-scheme/sgs-details/sgs-details.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 @NgModule({
     declarations: [
         HomeComponent, 
@@ -65,7 +66,8 @@ import { SgsDetailsComponent } from './components/save-gold-scheme/sgs-details/s
         MatInputModule,
         PipesModule,
         MatTooltipModule,
-        MatTabsModule
+        MatTabsModule,
+        CKEditorModule
 
     ],
     providers: [HomeSandbox],
