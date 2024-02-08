@@ -14,7 +14,7 @@ import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
 import { UtilService } from 'src/app/utility';
 import { UserContext } from 'src/app/shared/models';
 import { DECISION } from 'src/app/shared/enums';
-import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
+import { AdminSandbox } from '../admin.sandbox';
 @Component({
   selector: 'app-sgs-update-user',
   templateUrl: './sgs-update-user.component.html',

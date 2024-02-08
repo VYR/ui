@@ -1,0 +1,48 @@
+
+<div fxLayout="column" fxFlex="100" *ngIf="data?.type==='viewUserDetails'">
+    <app-label-value 
+        *ngIf="data?.data?.userId" 
+        [label]="'User ID'" 
+        [value]="data?.data?.userId">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.introducedBy" 
+        [label]="'Introduced By'" 
+        [value]="data?.data?.introducedBy">
+    </app-label-value>
+    
+    <app-label-value 
+        *ngIf="data?.data?.firstName" 
+        [label]="'First Name:'" 
+        [value]="data?.data?.firstName">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.lastName" 
+        [label]="'Last Name:'" 
+        [value]="data?.data?.lastName">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.email" 
+        [label]="'Email ID:'" 
+        [value]="data?.data?.email">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.mobilePhone" 
+        [label]="'Mobile Number:'" 
+        [value]="'+91 - '+data?.data?.mobilePhone">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.aadhar" 
+        [label]="'Aadhar Number:'" 
+        [value]="data?.data?.aadhar">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.pan" 
+        [label]="'PAN Number:'" 
+        [value]="data?.data?.pan">
+    </app-label-value>
+</div>
+<div fxLayout="column" fxFlex="100" *ngIf="data?.type==='userSchemes'">
+    <app-sgs-schemes [schemesConfig]="{type:'userDetails',userId:data?.data?.userId}"></app-sgs-schemes>
+</div>
+

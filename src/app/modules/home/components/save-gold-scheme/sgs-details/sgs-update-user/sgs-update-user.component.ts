@@ -12,9 +12,9 @@ import {
 } from '@angular/forms';
 import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
 import { UtilService } from 'src/app/utility';
+import { HomeSandbox } from '../../../home.sandbox';
 import { UserContext } from 'src/app/shared/models';
 import { DECISION } from 'src/app/shared/enums';
-import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
 @Component({
   selector: 'app-sgs-update-user',
   templateUrl: './sgs-update-user.component.html',
@@ -25,7 +25,7 @@ export class SgsUpdateUserComponent implements OnInit {
     DECISION=DECISION;
   constructor(public dialogRef: MatDialogRef<SgsUpdateUserComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private sandBox: AdminSandbox,
+    private sandBox: HomeSandbox,
         public fb: UntypedFormBuilder,
         private dialog: SgsDialogService,
         private router: Router,

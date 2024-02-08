@@ -21,6 +21,15 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { HeaderComponent } from './components/header/header.component';
+import { SuperEmployeesListComponent } from './components/super-employees-list/super-employees-list.component';
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
+import { PromotersListComponent } from './components/promoters-list/promoters-list.component';
+import { SchemeMembersListComponent } from './components/scheme-members-list/scheme-members-list.component';
+import { SgsDetailsComponent } from './sgs-details/sgs-details.component';
+import { SgsUpdateUserComponent } from './sgs-update-user/sgs-update-user.component';
+import { DeleteRequestConfirmComponent } from './delete-request-confirm/delete-request-confirm.component';
+import { SgsAddFormsComponent } from './components/sgs-add-forms/sgs-add-forms.component';
+import { SgsEditFormsComponent } from './components/sgs-edit-forms/sgs-edit-forms.component';
 
 
 @NgModule({
@@ -28,6 +37,16 @@ import { HeaderComponent } from './components/header/header.component';
     AdminComponent,
     SideMenuComponent,
     HeaderComponent,
+    SuperEmployeesListComponent,
+    EmployeeListComponent,
+    PromotersListComponent,
+    SchemeMembersListComponent,
+    SgsDetailsComponent,
+    SgsUpdateUserComponent,
+    DeleteRequestConfirmComponent,
+    SgsAddFormsComponent,
+    SgsEditFormsComponent
+
 
   ],
   imports: [ CommonModule,

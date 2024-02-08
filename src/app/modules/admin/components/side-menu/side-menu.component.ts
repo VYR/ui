@@ -14,6 +14,28 @@ import { Router } from '@angular/router';
 export class SideMenuComponent {
     USER_TYPE = USER_TYPE;
     menu: Array<any> = [];
+    mainMenu: Array<any> = [
+        {
+            path:'/admin/super-employees-list',
+            icon: 'las la-university',
+            name: 'Super Employees'
+        },
+        {
+            path:'/admin/employee',
+            icon: 'las la-university',
+            name: 'Employees'
+        },
+        {
+            path:'/admin/promoters',
+            icon: 'las la-university',
+            name: 'Promoters'
+        },
+        {
+            path:'/admin/scheme-members-list',
+            icon: 'las la-university',
+            name: 'Scheme Members'
+        }
+    ];
     modules: any = {
         "1" :   [
                     {
@@ -49,6 +71,7 @@ export class SideMenuComponent {
             this.currentUser = res;
             this.schemeTypes=this.currentUser.schemeTypes || [];
             this.menu = (this.modules[this.currentUser.schemeTypeSelected.schemeType] || []);
+            this.menu=[...this.menu,...this.mainMenu];
         });
     }
 
