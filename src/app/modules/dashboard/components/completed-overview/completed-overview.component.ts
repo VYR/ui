@@ -9,8 +9,7 @@ import { DashboardSandbox } from '../../dashboard.sandbox';
 })
 export class CompletedOverviewComponent {
     ROLE_NAME = ROLE_NAME;
-    isStpUser = false;
     constructor(private sandbox: DashboardSandbox) {
-        this.isStpUser = this.sandbox.userContext.stpUser;
+       
     }
 }

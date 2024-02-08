@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ConfigService } from 'src/app/configuration';
 import { USER_TYPE } from 'src/app/shared/enums';
-import { Organization, UserContext } from 'src/app/shared/models';
+import { SchemeType, UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { HomeSandbox } from '../../home.sandbox';
 
@@ -25,7 +25,7 @@ export class SideMenuComponent {
         });
     }
 
-    public toggleUserSelection(selected: Organization) {
-        this.homeSandBox.userSelect(selected).subscribe(() => {});
+    public toggleUserSelection(selected: SchemeType) {
+        this.homeSandBox.userSelect(selected);
     }
 }

@@ -16,11 +16,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs'; 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { AdminComponent } from './admin.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
   declarations: [
-    AdminComponent
+    AdminComponent,
+    SideMenuComponent,
+    HeaderComponent,
+
   ],
   imports: [ CommonModule,
     AdminRoutingModule,
@@ -31,12 +39,16 @@ import { AdminComponent } from './admin.component';
     MatButtonModule,
     DirectivesModule,
     MatSelectModule,
-    FormsModule, ReactiveFormsModule,
+    FormsModule, 
+    ReactiveFormsModule,
     MatInputModule,
     PipesModule,
     MatTooltipModule,
     MatTabsModule,
-    CKEditorModule
+    CKEditorModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatToolbarModule
 
     
   ],

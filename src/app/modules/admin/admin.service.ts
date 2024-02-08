@@ -38,6 +38,12 @@ export class HomeService {
             return this.http.post(Operations.ADD_UPDATE_SCHEMES, params,{id:params?.id || 0});
         else 
             return this.http.post(Operations.ADD_UPDATE_SCHEMES, params);
+    }    
+    addUpdateSchemeNames(params:any) {
+        if(params?.id)
+            return this.http.post(Operations.ADD_UPDATE_SCHEME_NAMES, params,{id:params?.id || 0});
+        else 
+            return this.http.post(Operations.ADD_UPDATE_SCHEME_NAMES, params);
     }     
     addUpdateSchemeMembers(params:any) {
         if(params?.id)
@@ -57,6 +63,9 @@ export class HomeService {
 
     getSgsSchemes(params:any) {
         return this.http.get(Operations.GET_SCHEMES,params);
+    } 
+    getSgsSchemeNames(params:any) {
+        return this.http.get(Operations.GET_SCHEME_NAMES,params);
     }    
     addUpdateUsers(params:any) {
         if(params?.id)

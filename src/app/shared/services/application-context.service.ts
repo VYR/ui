@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CacheService } from 'src/app/cache/cache.service';
 import { USER_TYPE } from '../enums';
 import { APP_ROUTES } from '../enums/routes';
-import { Organization, UserContext } from '../models';
+import { SchemeType, UserContext } from '../models';
 import { SgsDialogService } from './sgs-dialog.service';
 
 @Injectable({
@@ -22,8 +22,8 @@ export class ApplicationContextService {
     public setUserLogin(data: any, userName: string): any {
         //data.userName = userName || '';
         const user: UserContext = this._setUserInfo(data);
-        user.organizations = this._processOrganizations([data?.user]);
-        user.organizationSelected = this._getOrganizationselected(user);
+        user.schemeTypes = this._processSchemeTypes([data?.user]);
+        user.schemeTypeSelected = user.schemeTypes[0];
         this._setUserContext(user);
         if (user.forcePasswordChange) {
             this.router.navigate(['reset-password']);
@@ -32,13 +32,13 @@ export class ApplicationContextService {
         }
     }
 
-    public setValidatedUser(data: any) {
-        const user: UserContext = this._setUserInfo(data);
-        user.organizations = this._processOrganizations(data.organization || []);
-        user.organizationSelected = this._getOrganizationselected(user);
-        this._setUserContext(user);
-        this._navigateDashboard();
-    }
+    // public setValidatedUser(data: any) {
+    //     const user: UserContext = this._setUserInfo(data);
+    //     user.schemeTypes = this._processSchemeTypes(data.schemeType || []);
+    //     user.schemeTypeSelected = this._getSchemeTypeselected(user);
+    //     this._setUserContext(user);
+    //     this._navigateDashboard();
+    // }
 
     private _setUserInfo(data: any) {
         const user: UserContext = JSON.parse(this.cache.get('USER_CONTEXT')) || new UserContext();
@@ -72,13 +72,16 @@ export class ApplicationContextService {
                 role = USER_TYPE.SCHEME_MEMBER;
                 break;
             case 1:
-                role = USER_TYPE.SUPER_ADMIN;
+                role = USER_TYPE.ADMIN;
                 break;
             case 2:
                 role = USER_TYPE.PROMOTER;
                 break;
             case 3:
                 role = USER_TYPE.EMPLOYEE;
+                break;
+            case 4:
+                role = USER_TYPE.SUPER_EMPLOYEE;
                 break;
             default:
                 role = USER_TYPE.SCHEME_MEMBER;
@@ -90,28 +93,27 @@ export class ApplicationContextService {
     private _navigateToModule(userRole: USER_TYPE) {
         let url;
         switch (userRole) {
-            case USER_TYPE.SCHEME_MEMBER:
-                url = APP_ROUTES.VALIDATE_OTP;
-                break;
-            case USER_TYPE.PROMOTER:
-                url = APP_ROUTES.OPERATION_APPROVAL;
-                break;
-            case USER_TYPE.SUPER_ADMIN:
-                url = APP_ROUTES.ADMIN_DASHBOARD;
-                break;
-            case USER_TYPE.EMPLOYEE:
-                url = APP_ROUTES.ADMIN_DASHBOARD_APPROVER;
+            case USER_TYPE.ADMIN:
+                url = APP_ROUTES.ADMIN;
                 break;
             case USER_TYPE.SUPER_EMPLOYEE:
-                url = APP_ROUTES.ADMIN_DASHBOARD_APPROVER;
+                url = APP_ROUTES.SUPER_EMPLOYEE;
+                break;
+            case USER_TYPE.EMPLOYEE:
+                url = APP_ROUTES.EMPLOYEE;
+                break;
+            case USER_TYPE.PROMOTER:
+                url = APP_ROUTES.PROMOTER;
+                break;
+            case USER_TYPE.SCHEME_MEMBER:
+                url = APP_ROUTES.SCHEME_MEMBER;
                 break;
 
             default:
-                url = APP_ROUTES.VALIDATE_OTP;
+                url = APP_ROUTES.LOGIN;
                 break;
         }
-        //this.router.navigate([url]);
-        this._navigateDashboard();
+        this.router.navigate([url]);        
     }
 
     private _parseSystemConfig(data: any) {
@@ -120,23 +122,18 @@ export class ApplicationContextService {
         return parsed;
     }
 
-    private _getOrganizationselected(user: UserContext) {
-        const index = user.organizations.findIndex((x) => x.uniqueUserId === user.selectedUserId);
-        return user.organizations[index != -1 ? index : 0];
-    }
+    // private _getSchemeTypeselected(user: UserContext) {
+    //     const index = user.schemeTypes.findIndex((x) => x.schemeType === user.schemeTypeSelected.schemeType);
+    //     return user.schemeTypes[index != -1 ? index : 0];
+    // }
 
-    public updateUserSelection(organization: Organization, data: any) {
+    public updateUserSelection(schemeType: SchemeType) {
         const userContext = JSON.parse(this.cache.get('USER_CONTEXT')) || new UserContext();
-        userContext.entitlement = data?.entitlement;
-        userContext.isKYCUpdated = data.isKYCUpdated === '0' ? false : true;
-        userContext.h2hEnabled = data?.h2hEnabled;
-        userContext.role = data.role[0];
-        userContext.organizationSelected = organization;
-        userContext.kycPopType = data?.kycPopType;
+        userContext.schemeTypeSelected = schemeType;
         this._setUserContext(userContext);
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate([APP_ROUTES.DASHBOARD]);
-        });
+        // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        //     this._navigateToModule(userContext.userType);
+        // });
     }
 
     public getCurrentUser() {
@@ -173,33 +170,25 @@ export class ApplicationContextService {
         this.currentUserSubject.next(user);
     }
 
-    private _navigateDashboard() {
-        this.router.navigate([APP_ROUTES.DASHBOARD]);
-    }
+    private _processSchemeTypes(org: any) {
+        const output: Array<SchemeType> = [];
+            const schemeType1 = new SchemeType();
+            schemeType1.firstName = org.firstName;
+            schemeType1.lastName = org.lastName;
+            schemeType1.mobilePhone = org.mobilePhone;
+            schemeType1.uniqueUserId = org.userId;
+            schemeType1.schemeType=1;
+            schemeType1.schemeTypeName='Individual';            
+            output.push(schemeType1);
+            const schemeType2 = new SchemeType();
+            schemeType2.firstName = org.firstName;
+            schemeType2.lastName = org.lastName;
+            schemeType2.mobilePhone = org.mobilePhone;
+            schemeType2.uniqueUserId = org.userId;
+            schemeType2.schemeType=2;
+            schemeType2.schemeTypeName='Group';
+            output.push(schemeType2);
 
-    private _processOrganizations(input: any) {
-        const output: Array<Organization> = [];
-        if (input && input.length > 0) {
-            input.forEach((org: any) => {
-                const organization = new Organization();
-                organization.firstName = org.firstName;
-               // organization.middleName = org.middlenameeng;
-                organization.lastName = org.lastName;
-               // organization.legalDocName = org.legal_doc_name;
-               /// organization.legalId = org.legal_id;
-               // organization.legaldocExpDate = org.legal_exp_date;
-                organization.mobilePhone = org.mobilePhone;
-               // organization.preferredName = org.preferredname;
-                organization.uniqueUserId = org.userId;
-               // organization.sectorCode = org.sectorcode;
-              // organization.industry = org.industry;
-               // organization.businessemailid = org.businessemailid;
-              //  organization.pobox = org.pobox;
-               // organization.city = org.city;
-               // organization.country = org.country;
-                output.push(organization);
-            });
-        }
         return output;
     }
 
@@ -221,15 +210,5 @@ export class ApplicationContextService {
             processed.push(defaultRoute);
         }
         return processed;
-    }
-
-    public getFXDisclaimer() {
-        let rmMsg: string = 'Your daily FX limit is USD 15,000 equivalent';
-        const organizationSelected = this.getCurrentUser().organizationSelected;
-        if ('1000'.indexOf(organizationSelected.industry) === -1) {
-            if (Object.keys(this.getCurrentUser().rmDetails).length !== 0)
-                rmMsg = 'Your daily FX limit is USD 50,000 equivalent. You may contact your RM for further query';
-        }
-        return rmMsg;
     }
 }

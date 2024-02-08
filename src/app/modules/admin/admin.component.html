@@ -1,2 +1,19 @@
-<p>admin works!</p>
-<router-outlet></router-outlet>
+<!-- <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+     
+    </mat-drawer>
+    <mat-drawer-content>
+
+    </mat-drawer-content>  
+  </mat-drawer-container> -->
+  <div fxLayout="row">
+    <div fxFlex="20" *ngIf="showSideMenu" class="side-menu">
+      <app-side-menu></app-side-menu>
+    </div>
+    <div [fxFlex]="showSideMenu?'80':'100'">
+      <div fxLayout="column" fxFlex="100" >
+          <app-header (logoutAction)="logout()" (menuAction)="handleMenu($event)"></app-header>
+          <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>

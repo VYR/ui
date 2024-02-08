@@ -86,7 +86,7 @@ export class AuthenticationSandbox implements OnDestroy {
             .validateOtp(req)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((response: any) => {
-                this.appContext.setValidatedUser(response.data);
+                //this.appContext.setValidatedUser(response.data);
             });
     }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { Organization, UserContext } from 'src/app/shared/models';
+import { SchemeType, UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { HomeService } from './home.service';
@@ -19,12 +19,8 @@ export class HomeSandbox {
     ) {
         this.currentUser=appContext.getCurrentUser();
     }
-    userSelect(organization: Organization) {
-        return this.service.userSelection(organization.uniqueUserId).pipe(
-            tap((res: any) => {
-                this.appContext.updateUserSelection(organization, res.data);
-            })
-        );
+    userSelect(schemeType: SchemeType) {
+        this.appContext.updateUserSelection(schemeType);
     }
 
     compare(a: number | string, b: number | string, isAsc: boolean) {

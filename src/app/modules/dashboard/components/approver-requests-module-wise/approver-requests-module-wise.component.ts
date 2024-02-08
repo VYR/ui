@@ -50,6 +50,6 @@ export class ApproverRequestsModuleWiseComponent implements OnInit {
     }
 
     onActionEnd() {
-        this.router.navigate([APP_ROUTES.DASHBOARD]);
+        //this.router.navigate([APP_ROUTES.DASHBOARD]);
     }
 }

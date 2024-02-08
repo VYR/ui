@@ -41,7 +41,6 @@ import { SgsNotificationComponent } from './sgs-notification/sgs-notification.co
 import { SgsBarChartComponent } from './sgs-bar-chart/sgs-bar-chart.component';
 import { FromAccountComponent } from './from-account/from-account.component';
 import { ToAccountComponent } from './to-account/to-account.component';
-import { SgsFxDisclaimerComponent } from './sgs-fx-disclaimer/sgs-fx-disclaimer.component';
 import { MatSelectModule } from '@angular/material/select';
 import { AccountSelectComponent } from './account-select/account-select.component';
 import { AccountMultiselectComponent } from './account-multiselect/account-multiselect.component';
@@ -73,7 +72,6 @@ import { SgsInputMatcherComponent } from './sgs-input-matcher/sgs-input-matcher.
         SgsDrawerLayoutComponent,
         SgsDatePickerComponent,
         SgsNotificationComponent,
-        SgsFxDisclaimerComponent,
         SgsBarChartComponent,
         FromAccountComponent,
         ToAccountComponent,
@@ -136,7 +134,6 @@ import { SgsInputMatcherComponent } from './sgs-input-matcher/sgs-input-matcher.
         SgsDatePickerComponent,
         SgsNotificationComponent,
         SgsBarChartComponent,
-        SgsFxDisclaimerComponent,
         FromAccountComponent,
         ToAccountComponent,
         AccountSelectComponent,

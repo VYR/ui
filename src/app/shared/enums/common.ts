@@ -88,7 +88,7 @@ export enum SYSTEM_CONFIG {
 export enum USER_TYPE {
     SCHEME_MEMBER = 0,
     PROMOTER = 2,
-    SUPER_ADMIN = 1,
+    ADMIN = 1,
     EMPLOYEE = 3,
     SUPER_EMPLOYEE = 4,
 }

@@ -35,9 +35,17 @@
         "baseUrl": "apiGateway",
         "path": "add-update-schemes"
     },
+    "addUpdateSchemeNames": {
+        "baseUrl": "apiGateway",
+        "path": "add-update-scheme-names"
+    },
     "getSchemes": {
         "baseUrl": "apiGateway",
         "path": "schemes"
+    },
+    "getSchemeNames": {
+        "baseUrl": "apiGateway",
+        "path": "scheme-names"
     },
     "addUpdateUsers": {
         "baseUrl": "apiGateway",

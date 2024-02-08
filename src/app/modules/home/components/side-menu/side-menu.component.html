@@ -7,7 +7,17 @@
             <div>{{ currentUser.userId }}</div>
         </div>
         <div class="customer-name">
-            {{ currentUser.firstName }} {{ currentUser.lastName }}
+            {{ currentUser.schemeTypeSelected.schemeTypeName }}
+        </div>        
+        <div
+            class="click-info"
+            *ngIf="currentUser.schemeTypes.length > 1"
+            matRipple
+            [matMenuTriggerFor]="userSelection"
+            fxLayoutAlign="space-between center"
+        >
+            <span>Click here switch accounts</span>
+            <i class="las la-angle-right"></i>
         </div>
     </div>
 
@@ -34,18 +44,18 @@
 
 <mat-menu #userSelection="matMenu">
     <div mat-menu-content class="user-selection-container">
-        <ng-container *ngFor="let user of currentUser.organizations">
+        <ng-container *ngFor="let user of currentUser.schemeTypes">
             <div
                 matRipple
                 class="user-card"
                 (click)="toggleUserSelection(user)"
-                [ngClass]="{ 'user-card-active': user.uniqueUserId === currentUser.organizationSelected.uniqueUserId }"
+                [ngClass]="{ 'user-card-active': user.schemeType === currentUser.schemeTypeSelected.schemeType }"
             >
                 <div class="left">
                     <div class="user-number">
-                        <div>{{ user.uniqueUserId }}</div>
+                        <div>{{ user.schemeTypeName }}</div>
                     </div>
-                    <div class="customer-name">{{ user.firstName }} {{ user.lastName }}</div>
+                    <div class="customer-name">{{ user.schemeTypeName }}</div>
                 </div>
                 <div class="dot"></div>
             </div>

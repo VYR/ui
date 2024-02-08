@@ -25,7 +25,7 @@ export class SgsProfileComponent {
     SgsEditFormsComponent, {type:'users', data:data},SgsDialogType.medium);
     ref.afterClosed().subscribe((res) => {
         if(res?.id>0){
-          this.data.organizationSelected={...this.data.organizationSelected,...res};
+          this.data.schemeTypeSelected={...this.data.schemeTypeSelected,...res};
           this.data={...data,...res};
           this.appContext.setUserContext(this.data);
         }

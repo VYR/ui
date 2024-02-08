@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IndividualComponent } from './individual.component';
 import { SchemesComponent } from './components/schemes/schemes.component';
+import { SchemeNamesComponent } from './components/scheme-names/scheme-names.component';
 const routes: Routes = [
     {
         path: '',
@@ -10,6 +11,10 @@ const routes: Routes = [
             {
                 path: 'schemes',
                 component:SchemesComponent
+            },
+            {
+                path: 'scheme-names',
+                component:SchemeNamesComponent
             },
             {
                 path: '',

@@ -20,7 +20,7 @@ const routes: Routes = [
         loadChildren: () => import('./modules/employee/employee.module').then((m) => m.EmployeeModule),
     },
     {
-        path: 'promotor',
+        path: 'promoter',
         loadChildren: () => import('./modules/promotor/promotor.module').then((m) => m.PromotorModule),
     },
     {

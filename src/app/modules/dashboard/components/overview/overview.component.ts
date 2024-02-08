@@ -13,7 +13,6 @@ import { DashboardSandbox } from '../../dashboard.sandbox';
 export class OverviewComponent {
     APP_ROUTES = APP_ROUTES;
     ROLE_NAME = ROLE_NAME;
-    isStpUser = false;
     constructor(private router: Router, private dialog: SgsDialogService, private sandbox: DashboardSandbox) {
         
     }

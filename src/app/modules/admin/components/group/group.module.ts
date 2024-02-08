@@ -15,13 +15,24 @@ import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs'; 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { SchemesComponent } from './components/schemes/schemes.component';
+import { SgsAddFormsComponent } from './components/sgs-add-forms/sgs-add-forms.component';
+import { SgsEditFormsComponent } from './components/sgs-edit-forms/sgs-edit-forms.component';
+import { SgsSchemeDetailsComponent } from './components/sgs-scheme-details/sgs-scheme-details.component';
+import { DeleteRequestConfirmComponent } from './components/delete-request-confirm/delete-request-confirm.component';
+import { SchemeNamesComponent } from './components/scheme-names/scheme-names.component';
 
 
 
 @NgModule({
   declarations: [
     GroupComponent,
-
+    SchemesComponent,
+    SgsAddFormsComponent,
+    SgsEditFormsComponent,
+    SgsSchemeDetailsComponent,
+    DeleteRequestConfirmComponent,
+    SchemeNamesComponent
   ],
   imports: [
     CommonModule,

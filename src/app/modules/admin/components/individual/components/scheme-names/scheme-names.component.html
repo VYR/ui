@@ -1,0 +1,29 @@
+<app-outlet-container>
+    <app-master-container>
+        <ng-container header>Individual Scheme Names</ng-container>
+        <ng-container icons>
+            <mat-form-field>
+                <mat-label>Select Scheme</mat-label>
+                <mat-select [(ngModel)]="selectedScheme">
+                    <mat-option *ngFor="let scheme of schemes" [value]="scheme" 
+                    (onSelectionChange)="getSgsSchemeNames($event,scheme)">{{
+                        scheme.name
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
+                <i class="las la-file-excel"></i>
+            </button>
+            <button mat-icon-button  (click)="addSchemeName()">
+                <i class="las la-plus"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <app-sgs-table
+            [config]="tableConfig"
+            (_lazyLoad)="lazyLoad($event)"
+            (_clickCell)="onClickCell($event)"
+        ></app-sgs-table>
+        </ng-container>
+    </app-master-container>    
+</app-outlet-container>

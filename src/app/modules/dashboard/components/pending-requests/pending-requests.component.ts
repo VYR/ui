@@ -10,9 +10,8 @@ import { DashboardSandbox } from '../../dashboard.sandbox';
 export class PendingRequestsComponent {
     ROLE_NAME = ROLE_NAME;
     durationList: any = ['All', 'Last 3 months'];
-    isStpUser = false;
     selectedDuration: any = 'Last 3 months';
     constructor(private sandbox: DashboardSandbox) {
-        this.isStpUser = this.sandbox.userContext.stpUser;
+       
     }
 }

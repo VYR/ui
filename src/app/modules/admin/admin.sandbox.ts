@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { Organization, UserContext } from 'src/app/shared/models';
+import { SchemeType, UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { HomeService } from './admin.service';
@@ -19,12 +19,8 @@ export class AdminSandbox {
     ) {
         this.currentUser=appContext.getCurrentUser();
     }
-    userSelect(organization: Organization) {
-        return this.service.userSelection(organization.uniqueUserId).pipe(
-            tap((res: any) => {
-                this.appContext.updateUserSelection(organization, res.data);
-            })
-        );
+    userSelect(schemeType: SchemeType) {
+        this.appContext.updateUserSelection(schemeType);
     }
 
     compare(a: number | string, b: number | string, isAsc: boolean) {
@@ -65,20 +61,17 @@ export class AdminSandbox {
 
     getExcelColumns(type:any,ele:any){
         let tempObject: any = {};
-        if(type==='scheme_types'){
-            tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
-            tempObject['Scheme Type'] = ele?.scheme_type_name || '';
-            tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
-            tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
-        }
         if(type==='schemes'){
             tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
-            if(ele?.scheme_type_id===1)
-            tempObject['No Of Coins'] = ele?.coins || '';
-            if(ele?.scheme_type_id===2)
             tempObject['Total Amount'] = ele?.total_amount || '';
             tempObject['No Of Months'] = ele?.no_of_months || '';
             tempObject['Amount Per Month'] = ele?.amount_per_month || '';
+            tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
+            tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
+        }
+        if(type==='schemesNames'){
+            tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
+            tempObject['Scheme Name'] = ele?.scheme_name || '';
             tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
             tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
         }
@@ -154,6 +147,16 @@ export class AdminSandbox {
             })
         );
     }  
+    addUpdateSchemeNames(params: any) {        
+        return this.service.addUpdateSchemeNames(params).pipe(
+            tap((res: any) => {                
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    }
     addUpdateSchemeMembers(params: any) {        
         return this.service.addUpdateSchemeMembers(params).pipe(
             tap((res: any) => {                
@@ -180,7 +183,7 @@ export class AdminSandbox {
             tap((res: any) => {                
                 if (res?.data?.data) {
                    res.data.data=(res.data.data || []).map((value:any) => {
-                    value.name=(value.scheme_type_id===1?'Coins: '+value.coins:'Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
+                    value.name=('Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
                     return value;
                   });
                 }
@@ -200,6 +203,9 @@ export class AdminSandbox {
 
     getSgsUsers(params:any) {
         return this.service.getSgsUsers(params);
+    }
+    getSgsSchemeNames(params:any) {
+        return this.service.getSgsSchemeNames(params);
     }
     
     getSchemeMembers(params:any) {

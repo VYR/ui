@@ -602,14 +602,7 @@
     </app-master-container>
 </ng-container>
 <div class="action-section" *ngIf="mode !== DECISION.VIEW">
-    <app-sgs-fx-disclaimer
-        *ngIf="mode !== DECISION.REJECT"
-        (checkboxValueEvent)="checkboxValueEvent($event)"
-        [fxTransaction]="hasFXDisclaimer"
-        [fxThreshold]="hasThresholdDisclaimer"
-        [fxRequestTypeValid]="transactions[0]?.requestType"
-        [fxRequestType]="transactions[0]?.currency === 'USD' ? true : false"
-    ></app-sgs-fx-disclaimer>
+
     <app-sgs-otp class="otp-comp" (otpValueEvent)="otp = $event" [showMore]="true"></app-sgs-otp>
     <mat-form-field *ngIf="mode === DECISION.REJECT">
         <mat-label>Reason:</mat-label>
