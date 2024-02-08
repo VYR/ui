@@ -6,7 +6,7 @@
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "lint": "ng lint",
-        "start": "npm run pre-start& npm run set-env-dev & ng serve --port 4203",
+        "start": "npm run pre-start& npm run set-env-dev & ng serve --port 4204",
         "build": "ng build",
         "build-uat": "npm run set-env-uat & npm run pre-build & ng build  --aot --base-href=/",
         "test-ci": "ng test --watch=false",
