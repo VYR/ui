@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
-import { AdminSandbox } from '../../../../admin.sandbox';
+import { AdminSandbox } from '../../admin.sandbox';
 import { DECISION } from 'src/app/shared/enums';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
 import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
@@ -13,6 +13,18 @@ import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
   styleUrls: ['./schemes.component.scss']
 })
 export class SchemesComponent  implements OnInit {
+    public menu: Array<any> = [
+        {
+           
+            name: 'Individual Schemes',
+            path: 'individual',
+        },
+        {
+             
+            name: 'Group Schemes',
+            path: 'group',
+        },
+    ];
   tableConfig!: SGSTableConfig;
   query!: SGSTableQuery;  
   sortedData:Array<any>=[];  

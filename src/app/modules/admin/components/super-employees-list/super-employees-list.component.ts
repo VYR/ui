@@ -5,13 +5,12 @@ import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dia
 import { AdminSandbox } from '../../admin.sandbox'; 
 import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from '../../constants/meta-data';
 import { DECISION, USER_TYPE } from 'src/app/shared/enums';
-import { SgsUpdateUserComponent } from '../../sgs-update-user/sgs-update-user.component';
-import { DeleteRequestConfirmComponent } from '../../delete-request-confirm/delete-request-confirm.component';
-import { SgsDetailsComponent } from '../../sgs-details/sgs-details.component';
 import { UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
+import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
+import { SgsDetailsComponent } from '../sgs-details/sgs-details.component';
 
 @Component({
   selector: 'app-super-employees-list',
@@ -33,22 +32,9 @@ export class SuperEmployeesListComponent implements OnInit {
   constructor(private dialog: SgsDialogService, private sandbox: AdminSandbox, private appContext:ApplicationContextService) {
       this.appContext.currentUser.subscribe((res) => (this.currentUser = res));
   }
-  ngOnInit(): void {          
-      this.enableAddButtons();  
+  ngOnInit(): void {            
       this.query.sortKey='created_at';
       this.query.sortDirection=SortDirection.desc;
-  }
-  enableAddButtons(){
-      if(this.currentUser.userType===1 && [1,4].includes(this.selectedUserType))
-          this.enableAddButton=true;
-      else if(this.currentUser.userType===4 && this.selectedUserType===3)
-          this.enableAddButton=true;
-      else if(this.currentUser.userType===3 && this.selectedUserType===2)
-          this.enableAddButton=true;
-      else if(this.currentUser.userType===2 && this.selectedUserType===0)
-          this.enableAddButton=true;
-      else 
-          this.enableAddButton=false;
   }
   lazyLoad(event: SGSTableQuery) {
       console.log(this.query);
@@ -63,7 +49,6 @@ export class SuperEmployeesListComponent implements OnInit {
   updateUserType(event:any,id:any){
       if(event.isUserInput){
           this.selectedUserType=id;
-          this.enableAddButtons();
           this.getSgsUsers();
       }
   }

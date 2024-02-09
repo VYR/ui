@@ -5,13 +5,12 @@ import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dia
 import { AdminSandbox } from '../../admin.sandbox'; 
 import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from '../../constants/meta-data';
 import { DECISION, USER_TYPE } from 'src/app/shared/enums';
-import { SgsUpdateUserComponent } from '../../sgs-update-user/sgs-update-user.component';
-import { DeleteRequestConfirmComponent } from '../../delete-request-confirm/delete-request-confirm.component';
-import { SgsDetailsComponent } from '../../sgs-details/sgs-details.component';
 import { UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
+import { SgsDetailsComponent } from '../sgs-details/sgs-details.component';
+import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
 
 
 @Component({
@@ -25,32 +24,31 @@ export class EmployeeListComponent implements OnInit{
   @Input() roleType=0;
   sortedData:Array<any>=[];
   userTypes=[...[{id:-1,name:'All'}],...USER_TYPES];
+  promoters:Array<any>=[];
   statuses=[...['All'],...STATUSES];
-  selectedUserType=3;
+  selectedSuperEmployee="";
   selectedStatus='active';
-  currentUser!:UserContext;
   USER_TABLE_COLUMNS=USER_TABLE_COLUMNS;
   enableAddButton:boolean=false;
   constructor(private dialog: SgsDialogService, private sandbox: AdminSandbox, private appContext:ApplicationContextService) {
-      this.appContext.currentUser.subscribe((res) => (this.currentUser = res));
   }
-  ngOnInit(): void {           
-      this.enableAddButtons();  
+  ngOnInit(): void {            
       this.query.sortKey='created_at';
       this.query.sortDirection=SortDirection.desc;
-  }
-  enableAddButtons(){
-      if(this.currentUser.userType===1 && [1,4].includes(this.selectedUserType))
-          this.enableAddButton=true;
-      else if(this.currentUser.userType===4 && this.selectedUserType===3)
-          this.enableAddButton=true;
-      else if(this.currentUser.userType===3 && this.selectedUserType===2)
-          this.enableAddButton=true;
-      else if(this.currentUser.userType===2 && this.selectedUserType===0)
-          this.enableAddButton=true;
-      else 
-          this.enableAddButton=false;
-  }
+      this.getPromoters();
+
+    }
+    getPromoters() {
+    let query:any={};
+    console.log(query);
+    query.userType=4;
+    query.status='active';
+    this.sandbox.getSgsUsers(query).subscribe((res: any) => {
+        if(res?.data){
+            this.promoters=res?.data?.data || [];      
+        }
+    });
+}
   lazyLoad(event: SGSTableQuery) {
       console.log(this.query);
       console.log(event);
@@ -61,10 +59,9 @@ export class EmployeeListComponent implements OnInit{
       this.query.sortDirection=event.sortDirection;
       this.getSgsUsers();
   }
-  updateUserType(event:any,id:any){
+  updateSelectedSuperEmployee(event:any,id:any){
       if(event.isUserInput){
-          this.selectedUserType=id;
-          this.enableAddButtons();
+          this.selectedSuperEmployee=id;
           this.getSgsUsers();
       }
   }
@@ -77,9 +74,7 @@ export class EmployeeListComponent implements OnInit{
   getSgsUsers() {        
       let query:any={...this.query};
       console.log(query);
-      if(this.selectedUserType>-1){
-          query.userType=this.selectedUserType;
-      }
+      query.userType=3;
       if(this.selectedStatus!=='All'){
           query.status=this.selectedStatus;
       }
@@ -88,55 +83,25 @@ export class EmployeeListComponent implements OnInit{
               this.sortedData=res?.data?.data || [];
               const total:any=res?.data?.total || 0;
               console.log(total);
-          this.sortedData=this.sortedData.map((value:any) => {
-              value.currentUser=this.currentUser;
-              //if admin logged in
-              if([1,2].includes(this.currentUser.userType))
-              value.schemes='Details';
-              return value;
-          });
+              if(this.selectedSuperEmployee.length>0)
+          this.sortedData=this.sortedData.filter((value:any) => value.introducedBy===this.selectedSuperEmployee);
           let editCol = {
               key: 'edit',
               displayName: 'Edit',
               type: ColumnType.icon,
               icon: 'la-edit',
-              callBackFn: this.checkForEditAction,
+               
           };
           let delCol = {
               key: 'delete',
               displayName: 'Delete',
               type: ColumnType.icon,
               icon: 'la-trash',
-              callBackFn: this.checkForDeleteAction,
+               
           };
-          let schemesCol={
-              key: 'schemes',
-              displayName: 'Schemes',
-              sortable: true,
-              type: ColumnType.link,        
-              callBackFn: this.checkForSchemesAction,
-          };
-          let refferalCol={
-              key: 'referralAmount',
-              displayName: 'Referral Amount',
-              type: ColumnType.amount,
-              sortable:true
-          };
-          let rolesCol={
-              key: 'role',
-              displayName: 'User Type',
-              sortable:true
-          };
+           
+
           let colArray = [...this.USER_TABLE_COLUMNS, editCol, delCol];
-          if([1,2].includes(this.currentUser.userType) && [-1,0].includes(this.selectedUserType)){
-              colArray.splice(2,0,schemesCol);
-          }    
-          if([2,3].includes(this.currentUser.userType)){
-              colArray.splice(2,0,refferalCol);
-          }   
-          if(this.selectedUserType===-1){
-              colArray.splice(3,0,rolesCol);
-          }
       
           this.tableConfig = {
               columns: colArray,
@@ -177,9 +142,8 @@ onClickCell(event: any) {
       ref.afterClosed().subscribe((res) => {});
   } 
   else if (event.key === 'edit') {
-      const data={...event.data,currentUserType:this.currentUser.userType};
-      const userType=this.userTypes.filter((value:any) => value.id===this.selectedUserType)[0].name;
-      const ref = this.dialog.openOverlayPanel('Update '+userType, 
+      const data={...event.data,currentUserType:3};
+      const ref = this.dialog.openOverlayPanel('Update Employee', 
       SgsEditFormsComponent, {type:'users', data:data},SgsDialogType.medium);
       ref.afterClosed().subscribe((res) => {
           if(res?.id>0)
@@ -188,29 +152,18 @@ onClickCell(event: any) {
   }
 }
 
-checkForSchemesAction(data:any){
-  return data.userType===0;
-}
-checkForEditAction(data:any){
-  return  data.currentUser.userId===data.introducedBy;
-}
-checkForDeleteAction(data:any){
-  return  data.currentUser.userId===data.introducedBy;
-}
 compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
 
 addUsers(){
-  const userType=this.userTypes.filter((value:any) => value.id===this.selectedUserType)[0].name;
-  const ref = this.dialog.openOverlayPanel('Add '+userType, 
+  const ref = this.dialog.openOverlayPanel('Add Employee', 
     SgsAddFormsComponent, {
       type:'users',
       data:{
-          userType:this.selectedUserType,
-          role:ROLES[this.selectedUserType],
-          introducedBy:this.currentUser.userId,
-          currentUserType:this.currentUser.userType
+          userType:3,
+          role:ROLES['3'],
+          introducedBy:this.selectedSuperEmployee
       }
     },SgsDialogType.medium);
     ref.afterClosed().subscribe((res) => {

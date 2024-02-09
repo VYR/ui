@@ -89,6 +89,14 @@
                 <mat-label>Mobile Number</mat-label>
                 <input matInput maxlength="10" appOnlyNumbers formControlName="mobilePhone" placeholder="Mobile Number" />
             </mat-form-field>
+            <mat-form-field>
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status" class="status">
+                    <mat-option *ngFor="let status of statuses" [value]="status">{{
+                        status
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>
             <div fxLayout="row">
                 <button
                     class="mat-raised-button mat-primary"

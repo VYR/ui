@@ -12,12 +12,12 @@ const routes: Routes = [
         component: AdminComponent,
         children: [
             {
-                path: 'individual',
-                loadChildren: () => import('./components/individual/individual.module').then((m) => m.IndividualModule),
+                path: 'schemes',
+                loadChildren: () => import('./components/schemes/schemes.module').then((m) => m.SchemesModule),
             },
             {
-                path: 'group',
-                loadChildren: () => import('./components/group/group.module').then((m) => m.GroupModule),
+                path: 'scheme-names',
+                loadChildren: () => import('./components/scheme-names/scheme-names.module').then((m) => m.SchemeNamesModule),
             },
             {
                 path: 'super-employees-list',
@@ -37,7 +37,7 @@ const routes: Routes = [
             },
             {
                 path: '',
-                redirectTo: 'individual',
+                redirectTo: 'schemes',
                 pathMatch: 'full',
             }
              

@@ -13,8 +13,17 @@ import { Router } from '@angular/router';
 })
 export class SideMenuComponent {
     USER_TYPE = USER_TYPE;
-    menu: Array<any> = [];
-    mainMenu: Array<any> = [
+    menu: Array<any> = [
+        {
+            path:'/admin/schemes',
+            icon: 'las la-university',
+            name: 'Schemes'
+        },
+        {
+            path:'/admin/scheme-names',
+            icon: 'las la-university',
+            name: 'Scheme Names'
+        },
         {
             path:'/admin/super-employees-list',
             icon: 'las la-university',
@@ -36,42 +45,13 @@ export class SideMenuComponent {
             name: 'Scheme Members'
         }
     ];
-    modules: any = {
-        "1" :   [
-                    {
-                        path:'/admin/individual/schemes',
-                        icon: 'las la-university',
-                        name: 'Schemes'
-                    },
-                    {
-                        path:'/admin/individual/scheme-names',
-                        icon: 'las la-credit-card',
-                        name: 'Scheme Names'
-                    }
-                ],
-        "2" :   [
-                    {
-                        path:'/admin/group/schemes',
-                        icon: 'las la-university',
-                        name: 'Schemes'
-                    },
-                    {
-                        path:'/admin/group/scheme-names',
-                        icon: 'las la-credit-card',
-                        name: 'Scheme Names'
-                    }
-                ]
-    };
 
     public activeRouter: any;
     schemeTypes:Array<any>=[];
     currentUser: UserContext = new UserContext();
     constructor(private router:Router,appContext: ApplicationContextService, private homeSandBox: AdminSandbox, configService: ConfigService) {
         appContext.currentUser.subscribe((res) => {
-            this.currentUser = res;
-            this.schemeTypes=this.currentUser.schemeTypes || [];
-            this.menu = (this.modules[this.currentUser.schemeTypeSelected.schemeType] || []);
-            this.menu=[...this.menu,...this.mainMenu];
+            this.currentUser = res;   
         });
     }
 

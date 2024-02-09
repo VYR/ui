@@ -69,7 +69,8 @@ export class SgsEditFormsComponent implements OnInit {
       password: new UntypedFormControl(null),
       role: new UntypedFormControl(this.data.data?.role),
       userType: new UntypedFormControl(this.data.data?.userType),
-      mobilePhone: new UntypedFormControl(this.data.data?.mobilePhone, Validators.required)
+      mobilePhone: new UntypedFormControl(this.data.data?.mobilePhone, Validators.required),
+      status: new UntypedFormControl(this.data?.data?.status || null)
     });
 
     this.updateSettingsForm = this.fb.group({

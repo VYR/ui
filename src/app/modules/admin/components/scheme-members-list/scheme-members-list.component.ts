@@ -5,13 +5,12 @@ import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dia
 import { AdminSandbox } from '../../admin.sandbox'; 
 import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from '../../constants/meta-data';
 import { DECISION, USER_TYPE } from 'src/app/shared/enums';
-import { SgsUpdateUserComponent } from '../../sgs-update-user/sgs-update-user.component';
-import { DeleteRequestConfirmComponent } from '../../delete-request-confirm/delete-request-confirm.component';
-import { SgsDetailsComponent } from '../../sgs-details/sgs-details.component';
 import { UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
+import { SgsDetailsComponent } from '../sgs-details/sgs-details.component';
+import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
 
 @Component({
   selector: 'app-scheme-members-list',
