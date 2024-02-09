@@ -52,7 +52,7 @@ export class SgsAddFormsComponent implements OnInit {
 
   ngOnInit(): void {    
     this.addSchemesForm = this.fb.group({
-        scheme_type_id: new UntypedFormControl(1),
+        scheme_type_id: new UntypedFormControl(this.data?.data?.scheme_type_id || null),
         total_amount: new UntypedFormControl(null),
         amount_per_month: new UntypedFormControl(null, Validators.required),
         no_of_months: new UntypedFormControl(12, Validators.required),
@@ -89,14 +89,6 @@ export class SgsAddFormsComponent implements OnInit {
         amount_paid: new UntypedFormControl(this.data?.data?.amount_paid || 0),
         month_paid: new UntypedFormControl(this.data?.data?.month_paid || 0),
     });
-    if(this.data?.data?.scheme_type_id===1){
-        this.addSchemesForm.controls['coins']?.setValidators(Validators.required);
-        this.addSchemesForm.controls['total_amount'].clearValidators();
-    }
-    if(this.data?.data?.scheme_type_id===2){
-        this.addSchemesForm.controls['total_amount']?.setValidators(Validators.required);
-        this.addSchemesForm.controls['coins'].clearValidators();
-    }
     if(this.data?.data?.userType===0){
       this.addUserForm.controls['scheme_type_id']?.setValidators([Validators.required]);
       this.addUserForm.controls['scheme_id']?.setValidators([Validators.required]);

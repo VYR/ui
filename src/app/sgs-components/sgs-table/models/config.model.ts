@@ -48,4 +48,5 @@ export enum ColumnType {
     toolTip = 'toolTip',
     html = 'html',
     number = 'number',
+    onlyDate = 'onlyDate'
 }

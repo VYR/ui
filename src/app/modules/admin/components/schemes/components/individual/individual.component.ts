@@ -18,12 +18,6 @@ export class IndividualComponent implements OnInit  {
   sortedData:Array<any>=[];  
   SCHEME_TABLE_COLUMNS=[
     {
-        key: 'created_at',
-        displayName: 'Created Date',
-        type: ColumnType.date,
-        sortable: true,
-    }, 
-    {
         key: 'total_amount',
         displayName: 'Total Amount',
         type: ColumnType.amount,
@@ -38,12 +32,6 @@ export class IndividualComponent implements OnInit  {
         key: 'amount_per_month',
         displayName: 'Amount Per Month',
         type: ColumnType.amount,
-        sortable: true,
-    },
-    {
-        key: 'updated_at',
-        displayName: 'Updated Date',
-        type: ColumnType.date,
         sortable: true,
     }, 
     {
@@ -112,7 +100,8 @@ export class IndividualComponent implements OnInit  {
   addScheme(){
     const ref = this.dialog.openOverlayPanel('Add Individual Scheme', 
         SgsAddFormsComponent, {
-        type:'schemes',
+        type:'schemes',        
+        data:{scheme_type_id:1}
         },SgsDialogType.medium);
         ref.afterClosed().subscribe((res) => {
         if(res?.id>0)

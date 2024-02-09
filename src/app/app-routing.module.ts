@@ -28,10 +28,6 @@ const routes: Routes = [
         loadChildren: () => import('./modules/scheme-member/scheme-member.module').then((m) => m.SchemeMemberModule),
     },
     {
-        path: 'home',
-        loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule),
-    },
-    {
         path: 'service-unavailable',
         loadChildren: () =>
             import('./modules/service-unavailable/service-unavailable.module').then((m) => m.ServiceUnavailableModule),

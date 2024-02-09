@@ -22,20 +22,14 @@ export class GroupComponent implements OnInit
     selectedScheme:any 
     SCHEME_TABLE_COLUMNS=[
       {
-          key: 'created_at',
-          displayName: 'Created Date',
-          type: ColumnType.date,
-          sortable: true,
-      }, 
-      {
           key: 'scheme_name',
           displayName: 'Scheme Name',
           sortable: true,
-      }, 
+      },
       {
-          key: 'updated_at',
-          displayName: 'Updated Date',
-          type: ColumnType.date,
+          key: 'scheme_start_date',
+          displayName: 'Scheme Date',
+          type:ColumnType.onlyDate,
           sortable: true,
       }, 
       {

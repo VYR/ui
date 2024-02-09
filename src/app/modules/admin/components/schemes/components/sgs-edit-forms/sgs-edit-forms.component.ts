@@ -49,7 +49,7 @@ export class SgsEditFormsComponent implements OnInit {
   ngOnInit(): void {
     this.updateSchemesForm = this.fb.group({
       id: new UntypedFormControl(this.data?.data?.id || 0),
-      scheme_type_id: new UntypedFormControl(1),
+      scheme_type_id: new UntypedFormControl(this.data?.data?.scheme_type_id),
       total_amount: new UntypedFormControl(this.data?.data?.total_amount || 0),
       amount_per_month: new UntypedFormControl(this.data?.data?.amount_per_month || 0, Validators.required),
       no_of_months: new UntypedFormControl(this.data?.data?.no_of_months || 0, Validators.required),

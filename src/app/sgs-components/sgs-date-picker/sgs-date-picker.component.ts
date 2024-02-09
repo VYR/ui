@@ -13,17 +13,16 @@ export class SgsDatePickerComponent {
     @Input() minDate!: Date;
     @Input() maxDate!: Date;
     @Input() placeholder!: string;
+    @Input() dateFormat: string='dd-MM-YYYY';
     @Input() disabled!: boolean;
     @Input() fomrControlName!: string;
     startDate = null;
 
     @Output() selectDate = new EventEmitter();
-    @Output() selectDateRevFormat = new EventEmitter();
     constructor(private datePipe: CustomDatePipe) {}
 
     formatDate(ev: MatDatepickerInputEvent<any>): any {
-        this.startDate = this.datePipe.transform(ev.value);
-        this.selectDateRevFormat.emit(this.datePipe.transformDate(ev.value));
+        this.startDate = this.datePipe.transform(ev.value,this.dateFormat);
         this.selectDate.emit(this.startDate);
     }
 }

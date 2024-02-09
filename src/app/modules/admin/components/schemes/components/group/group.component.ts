@@ -1,14 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { AdminSandbox } from '../../../../admin.sandbox';
 import { DECISION } from 'src/app/shared/enums';
-import { DeleteRequestConfirmComponent } from '../../../delete-request-confirm/delete-request-confirm.component';
-import { SgsEditFormsComponent } from '../../../sgs-edit-forms/sgs-edit-forms.component';
-import { SgsAddFormsComponent } from '../../../sgs-add-forms/sgs-add-forms.component';
-import { SgsSchemeDetailsComponent } from '../../../sgs-scheme-details/sgs-scheme-details.component';
-import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
-import { UserContext } from 'src/app/shared/models';
+import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
+import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
+import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
 
 
 @Component({
@@ -21,12 +18,6 @@ export class GroupComponent implements OnInit {
   query!: SGSTableQuery;  
   sortedData:Array<any>=[];  
   SCHEME_TABLE_COLUMNS=[
-    {
-        key: 'created_at',
-        displayName: 'Created Date',
-        type: ColumnType.date,
-        sortable: true,
-    }, 
     {
         key: 'total_amount',
         displayName: 'Total Amount',
@@ -44,12 +35,6 @@ export class GroupComponent implements OnInit {
         type: ColumnType.amount,
         sortable: true,
     },
-    {
-        key: 'updated_at',
-        displayName: 'Updated Date',
-        type: ColumnType.date,
-        sortable: true,
-    }, 
     {
         key: 'status',
         displayName: 'Status',
@@ -117,6 +102,7 @@ export class GroupComponent implements OnInit {
     const ref = this.dialog.openOverlayPanel('Add Group Scheme', 
         SgsAddFormsComponent, {
         type:'schemes',
+        data:{scheme_type_id:2}
         },SgsDialogType.medium);
         ref.afterClosed().subscribe((res) => {
         if(res?.id>0)
