@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { SuperEmployeeSandbox } from './super-empolyee.sandbox';
 
 @Component({
   selector: 'app-super-employee',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuperEmployeeComponent implements OnInit {
 
-  constructor() { }
+  showSideMenu:boolean=true;
+  
+  refreshToken!: Subscription;
+  constructor(private sandbox:SuperEmployeeSandbox) { }
 
   ngOnInit(): void {
   }
+  logout(){
+    this.sandbox.logout().subscribe();
+  }
 
+  handleMenu(status:boolean){
+    this.showSideMenu=status;
+  }
+  
+  ngOnDestroy() {
+    if (this.refreshToken) {
+        this.refreshToken.unsubscribe();
+    }
+  }
 }
+

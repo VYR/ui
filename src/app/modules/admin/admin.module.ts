@@ -24,13 +24,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { SuperEmployeesListComponent } from './components/super-employees-list/super-employees-list.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { PromotersListComponent } from './components/promoters-list/promoters-list.component';
-import { SchemeMembersListComponent } from './components/scheme-members-list/scheme-members-list.component';
 import { SgsAddFormsComponent } from './components/sgs-add-forms/sgs-add-forms.component';
 import { SgsEditFormsComponent } from './components/sgs-edit-forms/sgs-edit-forms.component';
 import { DeleteRequestConfirmComponent } from './components/delete-request-confirm/delete-request-confirm.component';
 import { SgsUpdateUserComponent } from './components/sgs-update-user/sgs-update-user.component';
 import { SgsDetailsComponent } from './components/sgs-details/sgs-details.component';
 import { SgsSchemeDetailsComponent } from './components/sgs-scheme-details/sgs-scheme-details.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 @NgModule({
@@ -41,13 +41,13 @@ import { SgsSchemeDetailsComponent } from './components/sgs-scheme-details/sgs-s
     SuperEmployeesListComponent,
     EmployeeListComponent,
     PromotersListComponent,
-    SchemeMembersListComponent,
     SgsDetailsComponent,
     SgsUpdateUserComponent,
     DeleteRequestConfirmComponent,
     SgsAddFormsComponent,
     SgsEditFormsComponent,
-    SgsSchemeDetailsComponent
+    SgsSchemeDetailsComponent,
+    SettingsComponent
 
 
   ],

@@ -40,6 +40,11 @@ export class SideMenuComponent {
             name: 'Promoters'
         },
         {
+            path:'/admin/settings',
+            icon: 'las la-university',
+            name: 'Settings'
+        },
+        {
             path:'/admin/scheme-members-list',
             icon: 'las la-university',
             name: 'Scheme Members'

@@ -1,0 +1,44 @@
+<ng-container>
+    <form  [formGroup]="updateSchemeNamesForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">   
+            <ng-container > 
+                <div fxFlex="100">
+                    <app-sgs-date-picker
+                    [parentForm]="updateSchemeNamesForm"
+                    [fomrControlName]="'scheme_start_date'"
+                    [dateFormat]="'YYYY-MM-dd'"
+                    [placeholder]="'Select Start Date'"
+                    (selectDate)="getDate($event)"
+                    ></app-sgs-date-picker>
+                </div>
+                <mat-form-field>
+                    <mat-label>Scheme Name</mat-label>
+                    <input type="text" matInput formControlName="scheme_name" placeholder="Scheme Name" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status" class="status">
+                        <mat-option *ngFor="let status of statuses" [value]="status">{{
+                            status
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div fxLayout="row">
+                    <button
+                        class="mat-raised-button mat-primary"
+                        type="submit"
+                        [disabled]="updateSchemeNamesForm.invalid"
+                        mat-stroked-button
+                        color="primary"
+                        (click)="submitSchemeNamesForm()"
+                    >
+                        Update
+                    </button>
+                </div>
+            </ng-container>     
+        </div>
+    </form>
+</ng-container>
+
+
+

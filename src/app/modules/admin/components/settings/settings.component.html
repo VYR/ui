@@ -1,0 +1,48 @@
+<app-outlet-container>
+    <app-master-container>
+        <ng-container header>
+               Settings
+        </ng-container>
+        <ng-container icons>
+            <button mat-icon-button (click)="updateSettings()">
+                <i class="las la-edit"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <div fxLayout="row" fxFlex="100">
+                <app-master-container fxFlex="50">
+                    <ng-container header>
+                            Individual Scheme Commissions
+                    </ng-container>                    
+                    <ng-container body>
+                        <div fxLayout="row" fxLayoutGap="5rem">
+                          <app-label-value 
+                          *ngIf="data?.individual?.super_employee" [label]="'Super Employee'" [value]="data?.individual?.super_employee+'%'"></app-label-value>  
+                          <app-label-value 
+                          *ngIf="data?.individual?.employee" [label]="'Employee'" [value]="data?.individual?.employee+'%'"></app-label-value>  
+                          <app-label-value
+                          *ngIf="data?.individual?.promoter" [label]="'Promoter'" [value]="data?.individual?.promoter+'%'"></app-label-value>  
+                        </div>
+                    </ng-container>
+                </app-master-container> 
+                <app-master-container fxFlex="50">
+                    <ng-container header>
+                            Group Scheme Commissions
+                    </ng-container>                    
+                    <ng-container body>
+                        <div fxLayout="row" fxLayoutGap="5rem">
+                          <app-label-value 
+                          *ngIf="data?.group?.super_employee"  [label]="'Super Employee'" [value]="data?.group?.super_employee+'%'"></app-label-value>                         
+                          <app-label-value 
+                           *ngIf="data?.group?.employee" [label]="'Employee'" [value]="data?.group?.employee+'%'"></app-label-value>  
+                          <app-label-value 
+                          *ngIf="data?.group?.promoter" [label]="'Promoter'" [value]="data?.group?.promoter+'%'"></app-label-value> 
+                        </div>
+                    </ng-container>
+                </app-master-container> 
+            </div>
+        </ng-container>
+    </app-master-container>
+</app-outlet-container>
+
+

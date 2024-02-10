@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { SuperEmployeesListComponent } from './components/super-employees-list/super-employees-list.component';
-import { PromotorComponent } from '../promotor/promotor.component';
-import { SchemeMembersListComponent } from './components/scheme-members-list/scheme-members-list.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { PromotersListComponent } from './components/promoters-list/promoters-list.component';
+import { SettingsComponent } from './components/settings/settings.component';
 const routes: Routes = [
     {
         path: '',
@@ -33,7 +32,11 @@ const routes: Routes = [
             },
             {
                 path: 'scheme-members-list',
-                component:SchemeMembersListComponent
+                loadChildren: () => import('./components/scheme-members-list/scheme-members-list.module').then((m) => m.SchemeMembersListModule),
+            },
+            {
+                path: 'settings',
+                component:SettingsComponent
             },
             {
                 path: '',

@@ -124,7 +124,14 @@ export class AdminSandbox {
         return this.service.getSgsSchemeTypes();
     }    
     getSettings() {
-        return this.service.getSettings();
+        return this.service.getSettings().pipe(
+            tap((res: any) => {                
+                if(res?.data)
+                {
+                   res.data.data=JSON.parse(res.data.data);
+                }
+            })
+        );
     }    
       
     updateSettings(params: any) {        

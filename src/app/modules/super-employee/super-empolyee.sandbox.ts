@@ -12,7 +12,7 @@ import * as moment from 'moment';
 export class SuperEmployeeSandbox {
     currentUser!:UserContext;
     constructor(
-        private service:SuperEmpolyeeService,
+        private service: SuperEmpolyeeService,
         private appContext: ApplicationContextService,
         private authService: AuthenticationService,
         private utilService: UtilService
@@ -61,20 +61,17 @@ export class SuperEmployeeSandbox {
 
     getExcelColumns(type:any,ele:any){
         let tempObject: any = {};
-        if(type==='scheme_types'){
-            tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
-            tempObject['Scheme Type'] = ele?.scheme_type_name || '';
-            tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
-            tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
-        }
         if(type==='schemes'){
             tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
-            if(ele?.scheme_type_id===1)
-            tempObject['No Of Coins'] = ele?.coins || '';
-            if(ele?.scheme_type_id===2)
             tempObject['Total Amount'] = ele?.total_amount || '';
             tempObject['No Of Months'] = ele?.no_of_months || '';
             tempObject['Amount Per Month'] = ele?.amount_per_month || '';
+            tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
+            tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
+        }
+        if(type==='schemesNames'){
+            tempObject['Created Date'] = moment(ele.created_at).format('DD-MM-YYYY  hh:mm A');
+            tempObject['Scheme Name'] = ele?.scheme_name || '';
             tempObject['Updated Date'] =  moment(ele.updated_at).format('DD-MM-YYYY  hh:mm A');
             tempObject['Status'] = ele?.status?ele.status.toUpperCase() :  '';
         }
@@ -127,7 +124,14 @@ export class SuperEmployeeSandbox {
         return this.service.getSgsSchemeTypes();
     }    
     getSettings() {
-        return this.service.getSettings();
+        return this.service.getSettings().pipe(
+            tap((res: any) => {                
+                if(res?.data)
+                {
+                   res.data.data=JSON.parse(res.data.data);
+                }
+            })
+        );
     }    
       
     updateSettings(params: any) {        
@@ -150,6 +154,16 @@ export class SuperEmployeeSandbox {
             })
         );
     }  
+    addUpdateSchemeNames(params: any) {        
+        return this.service.addUpdateSchemeNames(params).pipe(
+            tap((res: any) => {                
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    }
     addUpdateSchemeMembers(params: any) {        
         return this.service.addUpdateSchemeMembers(params).pipe(
             tap((res: any) => {                
@@ -176,7 +190,7 @@ export class SuperEmployeeSandbox {
             tap((res: any) => {                
                 if (res?.data?.data) {
                    res.data.data=(res.data.data || []).map((value:any) => {
-                    value.name=(value.scheme_type_id===1?'Coins: '+value.coins:'Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
+                    value.name=('Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
                     return value;
                   });
                 }
@@ -196,6 +210,9 @@ export class SuperEmployeeSandbox {
 
     getSgsUsers(params:any) {
         return this.service.getSgsUsers(params);
+    }
+    getSgsSchemeNames(params:any) {
+        return this.service.getSgsSchemeNames(params);
     }
     
     getSchemeMembers(params:any) {

@@ -1,0 +1,12 @@
+<app-outlet-container>
+    <app-master-container>
+        <ng-container header>Individual Schemes</ng-container>
+        <ng-container body>
+            <app-sgs-table
+            [config]="tableConfig"
+            (_lazyLoad)="lazyLoad($event)"
+            (_clickCell)="onClickCell($event)"
+        ></app-sgs-table>
+        </ng-container>
+    </app-master-container>    
+</app-outlet-container>
