@@ -97,7 +97,7 @@ export class GroupComponent implements OnInit
       if(event.isUserInput){
         let query:any={...this.query};     
         query.scheme_id=scheme.id;             
-        query.schemeType=1;
+        query.schemeType=2;
         this.sandbox.getSgsSchemeNames(query).subscribe((res:any) => {       
             if(res?.data?.data){
                   this.sortedData=res?.data?.data || [];
