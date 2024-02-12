@@ -57,32 +57,10 @@ export enum DECISION {
     BLOCK = 'BLOCK',
 }
 
-export enum STO_TYPE {
-    WSGS = 'WSGS',
-    WQAR = 'WQAR',
-    INTL = 'INTL',
-}
-
-export enum STO_RECURRING {
-    ONETIME = 'ONETIME',
-    RECURRING = 'RECURRING',
-}
-
-export enum CARD_STATUS {
-    NEW = 'NEW',
-    BLOCKED = 'Blocked',
-    ACTIVE = 'Active',
-    PAYMENT_OVERDUE = 'Payment Overdue',
-}
-
-export enum CARD_TYPES {
-    CREDIT = 'Credit',
-    DEBIT = 'Debit',
-}
 
 export enum SYSTEM_CONFIG {
-    BACK_DATE = 'sgs.backdated.allowed.approval.days',
-    FX_DISCLAIMER = 'sgs.showFx',
+    DROPDOWN_PAGE_SIZE = 1000,
+
 }
 
 export enum USER_TYPE {
@@ -97,22 +75,6 @@ export enum SCREEN_MODE {
     EDIT = 'Edit',
     CREATE = 'Create',
     SUCCESS = 'Success',
-}
-
-export enum OPERATIONS_INQUIRY_TYPE {
-    LC = 'LC',
-    BG = 'BG',
-}
-
-export enum SALARY_POSTING_COLUMNS {
-    AMOUNT = 'AMOUNT',
-    CR_NAME = 'CUSTOMER REFERENCE',
-    CR_AC = 'CREDIT A/C NUMBER',
-    DR_AC = 'DEBIT A/C NUMBER',
-    TXN_STATUS = 'TRANSACTION STATUS',
-    CURRENCY = 'CURRENCY',
-    REF_NO = 'REFERENCE NUMBER',
-    REMARK = 'REMARK',
 }
 
 export enum STATUSES {

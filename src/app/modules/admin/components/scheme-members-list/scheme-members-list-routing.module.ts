@@ -10,6 +10,10 @@ const routes: Routes = [
         component:SchemeMembersListComponent,
         children: [
             {
+                path: 'total-members',
+                component:TotalMembersComponent,
+            },
+            {
                 path: 'individual',
                 component:IndividualComponent,
             },
@@ -18,12 +22,8 @@ const routes: Routes = [
                 component:GroupComponent,
             },
             {
-                path: 'total-members',
-                component:TotalMembersComponent,
-            },
-            {
                 path: '',
-                redirectTo: '',
+                redirectTo: 'total-members',
                 pathMatch: 'full',
             }
              

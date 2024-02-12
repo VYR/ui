@@ -30,3 +30,20 @@
         </div>
     </form>
 </ng-container>
+<ng-container *ngIf="data.type==='payment'">
+    <form  [formGroup]="addPaymentForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">       
+            <img src="assets/images/qr-code.png" class="qr-code"/>
+            <button
+                class="mat-raised-button mat-primary"
+                type="submit"
+                [disabled]="addPaymentForm.invalid" 
+                mat-button
+                (click)="submitPaymentForm()"
+            >
+                Make Payment
+            </button>
+   
+        </div>
+    </form>
+</ng-container>

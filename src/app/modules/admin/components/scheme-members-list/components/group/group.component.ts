@@ -1,11 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
-import { AdminSandbox } from '../../../../admin.sandbox';
-import { DECISION } from 'src/app/shared/enums';
+import { AdminSandbox } from '../../../../admin.sandbox'; 
+import { ROLES, STATUSES, USER_TYPES } from '../../../../constants/meta-data';
+import { DECISION, SYSTEM_CONFIG } from 'src/app/shared/enums';
+import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
-import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
-import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
+import { SgsDetailsComponent } from '../../../sgs-details/sgs-details.component';
+import { SgsAddFormsComponent } from '../../../sgs-add-forms/sgs-add-forms.component';
+import { SgsEditFormsComponent } from '../../../sgs-edit-forms/sgs-edit-forms.component';
+import { SgsSchemeDetailsComponent } from '../sgs-scheme-details/sgs-scheme-details.component';
 
 
 @Component({
@@ -13,25 +17,66 @@ import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit  
-{
-    tableConfig!: SGSTableConfig;
-    query!: SGSTableQuery;  
-    sortedData:Array<any>=[]; 
-    schemes:Array<any>=[];
-    selectedScheme:any 
-    SCHEME_TABLE_COLUMNS=[
+export class GroupComponent implements OnInit {
+  tableConfig!: SGSTableConfig;
+  query!: SGSTableQuery;
+  @Input() roleType=0;
+  sortedData:Array<any>=[];
+  superEmployees:Array<any>=[];
+  employees:Array<any>=[];
+  promoters:Array<any>=[];
+  statuses=[...['All'],...STATUSES];
+  selectedSuperEmployee="";
+  selectedEmployee="";
+  selectedPromoter="";  
+  selectedScheme:any;  
+  schemes:Array<any>=[];
+  selectedStatus='active';
+  cols:Array<any>= [
       {
-          key: 'scheme_name',
-          displayName: 'Scheme Name',
+          key: 'created_at',
+          displayName: 'Created Date',
+          type: ColumnType.date,
           sortable: true,
       },
       {
+          key: 'userId',
+          displayName: 'User ID',
+          type: ColumnType.link,
+          sortable: true,
+      },
+      {
+          key: 'firstName',
+          displayName: 'First Name',
+      },
+      {
+          key: 'lastName',
+          displayName: 'Last Name',
+      },
+      {
+          key: 'scheme_name',
+          displayName: 'Scheme',
+          type: ColumnType.link,
+      }, 
+      {
           key: 'scheme_start_date',
           displayName: 'Scheme Date',
-          type:ColumnType.onlyDate,
+      },
+      {
+          key: 'is_winner',
+          displayName: 'Is Winner',
+      },
+      {
+          key: 'winning_month',
+          displayName: 'Month Won',
+          callBackFn:this.handleWinningMonth
+      },
+      {
+          key: 'updated_at',
+          displayName: 'Updated Date',
+          type: ColumnType.date,
           sortable: true,
-      }, 
+      },
       {
           key: 'status',
           displayName: 'Status',
@@ -39,135 +84,218 @@ export class GroupComponent implements OnInit
           sortable: true,
       },
       {
-          key: 'edit',
-          displayName: 'Edit',
+          key: 'delete',
+          displayName: 'Delete',
           type: ColumnType.icon,
-          icon: 'la-edit',
-      },
-      {
-            key: 'delete',
-            displayName: 'Delete',
-            type: ColumnType.icon,
-            icon: 'la-trash',
+          icon: 'la-trash',
+          
       }
-    ];
-  
-    constructor(private dialog: SgsDialogService, private sandbox: AdminSandbox) {
-      
+  ];
+  constructor(private dialog: SgsDialogService, private sandbox: AdminSandbox, private appContext:ApplicationContextService) {
+  }
+  ngOnInit(): void {            
+    this.getSuperEmployees();
+    this.getSgsSchemeNames();
+  }
+  handleWinningMonth(data:any){
+    return data?.winning_month>0;
+  }
+  getSuperEmployees() {
+      let query:any={};
+      query.userType=4;
+      query.status='active';
+      query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE; 
+      this.sandbox.getSgsUsers(query).subscribe((res: any) => {
+          if(res?.data){
+              this.superEmployees=res?.data?.data || [];      
+          }
+      });
+  }
+  getEmployees() {
+      let query:any={};
+      query.userType=3;
+      query.status='active'; 
+      query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;      
+      if(this.selectedSuperEmployee.length>0)
+      query.introducedBy=this.selectedSuperEmployee;
+      this.sandbox.getSgsUsers(query).subscribe((res: any) => {
+          if(res?.data)
+            this.employees=res?.data?.data || [];          
+      });
+  }
+  getPromoters() {
+      let query:any={};
+      console.log(query);
+      query.userType=2;
+      query.status='active'; 
+      query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;      
+      if(this.selectedEmployee.length>0)
+      query.introducedBy=this.selectedEmployee;
+      this.sandbox.getSgsUsers(query).subscribe((res: any) => {
+          if(res?.data)
+            this.promoters=res?.data?.data || [];          
+      });
+  }
+lazyLoad(event: SGSTableQuery) {
+    this.query=event;
+    this.query.pageIndex=event?.pageIndex || 0;
+    if(event.sortKey)
+        this.query.sortKey=event.sortKey;
+    if(event.sortDirection)
+    this.query.sortDirection=event.sortDirection;
+    this.getSgsUsers();
+}
+updateSelectedSuperEmployee(event:any,id:any){
+    if(event.isUserInput){
+        this.selectedSuperEmployee=id;
+        this.sortedData=[]; 
+        this.getEmployees();
     }
-    
-    ngOnInit(): void {
-      this.getSchemesByType();
+}
+updateSelectedEmployee(event:any,id:any){
+    if(event.isUserInput){
+        this.selectedEmployee=id;
+        this.sortedData=[]; 
+        this.getPromoters();
     }
-    getSchemesByType(){
-      this.schemes=[];
-      this.sandbox.getSgsSchemes({schemeType:2}).subscribe((res:any) => {       
+}
+updateSelectedPromoter(event:any,id:any){
+    if(event.isUserInput){
+        this.selectedPromoter=id;
+    }
+}
+getSchemeMembers(event:any,scheme:any){
+  if(event.isUserInput){
+      this.selectedScheme=scheme;
+      this.getSgsUsers();
+  }
+}
+updateStatus(event:any,status:string){
+    if(event.isUserInput){
+        this.selectedStatus=status;
+        this.getSgsUsers();
+    }
+}
+getSgsSchemeNames() {
+      let query:any={...this.query};     
+      query.schemeType=2;
+      query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE; 
+      this.sandbox.getSgsSchemeNames(query).subscribe((res:any) => {       
           if(res?.data?.data){
               this.schemes=res?.data?.data || [];
-              const sortkey='total_amount';
-              this.schemes = this.schemes.sort((a: any, b: any) => {
-                const isAsc = true;
-                return this.compare(a[sortkey], b[sortkey], isAsc);
-            });
-            if(this.schemes.length>0){
-              this.selectedScheme=this.schemes[0];
-              this.query=new SGSTableQuery();
-              this.query.sortKey='created_at';
-              this.query.sortDirection=SortDirection.desc;
-              this.getSgsSchemeNames({isUserInput:true},this.selectedScheme);
-            }
           }      
       });
-    }
-    compare(a: number | string, b: number | string, isAsc: boolean) {
-      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  } 
-    lazyLoad(event: SGSTableQuery) {
-        if(this.query){
-          this.query.pageIndex=event?.pageIndex || 0;
-          if(event.sortKey)
-              this.query.sortKey=event.sortKey;
-          if(event.sortDirection)
-          this.query.sortDirection=event.sortDirection;
-          //this.getSgsSchemes();
-        }      
-    }
-   
-    getSgsSchemeNames(event:any,scheme:any) {
-      if(event.isUserInput){
-        let query:any={...this.query};     
-        query.scheme_id=scheme.id;
-        this.sandbox.getSgsSchemeNames(query).subscribe((res:any) => {       
-            if(res?.data?.data){
-                  this.sortedData=res?.data?.data || [];
-  
-                  this.query=new SGSTableQuery(); 
-                  this.query.sortKey='created_at';
-                  this.query.sortDirection=SortDirection.desc;
-  
-                  this.tableConfig = {
-                      columns: this.SCHEME_TABLE_COLUMNS,
-                      data: this.sortedData,
-                      selection: false,
-                      showPagination:true,
-                      totalRecords: this.sortedData.length,
-                      clientPagination: true,
-                  };
-            }      
-        });
-      }
-    }
-  
-    //Add new schemes
-    addSchemeName(){
-      const ref = this.dialog.openOverlayPanel('Add Group Scheme Name', 
-          SgsAddFormsComponent, {
-          type:'schemeNames',
-          data:{scheme_id:this.selectedScheme.id}
-          },SgsDialogType.medium);
-          ref.afterClosed().subscribe((res) => {
-          if(res?.id>0)
-            this.getSgsSchemeNames({isUserInput:true},this.selectedScheme);
-          });
-      }
-    
-    onClickCell(event: any) {
-        if (event.key === 'delete') {
-            this.deleteRequest(event);
-        } else if (event.key === 'edit'){
-          this.updateScheme(event);
+}
+getSgsUsers() {
+  this.sortedData=[];        
+    let query:any={...this.query};
+    query.userType=0;
+    if(this.selectedStatus!=='All'){
+        query.status=this.selectedStatus;
+    }    
+    if(this.selectedPromoter.length>0)
+    query.introducedBy=this.selectedPromoter;    
+    query.schemeType=2;
+    query.scheme_name_id=this.selectedScheme?.id || 0;
+    if(query.scheme_name_id>0)
+    this.sandbox.getSchemeMembers(query).subscribe((res: any) => {
+        if(res?.data){
+          this.sortedData=res?.data?.data || [];
+          const total:any=res?.data?.total || 0;      
+          this.tableConfig = {
+              columns: this.cols,
+              data: this.sortedData,
+              selection: false,
+              showPagination:true,
+              totalRecords: total,
+              clientPagination: false,
+          };
         }
-    }
+    });
+    else 
+    this.sortedData=[];
   
-      //Update selected scheme
-      updateScheme(event:any){
-          const ref = this.dialog.openOverlayPanel('Update Group Scheme Name', 
-          SgsEditFormsComponent, {
-          type:'schemeNames',
-          data: event.data,
-          },SgsDialogType.medium);
-          ref.afterClosed().subscribe((res) => {
-          if(res?.id===event.data.id)
-          this.getSgsSchemeNames({isUserInput:true},this.selectedScheme);
-          }); 
-      }
-    deleteRequest(event: any) {
-        const ref = this.dialog.openDialog(SgsDialogType.small, DeleteRequestConfirmComponent, 'this row');
-        ref.afterClosed().subscribe((result: any) => {
-            if (result.decision === DECISION.CONFIRM) {
-                this.sandbox.deleteRequest({id:event.data.id,type:5}).subscribe((res:any) => {
-                    if(res?.deleteStatus === 1)
-                    {
-                     this.getSgsSchemeNames({isUserInput:true},this.selectedScheme);
-                    }
-                });
+}
+
+
+onSelect(event: any) {}
+
+onClickCell(event: any) {
+console.log(event);
+if (event.key === 'delete') {
+    this.deleteRequest(event);
+}
+else if (event.key === 'userId') {
+    const ref = this.dialog.openOverlayPanel('Details of '+event.data.userId, SgsDetailsComponent, {
+        mode: event.key === 'edit'?DECISION.ADD:DECISION.VIEW,
+        type:'viewUserDetails',
+        data: event.data,
+    },SgsDialogType.medium);
+    ref.afterClosed().subscribe((res) => {});
+} 
+else if (event.key === 'scheme_name') {
+  const ref = this.dialog.openOverlayPanel('Scheme: '+event.data.scheme_name, SgsSchemeDetailsComponent, {
+      mode: event.key === 'edit'?DECISION.ADD:DECISION.VIEW,
+      type:'userSchemes',
+      data: event.data,
+  },SgsDialogType.large);
+  ref.afterClosed().subscribe((res) => {
+    if(res?.data){
+        this.getSgsUsers();
+    }
+  });
+}
+else if (event.key === 'edit') {
+    const data={...event.data,scheme_type_id:2,scheme_id:this.selectedScheme.id};
+    const ref = this.dialog.openOverlayPanel('Update Promoter', 
+    SgsEditFormsComponent, {type:'users', data:data},SgsDialogType.medium);
+    ref.afterClosed().subscribe((res) => {
+        if(res?.id>0)
+        this.getSgsUsers();
+    }); 
+}
+}
+
+compare(a: number | string, b: number | string, isAsc: boolean) {
+return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+addUsers(){
+const ref = this.dialog.openOverlayPanel('Add Scheme Member', 
+  SgsAddFormsComponent, {
+    type:'users',
+    data:{
+        userType:0,
+        role:ROLES['0'],
+        introducedBy:this.selectedPromoter,
+        scheme_type_id:2,
+        scheme_id:this.selectedScheme.id
+    }
+  },SgsDialogType.medium);
+  ref.afterClosed().subscribe((res) => {
+    if(res?.id>0)
+    this.getSgsUsers();
+  });
+}
+deleteRequest(event: any) {
+const ref = this.dialog.openDialog(SgsDialogType.small, DeleteRequestConfirmComponent, event.data?.userName || '');
+ref.afterClosed().subscribe((result: any) => {
+    if (result.decision === DECISION.CONFIRM) {
+        this.sandbox.deleteRequest({id:event.data.scheme_member_id,type:'deleteSchemeMember'}).subscribe((res:any) => {
+            if(res?.deleteStatus === 1)
+            {
+              this.getSgsUsers();
             }
         });
     }
-    
-    downloadExcel(){
-        this.sandbox.downloadExcel(this.sortedData,'schemesNames','Admin_Group_Scheme_Names');
-    }
-  }
+});
+}
+
+downloadExcel(){
+this.sandbox.downloadExcel(this.sortedData,'users','Users');
+}
+
+
+}
   
 

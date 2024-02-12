@@ -141,7 +141,7 @@ export class IndividualComponent implements OnInit  {
         const ref = this.dialog.openDialog(SgsDialogType.small, DeleteRequestConfirmComponent, 'this row');
         ref.afterClosed().subscribe((result: any) => {
             if (result.decision === DECISION.CONFIRM) {
-                this.sandbox.deleteRequest({id:event.data.id,type:5}).subscribe((res:any) => {
+                this.sandbox.deleteRequest({id:event.data.id,type:'deleteSchemeName'}).subscribe((res:any) => {
                     if(res?.deleteStatus === 1)
                     {
                       this.getSgsSchemeNames({isUserInput:true},this.selectedScheme);

@@ -167,7 +167,7 @@ export class AdminSandbox {
     addUpdateSchemeMembers(params: any) {        
         return this.service.addUpdateSchemeMembers(params).pipe(
             tap((res: any) => {                
-                if(res?.data?.id >0)
+                if(res?.data)
                 {
                   this.utilService.displayNotification(res?.message,'success');
                 }
@@ -212,11 +212,29 @@ export class AdminSandbox {
         return this.service.getSgsUsers(params);
     }
     getSgsSchemeNames(params:any) {
-        return this.service.getSgsSchemeNames(params);
+        return this.service.getSgsSchemeNames(params).pipe(
+            tap((res: any) => {                
+                if (res?.data?.data) {
+                   res.data.data=(res.data.data || []).map((value:any) => {
+                    value.name=('Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
+                    return value;
+                  });
+                }
+            })
+        );
     }
     
     getSchemeMembers(params:any) {
-        return this.service.getSchemeMembers(params);
+        return this.service.getSchemeMembers(params).pipe(
+            tap((res: any) => {                
+                if (res?.data?.data) {
+                   res.data.data=(res.data.data || []).map((value:any) => {
+                    value.schemeName=('Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
+                    return value;
+                  });
+                }
+            })
+        );
     }
     getPayments(params:any) {
         return this.service.getPayments(params);

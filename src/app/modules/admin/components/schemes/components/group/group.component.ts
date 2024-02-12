@@ -70,8 +70,8 @@ export class GroupComponent implements OnInit {
             this.query.sortKey=event.sortKey;
         if(event.sortDirection)
         this.query.sortDirection=event.sortDirection;
-        this.getSgsSchemes();
       }      
+      this.getSgsSchemes();      
   }
  
   getSgsSchemes() {
@@ -80,7 +80,6 @@ export class GroupComponent implements OnInit {
       this.sandbox.getSgsSchemes(query).subscribe((res:any) => {       
           if(res?.data?.data){
                 this.sortedData=res?.data?.data || [];
-
                 this.query=new SGSTableQuery(); 
                 this.query.sortKey='created_at';
                 this.query.sortDirection=SortDirection.desc;
@@ -90,8 +89,7 @@ export class GroupComponent implements OnInit {
                     data: this.sortedData,
                     selection: false,
                     showPagination:true,
-                    totalRecords: this.sortedData.length,
-                    clientPagination: true,
+                    totalRecords: res?.data?.total || 0,
                 };
           }      
       });
@@ -134,7 +132,7 @@ export class GroupComponent implements OnInit {
       const ref = this.dialog.openDialog(SgsDialogType.small, DeleteRequestConfirmComponent, 'this row');
       ref.afterClosed().subscribe((result: any) => {
           if (result.decision === DECISION.CONFIRM) {
-              this.sandbox.deleteRequest({id:event.data.id,type:2}).subscribe((res:any) => {
+              this.sandbox.deleteRequest({id:event.data.id,type:'deleteScheme'}).subscribe((res:any) => {
                   if(res?.deleteStatus === 1)
                   {
                   this.getSgsSchemes();

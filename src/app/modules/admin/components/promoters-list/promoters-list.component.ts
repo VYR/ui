@@ -194,7 +194,7 @@ export class PromotersListComponent implements OnInit {
     const ref = this.dialog.openDialog(SgsDialogType.small, DeleteRequestConfirmComponent, event.data?.userName || '');
     ref.afterClosed().subscribe((result: any) => {
         if (result.decision === DECISION.CONFIRM) {
-            this.sandbox.deleteRequest({id:event.data.id,type:3}).subscribe((res:any) => {
+            this.sandbox.deleteRequest({id:event.data.id,type:'deleteUser'}).subscribe((res:any) => {
                 if(res?.deleteStatus === 1)
                 {
                   this.getSgsUsers();

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { AdminSandbox } from '../../../../admin.sandbox';
-import { DECISION } from 'src/app/shared/enums';
+import { DECISION, SYSTEM_CONFIG } from 'src/app/shared/enums';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
 import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
@@ -61,7 +61,7 @@ export class GroupComponent implements OnInit
     }
     getSchemesByType(){
       this.schemes=[];
-      this.sandbox.getSgsSchemes({schemeType:2}).subscribe((res:any) => {       
+      this.sandbox.getSgsSchemes({schemeType:2,pageSize:SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE}).subscribe((res:any) => {       
           if(res?.data?.data){
               this.schemes=res?.data?.data || [];
               const sortkey='total_amount';
@@ -96,7 +96,8 @@ export class GroupComponent implements OnInit
     getSgsSchemeNames(event:any,scheme:any) {
       if(event.isUserInput){
         let query:any={...this.query};     
-        query.scheme_id=scheme.id;
+        query.scheme_id=scheme.id;             
+        query.schemeType=1;
         this.sandbox.getSgsSchemeNames(query).subscribe((res:any) => {       
             if(res?.data?.data){
                   this.sortedData=res?.data?.data || [];
@@ -155,7 +156,7 @@ export class GroupComponent implements OnInit
         const ref = this.dialog.openDialog(SgsDialogType.small, DeleteRequestConfirmComponent, 'this row');
         ref.afterClosed().subscribe((result: any) => {
             if (result.decision === DECISION.CONFIRM) {
-                this.sandbox.deleteRequest({id:event.data.id,type:5}).subscribe((res:any) => {
+                this.sandbox.deleteRequest({id:event.data.id,type:'deleteSchemeName'}).subscribe((res:any) => {
                     if(res?.deleteStatus === 1)
                     {
                      this.getSgsSchemeNames({isUserInput:true},this.selectedScheme);

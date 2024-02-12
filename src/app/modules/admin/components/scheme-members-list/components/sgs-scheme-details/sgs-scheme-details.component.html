@@ -1,6 +1,6 @@
 <app-master-container>
     <ng-container header>
-        {{'Rs.'+data.data?.amount_per_month + ' - '+data?.data?.no_of_months+' Months'}}
+        {{data.data?.schemeName}}
     </ng-container>
     <ng-container icons>
         <button mat-icon-button (click)="downloadExcel()">

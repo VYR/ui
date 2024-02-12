@@ -4,7 +4,7 @@ import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/ap
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { AdminSandbox } from '../../admin.sandbox'; 
 import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from '../../constants/meta-data';
-import { DECISION, USER_TYPE } from 'src/app/shared/enums';
+import { DECISION, SYSTEM_CONFIG, USER_TYPE } from 'src/app/shared/enums';
 import { UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
@@ -35,14 +35,15 @@ export class EmployeeListComponent implements OnInit{
   ngOnInit(): void {            
       this.query.sortKey='created_at';
       this.query.sortDirection=SortDirection.desc;
-      this.getPromoters();
+      this.getSuperEmployees();
 
     }
-    getPromoters() {
+    getSuperEmployees() {
     let query:any={};
     console.log(query);
     query.userType=4;
     query.status='active';
+    query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;
     this.sandbox.getSgsUsers(query).subscribe((res: any) => {
         if(res?.data){
             this.promoters=res?.data?.data || [];      
@@ -175,7 +176,7 @@ deleteRequest(event: any) {
   const ref = this.dialog.openDialog(SgsDialogType.small, DeleteRequestConfirmComponent, event.data?.userName || '');
   ref.afterClosed().subscribe((result: any) => {
       if (result.decision === DECISION.CONFIRM) {
-          this.sandbox.deleteRequest({id:event.data.id,type:3}).subscribe((res:any) => {
+          this.sandbox.deleteRequest({id:event.data.id,type:'deleteUser'}).subscribe((res:any) => {
               if(res?.deleteStatus === 1)
               {
                 this.getSgsUsers();

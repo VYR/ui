@@ -58,7 +58,7 @@ export const SCHEME_PAY_TABLE_COLUMNS =  [
     {
         key: 'created_at',
         displayName: 'Start Date',
-        type: ColumnType.date,
+        type: ColumnType.onlyDate,
     },
     {
         key: 'paidDate',
@@ -68,7 +68,7 @@ export const SCHEME_PAY_TABLE_COLUMNS =  [
     {
         key: 'dueDate',
         displayName: 'Due Date',
-        type: ColumnType.date,
+        type: ColumnType.onlyDate,
     },
     {
         key: 'amount_paid',
