@@ -20,11 +20,6 @@ export class SideMenuComponent {
             name: 'Schemes'
         },
         {
-            path:'/admin/scheme-names',
-            icon: 'las la-university',
-            name: 'Scheme Names'
-        },
-        {
             path:'/admin/super-employees-list',
             icon: 'las la-university',
             name: 'Super Employees'

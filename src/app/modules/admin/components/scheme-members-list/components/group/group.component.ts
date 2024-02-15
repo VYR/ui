@@ -180,7 +180,7 @@ getSgsSchemeNames() {
       let query:any={...this.query};     
       query.schemeType=2;
       query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE; 
-      this.sandbox.getSgsSchemeNames(query).subscribe((res:any) => {       
+      this.sandbox.getSgsSchemes(query).subscribe((res:any) => {       
           if(res?.data?.data){
               this.schemes=res?.data?.data || [];
           }      

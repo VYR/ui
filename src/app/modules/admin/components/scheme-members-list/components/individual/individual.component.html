@@ -37,7 +37,7 @@
                             (onSelectionChange)="getSchemeMembers($event,scheme)"
                             *ngFor="let scheme of schemes" [value]="scheme" 
                             >{{
-                                scheme.scheme_name + ' - '+scheme.scheme_start_date + ' - '+scheme.name
+                                scheme.scheme_name + ' - '+scheme.scheme_date + ' - '+scheme.name
                             }}</mat-option>
                         </mat-select>
                     </mat-form-field>

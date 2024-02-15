@@ -18,6 +18,17 @@ export class IndividualComponent implements OnInit  {
   sortedData:Array<any>=[];  
   SCHEME_TABLE_COLUMNS=[
     {
+        key: 'scheme_name',
+        displayName: 'Scheme Name',
+        sortable: true,
+    }, 
+    {
+        key: 'scheme_date',
+        displayName: 'Scheme Date',
+        type: ColumnType.onlyDate,
+        sortable: true,
+    }, 
+    {
         key: 'total_amount',
         displayName: 'Total Amount',
         type: ColumnType.amount,

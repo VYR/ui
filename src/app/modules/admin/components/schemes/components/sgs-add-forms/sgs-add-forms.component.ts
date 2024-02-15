@@ -22,7 +22,7 @@ import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
   styleUrls: ['./sgs-add-forms.component.scss']
 })
 export class SgsAddFormsComponent implements OnInit {
-
+  selectedDate:any='';
   DECISION=DECISION;  
   public addUserForm!: UntypedFormGroup;
   public addSchemeTypesForm!: UntypedFormGroup;
@@ -53,10 +53,11 @@ export class SgsAddFormsComponent implements OnInit {
   ngOnInit(): void {    
     this.addSchemesForm = this.fb.group({
         scheme_type_id: new UntypedFormControl(this.data?.data?.scheme_type_id || null),
-        total_amount: new UntypedFormControl(null),
+        scheme_date: new UntypedFormControl(null, Validators.required),
+        scheme_name: new UntypedFormControl(null, Validators.required),
+        total_amount: new UntypedFormControl(null,Validators.required),
         amount_per_month: new UntypedFormControl(null, Validators.required),
-        no_of_months: new UntypedFormControl(12, Validators.required),
-        coins: new UntypedFormControl(null)
+        no_of_months: new UntypedFormControl(12, Validators.required)
     });  
     this.addSchemeNamesForm = this.fb.group({
         scheme_id: new UntypedFormControl(this.data?.data?.scheme_id || null),
@@ -106,7 +107,9 @@ export class SgsAddFormsComponent implements OnInit {
       this.addUserForm.updateValueAndValidity();
     }
   }
-
+  getDate(date:any){
+    this.selectedDate=date;
+  }
   public mobileVerificationCheck(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
         if (control.value && control.value != '') {
@@ -133,7 +136,8 @@ export class SgsAddFormsComponent implements OnInit {
 
   submitSchemesForm(){
     const formData=this.addSchemesForm.value;
-    this.sandBox.addUpdateSchemes(formData).subscribe((res:any) => {
+    const payload:any={...formData,scheme_date:this.selectedDate};
+    this.sandBox.addUpdateSchemes(payload).subscribe((res:any) => {
         if(res?.data){          
           this.dialogRef.close(res.data);
         }

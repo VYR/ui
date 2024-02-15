@@ -2,6 +2,19 @@
     <form  [formGroup]="addSchemesForm" >
         <div  fxLayout="column" fxLayoutGap="0.3rem">   
             <ng-container > 
+                <div fxFlex="100">
+                    <app-sgs-date-picker
+                    [parentForm]="addSchemesForm"
+                    [fomrControlName]="'scheme_date'"
+                    [dateFormat]="'YYYY-MM-dd'"
+                    [placeholder]="'Select Start Date'"
+                    (selectDate)="getDate($event)"
+                    ></app-sgs-date-picker>
+                </div>
+                <mat-form-field>
+                    <mat-label>Scheme Name</mat-label>
+                    <input type="text" matInput formControlName="scheme_name" placeholder="Scheme Name" />
+                </mat-form-field>
                 <mat-form-field>
                     <mat-label>Total Amount</mat-label>
                     <input type="number" matInput formControlName="total_amount" placeholder="Total Amount" />

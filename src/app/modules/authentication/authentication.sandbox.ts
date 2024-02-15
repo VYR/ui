@@ -62,13 +62,13 @@ export class AuthenticationSandbox implements OnDestroy {
 
     public authenticate(creds: LoginCredentials): any {
         const req = new LoginCredentials();
-        req.email = creds.email;
+        req.userId = creds.userId;
         req.password =creds.password;
         return this.authenticationService.authenticate(req).pipe(
             takeUntil(this.unsubscribe$),
             tap((response: any) => {
                 console.log(response);
-                this.appContext.setUserLogin(response, req.email);
+                this.appContext.setUserLogin(response, req.userId);
             })
         );
     }

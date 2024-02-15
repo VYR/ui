@@ -17,13 +17,14 @@ import { DECISION } from 'src/app/shared/enums';
 import {  STATUSES} from "../../constants/meta-data";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
+import { CustomDatePipe } from 'src/app/shared/pipes/date.pipe';
 @Component({
   selector: 'app-sgs-edit-forms',
   templateUrl: './sgs-edit-forms.component.html',
   styleUrls: ['./sgs-edit-forms.component.scss']
 })
 export class SgsEditFormsComponent implements OnInit {
-
+  selectedDate:any='';
   public Editor = ClassicEditor;
   editorData:any=`<p>Hello, world!</p>`;
   DECISION=DECISION;  
@@ -40,16 +41,21 @@ export class SgsEditFormsComponent implements OnInit {
       public fb: UntypedFormBuilder,
       private dialog: SgsDialogService,
       private router: Router,
+      private datePipe:CustomDatePipe,
       private utilService: UtilService
   ) 
   {
       console.log(this.data.data);
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    if(this.data?.data?.scheme_date)
+    this.selectedDate=this.datePipe.transform(this.data?.data?.scheme_date,'YYYY-MM-dd'); 
     this.updateSchemesForm = this.fb.group({
       id: new UntypedFormControl(this.data?.data?.id || 0),
-      scheme_type_id: new UntypedFormControl(this.data?.data?.scheme_type_id),
+      scheme_type_id: new UntypedFormControl(this.data?.data?.scheme_type_id),      
+      scheme_date: new UntypedFormControl(new Date(this.data?.data?.scheme_date || null), Validators.required),
+      scheme_name: new UntypedFormControl(this.data?.data?.scheme_name || null, Validators.required),
       total_amount: new UntypedFormControl(this.data?.data?.total_amount || 0),
       amount_per_month: new UntypedFormControl(this.data?.data?.amount_per_month || 0, Validators.required),
       no_of_months: new UntypedFormControl(this.data?.data?.no_of_months || 0, Validators.required),
@@ -86,7 +92,9 @@ export class SgsEditFormsComponent implements OnInit {
         this.updateSchemesForm.controls['coins'].clearValidators();
     }
   }
-
+  getDate(date:any){
+    this.selectedDate=date;
+  }
   submitSchemeTypesForm(){
     const formData=this.updateSchemeTypesForm.value;
     this.sandBox.addUpdateSchemeTypes(formData).subscribe((res:any) => {
@@ -98,7 +106,8 @@ export class SgsEditFormsComponent implements OnInit {
 
   submitSchemesForm(){
     const formData=this.updateSchemesForm.value;
-    this.sandBox.addUpdateSchemes(formData).subscribe((res:any) => {
+    const payload:any={...formData,scheme_date:this.selectedDate};
+    this.sandBox.addUpdateSchemes(payload).subscribe((res:any) => {
         if(res?.data){          
           this.dialogRef.close(res.data);
         }

@@ -1,4 +1,4 @@
 export class LoginCredentials {
-    email!: string;
+    userId!: string;
     password!: string;
 }
