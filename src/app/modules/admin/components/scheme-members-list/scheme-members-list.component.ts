@@ -9,10 +9,6 @@ import { Component } from '@angular/core';
 export class SchemeMembersListComponent   {
     public menu: Array<any> = [
       {         
-        name: 'Total Scheme Members',
-        path: 'total-members',
-      },
-      {         
         name: 'Individual Scheme Members',
         path: 'individual',
       },

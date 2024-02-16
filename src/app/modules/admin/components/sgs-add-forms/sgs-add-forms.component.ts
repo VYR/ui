@@ -29,6 +29,12 @@ export class SgsAddFormsComponent implements OnInit {
   public addUserToSchemeForm!: UntypedFormGroup;
   public addPaymentForm!: UntypedFormGroup;
   statuses:any=STATUSES;
+  selectedSuperEmployee="";
+  selectedEmployee="";
+  selectedPromoter="";
+  superEmployees:Array<any>=[];
+  employees:Array<any>=[];
+  promoters:Array<any>=[];
   verifyValidations:any={
     mobilePhone:false,
     aadhar:false,
@@ -66,6 +72,9 @@ export class SgsAddFormsComponent implements OnInit {
     this.query=event;
 }
   ngOnInit(): void {    
+    if(this.data?.data?.userType===0){      
+      this.getSuperEmployees();
+    }
     if(this.data?.type==='schemeMemberErrors'){
         this.tableConfig = {
           columns: this.cols,
@@ -79,6 +88,7 @@ export class SgsAddFormsComponent implements OnInit {
     this.addUserForm = this.fb.group({
         role: new UntypedFormControl(this.data?.data?.role || null),
         userType: new UntypedFormControl(this.data?.data?.userType===0?0:(this.data?.data?.userType || null)),
+        scheme_id: new UntypedFormControl(this.data?.data?.scheme_id || null),
         firstName: new UntypedFormControl(null,Validators.required),
         lastName: new UntypedFormControl(null,Validators.required),
         email: new UntypedFormControl(null,[Validators.required,Validators.email,
@@ -102,12 +112,14 @@ export class SgsAddFormsComponent implements OnInit {
         month_paid: new UntypedFormControl(this.data?.data?.month_paid || 0),
     });
     if(this.data?.data?.userType===0){
+      this.addUserForm.controls['scheme_id']?.setValidators([Validators.required]);
       this.addUserForm.controls['aadhar']?.setValidators([Validators.required,Validators.minLength(12),Validators.maxLength(12)]);
       this.addUserForm.controls['pan']?.setValidators([Validators.required,Validators.minLength(10),Validators.maxLength(10)]);
       this.addUserForm.controls['mobilePhone']?.setValidators([Validators.required,Validators.minLength(10),Validators.maxLength(10),this.mobileVerificationCheck()]);       
       this.addUserForm.updateValueAndValidity();
     }
     else{
+      this.addUserForm.controls['scheme_id'].clearValidators();
       this.addUserForm.controls['aadhar'].clearValidators();
       this.addUserForm.controls['pan'].clearValidators();
       this.addUserForm.controls['mobilePhone'].clearValidators();      
@@ -129,7 +141,72 @@ export class SgsAddFormsComponent implements OnInit {
     this.verifyValidations[controlName]=true;
     this.addUserForm.controls[controlName].updateValueAndValidity();
   }
-  
+
+  updateSelectedSuperEmployee(event:any,id:any){
+    if(event.isUserInput){
+        this.selectedSuperEmployee=id;        
+        this.selectedEmployee=this.data?.data?.employee;
+        this.selectedPromoter=this.data?.data?.promoter;
+        this.getEmployees();
+    }
+  }
+  getSuperEmployees() {
+    let query:any={};
+    query.userType=4;
+    query.status='active';
+    query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;
+    this.sandBox.getSgsUsers(query).subscribe((res: any) => {
+        if(res?.data){
+            this.superEmployees=res?.data?.data || [];            
+            this.selectedSuperEmployee=this.data?.data?.super;
+            if(this.selectedEmployee.length>0)
+            this.getEmployees();      
+        }
+    });
+  }
+  getEmployees() {
+    let query:any={};
+    query.userType=3;
+    query.status='active'; 
+    query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;     
+    if(this.selectedSuperEmployee.length>0)
+    query.introducedBy=this.selectedSuperEmployee;
+    this.sandBox.getSgsUsers(query).subscribe((res: any) => {
+        if(res?.data)
+          this.employees=res?.data?.data || [];        
+          this.selectedEmployee=this.data?.data?.employee;  
+          if(this.selectedPromoter.length>0)
+          this.getPromoters();        
+    });
+  }
+
+  updateSelectedEmployee(event:any,id:any){
+      if(event.isUserInput){
+          this.selectedEmployee=id;
+          this.selectedPromoter=this.data?.data?.promoter; 
+          this.getPromoters();
+      }
+  }
+  updateSelectedPromoter(event:any,id:any){
+      if(event.isUserInput){
+          this.selectedPromoter=id;          
+          this.addUserForm.controls['introducedBy'].setValue(this.selectedPromoter);
+      }
+  }
+  getPromoters() {
+    let query:any={};
+    console.log(query);
+    query.userType=2;
+    query.status='active'; 
+    query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;      
+    if(this.selectedEmployee.length>0)
+    query.introducedBy=this.selectedEmployee;
+    this.sandBox.getSgsUsers(query).subscribe((res: any) => {
+        if(res?.data)
+          this.promoters=res?.data?.data || [];
+          this.selectedPromoter=this.data?.data?.promoter;         
+    });
+  }  
   submitUserSchemeForm(){
     const formData=this.addUserToSchemeForm.value;
     this.sandBox.addUpdateSchemeMembers(formData).subscribe((res:any) => {

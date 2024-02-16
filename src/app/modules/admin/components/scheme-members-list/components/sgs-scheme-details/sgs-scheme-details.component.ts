@@ -72,7 +72,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
         let res:any={data:[]};
         for(let i=1;i<=this.data?.data?.no_of_months;i++){
           let data:any={
-                created_at:this.data?.data?.scheme_start_date,
+                created_at:this.data?.data?.scheme_date,
                 amount_paid: this.data?.data?.amount_per_month, 
                 scheme_id: this.data?.data?.scheme_id, 
                 scheme_member_id: this.data?.data?.scheme_member_id,  
@@ -80,7 +80,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
                 winning_month: this.data?.data?.winning_month,   
                 is_winner: this.data?.data?.winning_month===i?this.data?.data?.is_winner:'NO',   
                 month_paid:i,
-                dueDate: new Date(this.data?.data?.scheme_start_date).setMonth(new Date(this.data?.data?.scheme_start_date).getMonth()+i),
+                dueDate: new Date(this.data?.data?.scheme_date).setMonth(new Date(this.data?.data?.scheme_date).getMonth()+i),
                 pay:'Pay',
                 remind:'Send Reminder',
                 txnNo:'',
@@ -136,6 +136,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
             key: 'makeWinner',
             displayName: 'Make Winner',
             type: ColumnType.approve,
+            callBackFn: this.checkForPdfAction,
         };
         let colArray:any=[...SCHEME_PAY_TABLE_COLUMNS, payCol,pdfCol, remindCol];
         if(this.data?.data?.scheme_type_id===2){

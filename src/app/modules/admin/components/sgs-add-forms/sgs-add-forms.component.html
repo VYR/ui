@@ -1,6 +1,36 @@
 <ng-container *ngIf="data.type==='users'">
     <form  [formGroup]="addUserForm" >
-        <div  fxLayout="column" fxLayoutGap="0.3rem">  
+        <div  fxLayout="column" fxLayoutGap="0.3rem">
+            <mat-form-field class="width-1" *ngIf="data?.data?.userType===0">
+                <mat-label>Select Super Employee</mat-label>
+                <mat-select [ngModelOptions]="{standalone: true}" name="selectedSuperEmployee" [(ngModel)]="selectedSuperEmployee" >
+                    <mat-option 
+                    (onSelectionChange)="updateSelectedSuperEmployee($event,superEmployee.userId)"
+                    *ngFor="let superEmployee of  superEmployees" [value]="superEmployee.userId">{{
+                        superEmployee.userId + ' - ' + superEmployee.firstName + '  ' + superEmployee.lastName 
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="width-1"  *ngIf="data?.data?.userType===0">
+                <mat-label>Select Employee</mat-label>
+                <mat-select [ngModelOptions]="{standalone: true}" name="selectedEmployee" [(ngModel)]="selectedEmployee">
+                    <mat-option 
+                    (onSelectionChange)="updateSelectedEmployee($event,employee.userId)"
+                    *ngFor="let employee of  employees" [value]="employee.userId">{{
+                        employee.userId + ' - ' + employee.firstName + '  ' + employee.lastName 
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="width-1"  *ngIf="data?.data?.userType===0">
+                <mat-label>Select Promoter</mat-label>
+                <mat-select [ngModelOptions]="{standalone: true}" name="selectedPromoter" [(ngModel)]="selectedPromoter">
+                    <mat-option 
+                    (onSelectionChange)="updateSelectedPromoter($event,promoter.userId)"
+                    *ngFor="let promoter of  promoters" [value]="promoter.userId">{{
+                        promoter.userId + ' - ' + promoter.firstName + '  ' + promoter.lastName 
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>  
             <mat-form-field>
                 <mat-label>First Name</mat-label>
                 <input matInput formControlName="firstName" placeholder="First Name" />

@@ -71,7 +71,9 @@ export class GroupComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.getSgsSchemes();
+    this.query=new SGSTableQuery(); 
+    this.query.sortKey='created_at';
+    this.query.sortDirection=SortDirection.desc;
   }
 
   lazyLoad(event: SGSTableQuery) {
@@ -81,8 +83,8 @@ export class GroupComponent implements OnInit {
             this.query.sortKey=event.sortKey;
         if(event.sortDirection)
         this.query.sortDirection=event.sortDirection;
+        this.getSgsSchemes();
       }      
-      this.getSgsSchemes();      
   }
  
   getSgsSchemes() {
@@ -91,10 +93,6 @@ export class GroupComponent implements OnInit {
       this.sandbox.getSgsSchemes(query).subscribe((res:any) => {       
           if(res?.data?.data){
                 this.sortedData=res?.data?.data || [];
-                this.query=new SGSTableQuery(); 
-                this.query.sortKey='created_at';
-                this.query.sortDirection=SortDirection.desc;
-
                 this.tableConfig = {
                     columns: this.SCHEME_TABLE_COLUMNS,
                     data: this.sortedData,
