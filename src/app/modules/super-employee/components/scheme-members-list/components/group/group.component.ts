@@ -203,8 +203,8 @@ export class GroupComponent implements OnInit {
       if(this.selectedPromoter.length>0)
         query.introducedBy=this.selectedPromoter;  
         query.schemeType=2;  
-        query.scheme_name_id=this.selectedScheme?.id || 0;
-        if(query.scheme_name_id>0) 
+        query.scheme_id=this.selectedScheme?.id || 0;
+        if(query.scheme_id>0) 
       this.sandbox.getSchemeMembers(query).subscribe((res: any) => {
           if(res?.data){
             this.sortedData=res?.data?.data || [];
