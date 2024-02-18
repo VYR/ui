@@ -5,8 +5,8 @@ import { DECISION, USER_TYPE } from 'src/app/shared/enums';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
 import { UserContext } from 'src/app/shared/models';
-import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
-import { SCHEME_PAY_TABLE_COLUMNS } from 'src/app/modules/admin/constants/meta-data';
+import { SCHEME_PAY_TABLE_COLUMNS } from 'src/app/shared/constants/meta-data';
+import { SuperEmployeeSandbox } from 'src/app/modules/super-employee/super-empolyee.sandbox';
 
 @Component({
   selector: 'app-sgs-scheme-details',
@@ -41,7 +41,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
   ];
   constructor(public dialogRef: MatDialogRef<SgsSchemeDetailsComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private sandBox: AdminSandbox,
+    private sandBox: SuperEmployeeSandbox,
     private dialog: SgsDialogService,
     ) 
   {
@@ -66,19 +66,21 @@ export class SgsSchemeDetailsComponent implements OnInit {
   }
     
   getPayments() {   
-    this.sandBox.getPayments({scheme_member_id:this.data?.data?.scheme_member_id,scheme_id:this.data?.data?.id}).subscribe((res1: any) => {
+    this.sandBox.getPayments({scheme_member_id:this.data?.data?.scheme_member_id,scheme_id:this.data?.data?.scheme_id}).subscribe((res1: any) => {
       
         
         let res:any={data:[]};
         for(let i=1;i<=this.data?.data?.no_of_months;i++){
           let data:any={
-                created_at:this.data?.data?.start_at,
+                created_at:this.data?.data?.scheme_date,
                 amount_paid: this.data?.data?.amount_per_month, 
-                scheme_id: this.data?.data?.id, 
+                scheme_id: this.data?.data?.scheme_id, 
                 scheme_member_id: this.data?.data?.scheme_member_id,  
                 userId: this.data?.data?.userId,   
+                winning_month: this.data?.data?.winning_month,   
+                is_winner: this.data?.data?.winning_month===i?this.data?.data?.is_winner:'NO',   
                 month_paid:i,
-                dueDate: new Date().setMonth(new Date().getMonth()+i),
+                dueDate: new Date(this.data?.data?.scheme_date).setMonth(new Date(this.data?.data?.scheme_date).getMonth()+i),
                 pay:'Pay',
                 remind:'Send Reminder',
                 txnNo:'',
@@ -124,13 +126,25 @@ export class SgsSchemeDetailsComponent implements OnInit {
             callBackFn: this.checkForPdfAction,
             minWidth: 3,
         };
-        let colArray:any=[...SCHEME_PAY_TABLE_COLUMNS];
-        console.log(this.currentUser);
-        console.log(this.currentUser.userType===0);
-        if([0,1].includes(this.currentUser.userType))
-        colArray=[...SCHEME_PAY_TABLE_COLUMNS, payCol,pdfCol];
-        if(this.currentUser.userType===2)
-        colArray=[...SCHEME_PAY_TABLE_COLUMNS, remindCol];
+        
+        let winnerCol={
+            key: 'is_winner',
+            displayName: 'Is Winner',
+            callBackFn: this.checkForWinnerAction,
+        };
+        let makeWinner=  {
+            key: 'makeWinner',
+            displayName: 'Make Winner',
+            type: ColumnType.approve,
+            callBackFn: this.checkForPdfAction,
+        };
+        let colArray:any=[...SCHEME_PAY_TABLE_COLUMNS, payCol,pdfCol, remindCol];
+        if(this.data?.data?.scheme_type_id===2){
+          if(this.data?.data?.is_winner==='YES')
+            colArray=[...SCHEME_PAY_TABLE_COLUMNS,winnerCol,payCol,pdfCol, remindCol];
+          else        
+            colArray=[...SCHEME_PAY_TABLE_COLUMNS,winnerCol,makeWinner, payCol,pdfCol, remindCol];
+        }
         res.data = res.data.sort((a: any, b: any) => {
             const isAsc =true;
             return this.sandBox.compare(a['month_paid'], b['month_paid'], isAsc);
@@ -157,6 +171,9 @@ export class SgsSchemeDetailsComponent implements OnInit {
   checkForPdfAction(data: any) {
     return (data.status === 'Paid');
   }
+  checkForWinnerAction(data: any) {
+    return (data.is_winner === 'YES');
+  }
   
   onClickCell(event: any) {
       console.log(event);
@@ -170,6 +187,22 @@ export class SgsSchemeDetailsComponent implements OnInit {
           this.getPayments();
           }); 
       }
+      if(event.key==='makeWinner'){
+        console.log(event.data);
+        let payload:any={
+          id:event.data?.scheme_member_id,
+          is_winner:'YES',
+          winning_month:event.data?.month_paid
+        };
+        this.sandBox.addUpdateSchemeMembers(payload).subscribe((res:any) =>{
+            if(res?.data?.id){
+              this.data.data.is_winner='YES';
+              this.data.data.winning_month=event.data?.month_paid;
+              this.dialogRef.close({data:true}); 
+            }
+        });
+      }
+      
   }
   
   downloadExcel(){

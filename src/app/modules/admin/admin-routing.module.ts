@@ -15,10 +15,6 @@ const routes: Routes = [
                 loadChildren: () => import('./components/schemes/schemes.module').then((m) => m.SchemesModule),
             },
             {
-                path: 'scheme-names',
-                loadChildren: () => import('./components/scheme-names/scheme-names.module').then((m) => m.SchemeNamesModule),
-            },
-            {
                 path: 'super-employees-list',
                 component:SuperEmployeesListComponent
             },

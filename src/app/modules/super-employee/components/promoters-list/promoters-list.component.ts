@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
-import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';  
-import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from '../../constants/meta-data';
+import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
+import { SuperEmployeeSandbox } from '../../super-empolyee.sandbox'; 
+import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from 'src/app/shared/constants/meta-data';
 import { DECISION, USER_TYPE } from 'src/app/shared/enums';
 import { UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
@@ -10,7 +11,6 @@ import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.componen
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
 import { SgsDetailsComponent } from '../sgs-details/sgs-details.component';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
-import { SuperEmployeeSandbox } from '../../super-empolyee.sandbox';
 
 @Component({
   selector: 'app-promoters-list',
@@ -30,32 +30,27 @@ export class PromotersListComponent implements OnInit {
     selectedEmployee="";
     selectedStatus='active';
     USER_TABLE_COLUMNS=USER_TABLE_COLUMNS;
-    enableAddButton:boolean=false;
-    loggedInUser!:UserContext;
+    enableAddButton:boolean=false;    
+    currentUser!:UserContext;
     constructor(private dialog: SgsDialogService, private sandbox: SuperEmployeeSandbox, private appContext:ApplicationContextService) {
-        this.appContext.currentUser.subscribe(
-            (res:any)=>{
-                this.loggedInUser=res;
-            }
-        );
+        this.appContext.currentUser.subscribe((res:any) => {this.currentUser=res;});
     }
     ngOnInit(): void {            
         this.query.sortKey='created_at';
-        this.query.sortDirection=SortDirection.desc;
-        this.selectedSuperEmployee=this.loggedInUser.userId;
+        this.query.sortDirection=SortDirection.desc;        
+        this.selectedSuperEmployee=this.currentUser.userId;
         this.getEmployees();
-  
       }
+
     getEmployees() {
         let query:any={};
         console.log(query);
         query.userType=3;
         query.status='active';
+        query.introducedBy=this.selectedSuperEmployee;
         this.sandbox.getSgsUsers(query).subscribe((res: any) => {
             if(res?.data){
-                this.employees=res?.data?.data || [];
-                if(this.selectedSuperEmployee.length>0)
-            this.employees=this.employees.filter((value:any) => value.introducedBy===this.selectedSuperEmployee);      
+                this.employees=res?.data?.data || [];                      
             }
         });
     }
@@ -68,12 +63,6 @@ export class PromotersListComponent implements OnInit {
         if(event.sortDirection)
         this.query.sortDirection=event.sortDirection;
         this.getSgsUsers();
-    }
-    updateSelectedSuperEmployee(event:any,id:any){
-        if(event.isUserInput){
-            this.selectedSuperEmployee=id;
-            this.getEmployees();
-        }
     }
     updateSelectedEmployee(event:any,id:any){
         if(event.isUserInput){
@@ -91,30 +80,50 @@ export class PromotersListComponent implements OnInit {
         let query:any={...this.query};
         console.log(query);
         query.userType=2;
-        query.introducedBy=this.selectedEmployee;
         if(this.selectedStatus!=='All'){
             query.status=this.selectedStatus;
         }
-        this.sandbox.getSgsUsers(query).subscribe((res: any) => {
-            if(res?.data){
-                this.sortedData=res?.data?.data || [];
-                const total:any=res?.data?.total || 0;
-                console.log(total);
-                if(this.selectedEmployee.length>0)
-            this.sortedData=this.sortedData.filter((value:any) => value.introducedBy===this.selectedEmployee);            
-            let colArray = [...this.USER_TABLE_COLUMNS];        
-            this.tableConfig = {
-                columns: colArray,
-                data: this.sortedData,
-                selection: false,
-                showPagination:true,
-                totalRecords: total,
-                clientPagination: false,
-            };
-              
-            console.log(this.tableConfig);
-            }
-        });
+        
+        if(this.selectedEmployee.length>0){
+            query.introducedBy=this.selectedEmployee;
+            this.sandbox.getSgsUsers(query).subscribe((res: any) => {
+                if(res?.data){
+                    this.sortedData=res?.data?.data || [];
+                    const total:any=res?.data?.total || 0;
+                    console.log(total);
+                    if(this.selectedEmployee.length>0)
+                this.sortedData=this.sortedData.filter((value:any) => value.introducedBy===this.selectedEmployee);
+                let editCol = {
+                    key: 'edit',
+                    displayName: 'Edit',
+                    type: ColumnType.icon,
+                    icon: 'la-edit',
+                    
+                };
+                let delCol = {
+                    key: 'delete',
+                    displayName: 'Delete',
+                    type: ColumnType.icon,
+                    icon: 'la-trash',
+                    
+                };
+                
+    
+                let colArray = [...this.USER_TABLE_COLUMNS, editCol, delCol];
+            
+                this.tableConfig = {
+                    columns: colArray,
+                    data: this.sortedData,
+                    selection: false,
+                    showPagination:true,
+                    totalRecords: total,
+                    clientPagination: false,
+                };
+                
+                console.log(this.tableConfig);
+                }
+            });
+        }
     }
   
   

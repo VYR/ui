@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { AdminSandbox } from '../../../../admin.sandbox'; 
-import { ROLES, STATUSES, USER_TYPES } from '../../../../constants/meta-data';
+import { ROLES, STATUSES, USER_TYPES } from 'src/app/shared/constants/meta-data';
 import { DECISION, SYSTEM_CONFIG } from 'src/app/shared/enums';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';

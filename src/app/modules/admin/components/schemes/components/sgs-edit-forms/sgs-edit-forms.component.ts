@@ -14,7 +14,7 @@ import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
 import { UtilService } from 'src/app/utility';
 import { UserContext } from 'src/app/shared/models';
 import { DECISION } from 'src/app/shared/enums';
-import {  STATUSES} from "../../constants/meta-data";
+import {  STATUSES} from "src/app/shared/constants/meta-data";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
 import { CustomDatePipe } from 'src/app/shared/pipes/date.pipe';

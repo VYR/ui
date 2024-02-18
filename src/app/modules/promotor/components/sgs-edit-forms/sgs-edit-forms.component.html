@@ -1,0 +1,91 @@
+<ng-container *ngIf="data.type==='users'">
+    <form  [formGroup]="updateUserForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">
+            <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="First Name" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" placeholder="Last Name" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Password" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Mobile Number</mat-label>
+                <input matInput maxlength="10" appOnlyNumbers formControlName="mobilePhone" placeholder="Mobile Number" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status" class="status">
+                    <mat-option *ngFor="let status of statuses" [value]="status">{{
+                        status
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div fxLayout="row">
+                <button
+                    class="mat-raised-button mat-primary"
+                    type="submit"
+                    [disabled]="updateUserForm.invalid"
+                    mat-stroked-button
+                    color="primary"
+                    (click)="submitUserForm()"
+                >
+                Update
+                </button>
+            </div>
+        </div> 
+    </form> 
+</ng-container>
+<ng-container *ngIf="data.type==='settings'">
+    <form  [formGroup]="updateSettingsForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">
+            <h3>Individual Scheme Commissions</h3>
+            <mat-form-field>
+                <mat-label>Super Employee %</mat-label>
+                <input matInput  formControlName="individual_super_employee" placeholder="Super Employee %" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Employee %</mat-label>
+                <input matInput  formControlName="individual_employee" placeholder="Employee %" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Promoter %</mat-label>
+                <input matInput  formControlName="individual_promoter" placeholder="Promoter %" />
+            </mat-form-field>
+            <h3>Group Scheme Commissions</h3>
+            <mat-form-field>
+                <mat-label>Super Employee %</mat-label>
+                <input matInput  formControlName="group_super_employee" placeholder="Super Employee %" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Employee %</mat-label>
+                <input matInput  formControlName="group_employee" placeholder="Employee %" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Promoter %</mat-label>
+                <input matInput  formControlName="group_promoter" placeholder="Promoter %" />
+            </mat-form-field>
+            <!-- <div>
+                <ckeditor [editor]="Editor" [data]="editorData"></ckeditor>
+            </div>            -->
+            <div fxLayout="row">
+                <button
+                    class="mat-raised-button mat-primary"
+                    type="submit"
+                    [disabled]="updateSettingsForm.invalid"
+                    mat-stroked-button
+                    color="primary"
+                    (click)="submitSettingsForm()"
+                >
+                Update
+                </button>
+            </div> 
+        </div> 
+    </form> 
+</ng-container>
+
+

@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
 import { UserContext } from 'src/app/shared/models';
 import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
-import { SCHEME_PAY_TABLE_COLUMNS } from '../../constants/meta-data';
+import { SCHEME_PAY_TABLE_COLUMNS } from 'src/app/shared/constants/meta-data';
 
 @Component({
   selector: 'app-sgs-scheme-details',

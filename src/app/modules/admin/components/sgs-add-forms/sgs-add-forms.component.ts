@@ -15,8 +15,8 @@ import { UtilService } from 'src/app/utility';
 import { UserContext } from 'src/app/shared/models';
 import { DECISION, SYSTEM_CONFIG } from 'src/app/shared/enums';
 import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
-import { STATUSES } from '../../constants/meta-data';
 import { SGSTableConfig, SGSTableQuery } from 'src/app/sgs-components/sgs-table/models/config.model';
+import { STATUSES } from 'src/app/shared/constants/meta-data';
 @Component({
   selector: 'app-sgs-add-forms',
   templateUrl: './sgs-add-forms.component.html',

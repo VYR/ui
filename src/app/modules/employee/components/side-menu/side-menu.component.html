@@ -1,0 +1,61 @@
+<div class="side-menu" *ngIf="currentUser">
+    <div  class="user-card-active">
+        <div class="user-number">
+            <div>{{ currentUser.userId }}</div>
+        </div>
+        <div class="customer-name">
+            {{ currentUser.userName }}
+        </div>        
+        <!-- <div
+            class="click-info"
+            *ngIf="schemeTypes.length > 1"
+            matRipple
+            [matMenuTriggerFor]="userSelection"
+            fxLayoutAlign="space-between center"
+        >
+            <span>Click here change scheme type</span>
+            <i class="las la-angle-right"></i>
+        </div> -->
+    </div>
+
+    <div class="menu-section">
+        <div class="menu-group">
+            <ng-container *ngFor="let menuItem of menu">
+                <div
+                    matRipple
+                    [routerLink]="[menuItem.path]"
+                    routerLinkActive="menu-item-active"
+                    class="menu-item"
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                >
+                    <div flex="20" class="menu-icon">
+                        <i [ngClass]="menuItem.icon"></i>
+                    </div>
+                    <div flex="80" class="menu-heading" translate="ACC_MNGMT">{{ menuItem.name }}</div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<mat-menu #userSelection="matMenu">
+    <div mat-menu-content class="user-selection-container">
+        <ng-container *ngFor="let user of currentUser.schemeTypes">
+            <div
+                matRipple
+                class="user-card"
+                (click)="toggleUserSelection(user)"
+                [ngClass]="{ 'user-card-active': user.schemeType === currentUser.schemeTypeSelected.schemeType }"
+            >
+                <div class="left">
+                    <div class="user-number">
+                        <div>{{ user.schemeTypeName }}</div>
+                    </div>
+                    <div class="customer-name">{{ user.schemeTypeName }}</div>
+                </div>
+                <div class="dot"></div>
+            </div>
+        </ng-container>
+    </div>
+</mat-menu>

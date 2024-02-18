@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
-import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service'; 
-import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from '../../constants/meta-data';
-import { DECISION, USER_TYPE } from 'src/app/shared/enums';
+import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
+import { SuperEmployeeSandbox } from '../../super-empolyee.sandbox'; 
+import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from 'src/app/shared/constants/meta-data';
+import { DECISION, SYSTEM_CONFIG, USER_TYPE } from 'src/app/shared/enums';
 import { UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 import { SgsEditFormsComponent } from '../sgs-edit-forms/sgs-edit-forms.component';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
 import { SgsDetailsComponent } from '../sgs-details/sgs-details.component';
 import { DeleteRequestConfirmComponent } from '../delete-request-confirm/delete-request-confirm.component';
-import { SuperEmployeeSandbox } from '../../super-empolyee.sandbox';
 
 
 @Component({
@@ -24,39 +24,20 @@ export class EmployeeListComponent implements OnInit{
   @Input() roleType=0;
   sortedData:Array<any>=[];
   userTypes=[...[{id:-1,name:'All'}],...USER_TYPES];
-  promoters:Array<any>=[];
   statuses=[...['All'],...STATUSES];
   selectedSuperEmployee="";
   selectedStatus='active';
   USER_TABLE_COLUMNS=USER_TABLE_COLUMNS;
   enableAddButton:boolean=false;
-  loggedInUser!:UserContext;
+  currentUser!:UserContext;
   constructor(private dialog: SgsDialogService, private sandbox: SuperEmployeeSandbox, private appContext:ApplicationContextService) {
-    this.appContext.currentUser.subscribe(
-        (res:any)=>{
-            this.loggedInUser=res;
-        }
-    );
+    this.appContext.currentUser.subscribe((res:any) => {this.currentUser=res;});
   }
-
-  ngOnInit(): void {            
+  ngOnInit(): void {  
+    this.selectedSuperEmployee=this.currentUser.userId;          
       this.query.sortKey='created_at';
       this.query.sortDirection=SortDirection.desc;
-      this.selectedSuperEmployee=this.loggedInUser.userId;
-      this.getPromoters();
-
     }
-    getPromoters() {
-    let query:any={};
-    console.log(query);
-    query.userType=4;
-    query.status='active';
-    this.sandbox.getSgsUsers(query).subscribe((res: any) => {
-        if(res?.data){
-            this.promoters=res?.data?.data || [];      
-        }
-    });
-}
   lazyLoad(event: SGSTableQuery) {
       console.log(this.query);
       console.log(event);
@@ -67,6 +48,7 @@ export class EmployeeListComponent implements OnInit{
       this.query.sortDirection=event.sortDirection;
       this.getSgsUsers();
   }
+
   updateStatus(event:any,status:string){
       if(event.isUserInput){
           this.selectedStatus=status;
@@ -80,13 +62,12 @@ export class EmployeeListComponent implements OnInit{
       if(this.selectedStatus!=='All'){
           query.status=this.selectedStatus;
       }
+      query.introducedBy=this.selectedSuperEmployee;
       this.sandbox.getSgsUsers(query).subscribe((res: any) => {
           if(res?.data){
               this.sortedData=res?.data?.data || [];
               const total:any=res?.data?.total || 0;
               console.log(total);
-              if(this.selectedSuperEmployee.length>0)
-          this.sortedData=this.sortedData.filter((value:any) => value.introducedBy===this.selectedSuperEmployee);
           let editCol = {
               key: 'edit',
               displayName: 'Edit',

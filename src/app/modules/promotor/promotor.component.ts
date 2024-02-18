@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { PromoterSandbox } from './promoter.sandbox';
 
 @Component({
   selector: 'app-promotor',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PromotorComponent implements OnInit {
 
-  constructor() { }
+
+  showSideMenu:boolean=true;
+  
+  refreshToken!: Subscription;
+  constructor(private sandbox: PromoterSandbox) { }
 
   ngOnInit(): void {
+  }
+  logout(){
+    this.sandbox.logout().subscribe();
+  }
+
+  handleMenu(status:boolean){
+    this.showSideMenu=status;
+  }
+  
+  ngOnDestroy() {
+    if (this.refreshToken) {
+        this.refreshToken.unsubscribe();
+    }
   }
 
 }
