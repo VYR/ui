@@ -79,7 +79,9 @@
     "deleteRecord": {
         "baseUrl": "apiGateway",
         "path": "common/delete"
-    }
-
-    
+    },
+    "download": {
+        "baseUrl": "apiGateway",
+        "path": "common/download"
+    }    
 }

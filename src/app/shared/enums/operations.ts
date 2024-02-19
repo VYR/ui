@@ -18,5 +18,6 @@ export enum Operations {
     GET_PAYMENTS='getPayments',
     ADD_UPDATE_SCHEME_MEMBERS='addUpdateSchemeMembers',
     GET_SCHEME_MEMBERS='getSchemeMembers',
-    SETTINGS='settings'
+    SETTINGS='settings',
+    DOWNLOAD='download'
 }

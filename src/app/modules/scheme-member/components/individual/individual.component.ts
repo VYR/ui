@@ -1,13 +1,13 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
-import { DECISION, USER_TYPE } from 'src/app/shared/enums';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SgsAddFormsComponent } from 'src/app/modules/admin/components/sgs-add-forms/sgs-add-forms.component';
+import { DECISION } from 'src/app/shared/enums';
 import { UserContext } from 'src/app/shared/models';
 import { SchemeMemberSandbox } from '../../scheme-member.sandbox';
-import { SCHEME_PAY_TABLE_COLUMNS } from 'src/app/shared/constants/meta-data';
-
+import { RAZORPAY, SCHEME_PAY_TABLE_COLUMNS } from 'src/app/shared/constants/meta-data';
+import { ConfigService } from 'src/app/configuration';
+import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
+declare var Razorpay: any;
 @Component({
   selector: 'app-individual',
   templateUrl: './individual.component.html',
@@ -40,7 +40,10 @@ export class IndividualComponent implements OnInit {
     }
   ];
   constructor( private sandBox: SchemeMemberSandbox,
-    private dialog: SgsDialogService) { }
+    private dialog: SgsDialogService,
+    private appContext: ApplicationContextService) { 
+      this.appContext.currentUser.subscribe((res: any) => (this.currentUser = res));
+    }
 
   ngOnInit(): void {
     console.log(this.data);
@@ -68,6 +71,7 @@ export class IndividualComponent implements OnInit {
                 created_at:this.data?.scheme_date,
                 amount_paid: this.data?.amount_per_month, 
                 scheme_id: this.data?.scheme_id, 
+                scheme_name: this.data?.scheme_name, 
                 scheme_member_id: this.data?.scheme_member_id,  
                 userId: this.data?.userId,   
                 winning_month: this.data?.winning_month,   
@@ -145,17 +149,43 @@ export class IndividualComponent implements OnInit {
   }
   
   onClickCell(event: any) {
-      console.log(event);
-      if(event.key==='pay'){
-        const ref = this.dialog.openOverlayPanel('Pay', SgsAddFormsComponent, {
-            type:'payment',
-            data: event.data,
-        },SgsDialogType.small);
-        ref.afterClosed().subscribe((res) => {
-          if(res?.id>0)
-          this.getPayments();
-          }); 
-      }      
+    console.log(event);
+    if(event.key==='pdf'){
+      const params:any={
+        type:"paymentReceipt",
+        fileName: 'Payment_Receipt',
+        paymentId:event.data?.txnNo
+      };
+      this.sandBox.download(params).subscribe((res: any) => {
+              
+      });
+    }
+    if(event.key==='pay'){
+        const RozarpayOptions = { ...this.sandBox.prepareRazorPayOptions(event.data),
+          handler: (res:any) => {
+            console.log(res);
+            if(res?.razorpay_payment_id){
+              
+              const formData:any={
+                scheme_member_id: event.data?.scheme_member_id,
+                scheme_id: event.data?.scheme_id,
+                amount_paid: event.data?.amount_paid,
+                month_paid: event.data?.month_paid,
+                txnNo: res?.razorpay_payment_id
+              };
+              formData.amount_paid=parseFloat(formData.amount_paid);
+              this.sandBox.addUpdatePayment(formData).subscribe((res:any) => {
+                  if(res?.data){          
+                    if(res?.data?.id>0)
+                      this.getPayments();
+                  }
+              });
+            }
+          }
+        }
+        var razorPayObj = new Razorpay(RozarpayOptions);
+        razorPayObj.open(RozarpayOptions);        
+    }        
   }
   
   downloadExcel(){

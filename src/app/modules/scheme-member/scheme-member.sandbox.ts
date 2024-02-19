@@ -6,6 +6,8 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { SchemeMemberService } from './scheme-member.service';
 import { UtilService } from 'src/app/utility';
 import * as moment from 'moment';
+import { RAZORPAY } from 'src/app/shared/constants/meta-data';
+import { ConfigService } from 'src/app/configuration';
 @Injectable({
     providedIn: 'root',
 })
@@ -15,7 +17,8 @@ export class SchemeMemberSandbox {
         private service: SchemeMemberService,
         private appContext: ApplicationContextService,
         private authService: AuthenticationService,
-        private utilService: UtilService
+        private utilService: UtilService,
+        private configService:ConfigService,
     ) {
         this.currentUser=appContext.getCurrentUser();
     }
@@ -226,6 +229,40 @@ export class SchemeMemberSandbox {
             tap((res: any) => {                
                 if (res?.data) {
                    res.data=(res?.data || []).filter((value:any) => value.userId!==this.currentUser.userId);
+                }
+            })
+        );
+    }
+
+    prepareRazorPayOptions(data:any){
+        return {
+            description: data?.userId+'_'+data?.scheme_name+'_Month: '+data?.month_paid,
+            currency: RAZORPAY.CURRENCY,
+            amount: data.amount_paid,
+            name: this.currentUser.userName,
+            key: this.configService.get(RAZORPAY.KEY_NAME),
+            image: RAZORPAY.LOGO,
+            prefill: {
+              name: this.currentUser.userName,
+              email:  this.currentUser.user_email,
+              phone: this.currentUser.mobilePhone
+            },
+            theme: {
+              color: RAZORPAY.THEME_COLOR
+            },
+            modal: {
+              ondismiss:  () => {
+                //console.log('dismissed')
+              }
+            }
+          };
+    }
+    download(params: any) {        
+        return this.service.download(params).pipe(
+            tap((res: any) => { 
+                if (res.data.length > 0) {
+                    this.utilService.downloadPdf(res.data, params.fileName);
+                    this.utilService.displayNotification('PDF generated successfully!', 'success');
                 }
             })
         );

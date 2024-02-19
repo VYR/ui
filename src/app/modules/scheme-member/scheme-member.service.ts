@@ -87,4 +87,7 @@ export class SchemeMemberService {
     updateSettings(params:any) {
         return this.http.post(Operations.SETTINGS, params);
     } 
+    download(params:any) { 
+        return this.http.post(Operations.DOWNLOAD, params);
+    }
 }

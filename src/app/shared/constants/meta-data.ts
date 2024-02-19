@@ -142,4 +142,9 @@ export const USER_TYPES:Array<any>= [
     }
 ];
 
-
+export const RAZORPAY = { 
+    LOGO:"https://savegold.in/assets/img/logo.png",
+    CURRENCY: "INR",
+    KEY_NAME: "razorKey",
+    THEME_COLOR: "#F0BE1C"
+};
