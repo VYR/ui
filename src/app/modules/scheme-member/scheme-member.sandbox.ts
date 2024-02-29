@@ -238,7 +238,7 @@ export class SchemeMemberSandbox {
         return {
             description: data?.userId+'_'+data?.scheme_name+'_Month: '+data?.month_paid,
             currency: RAZORPAY.CURRENCY,
-            amount: data.amount_paid,
+            amount: parseInt(data.amount_paid)*100,
             name: this.currentUser.userName,
             key: this.configService.get(RAZORPAY.KEY_NAME),
             image: RAZORPAY.LOGO,
