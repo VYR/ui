@@ -171,7 +171,8 @@ export class IndividualComponent implements OnInit {
                 scheme_id: event.data?.scheme_id,
                 amount_paid: event.data?.amount_paid,
                 month_paid: event.data?.month_paid,
-                txnNo: res?.razorpay_payment_id
+                txnNo: res?.razorpay_payment_id,
+                payment_mode: RAZORPAY.PAYMENT_MODE.ONLINE
               };
               formData.amount_paid=parseFloat(formData.amount_paid);
               this.sandBox.addUpdatePayment(formData).subscribe((res:any) => {

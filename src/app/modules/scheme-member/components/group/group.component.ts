@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SgsAddFormsComponent } from 'src/app/modules/admin/components/sgs-add-forms/sgs-add-forms.component';
 import { UserContext } from 'src/app/shared/models';
 import { SchemeMemberSandbox } from '../../scheme-member.sandbox';
-import { SCHEME_PAY_TABLE_COLUMNS } from 'src/app/shared/constants/meta-data';
+import { RAZORPAY, SCHEME_PAY_TABLE_COLUMNS } from 'src/app/shared/constants/meta-data';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
 declare var Razorpay: any;
 @Component({
@@ -178,7 +178,8 @@ export class GroupComponent implements OnInit {
                 scheme_id: event.data?.scheme_id,
                 amount_paid: event.data?.amount_paid,
                 month_paid: event.data?.month_paid,
-                txnNo: res?.razorpay_payment_id
+                txnNo: res?.razorpay_payment_id,
+                payment_mode: RAZORPAY.PAYMENT_MODE.ONLINE
               };
               formData.amount_paid=parseFloat(formData.amount_paid);
               this.sandBox.addUpdatePayment(formData).subscribe((res:any) => {

@@ -146,5 +146,9 @@ export const RAZORPAY = {
     LOGO:"https://savegold.in/assets/img/logo.png",
     CURRENCY: "INR",
     KEY_NAME: "razorKey",
+    PAYMENT_MODE: {
+        ONLINE:'online',
+        OFFLINE:'offline'
+    },
     THEME_COLOR: "#F0BE1C"
 };

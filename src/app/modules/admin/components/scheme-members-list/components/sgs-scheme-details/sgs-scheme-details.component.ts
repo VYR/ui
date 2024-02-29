@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
 import { UserContext } from 'src/app/shared/models';
 import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
-import { SCHEME_PAY_TABLE_COLUMNS } from 'src/app/shared/constants/meta-data';
+import { RAZORPAY, SCHEME_PAY_TABLE_COLUMNS } from 'src/app/shared/constants/meta-data';
 declare var Razorpay: any;
 @Component({
   selector: 'app-sgs-scheme-details',
@@ -190,7 +190,15 @@ export class SgsSchemeDetailsComponent implements OnInit {
         });
       }
       if(event.key==='pay'){
-          const RozarpayOptions = { ...this.sandBox.prepareRazorPayOptions(event.data),
+        const ref = this.dialog.openOverlayPanel('Pay', SgsAddFormsComponent, {
+            type:'payment',
+            data: event.data,
+        },SgsDialogType.small);
+        ref.afterClosed().subscribe((res) => {
+          if(res?.id>0)
+          this.getPayments();
+          });
+         /*  const RozarpayOptions = { ...this.sandBox.prepareRazorPayOptions(event.data),
             handler: (res:any) => {
               console.log(res);
               if(res?.razorpay_payment_id){
@@ -200,7 +208,8 @@ export class SgsSchemeDetailsComponent implements OnInit {
                   scheme_id: event.data?.scheme_id,
                   amount_paid: event.data?.amount_paid,
                   month_paid: event.data?.month_paid,
-                  txnNo: res?.razorpay_payment_id
+                  txnNo: 'jhgjjhgjjkg',
+                  payment_mode: RAZORPAY.PAYMENT_MODE.OFFLINE
                 };
                 formData.amount_paid=parseFloat(formData.amount_paid);
                 this.sandBox.addUpdatePayment(formData).subscribe((res:any) => {
@@ -213,7 +222,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
             }
           }
           var razorPayObj = new Razorpay(RozarpayOptions);
-          razorPayObj.open(RozarpayOptions);        
+          razorPayObj.open(RozarpayOptions);   */      
       }
       if(event.key==='makeWinner'){
         console.log(event.data);
