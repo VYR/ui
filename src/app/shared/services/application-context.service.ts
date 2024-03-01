@@ -61,7 +61,7 @@ export class ApplicationContextService {
         user.lastSignIn = data?.lastSignIn;
         user.entitlement = ( data?.user?.entitlement)?data?.user?.entitlement.split(',') || []:[];
         user.forcePasswordChange = data?.forcePasswordChange;
-        user.userType = data?.user?.userType;
+        user.userType = parseInt(data?.user?.userType);
         user.role = data?.user?.role || null;
         return user;
     }
