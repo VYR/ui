@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UntypedFormGroup, UntypedFormBuilder,Validators,UntypedFormControl } from '@angular/forms';
-import { STATUSES } from "../../constants/meta-data";
+import { STATUSES } from "src/app/shared/constants/meta-data";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
 import { CustomDatePipe } from 'src/app/shared/pipes/date.pipe';
+import { SuperEmployeeSandbox } from 'src/app/modules/super-employee/super-empolyee.sandbox';
 @Component({
   selector: 'app-sgs-edit-forms',
   templateUrl: './sgs-edit-forms.component.html',
@@ -17,7 +17,7 @@ export class SgsEditFormsComponent implements OnInit {
   public updateSchemeNamesForm!: UntypedFormGroup;
   statuses:any=STATUSES;
   constructor(public dialogRef: MatDialogRef<SgsEditFormsComponent>, private datePipe:CustomDatePipe, 
-      @Inject(MAT_DIALOG_DATA) public data: any, private sandBox: AdminSandbox,public fb: UntypedFormBuilder,
+      @Inject(MAT_DIALOG_DATA) public data: any, private sandBox: SuperEmployeeSandbox,public fb: UntypedFormBuilder,
   ){ }
 
   ngOnInit(): void {

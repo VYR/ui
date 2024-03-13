@@ -5,6 +5,7 @@ import { UtilService } from 'src/app/utility';
 import { UserContext } from '../models';
 
 import { ApplicationContextService } from '../services/application-context.service';
+import { ROLES, TOTAL_ROLETYPES } from '../constants/meta-data';
 
 @Injectable({
     providedIn: 'root',
@@ -29,9 +30,9 @@ export class RoleGuard implements CanLoad, CanActivate {
     canLoad(route: Route): boolean {
         let hasAccess: boolean = false;
         if (this.appContext.isAuthenticated()) {
-            const features = this.modules[this.currentUser.userType].filter((x: any) => x.path === route.path);
+            const features =TOTAL_ROLETYPES.includes(this.currentUser.userType);
             console.log(features);
-            if (!features.length) {
+            if (!features) {
                 hasAccess = false;
             } 
             else {

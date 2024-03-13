@@ -69,19 +69,21 @@ export class IndividualComponent implements OnInit  {
     
   }
   
-  ngOnInit(): void {
-    this.getSgsSchemes();
+  ngOnInit(): void {    
+    this.query=new SGSTableQuery(); 
+    this.query.sortKey='created_at';
+    this.query.sortDirection=SortDirection.desc;
   }
 
   lazyLoad(event: SGSTableQuery) {
-      if(this.query){
+    if(this.query){
         this.query.pageIndex=event?.pageIndex || 0;
         if(event.sortKey)
             this.query.sortKey=event.sortKey;
         if(event.sortDirection)
         this.query.sortDirection=event.sortDirection;
-      }
-      this.getSgsSchemes();     
+        this.getSgsSchemes();
+    }           
   }
  
   getSgsSchemes() {
@@ -90,10 +92,6 @@ export class IndividualComponent implements OnInit  {
       this.sandbox.getSgsSchemes(query).subscribe((res:any) => {       
           if(res?.data?.data){
                 this.sortedData=res?.data?.data || [];
-                this.query=new SGSTableQuery(); 
-                this.query.sortKey='created_at';
-                this.query.sortDirection=SortDirection.desc;
-
                 this.tableConfig = {
                     columns: this.SCHEME_TABLE_COLUMNS,
                     data: this.sortedData,

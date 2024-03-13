@@ -8,11 +8,6 @@ const routes: Routes = [
         path: '',
         component:  SuperEmployeeComponent,
         children:  [
-             
-            {
-                path: 'schemes',
-                loadChildren: () => import('./components/scheme-names/scheme-names.module').then((m) => m.SchemeNamesModule),
-            },
             {
                 path: 'employee',
                 component:EmployeeListComponent
@@ -22,12 +17,12 @@ const routes: Routes = [
                 component:PromotersListComponent
             },
             {
-                path: 'scheme-members-list',
-                loadChildren: () => import('./components/scheme-members-list/scheme-members-list.module').then((m) => m.SchemeMembersListModule),
+                path: 'referral-amount',
+                loadChildren: () => import('./components/referral-amount/referral-amount.module').then((m) => m.ReferralAmountModule),
             },
             {
                 path: '',
-                redirectTo: 'schemes',
+                redirectTo: 'employee',
                 pathMatch: 'full',
             }
              

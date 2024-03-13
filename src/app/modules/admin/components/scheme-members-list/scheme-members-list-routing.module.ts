@@ -23,7 +23,7 @@ const routes: Routes = [
             },
             {
                 path: '',
-                redirectTo: 'total-members',
+                redirectTo: 'individual',
                 pathMatch: 'full',
             }
              

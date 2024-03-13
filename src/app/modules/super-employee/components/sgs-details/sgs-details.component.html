@@ -22,9 +22,14 @@
         [value]="data?.data?.lastName">
     </app-label-value>
     <app-label-value 
-        *ngIf="data?.data?.email" 
+        *ngIf="data?.data?.user_email" 
         [label]="'Email ID:'" 
-        [value]="data?.data?.email">
+        [value]="data?.data?.user_email">
+    </app-label-value>
+    <app-label-value 
+        *ngIf="data?.data?.user_password" 
+        [label]="'Password:'" 
+        [value]="data?.data?.user_password">
     </app-label-value>
     <app-label-value 
         *ngIf="data?.data?.mobilePhone" 

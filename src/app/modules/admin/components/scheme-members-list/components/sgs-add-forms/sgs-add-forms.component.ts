@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UntypedFormGroup,UntypedFormBuilder,Validators,UntypedFormControl } from '@angular/forms';
 import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
+import { RAZORPAY } from 'src/app/shared/constants/meta-data';
 @Component({
   selector: 'app-sgs-add-forms',
   templateUrl: './sgs-add-forms.component.html',
@@ -42,7 +43,14 @@ export class SgsAddFormsComponent implements OnInit {
     });
   }
   submitPaymentForm(){
-    const formData:any=this.addPaymentForm.value;
+    const formData:any={
+      scheme_member_id: this.data.data?.scheme_member_id,
+      scheme_id: this.data.data?.scheme_id,
+      amount_paid: this.data.data?.amount_paid,
+      month_paid: this.data.data?.month_paid,
+      txnNo: 'jhgjjhgjjkg',
+      payment_mode: RAZORPAY.PAYMENT_MODE.OFFLINE
+    };
     formData.amount_paid=parseFloat(formData.amount_paid);
     this.sandBox.addUpdatePayment(formData).subscribe((res:any) => {
         if(res?.data){          

@@ -4,7 +4,8 @@ export class UserContext {
     public userName!: string;
     public userId!: string;
     public introducedBy!: string;    
-    public firstName!: string;
+    public firstName!: string;   
+    public user_email!: string;    
     public lastName!: string;
     public aadhar!: string;
     public pan!: string;

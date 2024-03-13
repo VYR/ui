@@ -16,6 +16,12 @@
                         }}</mat-option>
                     </mat-select>
                 </mat-form-field>
+                <!--<button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
+                    <i class="las la-file-excel"></i>
+                </button>
+                 <button mat-icon-button >
+                    <i class="las la-file-pdf"></i>
+                </button> -->
                 <button *ngIf="selectedScheme" mat-icon-button (click)="addUsers()">
                     <i class="las la-plus"></i>
                 </button>
@@ -23,7 +29,7 @@
         </ng-container>
         <ng-container body>
             <div fxLayout="column" fxFlex="100">
-                <div fxLayout="row" fxLayoutGap="2rem" fxFlex="100" fxLayoutAlign="space-between">                    
+                <div fxLayout="row" fxLayoutGap="2rem" fxFlex="100" fxLayoutAlign="space-between">
                     <mat-form-field >
                         <mat-label>Select Scheme</mat-label>
                         <mat-select [(ngModel)]="selectedScheme">

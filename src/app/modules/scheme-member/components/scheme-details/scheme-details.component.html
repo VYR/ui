@@ -1,0 +1,6 @@
+<ng-container *ngIf="schemeMember?.scheme_type_id===1">
+    <app-individual [data]="schemeMember"></app-individual>
+</ng-container>
+<ng-container *ngIf="schemeMember?.scheme_type_id===2">
+    <app-group [data]="schemeMember"></app-group>
+</ng-container>

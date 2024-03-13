@@ -49,6 +49,7 @@ export class ApplicationContextService {
         user.userId = data?.user.userId;
         user.introducedBy = data?.user.introducedBy;
         user.email = data?.user.email;
+        user.user_email=data?.user?.user_email
         user.firstName = data?.user.firstName;
         user.lastName = data?.user.lastName;
         user.aadhar = data?.user.aadhar;
@@ -60,7 +61,7 @@ export class ApplicationContextService {
         user.lastSignIn = data?.lastSignIn;
         user.entitlement = ( data?.user?.entitlement)?data?.user?.entitlement.split(',') || []:[];
         user.forcePasswordChange = data?.forcePasswordChange;
-        user.userType = data?.user?.userType;
+        user.userType = parseInt(data?.user?.userType);
         user.role = data?.user?.role || null;
         return user;
     }

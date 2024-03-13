@@ -6,8 +6,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
 import { UserContext } from 'src/app/shared/models';
 import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
-import { SCHEME_PAY_TABLE_COLUMNS } from 'src/app/modules/admin/constants/meta-data';
-
+import { RAZORPAY, SCHEME_PAY_TABLE_COLUMNS } from 'src/app/shared/constants/meta-data';
+declare var Razorpay: any;
 @Component({
   selector: 'app-sgs-scheme-details',
   templateUrl: './sgs-scheme-details.component.html',
@@ -72,15 +72,16 @@ export class SgsSchemeDetailsComponent implements OnInit {
         let res:any={data:[]};
         for(let i=1;i<=this.data?.data?.no_of_months;i++){
           let data:any={
-                created_at:this.data?.data?.scheme_start_date,
+                created_at:this.data?.data?.scheme_date,
                 amount_paid: this.data?.data?.amount_per_month, 
                 scheme_id: this.data?.data?.scheme_id, 
+                scheme_name: this.data?.data?.scheme_name, 
                 scheme_member_id: this.data?.data?.scheme_member_id,  
                 userId: this.data?.data?.userId,   
                 winning_month: this.data?.data?.winning_month,   
                 is_winner: this.data?.data?.winning_month===i?this.data?.data?.is_winner:'NO',   
                 month_paid:i,
-                dueDate: new Date(this.data?.data?.scheme_start_date).setMonth(new Date(this.data?.data?.scheme_start_date).getMonth()+i),
+                dueDate: new Date(this.data?.data?.scheme_date).setMonth(new Date(this.data?.data?.scheme_date).getMonth()+i),
                 pay:'Pay',
                 remind:'Send Reminder',
                 txnNo:'',
@@ -136,6 +137,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
             key: 'makeWinner',
             displayName: 'Make Winner',
             type: ColumnType.approve,
+            callBackFn: this.checkForPdfAction,
         };
         let colArray:any=[...SCHEME_PAY_TABLE_COLUMNS, payCol,pdfCol, remindCol];
         if(this.data?.data?.scheme_type_id===2){
@@ -176,6 +178,17 @@ export class SgsSchemeDetailsComponent implements OnInit {
   
   onClickCell(event: any) {
       console.log(event);
+      console.log(event);
+      if(event.key==='pdf'){
+        const params:any={
+          type:"paymentReceipt",
+          fileName: 'Payment_Receipt',
+          paymentId:event.data?.txnNo
+        };
+        this.sandBox.download(params).subscribe((res: any) => {
+                
+        });
+      }
       if(event.key==='pay'){
         const ref = this.dialog.openOverlayPanel('Pay', SgsAddFormsComponent, {
             type:'payment',
@@ -184,7 +197,32 @@ export class SgsSchemeDetailsComponent implements OnInit {
         ref.afterClosed().subscribe((res) => {
           if(res?.id>0)
           this.getPayments();
-          }); 
+          });
+         /*  const RozarpayOptions = { ...this.sandBox.prepareRazorPayOptions(event.data),
+            handler: (res:any) => {
+              console.log(res);
+              if(res?.razorpay_payment_id){
+                
+                const formData:any={
+                  scheme_member_id: event.data?.scheme_member_id,
+                  scheme_id: event.data?.scheme_id,
+                  amount_paid: event.data?.amount_paid,
+                  month_paid: event.data?.month_paid,
+                  txnNo: 'jhgjjhgjjkg',
+                  payment_mode: RAZORPAY.PAYMENT_MODE.OFFLINE
+                };
+                formData.amount_paid=parseFloat(formData.amount_paid);
+                this.sandBox.addUpdatePayment(formData).subscribe((res:any) => {
+                    if(res?.data){          
+                      if(res?.data?.id>0)
+                        this.getPayments();
+                    }
+                });
+              }
+            }
+          }
+          var razorPayObj = new Razorpay(RozarpayOptions);
+          razorPayObj.open(RozarpayOptions);   */      
       }
       if(event.key==='makeWinner'){
         console.log(event.data);

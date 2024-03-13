@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
 import { AdminSandbox } from '../../admin.sandbox'; 
-import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from '../../constants/meta-data';
+import { ROLES, STATUSES, USER_TABLE_COLUMNS, USER_TYPES } from 'src/app/shared/constants/meta-data';
 import { DECISION, SYSTEM_CONFIG, USER_TYPE } from 'src/app/shared/enums';
 import { UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
