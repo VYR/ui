@@ -18,6 +18,11 @@ import { PublicAccessHeaderComponent } from './components/public-access-header/p
 import { PublicAccessFooterComponent } from './components/public-access-footer/public-access-footer.component';
 import { PublicAccessAboutComponent } from './components/public-access-about/public-access-about.component';
 import { PublicAccessContactComponent } from './components/public-access-contact/public-access-contact.component';
+import { ProductComponent } from './components/product/product.component';
+import { LoginComponent } from './components/login/login.component';
+import { CartComponent } from './components/cart/cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 
 
@@ -27,7 +32,12 @@ import { PublicAccessContactComponent } from './components/public-access-contact
     PublicAccessHeaderComponent,
     PublicAccessFooterComponent,
     PublicAccessAboutComponent,
-    PublicAccessContactComponent
+    PublicAccessContactComponent,
+    ProductComponent,
+    LoginComponent,
+    CartComponent,
+    CheckoutComponent,
+    ProductDetailComponent
   ],
   imports: [
     CommonModule,

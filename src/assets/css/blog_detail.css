@@ -1,0 +1,200 @@
+/*
+Template Name: Rd Jewellers
+File: Layout CSS
+Author: TemplatesOnWeb
+Author URI: https://www.templateonweb.com/
+Licence: <a href="https://www.templateonweb.com/license">Website Template Licence</a>
+*/
+/*********************blog_detail****************/
+#blog_page{
+padding-top:40px;
+padding-bottom:40px; 
+ }
+.blog_page_1l .span_1{
+background:#d93d3d;
+border-radius:5px;
+padding:5px 10px 6px 10px;
+color:#fff;
+margin-right:10px;
+display:inline-block; 
+ }
+.blog_page_1l .span_2{
+margin-right:10px; 
+ }
+.blog_page_1l .span_3{
+margin-right:10px; 
+ }
+.blog_page_1l h5 i{
+margin-right:5px;
+color:#d93d3d;
+font-size:14px; 
+ }
+.blog_page_1r .form-control{
+border:none;
+background: #d93d3d;
+font-size:16px; 
+border-radius: 10px 0px 0px 10px;
+height:50px;
+color:#fff;
+ }
+.blog_page_1r ::placeholder {
+  color: #fff;
+  opacity: 1; 
+}
+.blog_page_1r .btn{
+border-color:#d93d3d;
+background: #d93d3d;
+color: #fff;
+font-weight:bold;
+border-radius: 0px 10px 10px 0px;
+padding:14px 12px;
+ }
+
+.product_1r1 ul li i{
+font-size:8px;
+margin-right:10px; 
+ }
+.product_1r1 ul li {
+margin-bottom:5px; 
+ }
+.product_1r1 .sold_1i {
+margin-top: 15px;
+}
+.prod_home_2m1 h6 a{
+background:#d93d3d;
+border-radius:5px;
+padding:5px 10px 7px 10px;
+color:#fff;
+display:inline-block; 
+ }
+.product_1r2 ul li {
+    margin-top: 8px;
+}
+.product_1r2 ul li a i {
+margin-right: 5px;
+font-size: 14px;
+color:#d93d3d;
+}
+.blog_pgrm{
+border:1px solid #f4573729;
+padding:10px; 
+ }
+blockquote {
+    border-color: #d93d3d;
+	margin-top:15px;
+}
+blockquote p {
+    color: #d93d3d85;
+    font-weight: bold;
+    font-size: 24px;
+}
+.blog_dm2 img {
+    width: 300px;
+    float: left;
+    margin-right: 15px;
+}
+.blog_dm2{
+margin-top:15px; 
+ }
+.blog_dm2 .nav_n {
+    list-style: disc;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.blog_detail_l2 {
+    padding: 20px 15px 30px 15px;
+    box-shadow: 0 0 5px #f4573752;
+    margin-top: 30px;
+}
+.blog_detail_l2i1 h4 a{
+font-size:16px; 
+ }
+.blog_detail_l2i1{
+margin-top:20px; 
+border-bottom:1px solid #f4573729;
+padding-bottom:20px; 
+ }
+ 
+.blog_page_1l4 p span {
+    margin-left: 5px;
+}
+.blog_page_1l4{ 
+ box-shadow: 0 0 5px #f4573752;
+ padding:20px 15px 30px 15px;
+ margin-top:30px;
+ }
+.blog_page_1l4 .form-control{
+margin-top:20px;
+height:50px;
+box-shadow:none;
+color:#333;
+font-size:18px;
+font-weight:normal; 
+border-color:#f4573729;
+ }
+.blog_page_1l4 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #333;
+  opacity: 1; /* Firefox */
+}
+.blog_page_1l4 p{
+margin-top:20px;
+}
+.blog_page_1l4 .form_1{
+ height:150px;
+ }
+/*********************blog_detail_end****************/
+
+
+@media screen and (max-width : 767px){
+#blog_page{
+text-align:center; 
+ }
+.blog_page_1l h5{
+line-height:1.8em; 
+ }
+.product_1_last ul li{
+margin-bottom:5px; 
+ }
+.blog_page_1r {
+ margin-top:15px;
+ }
+.prod_home_2m1 {
+ margin-top:10px; 
+ }
+.blog_dm2 img{
+margin-right:0;
+width:100%;
+float:none;
+margin-bottom:10px; 
+ }
+.blog_dm2 .nav_n{
+margin-left:0;
+list-style:none;
+margin-right:0; 
+ }
+.blog_detail_l2i1 .pull-right{
+float:none!important; 
+ }
+.blog_detail_l2i1 img{
+margin-bottom:15px;
+ }
+.blog_pgrm {
+ margin-top:15px;
+ }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+.product_1r1 h3{
+font-size:26px; 
+ }
+ }
+@media (min-width:992px) and (max-width:1200px) {
+
+ }
+@media (min-width:1201px) and (max-width:1220px) {
+
+ }
+
+
+
+

@@ -1,0 +1,88 @@
+/*
+Template Name: Rd Jewellers
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+/*********************about****************/
+#about{
+padding-top:40px;
+padding-bottom:40px;
+}
+.about_1m p i{
+ color:#d93d3d;
+ margin-right:10px;
+ vertical-align:middle; 
+ }
+.about_1r{
+background: #f4573712;
+padding:40px 20px;
+ }
+ 
+#about_home{
+padding-top:40px;
+padding-bottom:40px; 
+ }
+.about_home_2r ul li{
+ margin-top:10px;
+ }
+.about_home_2r ul li i{
+ margin-right:10px;
+ font-size:14px;
+ }
+
+.team_homeii {
+    border: 1px solid #f4573729;
+    padding: 5px 10px 20px 10px;
+}
+.team_homeii ul li a {
+ background-color: #ef4848;  
+}
+#team_pg{
+padding-bottom:40px; 
+ }
+.team_pg_1{
+margin-top:30px; 
+ }
+/*********************about_end****************/
+
+@media screen and (max-width : 767px){
+#about{
+text-align:center; 
+ }
+.about_1l{
+margin-bottom:10px; 
+ }
+.about_1r{
+margin-top:10px; 
+ }
+.about_1r h5{
+text-align:left; 
+ }
+#about_home{
+text-align:center; 
+ }
+.about_home_2r {
+margin-top:15px; 
+ }
+.team_homei {
+margin-bottom:15px; 
+ }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+.about_1r h5{
+font-size:16px; 
+ }
+ }
+@media (min-width:992px) and (max-width:1200px) {
+
+ }
+@media (min-width:1201px) and (max-width:1220px) {
+
+ }
+
+
+
+

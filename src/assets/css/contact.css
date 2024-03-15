@@ -1,0 +1,75 @@
+/*
+Template Name: Rd Jewellers
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+/*********************contact****************/
+#contact{
+padding-top:40px;
+padding-bottom:40px;
+}
+.contact_1r {
+    box-shadow: 0 0 5px #f4573752;
+    padding: 30px 40px 40px 40px;
+    border-radius: 10px;
+}
+.contact_1r .form-control {
+    margin-top: 20px;
+    height: 50px;
+    border-color:#f4573729;
+    box-shadow: none;
+    color: #333;
+    font-size: 18px;
+    font-weight: normal;
+}
+.contact_1r ::placeholder {
+  color: #333;
+  opacity: 1; 
+}
+.contact_1r .form_1 {
+    height: 150px;
+}
+#contact_us{
+padding-top:40px;
+padding-bottom:40px;
+background:#f4573712;
+ }
+.contact_us_1l h5 i{
+ margin-right:10px;
+ vertical-align:middle;
+ }
+/*********************contact_end****************/
+
+
+@media screen and (max-width : 767px){
+#contact{
+text-align:center; 
+ }
+.contact_1r {
+margin-top:10px; 
+ }
+#contact_us{
+text-align:center; 
+ }
+.contact_us_1l {
+ margin-bottom:15px;
+ }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+.contact_us_1l h3{
+font-size:26px; 
+ }
+ }
+@media (min-width:992px) and (max-width:1200px) {
+
+ }
+@media (min-width:1201px) and (max-width:1220px) {
+
+ }
+
+
+
+

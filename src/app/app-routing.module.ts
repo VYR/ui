@@ -7,32 +7,7 @@ const routes: Routes = [
         path: '',
         loadChildren: () =>
             import('./modules/public-access/public-access.module').then((m) => m.PublicAccessModule),
-    },
-    {
-        path: 'admin',
-        loadChildren: () => import('./modules/admin/admin.module').then((m) => m.AdminModule),
-        canLoad:[RoleGuard]
-    },
-    {
-        path: 'super-employee',
-        loadChildren: () => import('./modules/super-employee/super-employee.module').then((m) => m.SuperEmployeeModule),
-        canLoad:[RoleGuard]
-    },
-    {
-        path: 'employee',
-        loadChildren: () => import('./modules/employee/employee.module').then((m) => m.EmployeeModule),
-        canLoad:[RoleGuard]
-    },
-    {
-        path: 'promoter',
-        loadChildren: () => import('./modules/promotor/promotor.module').then((m) => m.PromotorModule),
-        canLoad:[RoleGuard]
-    },
-    {
-        path: 'scheme-member',
-        loadChildren: () => import('./modules/scheme-member/scheme-member.module').then((m) => m.SchemeMemberModule),
-        canLoad:[RoleGuard]
-    },
+    },   
     {
         path: 'service-unavailable',
         loadChildren: () =>

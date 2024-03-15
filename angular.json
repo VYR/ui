@@ -60,7 +60,9 @@
                             "src/styles.scss"
                         ],
                         "stylePreprocessorOptions": {
-                            "includePaths": ["src/assets/theme-save-gold-scheme"]
+                            "includePaths": [
+                                "src/assets/"
+                            ]
                         },
                         "scripts": [
                             "node_modules/jquery/dist/jquery.min.js",

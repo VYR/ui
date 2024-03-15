@@ -10,7 +10,7 @@ Licence: <a href="https://www.templateonweb.com/license">Website Template Licenc
     position: relative;
     min-height: 600px;
 }
-.fade-carousel .carousel-inner .item {
+.fade-carousel .carousel-inner .item { 
     min-height: 600px;
 }
 .fade-carousel .carousel-indicators > li {
