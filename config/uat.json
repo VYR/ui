@@ -1,8 +1,8 @@
 {
     "api": {
-        "localUrl": "https://savegoldscheme.com/",
-        "apiGateway": "https://savegoldscheme.com/back-end/public/api/",
-        "contentServerGateway": "https://savegoldscheme.com/back-end/"
+        "localUrl": "http://viindhyajewels.com/",
+        "apiGateway": "http://viindhyajewels.com/services/public/api/",
+        "contentServerGateway": "http://viindhyajewels.com/services/"
     },
     "localization": {
         "languages": [
