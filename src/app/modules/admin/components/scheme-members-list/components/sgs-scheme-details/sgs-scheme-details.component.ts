@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SgsAddFormsComponent } from '../sgs-add-forms/sgs-add-forms.component';
 import { UserContext } from 'src/app/shared/models';
 import { AdminSandbox } from 'src/app/modules/admin/admin.sandbox';
-import { RAZORPAY, SCHEME_PAY_TABLE_COLUMNS } from 'src/app/shared/constants/meta-data';
+import { RAZORPAY, SCHEME_PAY_TABLE_COLUMNS, MONTHS } from 'src/app/shared/constants/meta-data';
 declare var Razorpay: any;
 @Component({
   selector: 'app-sgs-scheme-details',
@@ -71,6 +71,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
         
         let res:any={data:[]};
         for(let i=1;i<=this.data?.data?.no_of_months;i++){
+          const dueDate:any=new Date(this.data?.data?.scheme_date).setMonth(new Date(this.data?.data?.scheme_date).getMonth()+i);
           let data:any={
                 created_at:this.data?.data?.scheme_date,
                 amount_paid: this.data?.data?.amount_per_month, 
@@ -80,9 +81,11 @@ export class SgsSchemeDetailsComponent implements OnInit {
                 userId: this.data?.data?.userId,   
                 winning_month: this.data?.data?.winning_month,   
                 is_winner: this.data?.data?.winning_month===i?this.data?.data?.is_winner:'NO',   
-                month_paid:i,
-                dueDate: new Date(this.data?.data?.scheme_date).setMonth(new Date(this.data?.data?.scheme_date).getMonth()+i),
-                pay:'Pay',
+                month_paid:i,  
+                month: MONTHS[new Date(new Date(dueDate).setDate(0)).getMonth()],
+                dueDate: dueDate,
+                pay:'Make Payment',
+                makeWinner:'Make Winner',
                 remind:'Send Reminder',
                 txnNo:'',
                 pdf:'Pdf',
@@ -108,8 +111,8 @@ export class SgsSchemeDetailsComponent implements OnInit {
         }
         let payCol = {
             key: 'pay',
-            displayName: 'Pay',
-            type: ColumnType.approve,
+            displayName: 'Make Payment',
+            type: ColumnType.button,
             callBackFn: this.restrictPayment
         };
         let remindCol = {
@@ -136,7 +139,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
         let makeWinner=  {
             key: 'makeWinner',
             displayName: 'Make Winner',
-            type: ColumnType.approve,
+            type: ColumnType.button,
             callBackFn: this.checkForPdfAction,
         };
         let colArray:any=[...SCHEME_PAY_TABLE_COLUMNS, payCol,pdfCol, remindCol];
@@ -166,7 +169,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
   }
 
   restrictPayment(data: any) {
-    return data.status === 'Due';
+    return data.status === 'Due' && data.winning_month===0;
   }
 
   checkForPdfAction(data: any) {

@@ -6,6 +6,20 @@ export const ROLES:any = {
     '3' : 'Employee',
     '4' : 'Super Employee',
 }
+export const MONTHS:any = {
+    '0' : 'Jan',
+    '1' : 'Feb',
+    '2' : 'Mar',
+    '3' : 'Apr',
+    '4' : 'May',
+    '5' : 'Jun',
+    '6' : 'Jul',
+    '7' : 'Aug',
+    '8' : 'Sep',
+    '9' : 'Oct',
+    '10' : 'Nov',
+    '11' : 'Dec',
+}
 export const TOTAL_ROLETYPES:any = [0,1,2,3,4];
 export const USER_TABLE_COLUMNS =  [
     {
@@ -61,9 +75,8 @@ export const SCHEME_PAY_TABLE_COLUMNS =  [
         type: ColumnType.onlyDate,
     },
     {
-        key: 'paidDate',
-        displayName: 'Paid Date',
-        type: ColumnType.date,
+        key: 'month',
+        displayName: 'Month',
     },
     {
         key: 'dueDate',
@@ -71,13 +84,14 @@ export const SCHEME_PAY_TABLE_COLUMNS =  [
         type: ColumnType.onlyDate,
     },
     {
+        key: 'paidDate',
+        displayName: 'Paid Date',
+        type: ColumnType.date,
+    },
+    {
         key: 'amount_paid',
         displayName: 'Amount',
         type: ColumnType.amount,
-    },
-    {
-        key: 'month_paid',
-        displayName: 'Month',
     },
     {
         key: 'txnNo',

@@ -6,7 +6,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { HomeService } from './admin.service';
 import { UtilService } from 'src/app/utility';
 import * as moment from 'moment';
-import { RAZORPAY } from 'src/app/shared/constants/meta-data';
+import { MONTHS, RAZORPAY } from 'src/app/shared/constants/meta-data';
 import { ConfigService } from 'src/app/configuration';
 @Injectable({
     providedIn: 'root',
@@ -231,8 +231,9 @@ export class AdminSandbox {
         return this.service.getSchemeMembers(params).pipe(
             tap((res: any) => {                
                 if (res?.data?.data) {
-                   res.data.data=(res.data.data || []).map((value:any) => {
+                   res.data.data=(res.data.data || []).map((value:any) => {         
                     value.schemeName=('Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
+                    value.month=MONTHS[((new Date(value.scheme_date).getMonth())+value.winning_month)-1]
                     return value;
                   });
                 }

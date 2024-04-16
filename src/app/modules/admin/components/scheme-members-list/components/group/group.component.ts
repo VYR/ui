@@ -67,7 +67,7 @@ export class GroupComponent implements OnInit {
           displayName: 'Is Winner',
         },
         {
-            key: 'winning_month',
+            key: 'month',
             displayName: 'Month Won',
             callBackFn:this.handleWinningMonth
         },
