@@ -85,7 +85,7 @@ export class SgsSchemeDetailsComponent implements OnInit {
                 month: MONTHS[new Date(new Date(dueDate).setDate(0)).getMonth()],
                 dueDate: dueDate,
                 pay:'Make Payment',
-                makeWinner:'Make Winner',
+                makeWinner:(this.data?.data?.is_winner=== 'NO'? 'Make Winner':'Cancel Winner'),
                 remind:'Send Reminder',
                 txnNo:'',
                 pdf:'Pdf',
@@ -138,14 +138,14 @@ export class SgsSchemeDetailsComponent implements OnInit {
         };
         let makeWinner=  {
             key: 'makeWinner',
-            displayName: 'Make Winner',
+            displayName: (this.data?.data?.is_winner=== 'NO'? 'Make Winner':'Cancel Winner'),
             type: ColumnType.button,
-            callBackFn: this.checkForPdfAction,
+            callBackFn: this.checkForMakeWinnerAction,
         };
         let colArray:any=[...SCHEME_PAY_TABLE_COLUMNS, payCol,pdfCol, remindCol];
         if(this.data?.data?.scheme_type_id===2){
           if(this.data?.data?.is_winner==='YES')
-            colArray=[...SCHEME_PAY_TABLE_COLUMNS,winnerCol,payCol,pdfCol, remindCol];
+            colArray=[...SCHEME_PAY_TABLE_COLUMNS,winnerCol,makeWinner,payCol,pdfCol, remindCol];
           else        
             colArray=[...SCHEME_PAY_TABLE_COLUMNS,winnerCol,makeWinner, payCol,pdfCol, remindCol];
         }
@@ -177,6 +177,10 @@ export class SgsSchemeDetailsComponent implements OnInit {
   }
   checkForWinnerAction(data: any) {
     return (data.is_winner === 'YES');
+  }
+
+  checkForMakeWinnerAction(data: any) {
+    return (data.status === 'Paid' && data.winning_month === 0) || (data.is_winner === 'YES');
   }
   
   onClickCell(event: any) {
@@ -231,13 +235,13 @@ export class SgsSchemeDetailsComponent implements OnInit {
         console.log(event.data);
         let payload:any={
           id:event.data?.scheme_member_id,
-          is_winner:'YES',
-          winning_month:event.data?.month_paid
+          is_winner:((event.data?.is_winner==='NO')?'YES':'NO'),
+          winning_month:((event.data?.is_winner==='NO')?event.data?.month_paid:0)
         };
         this.sandBox.addUpdateSchemeMembers(payload).subscribe((res:any) =>{
             if(res?.data?.id){
-              this.data.data.is_winner='YES';
-              this.data.data.winning_month=event.data?.month_paid;
+              this.data.data.is_winner=payload.is_winner;
+              this.data.data.winning_month=payload?.winning_month;
               this.dialogRef.close({data:true}); 
             }
         });

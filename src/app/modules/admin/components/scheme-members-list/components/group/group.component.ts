@@ -118,6 +118,8 @@ export class GroupComponent implements OnInit {
   getSchemeMembers(event:any,scheme:any){
       if(event.isUserInput){
           this.selectedScheme=scheme;
+          this.query.pageIndex=0;
+          this.query.pageSize=5;
           this.getSgsUsers();
       }
       }

@@ -233,7 +233,7 @@ export class AdminSandbox {
                 if (res?.data?.data) {
                    res.data.data=(res.data.data || []).map((value:any) => {         
                     value.schemeName=('Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
-                    value.month=MONTHS[((new Date(value.scheme_date).getMonth())+value.winning_month)-1]
+                    value.month=value.is_winner==='YES'?MONTHS[((new Date(value.scheme_date).getMonth())+value.winning_month)-1]:'';
                     return value;
                   });
                 }
