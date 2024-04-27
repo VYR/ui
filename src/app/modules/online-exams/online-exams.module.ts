@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OnlineExamsComponent } from './online-exams.component';
-
+import { OnlineExamsRoutingModule } from "./online-exams-routing.module";
 
 
 @NgModule({
@@ -9,7 +9,8 @@ import { OnlineExamsComponent } from './online-exams.component';
     OnlineExamsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    OnlineExamsRoutingModule
   ]
 })
 export class OnlineExamsModule { }
