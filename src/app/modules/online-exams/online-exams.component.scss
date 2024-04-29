@@ -1,0 +1,18 @@
+.row
+{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+.color
+{
+    background-color: yellow;
+    color: #000;
+}
+.keep-right
+{
+    flex: 1 1 auto;
+}
+.size{
+    font-size: 0.87rem;
+}

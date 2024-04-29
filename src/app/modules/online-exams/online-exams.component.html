@@ -1,2 +1,18 @@
-<p>online-exams works!</p>
+<mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span (click)="user('/online-exams')">Online Exams</span>
+    <span class="keep-right"></span>
+    <div fxLayout="row" fxLayoutGap="2rem" class="size">
+        <span (click)="user('/online-exams/eamcet-exam')">EAMCET Exam</span>
+        <span (click)="user('/online-exams/jntu-exam')">JNTU Exam</span>
+    </div>
+    <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button> -->
+  </mat-toolbar>
 <router-outlet></router-outlet>
