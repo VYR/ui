@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" fxShow.sm fxHide.lg fxHide.md fxShow.xs  (click)="menuClic()"  >
       <mat-icon>menu</mat-icon>
     </button>
-    <span (click)="user('/online-exams')">Online Exams</span>
+    <span (click)="user('/online-exams')" class="mosue-pointer">Online Exams</span>
     <span class="keep-right"></span>
-    <div fxLayout="row" fxLayoutGap="2rem" class="size">
-        <span (click)="user('/online-exams/eamcet-exam')">EAMCET Exam</span>
-        <span (click)="user('/online-exams/jntu-exam')">JNTU Exam</span>
+    <div fxLayout="row" fxLayoutGap="2rem" class="size" fxHide.sm fxShow.lg fxShow.md fxHide.xs>
+        <span (click)="user('/online-exams/eamcet-exam')" class="mosue-pointer">EAMCET Exam</span>
+        <span (click)="user('/online-exams/jntu-exam')" class="mosue-pointer">JNTU Exam</span>
     </div>
     <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
       <mat-icon>favorite</mat-icon>
@@ -15,4 +15,21 @@
       <mat-icon>share</mat-icon>
     </button> -->
   </mat-toolbar>
+
+  <div class="side-menu" fxShow.sm fxShow.xs fxHide.lg fxHide.xl fxHide.md *ngIf="isShowMenuBar" >
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <h1> Side Menu</h1>
+      <mat-icon (click)="closeButton()">close</mat-icon>      
+    </div>
+    <div fxLayout="column">
+      <mat-list>
+        <mat-list-item *ngFor="let folder of folders">
+          <mat-icon matListItemIcon>folder</mat-icon>
+          <div matListItemTitle (click)="user(folder.path)">{{folder.name}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </div>
+  </div>
+
 <router-outlet></router-outlet>
