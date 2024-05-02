@@ -7,6 +7,8 @@ import { Router } from "@angular/router";
 })
 export class OnlineExamsComponent {
 
+  
+
   folders: any[] = [
     {
       name: 'EAMCET Exam',
