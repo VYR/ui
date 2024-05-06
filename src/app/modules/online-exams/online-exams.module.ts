@@ -13,7 +13,8 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
-
+import { OnlineExamsService } from './online-exams.service';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,11 @@ import {MatInputModule} from '@angular/material/input';
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
+  ],
+  providers:[
+    OnlineExamsService
   ]
 })
 export class OnlineExamsModule { }

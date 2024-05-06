@@ -43,6 +43,7 @@ export class LogInComponent {
 
 
   login(){
+    this.onlineExamsServiceObj.calling();
     this.onlineExamsServiceObj.observeSubjectData({loginStatus: true});
     this.routerObj.navigate(['/online-exams/eamcet-exam']);
   }

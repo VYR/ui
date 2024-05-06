@@ -18,7 +18,7 @@ export class EamcetExamComponent {
           routerObj.navigate(['/online-exams']);
         }
 
-      }
+      } 
     );
 
   }
