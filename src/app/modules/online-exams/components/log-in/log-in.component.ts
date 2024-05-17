@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 import { OnlineExamsService } from "../../online-exams.service";
 
@@ -11,7 +11,21 @@ import { OnlineExamsService } from "../../online-exams.service";
 })
 export class LogInComponent {
 
-  email = new FormControl('', [Validators.required, Validators.email]);
+  loginGroup = new FormGroup({
+
+    email : new FormControl('', [Validators.required, Validators.email, Validators.maxLength(30)]),
+
+    passwordOne : new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(10)])
+
+  });
+
+  gmail = "abc@342";
+
+  password = "acv@123";
+
+  // email = new FormControl('', [Validators.required, Validators.email]);
+
+  // passwordOne = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]);
 
 
   constructor(private routerObj : Router, private onlineExamsServiceObj : OnlineExamsService){
@@ -32,17 +46,24 @@ export class LogInComponent {
   }
 
   getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
+    // if (this.email.hasError('required')) {
+    //   return 'You must enter a value';
+    // }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    // return this.email.hasError('email') ? 'Not a valid email' : '';
+    return null;
   }
 
 
 
 
   login(){
+    let dataOne =  this.loginGroup.value;
+    console.log(dataOne);
+    // console.log(this.email.value);
+    // console.log(this.passwordOne.value);
+    console.log(this.gmail);
+    console.log(this.password);
     this.onlineExamsServiceObj.calling();
     this.onlineExamsServiceObj.observeSubjectData({loginStatus: true});
     this.routerObj.navigate(['/online-exams/eamcet-exam']);

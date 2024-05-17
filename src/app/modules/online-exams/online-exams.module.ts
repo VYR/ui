@@ -39,6 +39,7 @@ import { HttpClientModule } from "@angular/common/http";
   ],
   providers:[
     OnlineExamsService
-  ]
+  ],
+  
 })
 export class OnlineExamsModule { }

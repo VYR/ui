@@ -3,28 +3,38 @@
     <div fxFlex="50">
         <div fxLayout="column" fxFlex="100" class="align-center">
             <h1>LogIn</h1>
-            <form class="column">
+            <form class="column" [formGroup]="loginGroup">
 
                 <div>
                     <mat-form-field class="w-20">
                     <mat-label>Enter your email</mat-label>
-                    <input type="email"  matInput placeholder="@example.com" [formControl]="email" required>
-                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                    <!-- {{email.value}} -->
+                    <input type="email"  matInput placeholder="@example.com"  required  formControlName="email" name="gmail" >
+                    <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
                     </mat-form-field>
                 </div>
 
                 <div>
                     <mat-form-field class="w-20">
                     <mat-label>Enter your Password</mat-label>
-                    <input type="password"  matInput placeholder="Enter your Password" [formControl]="email" required>
-                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                    <!-- {{passwordOne.errors | json}} -->
+                    <input type="password"  matInput placeholder="Enter your Password" required formControlName="passwordOne" name="password">
+                    <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
                     </mat-form-field>
                 </div>
 
-                
-                <button type="button"  mat-flat-button color="primary" (click)="login()">Login</button>
+                <!-- checking all validations 
+                    
+                    [disabled]="
+                email.errors?.['email'] || !email.value || !passwordOne.value || passwordOne.errors?.['minlength'] || passwordOne.errors?.['maxlength'] 
+                " -->
+
+                <button type="button"  mat-flat-button color="primary" (click)="login()"                
+                [disabled]="loginGroup.invalid"
+                >Login</button>
 
             </form>
+
 
         </div>
     </div>
