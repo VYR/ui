@@ -17,8 +17,9 @@ import { PublicAccessComponent } from './public-access.component';
 import { PublicAccessHeaderComponent } from './components/public-access-header/public-access-header.component';
 import { PublicAccessFooterComponent } from './components/public-access-footer/public-access-footer.component';
 import { PublicAccessAboutComponent } from './components/public-access-about/public-access-about.component';
-import { PublicAccessContactComponent } from './components/public-access-contact/public-access-contact.component';
-
+import { PublicAccessContactComponent } from './components/public-access-contact/public-access-contact.component'; 
+import { PublicAccessHomeComponent } from './components/public-access-home/public-access-home.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PublicAccessContactComponent } from './components/public-access-contact
     PublicAccessHeaderComponent,
     PublicAccessFooterComponent,
     PublicAccessAboutComponent,
-    PublicAccessContactComponent
+    PublicAccessContactComponent,
+    PublicAccessHomeComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import { PublicAccessContactComponent } from './components/public-access-contact
     MatInputModule,
     PipesModule,
     MatTooltipModule,
-    MatTabsModule
+    MatTabsModule, 
+    CarouselModule
 
   ]
 })
