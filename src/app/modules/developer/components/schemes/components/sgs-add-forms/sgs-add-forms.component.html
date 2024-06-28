@@ -1,0 +1,222 @@
+<ng-container *ngIf="data.type==='schemes'">    
+    <form  [formGroup]="addSchemesForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">   
+            <ng-container > 
+                <div fxFlex="100">
+                    <app-sgs-date-picker
+                    [parentForm]="addSchemesForm"
+                    [fomrControlName]="'scheme_date'"
+                    [dateFormat]="'YYYY-MM-dd'"
+                    [placeholder]="'Select Start Date'"
+                    (selectDate)="getDate($event)"
+                    ></app-sgs-date-picker>
+                </div>
+                <mat-form-field>
+                    <mat-label>Scheme Name</mat-label>
+                    <input type="text" matInput formControlName="scheme_name" placeholder="Scheme Name" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Total Amount</mat-label>
+                    <input type="number" matInput formControlName="total_amount" placeholder="Total Amount" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>No Of Months</mat-label>
+                    <input type="number" matInput formControlName="no_of_months" placeholder="No Of Months" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Amount Per Month</mat-label>
+                    <input type="number" matInput formControlName="amount_per_month" placeholder="Amount Per Month" />
+                </mat-form-field>
+                <div fxLayout="row">
+                    <button
+                        class="mat-raised-button mat-primary"
+                        type="submit"
+                        [disabled]="addSchemesForm.invalid"
+                        mat-button
+                        (click)="submitSchemesForm()"
+                    >
+                    Submit
+                    </button>
+                </div>
+            </ng-container>     
+        </div>
+    </form>
+</ng-container>
+
+<ng-container *ngIf="data.type==='schemeNames'">    
+    <form  [formGroup]="addSchemeNamesForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">   
+            <ng-container > 
+                <mat-form-field>
+                    <mat-label>Scheme Name</mat-label>
+                    <input type="text" matInput formControlName="scheme_name" placeholder="Scheme Name" />
+                </mat-form-field>
+                <div fxLayout="row">
+                    <button
+                        class="mat-raised-button mat-primary"
+                        type="submit"
+                        [disabled]="addSchemeNamesForm.invalid"
+                        mat-button
+                        (click)="submitSchemeNamesForm()"
+                    >
+                    Submit
+                    </button>
+                </div>
+            </ng-container>     
+        </div>
+    </form>
+</ng-container>
+<ng-container *ngIf="data.type==='users'">
+    <form  [formGroup]="addUserForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">
+            <div class="disableMe" fxFlex="100"> 
+                <mat-form-field>
+                    <mat-label>Introduced By</mat-label>
+                    <input matInput formControlName="introducedBy" placeholder="Introduced By" />
+                </mat-form-field> 
+            </div>           
+            <mat-form-field  fxFlex="100" *ngIf="data?.data?.currentUserType===2">
+                <mat-label>Scheme Type</mat-label>
+                <mat-select formControlName="scheme_type_id">
+                    <mat-option *ngFor="let schemeType of schemeTypes" [value]="schemeType.id" 
+                    (onSelectionChange)="getSchemesByType($event,schemeType.id)">{{
+                        schemeType.scheme_type_name
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>          
+            <mat-form-field  fxFlex="100" *ngIf="data?.data?.currentUserType===2">
+                <mat-label>Select Scheme</mat-label>
+                <mat-select formControlName="scheme_id">
+                    <mat-option *ngFor="let scheme of schemes" [value]="scheme.id">
+                    {{scheme.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="First Name" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" placeholder="Last Name" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email ID</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Email ID" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Password" />
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutGap="1rem">
+                <mat-form-field [fxFlex]="data?.data?.currentUserType===2?50:100">
+                    <mat-label>Mobile Number</mat-label>
+                    <input matInput formControlName="mobilePhone" 
+                    placeholder="Mobile Number" 
+                    maxlength="10"
+                    appOnlyNumbers
+                    />
+                </mat-form-field>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                >
+                    Verify
+                </button>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                    (click)="skipValidationForNow('mobilePhone')"
+                >
+                    Skip for Now
+                </button>                
+            </div> 
+            <mat-error fxFlex="100" *ngIf="addUserForm.controls['mobilePhone']?.errors?.['verifyMobile']">
+                Please verify Mobile Number</mat-error>
+            <div fxLayout="row" fxLayoutGap="1rem">
+                <mat-form-field [fxFlex]="data?.data?.currentUserType===2?50:100">
+                    <mat-label>Aadhar Number</mat-label>
+                    <input matInput formControlName="aadhar"                     
+                    maxlength="12"
+                    appOnlyNumbers
+                    placeholder="Aadhar Number" />
+                </mat-form-field>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                >
+                    Verify
+                </button>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                    (click)="skipValidationForNow('aadhar')"
+                >
+                    Skip for Now
+                </button>
+            </div> 
+            <div fxLayout="row" fxLayoutGap="1rem">
+                <mat-form-field [fxFlex]="data?.data?.currentUserType===2?50:100">
+                    <mat-label>PAN Number</mat-label>
+                    <input matInput formControlName="pan"  class="upperCase"                  
+                    maxlength="10"
+                    appAlphaNumeric
+                    placeholder="PAN Number" />
+                </mat-form-field>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                >
+                    Verify
+                </button>
+                <button
+                    *ngIf="data?.data?.currentUserType===2"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                    (click)="skipValidationForNow('pan')"
+                >
+                    Skip for Now
+                </button>
+            </div> 
+            <div fxLayout="row">
+                <button
+                    class="mat-raised-button mat-primary"
+                    type="submit"
+                    [disabled]="addUserForm.invalid" 
+                    mat-button
+                    (click)="submitUsersForm()"
+                >
+                    Submit
+                </button>
+            </div>            
+        </div>
+    </form>  
+</ng-container>
+<ng-container *ngIf="data.type==='payment'">
+    <form  [formGroup]="addPaymentForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">       
+            <img src="assets/images/qr-code.png" class="qr-code"/>
+            <button
+                class="mat-raised-button mat-primary"
+                type="submit"
+                [disabled]="addPaymentForm.invalid" 
+                mat-button
+                (click)="submitPaymentForm()"
+            >
+                Make Payment
+            </button>
+   
+        </div>
+    </form>
+</ng-container>
+

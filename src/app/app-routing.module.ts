@@ -9,6 +9,11 @@ const routes: Routes = [
             import('./modules/public-access/public-access.module').then((m) => m.PublicAccessModule),
     },
     {
+        path: 'developer',
+        loadChildren: () => import('./modules/developer/developer.module').then((m) => m.DeveloperModule),
+        canLoad:[RoleGuard]
+    },
+    {
         path: 'admin',
         loadChildren: () => import('./modules/admin/admin.module').then((m) => m.AdminModule),
         canLoad:[RoleGuard]

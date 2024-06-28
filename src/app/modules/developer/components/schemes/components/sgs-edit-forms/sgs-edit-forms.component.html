@@ -1,0 +1,150 @@
+<ng-container *ngIf="data.type==='schemes'">
+    <form  [formGroup]="updateSchemesForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">   
+            <ng-container >                
+                <div fxFlex="100">
+                    <app-sgs-date-picker
+                    [parentForm]="updateSchemesForm"
+                    [fomrControlName]="'scheme_date'"
+                    [dateFormat]="'YYYY-MM-dd'"
+                    [placeholder]="'Select Start Date'"
+                    (selectDate)="getDate($event)"
+                    ></app-sgs-date-picker>
+                </div>
+                <mat-form-field>
+                    <mat-label>Scheme Name</mat-label>
+                    <input type="text" matInput formControlName="scheme_name" placeholder="Scheme Name" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Total Amount</mat-label>
+                    <input type="number" matInput formControlName="total_amount" placeholder="Total Amount" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>No Of Months</mat-label>
+                    <input type="number" matInput formControlName="no_of_months" placeholder="No Of Months" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Amount Per Month</mat-label>
+                    <input type="number" matInput formControlName="amount_per_month" placeholder="Amount Per Month" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status" class="status">
+                        <mat-option *ngFor="let status of statuses" [value]="status">{{
+                            status
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div fxLayout="row">
+                    <button
+                        class="mat-raised-button mat-primary"
+                        type="submit"
+                        [disabled]="updateSchemesForm.invalid"
+                        mat-stroked-button
+                        color="primary"
+                        (click)="submitSchemesForm()"
+                    >
+                        Update
+                    </button>
+                </div>
+            </ng-container>     
+        </div>
+    </form>
+</ng-container>
+<ng-container *ngIf="data.type==='schemeNames'">
+    <form  [formGroup]="updateSchemeNamesForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">   
+            <ng-container > 
+                <mat-form-field>
+                    <mat-label>Scheme Name</mat-label>
+                    <input type="text" matInput formControlName="scheme_name" placeholder="Scheme Name" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status" class="status">
+                        <mat-option *ngFor="let status of statuses" [value]="status">{{
+                            status
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div fxLayout="row">
+                    <button
+                        class="mat-raised-button mat-primary"
+                        type="submit"
+                        [disabled]="updateSchemeNamesForm.invalid"
+                        mat-stroked-button
+                        color="primary"
+                        (click)="submitSchemeNamesForm()"
+                    >
+                        Update
+                    </button>
+                </div>
+            </ng-container>     
+        </div>
+    </form>
+</ng-container>
+<ng-container *ngIf="data.type==='users'">
+    <form  [formGroup]="updateUserForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">
+            <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="First Name" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" placeholder="Last Name" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Password" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Mobile Number</mat-label>
+                <input matInput maxlength="10" appOnlyNumbers formControlName="mobilePhone" placeholder="Mobile Number" />
+            </mat-form-field>
+            <div fxLayout="row">
+                <button
+                    class="mat-raised-button mat-primary"
+                    type="submit"
+                    [disabled]="updateUserForm.invalid"
+                    mat-stroked-button
+                    color="primary"
+                    (click)="submitUserForm()"
+                >
+                Update
+                </button>
+            </div>
+        </div> 
+    </form> 
+</ng-container>
+<ng-container *ngIf="data.type==='settings'">
+    <form  [formGroup]="updateSettingsForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">
+            <mat-form-field>
+                <mat-label>Individual Commission</mat-label>
+                <input matInput appOnlyNumbers formControlName="individual_commission" placeholder="Individual Commission %" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Group Commission</mat-label>
+                <input matInput appOnlyNumbers formControlName="group_commission" placeholder="Group Commission %" />
+            </mat-form-field> 
+            <!-- <div>
+                <ckeditor [editor]="Editor" [data]="editorData"></ckeditor>
+            </div>            -->
+            <div fxLayout="row">
+                <button
+                    class="mat-raised-button mat-primary"
+                    type="submit"
+                    [disabled]="updateSettingsForm.invalid"
+                    mat-stroked-button
+                    color="primary"
+                    (click)="submitSettingsForm()"
+                >
+                Update
+                </button>
+            </div> 
+        </div> 
+    </form> 
+</ng-container>
+
+

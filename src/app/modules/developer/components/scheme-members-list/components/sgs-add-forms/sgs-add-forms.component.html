@@ -1,0 +1,49 @@
+<ng-container *ngIf="data.type==='schemeNames'">    
+    <form  [formGroup]="addSchemeNamesForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">   
+            <ng-container > 
+                <div fxFlex="100">
+                    <app-sgs-date-picker
+                    [parentForm]="addSchemeNamesForm"
+                    [fomrControlName]="'scheme_start_date'"
+                    [dateFormat]="'YYYY-MM-dd'"
+                    [placeholder]="'Select Start Date'"
+                    (selectDate)="getDate($event)"
+                    ></app-sgs-date-picker>
+                </div>
+                <mat-form-field>
+                    <mat-label>Scheme Name</mat-label>
+                    <input type="text" matInput formControlName="scheme_name" placeholder="Scheme Name" />
+                </mat-form-field>
+                <div fxLayout="row">
+                    <button
+                        class="mat-raised-button mat-primary"
+                        type="submit"
+                        [disabled]="addSchemeNamesForm.invalid"
+                        mat-button
+                        (click)="submitSchemeNamesForm()"
+                    >
+                    Submit
+                    </button>
+                </div>
+            </ng-container>     
+        </div>
+    </form>
+</ng-container>
+<ng-container *ngIf="data.type==='payment'">
+    <form  [formGroup]="addPaymentForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">       
+            <img src="assets/images/qr-code.png" class="qr-code"/>
+            <button
+                class="mat-raised-button mat-primary"
+                type="submit"
+                [disabled]="addPaymentForm.invalid" 
+                mat-button
+                (click)="submitPaymentForm()"
+            >
+                Make Payment
+            </button>
+   
+        </div>
+    </form>
+</ng-container>

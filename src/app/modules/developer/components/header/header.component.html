@@ -1,0 +1,49 @@
+<mat-toolbar color="primary">
+    <button (click)="handleMenu()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <i class="las la-bars"></i>
+    </button>
+    <span>Welcome {{ user.firstName }} {{ user.lastName }}</span>
+    <span class="example-spacer"></span>
+    <button [matMenuTriggerFor]="profileMenu" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <i class="las la-user-tie"></i>
+    </button>
+  </mat-toolbar>
+<mat-menu #profileMenu="matMenu">
+    <div mat-menu-content class="dropdown-menu-container">
+        <div class="profile-header">
+            <div class="user-name profile-header-option">
+                <i class="las la-user-tie"></i>
+                <div>{{ user.firstName }} {{ user.lastName }}</div>
+            </div>
+            <div *ngIf="user.mobilePhone" class="profile-header-option">
+                <i class="las la-phone"></i>
+                <div>{{ user.mobilePhone }}</div>
+            </div>
+            <div *ngIf="user.email" class="profile-header-option">
+                <i class="las la-envelope"></i>
+                <div>{{ user.user_email }}</div>
+            </div>
+            <div *ngIf="user.aadhar" class="profile-header-option">
+                <i class="las la-credit-card"></i>
+                <div>{{ user.aadhar }}</div>
+            </div>
+            <div *ngIf="user.pan" class="profile-header-option">
+                <i class="las la-credit-card"></i>
+                <div>{{ user.pan }}</div>
+            </div>
+            <div *ngIf="user.currentSignIn" class="profile-header-option">
+                <i class="las la-clock"></i>
+                <div>{{ user.currentSignIn | date: 'medium' }} (Current login)</div>
+            </div>
+            <div *ngIf="user.lastSignIn" class="profile-header-option">
+                <i class="las la-history"></i>
+                <div>{{ user.lastSignIn | date: 'medium' }} (Last login)</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="flex-end center">
+                <button mat-flat-button (click)="logout()" class="profile-footer-option" color="primary">
+                    <div class="logout"><span>Logout</span> <i class="las la-sign-out-alt"></i></div>
+                </button>
+            </div>
+        </div>
+    </div>
+</mat-menu>

@@ -20,7 +20,7 @@ export class ApplicationContextService {
     }
 
     public setUserLogin(data: any, userName: string): any {
-        //data.userName = userName || '';
+        console.log("HesetUserLoginllo");
         const user: UserContext = this._setUserInfo(data);
         user.schemeTypes = this._processSchemeTypes([data?.user]);
         user.schemeTypeSelected = user.schemeTypes[0];
@@ -92,8 +92,12 @@ export class ApplicationContextService {
     }
 
     private _navigateToModule(userRole: USER_TYPE) {
+        console.log(userRole);
         let url;
         switch (userRole) {
+            case USER_TYPE.DEVELOPER:
+                url = APP_ROUTES.DEVELOPER;
+                break;
             case USER_TYPE.ADMIN:
                 url = APP_ROUTES.ADMIN;
                 break;

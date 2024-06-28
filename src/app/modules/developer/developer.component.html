@@ -1,0 +1,16 @@
+ 
+  <div fxLayout="row">
+    <div fxFlex="20" *ngIf="showSideMenu" class="side-menu">
+      <app-side-menu></app-side-menu>
+    </div>
+    <div [fxFlex]="showSideMenu?'80':'100'">
+      <div fxLayout="column" fxFlex="100" >
+          <app-header (logoutAction)="logout()" (menuAction)="handleMenu($event)"></app-header>
+          <app-outlet-container>
+            <router-outlet></router-outlet>
+          </app-outlet-container>
+          
+      </div>
+    </div>
+  </div>
+

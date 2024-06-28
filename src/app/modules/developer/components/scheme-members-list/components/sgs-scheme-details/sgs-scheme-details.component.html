@@ -1,0 +1,17 @@
+<app-master-container>
+    <ng-container header>
+        {{data.data?.schemeName}}
+    </ng-container>
+    <ng-container icons>
+        <!-- <button mat-icon-button >
+            <i class="las la-file-pdf"></i>
+        </button> -->
+    </ng-container>
+    <ng-container body>
+        <app-sgs-table
+            [config]="config"
+            (_lazyLoad)="lazyLoad($event)"
+            (_clickCell)="onClickCell($event)"
+        ></app-sgs-table>
+    </ng-container>
+</app-master-container>

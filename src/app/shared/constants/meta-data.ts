@@ -5,6 +5,7 @@ export const ROLES:any = {
     '1' : 'Admin',
     '3' : 'Employee',
     '4' : 'Super Employee',
+    '5' : 'Developer'
 }
 export const MONTHS:any = {
     '0' : 'Jan',
@@ -20,7 +21,7 @@ export const MONTHS:any = {
     '10' : 'Nov',
     '11' : 'Dec',
 }
-export const TOTAL_ROLETYPES:any = [0,1,2,3,4];
+export const TOTAL_ROLETYPES:any = [0,1,2,3,4,5];
 export const USER_TABLE_COLUMNS =  [
     {
         key: 'created_at',

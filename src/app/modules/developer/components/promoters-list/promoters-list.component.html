@@ -1,0 +1,71 @@
+
+<app-outlet-container>
+    <app-master-container>
+        <ng-container header>
+              Promoters
+        </ng-container>
+        <ng-container icons>
+            <div fxLayout="row" fxLayoutGap="2rem">
+                <mat-form-field class="width-1">
+                    <mat-label>Select Super Employee</mat-label>
+                    <mat-select [(ngModel)]="selectedSuperEmployee">
+                        <mat-option 
+                        (onSelectionChange)="updateSelectedSuperEmployee($event,'')"
+                        [value]="''">All
+                        </mat-option>
+                        <mat-option 
+                        (onSelectionChange)="updateSelectedSuperEmployee($event,superEmployee.userId)"
+                        *ngFor="let superEmployee of  superEmployees" [value]="superEmployee.userId">{{
+                            superEmployee.userId + ' - ' + superEmployee.firstName + '  ' + superEmployee.lastName 
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="width-1">
+                    <mat-label>Select Employee</mat-label>
+                    <mat-select [(ngModel)]="selectedEmployee">
+                        <mat-option 
+                        (onSelectionChange)="updateSelectedEmployee($event,'')"
+                        [value]="''">All
+                        </mat-option>
+                        <mat-option 
+                        (onSelectionChange)="updateSelectedEmployee($event,employee.userId)"
+                        *ngFor="let employee of  employees" [value]="employee.userId">{{
+                            employee.userId + ' - ' + employee.firstName + '  ' + employee.lastName 
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Select Status</mat-label>
+                    <mat-select [(ngModel)]="selectedStatus">
+                        <mat-option 
+                        (onSelectionChange)="updateStatus($event,status)"
+                        *ngFor="let status of statuses" [value]="status">{{
+                            status
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!--<button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
+                    <i class="las la-file-excel"></i>
+                </button>
+                 <button mat-icon-button >
+                    <i class="las la-file-pdf"></i>
+                </button> -->
+                <button *ngIf="selectedSuperEmployee" mat-icon-button (click)="addUsers()">
+                    <i class="las la-plus"></i>
+                </button>
+            </div>
+        </ng-container>
+        <ng-container body>
+            <div fxLayout="column" fxFlex="100">
+                <app-sgs-table
+                    [config]="tableConfig"
+                    (_lazyLoad)="lazyLoad($event)"
+                    (_select)="onSelect($event)"
+                    (_clickCell)="onClickCell($event)"
+                ></app-sgs-table>
+            </div>
+        </ng-container>
+    </app-master-container>
+</app-outlet-container>
+
+

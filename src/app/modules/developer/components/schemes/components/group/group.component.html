@@ -1,0 +1,20 @@
+<app-outlet-container>
+    <app-master-container>
+        <ng-container header>Group Schemes</ng-container>
+        <ng-container icons>
+            <!-- <button mat-icon-button  *ngIf="sortedData.length>0"   (click)="downloadExcel()">
+                <i class="las la-file-excel"></i>
+            </button> -->
+            <button mat-icon-button  (click)="addScheme()">
+                <i class="las la-plus"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+            <app-sgs-table
+            [config]="tableConfig"
+            (_lazyLoad)="lazyLoad($event)"
+            (_clickCell)="onClickCell($event)"
+        ></app-sgs-table>
+        </ng-container>
+    </app-master-container>    
+</app-outlet-container>

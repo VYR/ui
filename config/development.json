@@ -212,6 +212,58 @@
                 "icon": "las la-university",
                 "path": "profile"
             }
+        ],
+        "5": [
+            {
+                "uuid": "",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard",
+                "location": "header"
+            },
+            {
+                "uuid": "",
+                "name": "DASHBOARD",
+                "icon": "las la-home",
+                "path": "dashboard"
+            },               
+            {
+                "uuid": "",
+                "name": "SCHEME TYPES",
+                "icon": "las la-users",
+                "path": "scheme-types"
+            },
+            {
+                "uuid": "",
+                "name": "SCHEMES",
+                "icon": "las la-users",
+                "path": "schemes"
+            },
+            {
+                "uuid": "",
+                "name": "USERS",
+                "icon": "las la-user",
+                "path": "users"
+            },
+            {
+                "uuid": "",
+                "name": "MY PROFILE",
+                "icon": "las la-university",
+                "path": "profile"
+            },
+            {
+                "uuid": "",
+                "name": "SETTINGS",
+                "icon": "las la-cog",
+                "path": "settings",
+                "location": "header"
+            },
+            {
+                "uuid": "",
+                "name": "SITE UPDATES",
+                "icon": "las la-cog",
+                "path": "site-updates"
+            }
         ]
     }
 }

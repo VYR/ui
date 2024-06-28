@@ -1,0 +1,179 @@
+<ng-container *ngIf="data.type==='users'">
+    <form  [formGroup]="addUserForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">
+            <mat-form-field class="width-1" *ngIf="data?.data?.userType===0">
+                <mat-label>Select Super Employee</mat-label>
+                <mat-select [ngModelOptions]="{standalone: true}" name="selectedSuperEmployee" [(ngModel)]="selectedSuperEmployee" >
+                    <mat-option 
+                    (onSelectionChange)="updateSelectedSuperEmployee($event,superEmployee.userId)"
+                    *ngFor="let superEmployee of  superEmployees" [value]="superEmployee.userId">{{
+                        superEmployee.userId + ' - ' + superEmployee.firstName + '  ' + superEmployee.lastName 
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="width-1"  *ngIf="data?.data?.userType===0">
+                <mat-label>Select Employee</mat-label>
+                <mat-select [ngModelOptions]="{standalone: true}" name="selectedEmployee" [(ngModel)]="selectedEmployee">
+                    <mat-option 
+                    (onSelectionChange)="updateSelectedEmployee($event,employee.userId)"
+                    *ngFor="let employee of  employees" [value]="employee.userId">{{
+                        employee.userId + ' - ' + employee.firstName + '  ' + employee.lastName 
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="width-1"  *ngIf="data?.data?.userType===0">
+                <mat-label>Select Promoter</mat-label>
+                <mat-select [ngModelOptions]="{standalone: true}" name="selectedPromoter" [(ngModel)]="selectedPromoter">
+                    <mat-option 
+                    (onSelectionChange)="updateSelectedPromoter($event,promoter.userId)"
+                    *ngFor="let promoter of  promoters" [value]="promoter.userId">{{
+                        promoter.userId + ' - ' + promoter.firstName + '  ' + promoter.lastName 
+                    }}</mat-option>
+                </mat-select>
+            </mat-form-field>  
+            <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="First Name" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" placeholder="Last Name" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email ID</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Email ID" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Password" />
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutGap="1rem">
+                <mat-form-field [fxFlex]="data?.data?.userType===0?50:100">
+                    <mat-label>Mobile Number</mat-label>
+                    <input matInput formControlName="mobilePhone" 
+                    placeholder="Mobile Number" 
+                    maxlength="10"
+                    appOnlyNumbers
+                    />
+                </mat-form-field>
+                <button
+                    *ngIf="data?.data?.userType===0"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                >
+                    Verify
+                </button>
+                <button
+                    *ngIf="data?.data?.userType===0"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                    (click)="skipValidationForNow('mobilePhone')"
+                >
+                    Skip for Now
+                </button>                
+            </div> 
+            <mat-error fxFlex="100" *ngIf="addUserForm.controls['mobilePhone']?.errors?.['verifyMobile']">
+                Please verify Mobile Number</mat-error>
+            <div fxLayout="row" fxLayoutGap="1rem">
+                <mat-form-field [fxFlex]="data?.data?.userType===0?50:100">
+                    <mat-label>Aadhar Number</mat-label>
+                    <input matInput formControlName="aadhar"                     
+                    maxlength="12"
+                    appOnlyNumbers
+                    placeholder="Aadhar Number" />
+                </mat-form-field>
+                <button
+                    *ngIf="data?.data?.userType===0"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                >
+                    Verify
+                </button>
+                <button
+                    *ngIf="data?.data?.userType===0"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                    (click)="skipValidationForNow('aadhar')"
+                >
+                    Skip for Now
+                </button>
+            </div> 
+            <div fxLayout="row" fxLayoutGap="1rem">
+                <mat-form-field [fxFlex]="data?.data?.userType===0?50:100">
+                    <mat-label>PAN Number</mat-label>
+                    <input matInput formControlName="pan"  class="upperCase"                  
+                    maxlength="10"
+                    appAlphaNumeric
+                    placeholder="PAN Number" />
+                </mat-form-field>
+                <button
+                    *ngIf="data?.data?.userType===0"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                >
+                    Verify
+                </button>
+                <button
+                    *ngIf="data?.data?.userType===0"
+                    class="mat-raised-button mat-primary"
+                    type="button"
+                    mat-button
+                    (click)="skipValidationForNow('pan')"
+                >
+                    Skip for Now
+                </button>
+            </div> 
+            <div fxLayout="row">
+                <button
+                    class="mat-raised-button mat-primary"
+                    type="submit"
+                    [disabled]="addUserForm.invalid" 
+                    mat-button
+                    (click)="submitUsersForm()"
+                >
+                    Submit
+                </button>
+            </div>            
+        </div>
+    </form>  
+</ng-container>
+<ng-container *ngIf="data.type==='payment'">
+    <form  [formGroup]="addPaymentForm" >
+        <div  fxLayout="column" fxLayoutGap="0.3rem">       
+            <img src="assets/images/qr-code.png" class="qr-code"/>
+            <button
+                class="mat-raised-button mat-primary"
+                type="submit"
+                [disabled]="addPaymentForm.invalid" 
+                mat-button
+                (click)="submitPaymentForm()"
+            >
+                Make Payment
+            </button>
+   
+        </div>
+    </form>
+</ng-container>
+<ng-container *ngIf="data.type==='schemeMemberErrors'">
+    <div  fxLayout="column" fxLayoutGap="0.5rem" fxFlex="100">              
+        <app-sgs-table
+        [config]="tableConfig"
+        (_lazyLoad)="lazyLoad($event)"
+    ></app-sgs-table>
+        <!-- <button
+            fxFlex="30"
+            class="mat-raised-button mat-primary"
+            type="button" 
+            mat-button
+            (click)="skipAndProceed()"
+        >
+            Skip them and Proceed
+        </button> -->
+    </div>
+</ng-container>
+

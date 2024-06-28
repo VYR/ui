@@ -1,0 +1,101 @@
+
+<app-outlet-container>
+    <app-master-container>
+        <ng-container header>
+              Total Scheme Members
+        </ng-container>
+        <ng-container icons>
+            <div fxLayout="row" fxLayoutGap="2rem">  
+                <button *ngIf="selectedPromoter" mat-icon-button (click)="addUsers()">
+                    <i class="las la-plus"></i>
+                </button>
+            </div>
+        </ng-container>
+        <ng-container body>
+            <div fxLayout="column" fxFlex="100">
+                <div fxLayout="row" fxLayoutGap="2rem" fxFlex="100" fxLayoutAlign="space-between">
+                    <mat-form-field class="width-1">
+                        <mat-label>Select Super Employee</mat-label>
+                        <mat-select [(ngModel)]="selectedSuperEmployee">
+                            <mat-option 
+                            (onSelectionChange)="updateSelectedSuperEmployee($event,superEmployee.userId)"
+                            *ngFor="let superEmployee of  superEmployees" [value]="superEmployee.userId">{{
+                                superEmployee.userId + ' - ' + superEmployee.firstName + '  ' + superEmployee.lastName 
+                            }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="width-1">
+                        <mat-label>Select Employee</mat-label>
+                        <mat-select [(ngModel)]="selectedEmployee">
+                            <mat-option 
+                            (onSelectionChange)="updateSelectedEmployee($event,employee.userId)"
+                            *ngFor="let employee of  employees" [value]="employee.userId">{{
+                                employee.userId + ' - ' + employee.firstName + '  ' + employee.lastName 
+                            }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="width-1">
+                        <mat-label>Select Promoter</mat-label>
+                        <mat-select [(ngModel)]="selectedPromoter">
+                            <mat-option 
+                            (onSelectionChange)="updateSelectedPromoter($event,promoter.userId)"
+                            *ngFor="let promoter of  promoters" [value]="promoter.userId">{{
+                                promoter.userId + ' - ' + promoter.firstName + '  ' + promoter.lastName 
+                            }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>             
+                    <mat-form-field>
+                        <mat-label>Select Status</mat-label>
+                        <mat-select [(ngModel)]="selectedStatus">
+                            <mat-option 
+                            (onSelectionChange)="updateStatus($event,status)"
+                            *ngFor="let status of statuses" [value]="status">{{
+                                status
+                            }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" *ngIf="sortedData.length>0" fxLayoutGap="2rem" fxFlex="100" fxLayoutAlign="space-between">                
+                    <mat-form-field fxFlex="20">
+                        <mat-label>Select Scheme Type</mat-label>
+                        <mat-select [(ngModel)]="selectedSchemeType">
+                            <mat-option 
+                            (onSelectionChange)="updateSelectedSchemeType($event,scheme.id)"
+                            *ngFor="let scheme of schemeTypes" [value]="scheme.id" 
+                            >{{
+                                scheme.scheme_type_name
+                            }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="70" *ngIf="selectedSchemeType>0">
+                        <mat-label>Select Scheme</mat-label>
+                        <mat-select [(ngModel)]="selectedScheme">
+                            <mat-option 
+                            (onSelectionChange)="updateSelectedScheme($event,scheme.id)"
+                            *ngFor="let scheme of schemes" [value]="scheme.id" 
+                            >{{
+                                scheme.scheme_name + ' - '+scheme.scheme_start_date + ' - '+scheme.name
+                            }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button fxFlex
+                        type="button" 
+                        class="h-2p3"
+                        *ngIf="selectedScheme>0 && selectedUsers.length>0" 
+                        mat-raised-button 
+                        (click)="applyScheme()" 
+                        color="primary"
+                    >Apply</button>
+                </div>
+                <app-sgs-table
+                    [config]="tableConfig"
+                    (_lazyLoad)="lazyLoad($event)"
+                    (_select)="onSelect($event)"
+                    (_clickCell)="onClickCell($event)"
+                ></app-sgs-table>
+            </div>
+        </ng-container>
+    </app-master-container>
+</app-outlet-container>
+
+

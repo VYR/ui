@@ -1,0 +1,25 @@
+<app-master-container>
+    <ng-container header>Delete Request</ng-container>
+    <ng-container icons>
+        <button (click)="action(DECISION.CANCEL)" mat-icon-button>
+            <i class="las la-times"></i>
+        </button>
+    </ng-container>
+    <ng-container body>
+        <div class="body">
+            <div>Do you want to delete {{data}}?</div>
+            <div>
+                <button
+                    mat-button
+                    type="submit"
+                    class="mat-raised-button mat-primary"
+                    (click)="action(DECISION.CONFIRM)"
+                    mat-stroked-button
+                    color="primary"
+                >
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</app-master-container>

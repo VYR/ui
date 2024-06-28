@@ -19,6 +19,7 @@ export enum SYSTEM_CONFIG {
 }
 
 export enum USER_TYPE {
+    DEVELOPER = 5,
     SCHEME_MEMBER = 0,
     PROMOTER = 2,
     ADMIN = 1,
